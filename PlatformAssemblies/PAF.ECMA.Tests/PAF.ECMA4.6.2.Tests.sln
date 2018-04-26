@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAF.ECMA4.6.2.Tests", "PAF.ECMA4.6.2.Tests.csproj", "{BBD67662-C3BD-4642-A1FD-961D1C58FE13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreContractsStandardLibrary", "..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj", "{33986723-C847-461C-BEAE-9607350AACE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreStandardLibrary", "..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj", "{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAF.ECMA4.6.2", "..\PAF.ECMA\PAF.ECMA4.6.2.csproj", "{BAF45015-264E-4444-8403-DD9A6D806D7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Debug|x64.ActiveCfg = Debug|x64
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Debug|x64.Build.0 = Debug|x64
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Release|Any CPU.ActiveCfg = Release|x64
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Release|x64.ActiveCfg = Release|x64
+		{BBD67662-C3BD-4642-A1FD-961D1C58FE13}.Release|x64.Build.0 = Release|x64
+		{33986723-C847-461C-BEAE-9607350AACE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Debug|x64.Build.0 = Debug|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Release|x64.ActiveCfg = Release|Any CPU
+		{33986723-C847-461C-BEAE-9607350AACE8}.Release|x64.Build.0 = Release|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Debug|x64.Build.0 = Debug|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Release|x64.ActiveCfg = Release|Any CPU
+		{E4C3B30C-E03B-4241-BD4C-D3ED11D79528}.Release|x64.Build.0 = Release|Any CPU
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Debug|x64.ActiveCfg = Debug|x64
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Debug|x64.Build.0 = Debug|x64
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Release|Any CPU.ActiveCfg = Release|x64
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Release|x64.ActiveCfg = Release|x64
+		{BAF45015-264E-4444-8403-DD9A6D806D7A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06C8788D-B3BB-4C38-AEE1-5B3E47D01AE5}
+	EndGlobalSection
+EndGlobal

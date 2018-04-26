@@ -1,0 +1,13 @@
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.deps.json
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.dll
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.pdb
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\bin\Release\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\obj\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\obj\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\obj\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.dll
+C:\PAFCommunity\OptionalLibraries\BasicxUnit\obj\Release\netstandard2.0\PlatformAgileFrameworkBasicxUnitStandard1.6.pdb

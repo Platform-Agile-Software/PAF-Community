@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>PlatformAgileFramework</RootNamespace>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\Debug\netstandard2.0\obj\**" />
+    <EmbeddedResource Remove="bin\Debug\netstandard2.0\obj\**" />
+    <None Remove="bin\Debug\netstandard2.0\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Manufacturing\Core_ManufacturingUtils.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ResourceServices\Localization\" />
+  </ItemGroup>
+
+</Project>

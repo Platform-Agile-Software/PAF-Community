@@ -1,0 +1,11 @@
+﻿using System;using NUnit.Framework;using PlatformAgileFramework.Events.EventTestHelpers;using PlatformAgileFramework.FrameworkServices.Tests;using PlatformAgileFramework.Notification.SubscriberStores;using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;namespace PlatformAgileFramework.Events{
+	/// <summary>	/// Tests for subscribing and releasing weak event handlers.	/// </summary>    [TestFixture]	public class WeakPseudoEventTests : BasicServiceManagerTestFixtureBase	{		public static bool s_SubscriberFinalized;
+		public static int s_EventTriggered;		public WeakEventSubscriberTestClass m_Subscriber1;
+		public WeakEventSubscriberTestClass m_Subscriber2;        public IWeakableSubscriberStore<Action<object, EventArgs>> m_Publisher;		/// <summary>
+		/// We create two subscribers, one weak and one strong.
+		/// </summary>		public WeakPseudoEventTests()		{			m_Subscriber1 = new WeakEventSubscriberTestClass();
+			m_Subscriber2 = new WeakEventSubscriberTestClass();
+
+			m_Publisher = new EventArgsSubscriberStore(this);			m_Subscriber1.WeaklySubscribe(m_Publisher);			m_Subscriber2.StronglySubscribe(m_Publisher);		}		/// <summary>		/// Gets around the problem of NUnit being crippled without testfixture setups.		/// </summary>		[SetUp]		public override void SetUp()		{			base.SetUp();		}
+		/// <summary>		/// This one tests two subscribers, one with a weak reference, which		/// should nullify when the subscriber is nulled and the other one with a		/// strong reference which will be held in memory.		/// </summary>        [Test]		public void LetSubscriptionDie()		{			s_EventTriggered = 0;			m_Publisher.NotifySubscribers();			GC.Collect();			GC.WaitForPendingFinalizers();			GC.Collect();			m_Publisher.NotifySubscribers();			Assert.IsTrue(s_EventTriggered == 4);			// The subscriber weak reference should now be able to die.			m_Subscriber1 = null;			GC.Collect();			GC.WaitForPendingFinalizers();			GC.Collect();			Assert.IsTrue(s_SubscriberFinalized);			// Now the strong subscriber should inc the event count by one.			m_Publisher.NotifySubscribers();			Assert.IsTrue(s_EventTriggered == 5);
+		}	}}

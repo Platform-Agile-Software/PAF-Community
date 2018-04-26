@@ -1,0 +1,51 @@
+﻿<Properties StartupConfiguration="{BBD67662-C3BD-4642-A1FD-961D1C58FE13}|Unit Tests">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FrameworkServices/ECMAServiceManagerTests.cs">
+    <Files>
+      <File FileName="FrameworkServices/ECMAServiceManagerTests.cs" Line="29" Column="47" />
+      <File FileName="../../PlatformAgileFrameworkCoreStandard/Application/ServiceBootStrapper.cs" Line="167" Column="1" />
+      <File FileName="Testing/BootstrappingFixture.cs" Line="32" Column="1" />
+      <File FileName="../../PlatformAgileFrameworkCoreStandard/Manufacturing/Core_ManufacturingUtils.cs" Line="220" Column="1" />
+      <File FileName="../../PlatformAgileFrameworkCoreContractsStandard/Platform/PlatformUtils.cs" Line="843" Column="71" />
+      <File FileName="../../PlatformAgileFrameworkCoreContractsStandard/Platform/PlatformInfo/IPlatformInfo.cs" Line="36" Column="25" />
+      <File FileName="../../PlatformAgileFrameworkCoreStandard/XML/XMLExaminer.cs" Line="181" Column="1" />
+      <File FileName="../../PlatformAgileFrameworkCoreContractsStandard/Platform/PlatformInfo/PAF.ECMA4.6.2.cs" Line="53" Column="57" />
+      <File FileName="../../PlatformAgileFrameworkCoreStandard/Logging/PAFLoggingService.cs" Line="76" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PAF.ECMA4.6.2.Tests" expanded="True">
+            <Node name="PAF.ECMA4.6.2.Tests" expanded="True">
+              <Node name="FrameworkServices" expanded="True" />
+              <Node name="Testing" expanded="True" />
+            </Node>
+            <Node name="PAFCoreContractsStandardLibrary" expanded="True" />
+            <Node name="PAFCoreStandardLibrary" expanded="True">
+              <Node name="Application" expanded="True" />
+              <Node name="Logging" expanded="True" />
+              <Node name="Manufacturing" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="PAF.ECMA4.6.2.Tests" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x64" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/Manufacturing/Core_ManufacturingUtils.cs" line="195" column="1" />
+      <Breakpoint file="/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/XML/XMLExaminer.cs" line="337" column="1" />
+      <Breakpoint file="/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/Manufacturing/Core_ManufacturingUtils.cs" line="220" column="57" />
+      <Breakpoint file="/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA.Tests/Testing/BootstrappingFixture.cs" relfile="Testing/BootstrappingFixture.cs" line="32" column="1" />
+      <Breakpoint file="/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/Application/ServiceBootStrapper.cs" line="167" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.PAF.ECMA4.6.2.Tests PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

@@ -1,0 +1,1 @@
+/Users/home/Documents/PAF/pafcore/PlatformAssemblies/PAF.ECMA/obj/MacDebug/.NETFramework,Version=v4.5.AssemblyAttribute.cs

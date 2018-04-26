@@ -1,0 +1,17 @@
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAF.CoreNetStandard.Tests.deps.json
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\nunit.framework.dll
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PAFNWSTests\bin\Release\netstandard2.0\nunit.framework.xml
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfoInputs.cache
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfo.cs
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFNWSTests\obj\Release\netstandard2.0\PAF.CoreNetStandard.Tests.pdb

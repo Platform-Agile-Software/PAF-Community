@@ -1,0 +1,17 @@
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCore.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCoreContracts.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCore.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCore.xml
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\MacDebug\PAF.ECMA.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\MacDebug\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\MacDebug\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCoreContracts.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\MacDebug\PlatformAgileFrameworkCoreContracts.xml
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCore.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreContracts.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCore.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCore.xml

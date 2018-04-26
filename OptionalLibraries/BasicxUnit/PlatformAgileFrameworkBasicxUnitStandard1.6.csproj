@@ -1,0 +1,123 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>PlatformAgileFramework</RootNamespace>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
+    <Company />
+    <Authors />
+    <Version>1.0.0.0</Version>
+  </PropertyGroup>
+  <PropertyGroup>
+   <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
+
+  <ItemGroup>
+    <Compile Remove="bin\Debug\netstandard1.4\obj\**" />
+    <Compile Remove="ResourceServices\**" />
+    <EmbeddedResource Remove="bin\Debug\netstandard1.4\obj\**" />
+    <EmbeddedResource Remove="ResourceServices\**" />
+    <None Remove="bin\Debug\netstandard1.4\obj\**" />
+    <None Remove="ResourceServices\**" />
+    <Compile Remove="PlatformAgileFrameworkBasicxUnitTests\Properties\AssemblyInfo.cs" />
+    <Compile Remove="PlatformAgileFrameworkBasicxUnitTests\QualityAssurance\TestFrameworks\BasicxUnit\Test_BasicTestFixtureOperation.cs" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\.DS_Store" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\PAF.snk" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\PlatformAgileFrameworkBasicxUnitTests.sln.docstates.suo" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\PlatformAgileFrameworkBasicxUnitTests.suo" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\readme.txt" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\QualityAssurance\.DS_Store" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\QualityAssurance\TestFrameworks\.DS_Store" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\AspFileDataCache.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\PersistenIdIndex.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\SymbolCache.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\BuildScriptCache\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\BuildScriptCache\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\BuildScriptCache\8\601f620a.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\ConditionalNames\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\ConditionalNames\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\ConditionalNames\8\601f620a.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\JSTest\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\JSTest\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\JavaScriptCache\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\JavaScriptCache\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\JavaScriptCache\6\519d338b.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\MVC\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\MVC\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\NamedArguments\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\NamedArguments\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\NamedArguments\8\601f620a.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\RecentItems\RecentFiles.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\Resources\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\Resources\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TagPrefixes\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TagPrefixes\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TodoItems\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TodoItems\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TodoItems\2\2b7bfbe1.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\TodoItems\6\519d338b.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WebSymbols\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WebSymbols\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\.crc" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\.version" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\3\30b292e5.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\5\3f06f5ca.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\5\7bdd7750.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\6\64f8e225.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\8\5afc0564.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\8\601f620a.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\WordIndex\9\5dbbdb1d.dat" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\PlatformAgileFrameworkCore.xml\27F4A50E.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.2.0.5.0.Contracts.xml\10C72880.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.2.0.5.0.Nullness.Generated.xml\96F07ED0.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.2.0.5.0.Pure.xml\5E1B8E13.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Core.2.0.5.0.Contracts.xml\C2073620.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Core.2.0.5.0.Nullness.Generated.xml\352A6FB0.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Core.2.0.5.0.Pure.xml\5B8F8E33.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Core.LinqTunnel.xml\63F26974.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Core.Nullness.Manual.xml\31BDD0E2.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.I18n.xml\E767B348.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Net.2.0.5.0.Nullness.Generated.xml\FAF21930.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Net.xml\A1941F9B.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Nullness.Manual.xml\AC02D602.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Runtime.Serialization.Attributes.xml\E749FA69.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Runtime.Serialization.xml\817A8738.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.ServiceModel.xml\BE9F7CB6.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.2.0.5.0.Contracts.xml\926AA1E0.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.2.0.5.0.Nullness.Generated.xml\34ABB470.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.2.0.5.0.Pure.xml\F082A173.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.Attributes.xml\09EED2C9.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.I18n.xml\8B551FA8.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.Xml.xml\63B3D29D.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.xml\74BB9F68.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\System.xml\CE398F4A.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.2.0.5.0.Contracts.xml\AA5B3500.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.2.0.5.0.Nullness.Generated.xml\BB1A9B50.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.2.0.5.0.Pure.xml\8355CA93.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.I18n.xml\366D6FC8.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.Nullness.Manual.xml\A029C282.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.ValueFlow.xml\4E59B0BF.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.xml\05998BE8.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\mscorlib.xml\43CC6848.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\_ReSharper.PlatformAgileFrameworkBasicxUnitTests\XmlIndex\system.core.xml\1F3344FF.bin" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\obj\WinDebug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\obj\WinDebug\PlatformAgileFrameworkBasicxUnitTests.csproj.FileListAbsolute.txt" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\obj\WinDebug\PlatformAgileFrameworkBasicxUnitTests.csprojResolveAssemblyReference.cache" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\obj\WinDebug\PlatformAgileFrameworkBasicxUnitTests.dll" />
+    <None Remove="PlatformAgileFrameworkBasicxUnitTests\obj\WinDebug\PlatformAgileFrameworkBasicxUnitTests.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Manufacturing\Core_ManufacturingUtils.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
+  </ItemGroup>
+</Project>

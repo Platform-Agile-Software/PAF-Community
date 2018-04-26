@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>PlatformAgileFramework</RootNamespace>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\Debug\netstandard2.0\obj\**" />
+    <EmbeddedResource Remove="bin\Debug\netstandard2.0\obj\**" />
+    <None Remove="bin\Debug\netstandard2.0\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Manufacturing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Externals\nunit\3.9.0\lib\netstandard1.6\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
+    <ProjectReference Include="..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
+  </ItemGroup>
+</Project>

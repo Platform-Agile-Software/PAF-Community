@@ -1,0 +1,216 @@
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.csprojResolveAssemblyReference.cache
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.csproj.CoreCompileInputs.cache
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.pdb
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAF.ECMA.Mac.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAF.ECMA.Mac.pdb
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.InteropServices.RuntimeInformation.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Algorithms.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ValueTuple.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/Microsoft.Win32.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/netstandard.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.AppContext.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.Concurrent.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.NonGeneric.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.Specialized.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.EventBasedAsync.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.TypeConverter.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Console.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Data.Common.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Contracts.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Debug.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.FileVersionInfo.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Process.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.StackTrace.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.TextWriterTraceListener.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Tools.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.TraceSource.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Tracing.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Drawing.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Dynamic.Runtime.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.Calendars.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.Extensions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Compression.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Compression.ZipFile.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.DriveInfo.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.Watcher.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.IsolatedStorage.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.MemoryMappedFiles.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Pipes.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.UnmanagedMemoryStream.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Expressions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Parallel.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Queryable.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Http.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.NameResolution.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.NetworkInformation.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Ping.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Requests.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Security.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Sockets.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebHeaderCollection.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebSockets.Client.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebSockets.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ObjectModel.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.Extensions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.Reader.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.ResourceManager.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.Writer.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.CompilerServices.VisualC.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Extensions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Handles.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.InteropServices.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Numerics.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Formatters.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Json.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Xml.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Claims.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Csp.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Encoding.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Primitives.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.X509Certificates.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Principal.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.SecureString.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.Encoding.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.Encoding.Extensions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.RegularExpressions.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Overlapped.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Tasks.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Tasks.Parallel.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Thread.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.ThreadPool.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Timer.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.ReaderWriter.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XDocument.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XmlDocument.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XmlSerializer.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XPath.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XPath.XDocument.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.dll
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.pdb
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.dll.config
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.pdb
+//vmware-host/Shared Folders/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAF.ECMA.Mac.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAF.ECMA.Mac.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.InteropServices.RuntimeInformation.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ValueTuple.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/Microsoft.Win32.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/netstandard.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.AppContext.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.Concurrent.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.NonGeneric.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Collections.Specialized.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.EventBasedAsync.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ComponentModel.TypeConverter.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Console.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Data.Common.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Contracts.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Debug.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.FileVersionInfo.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Process.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.StackTrace.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.TextWriterTraceListener.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Tools.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.TraceSource.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Diagnostics.Tracing.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Drawing.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Dynamic.Runtime.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.Calendars.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Globalization.Extensions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Compression.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Compression.ZipFile.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.DriveInfo.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.FileSystem.Watcher.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.IsolatedStorage.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.MemoryMappedFiles.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.Pipes.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.IO.UnmanagedMemoryStream.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Expressions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Parallel.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Linq.Queryable.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Http.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.NameResolution.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.NetworkInformation.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Ping.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Requests.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Security.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.Sockets.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebHeaderCollection.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebSockets.Client.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Net.WebSockets.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.ObjectModel.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.Extensions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Reflection.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.Reader.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.ResourceManager.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Resources.Writer.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.CompilerServices.VisualC.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Extensions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Handles.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.InteropServices.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Numerics.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Formatters.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Json.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Runtime.Serialization.Xml.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Claims.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Algorithms.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Csp.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Encoding.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.Primitives.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Cryptography.X509Certificates.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.Principal.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Security.SecureString.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.Encoding.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.Encoding.Extensions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Text.RegularExpressions.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Overlapped.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Tasks.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Tasks.Parallel.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Thread.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.ThreadPool.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Threading.Timer.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.ReaderWriter.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XDocument.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XmlDocument.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XmlSerializer.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XPath.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/System.Xml.XPath.XDocument.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreContractsStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/bin/Debug/PAFCoreStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.csprojResolveAssemblyReference.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.csproj.CoreCompileInputs.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.pdb

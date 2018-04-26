@@ -1,0 +1,5 @@
+﻿using System;using System.Threading;using PlatformAgileFramework.Notification.SubscriberStores;namespace PlatformAgileFramework.Events.EventTestHelpers{
+	/// <summary>
+	/// A testing class that can either weakly or strongly subscribe	/// to an event with classical .Net event method parameters,	/// <see cref="object"/> and <see cref="EventArgs.Empty"/>.
+	/// </summary>	public class WeakEventSubscriberTestClass	{		private void LogEventOccurance(object obj, EventArgs args)		{			// We have to use an interlocked method, since this poor			// test class might get invoked on multiple threads.			Interlocked.Add(ref WeakPseudoEventTests.s_EventTriggered, 1);		}		public void WeaklySubscribe(IWeakableSubscriberStore<Action<object, EventArgs>> publisher)		{			publisher.WeaklySubscribe(Execute);		}		public void StronglySubscribe(IWeakableSubscriberStore<Action<object, EventArgs>> publisher)		{			publisher.Subscribe(Execute, false);		}
+		public void Execute(object obj, EventArgs args)		{			LogEventOccurance(obj, args);		}		~WeakEventSubscriberTestClass()		{			WeakPseudoEventTests.s_SubscriberFinalized = true;		}	}}

@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformAgileFrameworkBasicxUnitStandard1.6", "PlatformAgileFrameworkBasicxUnitStandard1.6.csproj", "{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreContractsStandardLibrary", "..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj", "{5243E998-43E0-4E80-B83E-90964ACEDB06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreStandardLibrary", "..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj", "{EF982216-6590-4C9C-BC16-EB0547D25F94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		WinDebug|Any CPU = WinDebug|Any CPU
+		WinRelease|Any CPU = WinRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinDebug|Any CPU.Build.0 = Debug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinRelease|Any CPU.Build.0 = Release|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.WinDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.WinDebug|Any CPU.Build.0 = Debug|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.WinRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{5243E998-43E0-4E80-B83E-90964ACEDB06}.WinRelease|Any CPU.Build.0 = Release|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.WinDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.WinDebug|Any CPU.Build.0 = Debug|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.WinRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{EF982216-6590-4C9C-BC16-EB0547D25F94}.WinRelease|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44A8017F-9FC6-42EB-9C23-C047F04F7118}
+	EndGlobalSection
+EndGlobal

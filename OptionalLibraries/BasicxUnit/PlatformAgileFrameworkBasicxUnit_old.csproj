@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">WinDebug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlatformAgileFramework.BasicxUnit</RootNamespace>
+    <AssemblyName>PlatformAgileFrameworkBasicxUnit</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
+    <!-- platform stuff -->
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WinDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\WinDebug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\WinDebug\PlatformAgileFrameworkBasicxUnit.XML</DocumentationFile>
+    <!-- platform stuff -->
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WinRelease|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\WinRelease\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <!-- platform stuff -->
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualityAssurance\Exceptions\PAFxUnitAssertionException.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestFrameworkBehaviorType.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestRunnerDelegateMethods.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestElementInfoExtensions.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestAssemblySetInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestAssemblyInitializationExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestAssemblyInitializationExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFrameworkMethodInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFrameworkMethodInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestElementInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestElementInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestAssemblyInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestAssemblyInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\GenericTestElementInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IGenericTestElementInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestAssemblySetInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IInfoAndControlProvider.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\InfoAndControlProvider.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureInfoProvider.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureInitializationExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\NameSpaceDefinition.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFixtureInitializationExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFixtureWrapperParameters.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureWrapperParameters.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFrameworkBehavior.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureMethodExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\MockTestObjectAttribute.cs" />
+    <Compile Include="QualityAssurance\QAUtils.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFixtureMethodExceptionData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestEnumerableProviders\NameSpaceDefinition.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestEnumerableProviders\AlphabetizedTestEnumerableProvider.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\IPAFTestFixtureWrapper.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFixtureInfo.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\PAFTestFixtureWrapper.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestFrameworkBehavior.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\BasicxUnitEmulator\TestFrameworkData.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFElevatedTrustAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFIgnoreAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFExplicitAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestHarnessTearDownAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestFixtureAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestFixtureSetUpAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestFixtureTearDownAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTestHarnessSetUpAttribute.cs" />
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFSetUpAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QualityAssurance\TestFrameworks\PAFUnit\Attributes\PAFTearDownAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PAF.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCoreXamarin\PlatformAgileFrameworkCoreNWS.csproj">
+      <Project>{600FF9DD-1AB4-455F-BF35-124AB105CF91}</Project>
+      <Name>PlatformAgileFrameworkCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCoreXamarin\PlatformAgileFrameworkCoreContractsNWS.csproj">
+      <Project>{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}</Project>
+      <Name>PlatformAgileFrameworkCoreContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

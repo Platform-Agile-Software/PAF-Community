@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformAgileFrameworkCore", "..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCore.csproj", "{600FF9DD-1AB4-455F-BF35-124AB105CF91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformAgileFrameworkCoreContracts", "..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContracts.csproj", "{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformAgileFrameworkBasicxUnit", "..\PlatformAgileFrameworkBasicxUnit.csproj", "{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformAgileFrameworkBasicxUnitTests", "PlatformAgileFrameworkBasicxUnitTests.csproj", "{271A0071-F32F-41F5-992A-719279D2F6A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		WinDebug|Any CPU = WinDebug|Any CPU
+		WinRelease|Any CPU = WinRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{600FF9DD-1AB4-455F-BF35-124AB105CF91}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
+		{600FF9DD-1AB4-455F-BF35-124AB105CF91}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{600FF9DD-1AB4-455F-BF35-124AB105CF91}.WinRelease|Any CPU.ActiveCfg = WinRelease|Any CPU
+		{600FF9DD-1AB4-455F-BF35-124AB105CF91}.WinRelease|Any CPU.Build.0 = WinRelease|Any CPU
+		{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
+		{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}.WinRelease|Any CPU.ActiveCfg = WinRelease|Any CPU
+		{BE4B5E7E-A589-49E2-9120-8D15BD1EF585}.WinRelease|Any CPU.Build.0 = WinRelease|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinRelease|Any CPU.ActiveCfg = WinRelease|Any CPU
+		{97BAFDFC-C02B-4E1B-A0B0-8CCCCFFFD993}.WinRelease|Any CPU.Build.0 = WinRelease|Any CPU
+		{271A0071-F32F-41F5-992A-719279D2F6A5}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
+		{271A0071-F32F-41F5-992A-719279D2F6A5}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{271A0071-F32F-41F5-992A-719279D2F6A5}.WinRelease|Any CPU.ActiveCfg = WinRelease|Any CPU
+		{271A0071-F32F-41F5-992A-719279D2F6A5}.WinRelease|Any CPU.Build.0 = WinRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

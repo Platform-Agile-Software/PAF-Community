@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{3349B616-B431-4EF9-B704-070BB2ADD2BA}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../ECMACommon/FileAndIO/FileAndDirectoryService/PAFStorageServiceECMA.cs">
+    <Files>
+      <File FileName="../ECMACommon/UserInterface/ConsoleUI/ConsoleUI.cs" Line="27" Column="44" />
+      <File FileName="../ECMACommon/FileAndIO/FileAndDirectoryService/PAFStorageServiceECMA.cs" Line="26" Column="39" />
+      <File FileName="../../../../../../../../usr/local/share/dotnet/sdk/2.0.0/Sdks/Microsoft.NET.Sdk/build/Microsoft.NET.Sdk.DefaultItems.targets" Line="199" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ECMATestRunner" expanded="True">
+            <Node name="PAF.ECMA4.6.2" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Packages" expanded="True" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ECMATestRunner PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

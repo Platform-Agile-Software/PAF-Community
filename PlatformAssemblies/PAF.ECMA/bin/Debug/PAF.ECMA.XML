@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PAF.ECMA</name>
+    </assembly>
+    <members>
+        <member name="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA">
+            <summary>
+            This implementation employs standard stuff from <see cref="T:System.IO.File"/>
+            and <see cref="T:System.IO.Directory"/>, which are exposed fully on ECMA.
+            </summary>
+            <threadsafety>
+            This implementation employs <see cref="P:System.Environment.CurrentDirectory"/>
+            for CWD. Same caveat as described in the interface apply. 
+            </threadsafety>
+            <history>
+            <contribution>
+            <author> KRM </author>
+            <date> 12apr2016 </date>
+            <desription>
+            New. This is the reconstituted ECMA version.
+            </desription>
+            </contribution>
+            </history>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCopyFilePIV(System.String,System.String,System.Boolean)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPIV(System.String)">
+            <summary>
+            Backing support for the interface. Since <see cref="T:System.IO.DirectoryInfo"/>
+            cannot be part of a platform-independent interface, it is returned as
+            an object.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPIV(System.String,System.Object)">
+            <summary>
+            Backing support for the interface. Since <see cref="T:System.IO.DirectoryInfo"/>
+            cannot be part of a platform-independent interface, it is returned here for
+            any interface extensions to use. client object not used in this base
+            implementation.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateFilePIV(System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPIV(System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPIV(System.String,System.Object)">
+            <summary>
+            backing for the interface. Client object not used in this implementation.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePIV(System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePIV(System.String,System.Object)">
+            <summary>
+            backing for the interface. Client object not used in this implementation.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDirectoryExistsPIV(System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFFileExistsPIV(System.String)">
+            <summary>
+            backing for the interface. In ECMA, path specs can be relative and
+            the runtime figures out a rooted path.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetCreationTimePIV(System.String)">
+            <summary>
+            backing for the interface. This implementation returns
+            <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetDirectoryNamesPIV(System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+            <remarks>
+            <see langword="null"/> or <see cref="F:System.String.Empty"/> defers to CWD.
+            </remarks>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetFileNamesPIV(System.String)">
+            <summary>
+            Backing support for the interface.
+            </summary>
+            <remarks>
+            <see langword="null"/> or <see cref="F:System.String.Empty"/> defers to CWD.
+            </remarks>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastAccessTimePIV(System.String)">
+            <summary>
+            Backing support for the interface. This implementation returns
+            <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastWriteTimePIV(System.String)">
+            <summary>
+            Backing support for the interface. This implementation returns
+            <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveDirectoryPIV(System.String,System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveFilePIV(System.String,System.String)">
+            <summary>
+            backing for the interface.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePIV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode)">
+            <remarks>
+            <see cref="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageService"/>.
+            </remarks>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePIV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode,System.Object)">
+            <remarks>
+            <see cref="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageService"/>. <paramref name="clientObject"/> is
+            not used in this implementation.
+            </remarks>
+        </member>
+        <member name="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps">
+            <summary>
+            Just a little struct to hold file access attributes.
+            </summary>
+        </member>
+        <member name="P:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.Mode">
+            <summary>
+            Standard .Net file mode.
+            </summary>
+        </member>
+        <member name="P:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.Access">
+            <summary>
+            Standard .Net access type.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.#ctor(System.IO.FileMode,System.IO.FileAccess)">
+            <summary>
+            Constructor just loads the props.
+            </summary>
+            <param name="mode">Loads <see cref="P:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.Mode"/></param>
+            <param name="access">Loads <see cref="P:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.Access"/></param>
+        </member>
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.FileAccessProps.MapFileAccess(PlatformAgileFramework.FileAndIO.PAFFileAccessMode)">
+            <summary>
+            Method maps <see cref="T:PlatformAgileFramework.FileAndIO.PAFFileAccessMode"/>
+            </summary>
+            <param name="pafFileAccessMode">
+            <see langword="null"/> results in <see cref="F:System.IO.FileAccess.ReadWrite"/>
+            and <see cref="F:System.IO.FileMode.OpenOrCreate"/>.
+            </param>
+            <returns><see langword = "false"/>
+            if bit fileds are inconsistent.
+            </returns>
+        </member>
+        <member name="T:PlatformAgileFramework.TypeHandling.Delegates.DelegateHelpers">
+            <summary>
+            Few helper methods for casting delegates. Taken from Ed Ball's stuff.
+            </summary>
+            <history>
+            <contribution>
+            <author> BMC </author>
+            <date> 07apr2013 </date>
+            <desription>
+            New. This has to live in ECMA, since <see cref="T:System.Delegate"/> is crippled in the profiles.
+            </desription>
+            </contribution>
+            </history>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch">
+            <summary>
+            This class implements a message to the user and waits for any response.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.m_Utils">
+            <summary>
+            Holds a version of utils for the console.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.m_IStringUserQuery">
+            <summary>
+            This is our little contained query class for waiting for the response.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.#ctor">
+            <summary>
+            Default constructor - builds with the default <see cref="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.#ctor(PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils)">
+            <summary>
+            Constructor - builds with a <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.PresentToUser(System.String,System.Enum@)">
+            <summary>
+            This method waits for any response from the console after printing
+            the message. See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndDispatch"/> for details.
+            </summary>
+            <param name="messageString">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndDispatch"/>.
+            </param>
+            <param name="userResult">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndDispatch"/>.
+            </param>
+            <returns>
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndDispatch"/>.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.PresentToUser(System.String)">
+            <summary>
+            Unlike the previous method, the method does not return the
+            <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus"/> value as an output parameter.
+            Clients will normally use this method, since the "out" parameter
+            in the other method is redundant in this class. This class method
+            calls the previous method to do it's work. See that method for further
+            details.
+            </summary>
+            <param name="messageString">
+            See other method.
+            </param>
+            <returns>
+            See other method.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndDispatch.Dispose">
+            <summary>
+            Virtual dispose method.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse">
+            <summary>
+            This class implements a message to the user and waits for a string to be
+            entered and returns it.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.m_Utils">
+            <summary>
+            Holds a version of utils for the console.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.#ctor">
+            <summary>
+            Default constructor - builds with the default <see cref="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.#ctor(PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils)">
+            <summary>
+            Constructor - builds with a <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.PresentToUser(System.String,System.String@)">
+            <summary>
+            This method waits for a string response from the console after printing
+            the message. See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndStringResponse"/> for details.
+            </summary>
+            <param name="messageString">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageAndStringResponse"/>.
+            </param>
+            <param name="userResult">
+            This is the string that the user entered.
+            </param>
+            <returns>
+            <see cref="F:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus.PositiveResultBit"/> is set if the user
+            entered something other than a "CR".
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.PresentToUser(System.String)">
+            <summary>
+            Unlike the previous method, the method does not return the
+            <see cref="T:System.String"/> user response value as an output parameter.
+            Clients can use this method if they just want to check for a "CR".
+            This method calls the previous method to do it's work. See that method
+            for further details.
+            </summary>
+            <param name="messageString">
+            See other method.
+            </param>
+            <returns>
+            See other method.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageAndStringResponse.Dispose">
+            <summary>
+            Virtual dispose method.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse">
+            <summary>
+            This class implements a message to the user and returns.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.m_Utils">
+            <summary>
+            Holds a version of utils for the console.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.m_IStringUserQuery">
+            <summary>
+            This is our little contained query class for waiting for the response.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.#ctor">
+            <summary>
+            Default constructor - builds with the default <see cref="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.#ctor(PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils)">
+            <summary>
+            Constructor - builds with a <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.PresentToUser(System.String,System.Enum@)">
+            <summary>
+            This method waits for a string response from the console after printing
+            the message. See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageWithNoResponse"/> for details.
+            </summary>
+            <param name="messageString">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageWithNoResponse"/>.
+            </param>
+            <param name="userResult">
+            This is the string that the user entered.
+            </param>
+            <returns>
+            <see cref="F:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus.PositiveResultBit"/> is set if the user
+            entered something other than a "CR".
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.PresentToUser(System.String)">
+            <summary>
+            Unlike the previous method, the method does not return the
+            <see cref="T:System.String"/> user response value as an output parameter.
+            Clients can use this method if they just want to check for a "CR".
+            This method calls the previous method to do it's work. See that method
+            for further details.
+            </summary>
+            <param name="messageString">
+            See other method.
+            </param>
+            <returns>
+            See other method.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageWithNoResponse.Dispose">
+            <summary>
+            Virtual dispose method.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit">
+            <summary>
+            This class implements a message to the user with positive/negative response
+            in the form of "(Ok/Quit)?".
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.m_Utils">
+            <summary>
+            Holds a version of utils for the console.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.m_IStringUserQuery">
+            <summary>
+            This is our little contained query class for waiting for the response.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.#ctor">
+            <summary>
+            Default constructor - builds with the default <see cref="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.#ctor(PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils)">
+            <summary>
+            Constructor - builds with a <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.PresentToUser(System.String,System.Enum@)">
+            <summary>
+            This method asks the Ok/Quit question at the console after printing
+            the message. See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageOkQuit"/> for details.
+            </summary>
+            <param name="messageString">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageOkQuit"/>.
+            </param>
+            <param name="userResult">
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageOkQuit"/>.
+            </param>
+            <returns>
+            See <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IMessageOkQuit"/>.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.PresentToUser(System.String)">
+            <summary>
+            Unlike the previous method, the method does not return the
+            <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus"/> value as an output parameter.
+            Clients will normally use this method, since the "out" parameter
+            in the other method is redundant in this class. This class method
+            calls the previous method to do it's work. See that method for further
+            details.
+            </summary>
+            <param name="messageString">
+            See other method.
+            </param>
+            <returns>
+            See other method.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleMessageOkQuit.Dispose">
+            <summary>
+            Virtual dispose method.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery">
+            <summary>
+            This class implements a yes/no query/answer from the user.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.m_Utils">
+            <summary>
+            Holds a version of utils for the console.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.m_IStringUserQuery">
+            <summary>
+            This is our little contained query class for waiting for the response.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.#ctor">
+            <summary>
+            Default constructor - builds with the default <see cref="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.#ctor(PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils)">
+            <summary>
+            Constructor - builds with a <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.IUIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.PresentToUser(System.String,System.Enum@)">
+            <summary>
+            This method asks a question at the console and returns the yes/no
+            response as the <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus"/>. The user must
+            respond with either <c>"yes"</c> or <c>"no"</c>. <c>"y"</c> or <c>"Y"</c>
+            or <c>"n"</c> or <c>"N"</c> are adequate.
+            </summary>
+            <param name="userPromptString">
+            A <see cref="T:System.String"/> message to write to the console before
+            the query for a yes/no answer. An example would be <c>quit</c>.
+            In this case, the prompt string will be created as <c>"quit(Yes/No)?"</c>.
+            This string may be <see langword="null"/>. 
+            </param>
+            <param name="userResult">
+            A copy of the return value.
+            </param>
+            <returns>
+            A System.Enum representing the status of the user interaction. This
+            value is a CLR-compliant version of the C# <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus"/>
+            <c>enum</c>. In this case, the <c>"UserInteractionStatus.PositiveResult"</c>
+            flag (bit 1) corresponds to yes <c>(1)</c> or no <c>(0)</c>.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.PresentToUser(System.String)">
+            <summary>
+            Unlike the previous method, the method does not return the
+            <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.UserInteractionStatus"/> value as an output parameter.
+            Clients will normally use this method, since the "out" parameter
+            in the other method is redundant in this class. This class method
+            calls the previous method to do it's work. See that method for further
+            details.
+            </summary>
+            <param name="userPromptString">
+            See other method.
+            </param>
+            <returns>
+            See other method.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleYesNoQuery.Dispose">
+            <summary>
+            Virtual dispose method.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils">
+            <summary>
+            This class does basic read/write and other things. It's built with the shell
+            class <see cref="T:PlatformAgileFramework.UserInterface.UserInteractionService.UIUtils"/>.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils.#ctor">
+            <summary>
+            Default constructor builds us with a console version of <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IStringIO"/>
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUIUtils.#ctor(PlatformAgileFramework.UserInterface.Interfaces.IStringIO)">
+            <summary>
+            Constructor builds us with an arbitrary version of <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IStringIO"/>.
+            </summary>
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleIOString">
+            <summary>
+            This class implements the basic IO interface for production code. It does
+            IO to the console.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleIOString.ReadString">
+            <summary>
+            This is the standard console read.
+            </summary>
+            <returns>
+            The string read in.
+            </returns>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleIOString.WriteString(System.String)">
+            <summary>
+            This is the standard console write.
+            </summary>
+            <param name="stringToWrite"/>
+            The string to write out with no CR, no line feed appended.
+        </member>
+        <member name="T:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService">
+            <summary>
+            This class is a basic implementation of the <see cref="T:PlatformAgileFramework.UserInterface.IPAFUIService"/>
+            interface for use through inheritance or containment. This implementation
+            uses console I/O. It is typically used for clients (like servers) which do
+            not implement a GUI. It is also often used during application startup in
+            GUI-based clients before the GUI is loaded.
+            </summary>
+        </member>
+        <member name="F:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.m_iUIUtils">
+            <summary>
+            We hold onto the provider so we can switch it's internals.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.#ctor">
+            <summary>
+            Parameterless constructor needed because Activator won't find the default.
+            Had to refactor constructors.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.#ctor(System.Guid,System.Type,System.String)">
+            <remarks>
+            This is the way our friends can construct us. Builds with standard
+            internals.
+            </remarks>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.GetStringIOProviderPIV">
+            <summary>
+            This method gets the internal <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IStringIO"/> provider.
+            </summary>
+        </member>
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.SetStringIOProviderPIV(PlatformAgileFramework.UserInterface.Interfaces.IStringIO)">
+            <summary>
+            This method sets the internal <see cref="T:PlatformAgileFramework.UserInterface.Interfaces.IStringIO"/> provider.
+            </summary>
+        </member>
+    </members>
+</doc>

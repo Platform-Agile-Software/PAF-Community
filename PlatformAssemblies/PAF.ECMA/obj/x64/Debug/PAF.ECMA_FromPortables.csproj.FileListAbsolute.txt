@@ -1,0 +1,13 @@
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\x64\Debug\PAF.ECMA_FromPortables.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\x64\Debug\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\x64\Debug\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\TestSymbolicDirectories.xml
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PAF.ECMA.XML
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreNWSPortable.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreNWSPortable.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreNWSPortable.dll.config
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreContractsPortable.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreContractsPortable.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\Debug\PlatformAgileFrameworkCoreContractsPortable.dll.config

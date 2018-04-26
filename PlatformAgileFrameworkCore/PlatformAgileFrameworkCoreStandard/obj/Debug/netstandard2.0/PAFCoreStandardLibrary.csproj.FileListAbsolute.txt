@@ -1,0 +1,65 @@
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.deps.json
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.csprojResolveAssemblyReference.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.AssemblyInfo.cs
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAgileFrameworkCoreStandard/obj/Debug/netstandard2.0/PAFCoreStandardLibrary.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfo.cs
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.deps.json
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfo.cs
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.deps.json
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfo.cs
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.deps.json
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.deps.json
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfo.cs
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb

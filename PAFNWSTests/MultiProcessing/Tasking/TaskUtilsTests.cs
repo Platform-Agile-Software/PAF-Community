@@ -1,0 +1,7 @@
+﻿using System.Threading.Tasks;using NUnit.Framework;using PlatformAgileFramework.MultiProcessing.Tasking;// ReSharper disable once CheckNamespacenamespace PlatformAgileFramework.Multiprocessing.Tasking{	/// <summary>
+	/// Tests for utils we put in for enhanced functionality or workarounds
+	/// for broken Mono stuff.
+	/// </summary>	//[TestFixture]	public class TaskUtilsTests	{		/// <summary>
+		/// For fiddling and test development.
+		/// </summary>		public static int s_TimeScale = 10;
+		/// <summary>		/// Tests the time-bound task supervisor. In this case, we want the task to timeout.		/// </summary>        [Test]		public void TestTimeBoundTaskExpiry_TimesOut()		{			var expiryTime = 500 * s_TimeScale;			var taskTime = 1000 * s_TimeScale;			var expiringTaskToTest = Task.Delay(taskTime);			var finishesFirst = TaskUtils.WaitAnyWithTimeoutAsync(new[] { expiringTaskToTest }, expiryTime).Result;			Assert.IsTrue(finishesFirst == -1);		}		/// <summary>		/// Tests the time-bound task supervisor. In this case, we want the task to complete.		/// </summary>		[Test]		public void TestTimeBoundTaskExpiry_Completes()		{			var expiryTime = 1000 * s_TimeScale;			var taskTime = 500 * s_TimeScale;			var expiringTaskToTest = Task.Delay(taskTime);			var finishesFirst = TaskUtils.WaitAnyWithTimeoutAsync(new[] {expiringTaskToTest}, expiryTime).Result;			Assert.IsTrue(finishesFirst == 0);		}	}}

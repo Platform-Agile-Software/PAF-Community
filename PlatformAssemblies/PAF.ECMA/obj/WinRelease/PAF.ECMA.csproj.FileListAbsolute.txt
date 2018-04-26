@@ -1,0 +1,9 @@
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PAF.ECMA.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PlatformAgileFrameworkCore.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PlatformAgileFrameworkCoreContracts.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PlatformAgileFrameworkCoreContracts.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\bin\WinRelease\PlatformAgileFrameworkCore.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\WinRelease\PAF.ECMA.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\WinRelease\PAF.ECMA.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PlatformAssemblies\PAF.ECMA\obj\WinRelease\PAF.ECMA.pdb

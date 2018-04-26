@@ -1,0 +1,68 @@
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.deps.json
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/nunit.framework.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreContractsStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.pdb
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/PAFCoreStandardLibrary.dll.config
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/bin/Debug/netstandard2.0/nunit.framework.xml
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.csprojResolveAssemblyReference.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.csproj.CoreCompileInputs.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.AssemblyInfoInputs.cache
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.AssemblyInfo.cs
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.dll
+/Users/home/Documents/PAF/PAFCore/PAFCommunity/PAFNWSTests/obj/Debug/netstandard2.0/PAF.CoreNetStandard.Tests.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.deps.json
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.xml
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfoInputs.cache
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfo.cs
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.deps.json
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.dll
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.xml
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfoInputs.cache
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfo.cs
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfoInputs.cache
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.AssemblyInfo.cs
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFNWSTests\obj\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.deps.json
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.dll
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAF.CoreNetStandard.Tests.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.dll
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\PAFCommunity\PAFNWSTests\bin\Debug\netstandard2.0\nunit.framework.xml

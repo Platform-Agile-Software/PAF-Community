@@ -1,0 +1,60 @@
+﻿//@#$&+
+//
+//The MIT X11 License
+//
+//Copyright (c) 2010 - 2016 Icucom Corporation
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
+//@#$&-
+
+namespace PlatformAgileFramework.TypeHandling
+{
+	/// <summary>
+	/// <para>
+	///	Contains all possible information about a type.
+	/// </para>
+	/// </summary>
+	/// <remarks>
+	/// </remarks>
+	/// <history>
+	/// <author> DAP </author>
+	/// <date> 10nov2011 </date>
+	/// <contribution>
+	/// <para>
+	/// Changed this to support the new "holder" design.
+	/// </para>
+	/// </contribution>
+	/// <author> DAP </author>
+	/// <date> 06nov2011 </date>
+	/// <contribution>
+	/// <para>
+	/// Made this interface and the main <see cref="IPAFAssemblyHolder"/> interface.
+	/// </para>
+	/// </contribution>
+	/// </history>
+	public interface IPAFAssemblyHolderProvider
+	{
+		#region Properties
+		/// <summary>
+		/// Gets the <see cref="IPAFAssemblyHolder"/>.
+		/// </summary>
+		IPAFAssemblyHolder GetAssemblyHolder();
+		#endregion // Properties
+	}
+}

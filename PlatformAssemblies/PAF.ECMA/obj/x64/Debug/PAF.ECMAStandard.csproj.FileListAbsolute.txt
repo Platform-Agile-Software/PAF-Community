@@ -1,0 +1,1 @@
+\\vmware-host\Shared Folders\Documents\PAF\PAFCore\PAFCommunity\PlatformAssemblies\PAF.ECMA\obj\x64\Debug\PAF.ECMAStandard.csprojResolveAssemblyReference.cache

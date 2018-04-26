@@ -1,0 +1,120 @@
+[Default - 02/03/2018 15:48:00]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/03/2018 15:54:03]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/05/2018 17:32:56]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/05/2018 17:34:56]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/05/2018 18:09:34]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/06/2018 08:48:31]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/06/2018 09:19:01]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/06/2018 09:36:38]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/06/2018 09:45:12]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/06/2018 09:47:30]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 17:05:04]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 17:09:40]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 17:30:06]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 17:52:19]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 18:01:44]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 18:36:22]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 19:44:11]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/09/2018 20:08:56]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 13:17:45]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 14:07:45]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 14:08:56]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 14:32:30]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 14:45:16]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/10/2018 14:49:30]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
