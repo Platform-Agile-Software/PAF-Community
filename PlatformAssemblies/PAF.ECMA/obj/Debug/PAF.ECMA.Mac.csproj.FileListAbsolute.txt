@@ -214,3 +214,7 @@
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.csproj.CoreCompileInputs.cache
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.dll
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/PAF.ECMA/obj/Debug/PAF.ECMA.Mac.pdb
+C:\PAFCommunity\PlatformAssemblies\PAF.ECMA\obj\Debug\PAF.ECMA.Mac.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PlatformAssemblies\PAF.ECMA\obj\Debug\PAF.ECMA.Mac.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PlatformAssemblies\PAF.ECMA\obj\Debug\PAF.ECMA.Mac.dll
+C:\PAFCommunity\PlatformAssemblies\PAF.ECMA\obj\Debug\PAF.ECMA.Mac.pdb

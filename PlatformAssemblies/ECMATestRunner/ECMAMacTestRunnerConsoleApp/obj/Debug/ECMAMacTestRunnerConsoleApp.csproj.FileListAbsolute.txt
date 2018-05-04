@@ -232,3 +232,7 @@
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/ECMATestRunner/ECMAMacTestRunnerConsoleApp/obj/Debug/ECMAMacTestRunnerConsoleApp.csproj.CoreCompileInputs.cache
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/ECMATestRunner/ECMAMacTestRunnerConsoleApp/obj/Debug/ECMAMacTestRunnerConsoleApp.exe
 /Users/home/Documents/PAF/PAFCore/PAFCommunity/PlatformAssemblies/ECMATestRunner/ECMAMacTestRunnerConsoleApp/obj/Debug/ECMAMacTestRunnerConsoleApp.pdb
+C:\PAFCommunity\PlatformAssemblies\ECMATestRunner\ECMAMacTestRunnerConsoleApp\obj\Debug\ECMAMacTestRunnerConsoleApp.csprojResolveAssemblyReference.cache
+C:\PAFCommunity\PlatformAssemblies\ECMATestRunner\ECMAMacTestRunnerConsoleApp\obj\Debug\ECMAMacTestRunnerConsoleApp.csproj.CoreCompileInputs.cache
+C:\PAFCommunity\PlatformAssemblies\ECMATestRunner\ECMAMacTestRunnerConsoleApp\obj\Debug\ECMAMacTestRunnerConsoleApp.exe
+C:\PAFCommunity\PlatformAssemblies\ECMATestRunner\ECMAMacTestRunnerConsoleApp\obj\Debug\ECMAMacTestRunnerConsoleApp.pdb

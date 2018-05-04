@@ -1,8 +1,32 @@
-﻿using System;
+﻿//@#$&+
+//
+//The MIT X11 License
+//
+//Copyright (c) 2010 - 2018 Icucom Corporation
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
+//@#$&-
+using System;
 using System.ComponentModel;
 using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;
 
-namespace PlatformAgileFramework.Notification.AbstractViewModels
+namespace PlatformAgileFramework.Notification.AbstractViewControllers
 {
 	/// <summary>
 	/// This is an example of an extremely minimal controller base
@@ -48,14 +72,15 @@ namespace PlatformAgileFramework.Notification.AbstractViewModels
 		public PropertyChangedNotificationBase()
 	    {
 		    m_PceStore = new PropertyChangedEventArgsSubscriberStore(this);
-		    PceStore.Start();
+		    m_PceStore.Start();
 		}
 		#endregion // Constructors
 		#region Properties
 		/// <summary>
-		/// The store for our <see cref="PropertyChanged"/> subscribers.
+		/// See <see cref="IPropertyChangedNotificationBase"/>. We almost always want virtual
+		/// props in framework classes for maximum flexibility.
 		/// </summary>
-		public IPropertyChangedEventArgsSubscriberStore PceStore
+		public virtual IPropertyChangedEventArgsSubscriberStore PceStore
 	    {
 		    get { return m_PceStore; }
 	    }
@@ -79,8 +104,14 @@ namespace PlatformAgileFramework.Notification.AbstractViewModels
 			remove { m_PceStore.Unsubscribe(value); }
 		}
 		#endregion // INotifyPropertyChanged Implementation
-
 		#region IDispose Implementation
+		/// <summary>
+		/// This method is always virtual and protected.
+		/// </summary>
+		/// <param name="disposing">
+		/// <see langword="true"/> when called through <see cref="IDisposable.Dispose()"/>
+		/// <see langword="false"/> when called from a finalizer.
+		/// </param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -88,10 +119,13 @@ namespace PlatformAgileFramework.Notification.AbstractViewModels
 				m_PceStore?.Dispose();
 			}
 		}
-
+		/// <summary>
+		/// This method is NEVER virtual.
+		/// </summary>
 		public void Dispose()
 		{
 			Dispose(true);
+			// This statement is ALWAYS needed in case subclasses implement a finalizer.
 			GC.SuppressFinalize(this);
 		}
 

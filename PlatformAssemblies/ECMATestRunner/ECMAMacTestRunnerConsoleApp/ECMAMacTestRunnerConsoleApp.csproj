@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -42,17 +42,17 @@
       <Project>{7BC5E1BE-D9F0-4B71-880E-52B254889479}</Project>
       <Name>PAF.CoreNetStandard.Tests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj">
+      <Project>{725e4e4b-4e9d-406b-95fd-da40618ca18c}</Project>
+      <Name>PAFCoreContractsStandardLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj">
+      <Project>{2ed6c237-89d8-4e28-ae1c-e8b43edaf098}</Project>
+      <Name>PAFCoreStandardLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\PAF.ECMA\PAF.ECMA.Mac.csproj">
       <Project>{BAF45015-264E-4444-8403-DD9A6D806D7A}</Project>
       <Name>PAF.ECMA.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj">
-      <Project>{8A95B388-AAD5-4BCE-89A8-3383851A8B69}</Project>
-      <Name>PAFCoreContractsStandardLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj">
-      <Project>{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}</Project>
-      <Name>PAFCoreStandardLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\OptionalLibraries\BasicxUnit\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj">
       <Project>{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}</Project>

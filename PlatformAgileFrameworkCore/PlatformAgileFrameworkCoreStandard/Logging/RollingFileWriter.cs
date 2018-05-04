@@ -32,7 +32,7 @@
 //	/// </description>
 //	/// </contribution>
 //	/// </history>
-//	public class RollingFileWriter
+//	public class RollingFileWriter : IDisposable
 //	{
 //		#region Fields and AutoProperties
 
@@ -42,6 +42,7 @@
 //		/// objects.
 //		/// </summary>
 //		private StreamAndWriterAtomicContainer m_StreamAndWriterContainer;
+
 //		/// <summary>
 //		/// Shuts us off if our machinery has defects and generates an exception.
 //		/// We log the exception, but turn ourselves off so the other loggers,
@@ -141,9 +142,11 @@
 //		/// File service stapled in in the construction path.
 //		/// </summary>
 //		protected internal IPAFStorageService m_StorageService;
+
 //		#endregion // Fields and AutoProperties
 
 //		#region Constructors
+
 //		/// <summary>
 //		/// Constructor
 //		/// </summary>
@@ -196,12 +199,13 @@
 //			m_StreamAndWriterContainer = new StreamAndWriterAtomicContainer();
 
 //			// This will initialize us to write to the correct file.
-//			OpenOrCreateLog(isVersioning);
+//			OpenOrCreateLog(m_StreamAndWriterContainer, isVersioning);
 //		}
 
 //		#endregion // Constructors
 
 //		#region Methods
+
 //		/// <summary>
 //		/// This method creates a filename based on the <paramref name ="dateTime"/> passed
 //		/// in. It uses the <see cref="DateTimeFormatter"/> if one is plugged.
@@ -245,81 +249,84 @@
 //		/// in a proper state. It must be called at class initialization and must be
 //		/// called periodically to see if the current file is getting too large.
 //		/// </summary>
-//		protected internal virtual void CheckAndRoll()
+//		protected virtual void CheckAndRoll()
 //		{
-//			if (m_NumWrites % SizeCheckFrequency == 0)
+//			if (m_NumWrites % SizeCheckFrequency != 0) return;
+
+//			// Get this outside of the lock, please.
+//			var currentFileSize = GetFileSizeInKb();
+
+//			lock (m_StreamAndWriterContainer)
 //			{
-//				lock (_rotateLogFileLock)
+//				try
 //				{
-//					try
+//					if ((MaxLogFileSizeKb > 0) && (currentFileSize >= MaxLogFileSizeKb))
 //					{
-//						if ((MaxLogFileSizeKb > 0) && (GetFileSizeInKb() >= MaxLogFileSizeKb))
+
+//						FileStream newLogFile = null;
+//						StreamWriter newLogFileWriter = null;
+
+//						OpenOrCreateLog(LogFileBaseName, m_StreamAndWriterContainer);
+
+//						if ((newLogFile != null) && (newLogFileWriter != null))
 //						{
 
-//							FileStream newLogFile = null;
-//							StreamWriter newLogFileWriter = null;
-
-//							OpenOrCreateLog(LogFileBaseName, out newLogFile, out newLogFileWriter);
-
-//							if ((newLogFile != null) && (newLogFileWriter != null))
+//							if (_logFileWriterPrev != null)
 //							{
-
-//								if (_logFileWriterPrev != null)
-//								{
-//									_logFileWriterPrev.Dispose();
-//								}
-
-//								if (_logFilePrev != null)
-//								{
-//									_logFilePrev.Dispose();
-//								}
-
-
-//								Interlocked.Exchange(ref _logFile, newLogFile);
-//								Interlocked.Exchange(ref _logFileWriter, newLogFileWriter);
-
-//								CleanupLogs();
+//								_logFileWriterPrev.Dispose();
 //							}
+
+//							if (_logFilePrev != null)
+//							{
+//								_logFilePrev.Dispose();
+//							}
+
+
+//							Interlocked.Exchange(ref _logFile, newLogFile);
+//							Interlocked.Exchange(ref _logFileWriter, newLogFileWriter);
+
+//							CleanupLogs();
 //						}
 //					}
-//					catch (Exception exc)
-//					{
-//						// If we have an exception here, we should log it and then disable this logger.
-//						var logger = PAFServiceManagerContainer.ServiceManager.GetTypedService<IPAFLoggingService>();
-//						logger.LogEntry("RollingLoggerError" + MethodBase.GetCurrentMethod().Name, PAFLoggingLevel.Error, exc);
-//						m_IsDisabled = true;
-//					}
-
 //				}
+//				catch (Exception exc)
+//				{
+//					// If we have an exception here, we should log it and then disable this logger.
+//					var logger = PAFServiceManagerContainer.ServiceManager.GetTypedService<IPAFLoggingService>();
+//					logger.LogEntry("RollingLoggerError" + MethodBase.GetCurrentMethod().Name, PAFLoggingLevel.Error, exc);
+//					m_IsDisabled = true;
+//				}
+
 //			}
 //		}
 
-//		protected internal virtual void CleanupLogs()
+//		/// <summary>
+//		/// This method checks if there are more than <see cref="MaxLogFiles"/> log files in the directory
+//		/// and deletes the least recent, if so. Never touches versioned files.
+//		/// </summary>
+//		protected virtual void CleanupLogs()
 //		{
-
-//			DirectoryInfo dir;
-//			FileInfo[] files;
 //			// Check if we need to clean up some of the log files.
 //			if (MaxLogFiles >= 0)
 //			{
 //				// Zero retained means just leave the most current log file.
 //				try
 //				{
-//					dir = new DirectoryInfo(LogDirectory);
-//					files = dir.GetFiles(m_FileSearchPattern);
+//					var dir = new DirectoryInfo(LogDirectory);
+//					var files = dir.GetFiles(m_FileSearchPattern);
 
 //					// Get the files sorted.
-//					var timeSortedFiles = new Dictionary<DateTime, FileInfo>();
-
 //					Array.Sort(files,
-//						(FileInfo file1, FileInfo file2) => { return file1.CreationTime.CompareTo(file2.CreationTime); });
-//					if (files.Length > _maxNumOfLogsRetained + 1)
+//						(file1, file2) => file1.CreationTime.CompareTo(file2.CreationTime));
+
+//					// Too many?
+//					if (files.Length <= MaxLogFiles + 1) return;
+
+//					// Yup - delete some.
+//					var numFilesToDelete = files.Length - (MaxLogFiles + 1);
+//					for (var fileNum = 0; fileNum < numFilesToDelete; ++fileNum)
 //					{
-//						int numFilesToDelete = files.Length - (_maxNumOfLogsRetained + 1);
-//						for (int i = 0; i < numFilesToDelete; ++i)
-//						{
-//							files[i].Delete();
-//						}
+//						files[fileNum].Delete();
 //					}
 //				}
 //				catch (Exception exc)
@@ -333,7 +340,13 @@
 
 //		}
 
-//		protected internal virtual int GetFileSizeInKb()
+//		/// <summary>
+//		/// Returns the size of the current log file.
+//		/// </summary>
+//		/// <returns>
+//		/// The size of the file, in bytes. -1 if not created or opened.
+//		/// </returns>
+//		protected virtual int GetFileSizeInKb()
 //		{
 //			long bytes;
 //			lock (m_StreamAndWriterContainer)
@@ -341,7 +354,7 @@
 //				bytes = _logFile.Length;
 //			}
 
-//			var kiloBytes = (int) (bytes / (1024));
+//			var kiloBytes = (int)(bytes / (1024));
 //			return kiloBytes;
 //		}
 
@@ -352,7 +365,7 @@
 //		/// <returns>
 //		/// 
 //		/// </returns>
-//		protected internal virtual StreamAndWriterAtomicContainer GetLastFile()
+//		protected virtual StreamAndWriterAtomicContainer GetLastFile()
 //		{
 //			lock (m_StreamAndWriterContainer)
 //			{
@@ -362,7 +375,8 @@
 //			}
 
 //		}
-//		protected internal virtual string GetLogFilePath(string logFileBaseName, string ext, bool overWriteExisting)
+
+//		protected virtual string GetLogFilePath(string logFileBaseName, string ext, bool overWriteExisting)
 //		{
 //			var dateTime = DateTime.Now;
 //			var path = CreateFileName(logFileBaseName, ext, dateTime);
@@ -426,7 +440,7 @@
 //				// We don't deal with the case where someone
 //				// purposefully named files to crash us.
 //				// This loop should get us the number otherwise.
-//				var charIndex = dotIndex-1;
+//				var charIndex = dotIndex - 1;
 //				while (charIndex > atSignIndex)
 //				{
 //					if (!StringParsingUtils.IsANumber(fileName[charIndex]))
@@ -442,6 +456,7 @@
 //					{
 //						retval.Add(file);
 //					}
+
 //					continue;
 //				}
 
@@ -456,7 +471,7 @@
 
 //				var fileVersionNumber = int.Parse(fileVersionNumberString);
 
-//				if(fileVersionNumber == versionNumber)
+//				if (fileVersionNumber == versionNumber)
 //					retval.Add(file);
 //			}
 
@@ -468,7 +483,7 @@
 //		/// uses it if it is not full. If it is full, then it checks to see if there
 //		/// are already too many files in the directory and calls 
 //		/// </summary>
-//		protected internal void OpenOrCreateLog(bool overWriteExisting = false)
+//		protected void OpenOrCreateLog(StreamAndWriterAtomicContainer container, bool overWriteExisting = false)
 //		{
 //			var stream = GetLastFile();
 //			if ((stream != null) && (stream.Length < MaxLogFileSizeKb))
@@ -581,103 +596,88 @@
 //			}
 //		}
 
+
 //		protected virtual void Dispose(bool disposing)
 //		{
-//			if (!m_IsDisposed)
-//			{
-//				if (disposing)
-//				{
-//					if (_logFileWriter != null)
-//					{
-//						_logFileWriter.Dispose();
-//					}
-
-//					if (_logFile != null)
-//					{
-//						_logFile.Dispose();
-//					}
-
-//					if (_logFileWriterPrev != null)
-//					{
-//						_logFileWriterPrev.Dispose();
-//					}
-
-//					if (_logFilePrev != null)
-//					{
-//						_logFilePrev.Dispose();
-//					}
-//				}
-
-//				m_IsDisposed = true;
-//			}
-//			#endregion // Methods
+//			if (!disposing) return;
+//			m_StreamAndWriterContainer?.Dispose();
+//			m_StreamAndWriterContainer = null;
 //		}
+
+//		public void Dispose()
+//		{
+//			Dispose(true);
+//			GC.SuppressFinalize(this);
+//		}
+//		#endregion // Methods
+//	}
+
+//	/// <summary>
+//	/// A little container for the stream and writer so
+//	/// they can be synchronized atomically. This is designed as a
+//	/// mutable type with props that are forced to be set
+//	/// at the same time - just makes things
+//	/// organized.
+//	/// </summary>
+//	public class StreamAndWriterAtomicContainer : IDisposable
+//	{
+//		#region Fields and Autoprops
+//		/// <summary>
+//		/// Prop for the stream.
+//		/// </summary>
+//		/// <remarks>
+//		/// Internal set for testing.
+//		/// </remarks>
+//		public Stream LogStream { get; internal set; }
 
 //		/// <summary>
-//		/// A little container for the stream and writer so
-//		/// they can be synchronized atomically. This is designed as a
-//		/// mutable type with props that are forced to be set
-//		/// at the same time - just makes things
-//		/// organized.
+//		/// Prop for the stream writer.
 //		/// </summary>
-//		public class StreamAndWriterAtomicContainer: IDisposable
+//		/// <remarks>
+//		/// Internal set for testing.
+//		/// </remarks>
+//		public StreamWriter LogStreamWriter { get; internal set; }
+//		#endregion // Fields and Autoprops
+//		#region Methods
+//		/// <summary>
+//		/// Method sets both stream and writer at the same time.
+//		/// </summary>
+//		/// <param name="logStream">Not <see langword="null"/>.</param>
+//		/// <param name="logStreamWriter">Not <see langword="null"/>.</param>
+//		/// <exceptions>
+//		/// <exception cref="ArgumentNullException">"logStream"</exception>
+//		/// <exception cref="ArgumentNullException">"logStreamWriter"</exception>
+//		/// </exceptions>
+//		public virtual void SetStreamAndWriter([NotNull] Stream logStream, [NotNull] StreamWriter logStreamWriter)
 //		{
-//			#region Fields and Autoprops
-//			/// <summary>
-//			/// Prop for the stream.
-//			/// </summary>
-//			/// <remarks>
-//			/// Internal set for testing.
-//			/// </remarks>
-//			public Stream LogStream { get; internal set; }
-
-//			/// <summary>
-//			/// Prop for the stream writer.
-//			/// </summary>
-//			/// <remarks>
-//			/// Internal set for testing.
-//			/// </remarks>
-//			public StreamWriter LogStreamWriter { get; internal set; }
-//			#endregion // Fields and Autoprops
-//			#region Methods
-//			/// <summary>
-//			/// Method sets both stream and writer at the same time.
-//			/// </summary>
-//			/// <param name="logStream">Not <see langword="null"/>.</param>
-//			/// <param name="logStreamWriter">Not <see langword="null"/>.</param>
-//			/// <exceptions>
-//			/// <exception cref="ArgumentNullException">"logStream"</exception>
-//			/// <exception cref="ArgumentNullException">"logStreamWriter"</exception>
-//			/// </exceptions>
-//			public virtual void SetStreamAndWriter([NotNull] Stream logStream, [NotNull] StreamWriter logStreamWriter)
-//			{
-//				LogStream = logStream ?? throw new ArgumentNullException(nameof(logStream));
-//				LogStreamWriter = logStreamWriter ?? throw new ArgumentNullException(nameof(logStreamWriter));
-//			}
-//			#endregion // Methods
-
-//			#region Disposal Pattern
-//			/// <remarks>
-//			/// Standard disposal pattern.
-//			/// </remarks>
-//			protected virtual void Dispose(bool disposing)
-//			{
-//				if (disposing)
-//				{
-//					LogStream?.Dispose();
-//					LogStreamWriter?.Dispose();
-//				}
-//			}
-
-//			/// <remarks>
-//			/// Standard disposal pattern.
-//			/// </remarks>
-//			public void Dispose()
-//			{
-//				Dispose(true);
-//				GC.SuppressFinalize(this);
-//			}
-//			#endregion // Disposal Pattern
+//			LogStream = logStream ?? throw new ArgumentNullException(nameof(logStream));
+//			LogStreamWriter = logStreamWriter ?? throw new ArgumentNullException(nameof(logStreamWriter));
 //		}
+//		#endregion // Methods
+
+//		#region Disposal Pattern
+//		/// <remarks>
+//		/// Disposes stream and writer.
+//		/// </remarks>
+//		protected virtual void Dispose(bool disposing)
+//		{
+//			if (!disposing) return;
+//			LogStream?.Dispose();
+//			LogStream = null;
+//			LogStreamWriter?.Dispose();
+//			LogStreamWriter = null;
+//		}
+
+//		/// <remarks>
+//		/// Standard disposal pattern.
+//		/// </remarks>
+//		public void Dispose()
+//		{
+//			Dispose(true);
+//			GC.SuppressFinalize(this);
+//		}
+//		#endregion // Disposal Pattern
 //	}
 //}
+
+

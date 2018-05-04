@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformAgileFrameworkBasicxUnitStandard1.6", "..\..\OptionalLibraries\BasicxUnit\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj", "{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformAgileFrameworkBasicxUnitStandard1.6", "..\..\OptionalLibraries\BasicxUnit\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj", "{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAFCoreStandardLibrary", "..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj", "{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAFCoreContractsStandardLibrary", "..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj", "{8A95B388-AAD5-4BCE-89A8-3383851A8B69}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAF.CoreNetStandard.Tests", "..\..\PAFNWSTests\PAF.CoreNetStandard.Tests.csproj", "{7BC5E1BE-D9F0-4B71-880E-52B254889479}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAF.CoreNetStandard.Tests", "..\..\PAFNWSTests\PAF.CoreNetStandard.Tests.csproj", "{7BC5E1BE-D9F0-4B71-880E-52B254889479}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAF.ECMA.Mac", "..\PAF.ECMA\PAF.ECMA.Mac.csproj", "{BAF45015-264E-4444-8403-DD9A6D806D7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMAMacTestRunnerConsoleApp", "ECMAMacTestRunnerConsoleApp\ECMAMacTestRunnerConsoleApp.csproj", "{CD5A5BA5-DFAC-4284-8C90-6222C3A69EBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreContractsStandardLibrary", "..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj", "{725E4E4B-4E9D-406B-95FD-DA40618CA18C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreStandardLibrary", "..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj", "{2ED6C237-89D8-4E28-AE1C-E8B43EDAF098}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMATestRunner", "ECMATestRunner.csproj", "{3349B616-B431-4EF9-B704-070BB2ADD2BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +27,6 @@ Global
 		{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D3DDAE3-3EB7-4F2F-8450-89BC16A28027}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A95B388-AAD5-4BCE-89A8-3383851A8B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A95B388-AAD5-4BCE-89A8-3383851A8B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A95B388-AAD5-4BCE-89A8-3383851A8B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A95B388-AAD5-4BCE-89A8-3383851A8B69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7BC5E1BE-D9F0-4B71-880E-52B254889479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7BC5E1BE-D9F0-4B71-880E-52B254889479}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BC5E1BE-D9F0-4B71-880E-52B254889479}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +39,18 @@ Global
 		{CD5A5BA5-DFAC-4284-8C90-6222C3A69EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD5A5BA5-DFAC-4284-8C90-6222C3A69EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD5A5BA5-DFAC-4284-8C90-6222C3A69EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{725E4E4B-4E9D-406B-95FD-DA40618CA18C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{725E4E4B-4E9D-406B-95FD-DA40618CA18C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{725E4E4B-4E9D-406B-95FD-DA40618CA18C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{725E4E4B-4E9D-406B-95FD-DA40618CA18C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED6C237-89D8-4E28-AE1C-E8B43EDAF098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED6C237-89D8-4E28-AE1C-E8B43EDAF098}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED6C237-89D8-4E28-AE1C-E8B43EDAF098}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED6C237-89D8-4E28-AE1C-E8B43EDAF098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3349B616-B431-4EF9-B704-070BB2ADD2BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3349B616-B431-4EF9-B704-070BB2ADD2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3349B616-B431-4EF9-B704-070BB2ADD2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3349B616-B431-4EF9-B704-070BB2ADD2BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

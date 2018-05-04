@@ -30,7 +30,7 @@
     <LinkMode>None</LinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -69,12 +69,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj">
-      <Project>{8A95B388-AAD5-4BCE-89A8-3383851A8B69}</Project>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj">
+      <Project>{725e4e4b-4e9d-406b-95fd-da40618ca18c}</Project>
       <Name>PAFCoreContractsStandardLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj">
-      <Project>{AD7797E5-426C-4155-B2E8-2E4C2E2593ED}</Project>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj">
+      <Project>{2ed6c237-89d8-4e28-ae1c-e8b43edaf098}</Project>
       <Name>PAFCoreStandardLibrary</Name>
     </ProjectReference>
   </ItemGroup>
