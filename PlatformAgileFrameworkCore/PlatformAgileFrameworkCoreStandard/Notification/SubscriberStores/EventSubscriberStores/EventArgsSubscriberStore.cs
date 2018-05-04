@@ -60,7 +60,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// See base.
 		/// </param>
 		public EventArgsSubscriberStore(object eventSourceObject, int purgeIntervalInMilliseconds = -1)
-			:base(purgeIntervalInMilliseconds)
+			:base(null, purgeIntervalInMilliseconds)
 		{
 			NotificationSource = eventSourceObject;
 		}

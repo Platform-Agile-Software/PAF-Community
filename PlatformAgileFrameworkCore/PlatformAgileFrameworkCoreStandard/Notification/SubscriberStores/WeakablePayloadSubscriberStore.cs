@@ -70,7 +70,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// See base.
 		/// </param>
 		protected WeakableSubscriberStore(int purgeIntervalInMilliseconds = -1)
-			:base(purgeIntervalInMilliseconds)
+			:base(null, purgeIntervalInMilliseconds)
 		{
 			m_PayloadWrapper
 				= new NullableSynchronizedWrapper<TPayload>

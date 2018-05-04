@@ -59,7 +59,7 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 		/// See base.
 		/// </param>
 		public WeakableIntegerSubscriberStore(int integerPayload, int purgeIntervalInMilliseconds = -1)
-			:base(purgeIntervalInMilliseconds)
+			:base(null, purgeIntervalInMilliseconds)
 		{
 			IntegerPayload = integerPayload;
 		}

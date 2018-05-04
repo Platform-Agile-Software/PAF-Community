@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.ErrorAndException;
@@ -73,7 +74,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 	/// We need to enumerate over the handlers when calling them much more
 	/// often than adding/deleting/purging handlers.
 	/// </remarks>
-	public abstract class WeakableSubscriberStore<TDelegate>
+	public class WeakableSubscriberStore<TDelegate>
 		: IWeakableSubscriberStoreInternal<TDelegate>
 		where TDelegate : class
 	{
@@ -87,12 +88,12 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// </summary>
 		/// <remarks>
 		/// Please note that taking even a write lock on the handlers does NOT prevent
-		/// subscribers from being nulified when the lock is held. In order to get a
+		/// subscribers from being nullified when the lock is held. In order to get a
 		/// collection of subscribers that will NOT be nullified, call <see cref="GetLiveHandlers"/>.
 		/// A write lock is taken when we have to actually add or remove handlers to/from
 		/// the store. This occurs during subscribe/unsubscribe and purging dead handlers.
 		/// A read lock is used when a notification is sent to subscribers (when an event
-		/// is raised).
+		/// is raised in event-speak).
 		/// </remarks>
 		protected internal NullableSynchronizedWrapper<IList<IPseudoDelegate<TDelegate>>>
 			m_SubscribersWrapper;
@@ -105,22 +106,35 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// </summary>
 		public const int PURGE_INTERVAL_IN_MILLISECONDS = 250;
 		/// <summary>
-		/// This is the one that can be reset for testing....
-		/// </summary>
-		protected internal int m_PurgeIntervalInMilliseconds;
-		/// <summary>
 		/// Start guard.
 		/// </summary>
 		protected internal volatile bool m_IsStoreStarted;
 		/// <summary>
+		/// Keeps track of the number of subscriber notifications
+		/// for the purge.
+		/// </summary>
+		protected internal int m_NumBroadcasts;
+		/// <summary>
+		/// This is the one that can be reset for testing....
+		/// </summary>
+		protected internal int m_PurgeIntervalInMilliseconds;
+		/// <summary>
 		/// Indicator to any concurrent processes that it's time to shut
-		/// down. This is used as a gate on most methods.
+		/// down. This is used as a gate on some methods.
 		/// </summary>
 		protected internal volatile bool m_ShouldStoreStop;
+
+		/// <summary>
+		/// This is the method that will be called to dispatch events.
+		/// If <see langword="null"/> notification method must be overridden.
+		/// </summary>
+		protected Action<WeakableSubscriberStore<TDelegate>> EventDispatcherPlugin { get; set; }
 		#endregion Fields and Autoproperties
 
 		/// <summary>
 		/// Verifies that the incoming Generic is, indeed, a delegate type.
+		/// Since there are no Generic constraints associated with delegates,
+		/// this must be done in a static constructor.
 		/// </summary>
 		/// <exceptions>
 		/// <exception cref="InvalidOperationException">
@@ -136,8 +150,13 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// <summary>
 		/// Default constructor sets up the list and its read/write container.
 		/// </summary>
+		/// <param name="eventDispatherPlugin">
+		/// Plugin for dispatching events or "notifying" subscribers. If
+		/// <see langword="null"/> <see cref="NotifySubscribers"/> MUST be overridden.
+		/// </param>
 		/// <param name="purgeIntervalInMilliseconds">
-		/// Default of -1 results in use of internal static value. 0 results
+		/// Default of <see cref="int.MaxValue"/> results in use of
+		/// internal static value. 0 results
 		/// in purging before each notification. Positive values result in
 		/// purging of dead references on a time shedule. Running the purge
 		/// on a timer is useful, for example in applications that involve
@@ -150,25 +169,30 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// in 0 for the time and calling <see cref="PurgeDeadSubscribers"/>
 		/// in the mandatory override of <see cref="NotifySubscribers"/>
 		/// </remarks>
-		protected WeakableSubscriberStore(int purgeIntervalInMilliseconds = -1)
+		public WeakableSubscriberStore([CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null,
+			int purgeIntervalInMilliseconds = int.MaxValue)
 		{
-			if (purgeIntervalInMilliseconds == -1)
+			EventDispatcherPlugin = eventDispatherPlugin;
+
+			if (purgeIntervalInMilliseconds == int.MaxValue)
 				m_PurgeIntervalInMilliseconds = PURGE_INTERVAL_IN_MILLISECONDS;
 			else
 				m_PurgeIntervalInMilliseconds = purgeIntervalInMilliseconds;
 
 			var handlers = new List<IPseudoDelegate<TDelegate>>();
 
-			// Build the R/W lock on the handler collection.
+			// Build the R/W lock around the handler collection.
 			m_SubscribersWrapper
 				= new NullableSynchronizedWrapper<IList<IPseudoDelegate<TDelegate>>>
 					(handlers, new ReaderWriterLockSlimWrapper());
 
 			// Hook up to the async wrapper so we can stop the action
-			// immediately.
+			// immediately. The timer is never started if in "purge countdown"
+			// mode, and it's lightweight, so we just staple it in.
 			m_RecurringPurge = new RecurringActionTimer(PurgeDeadSubscribersAsyncWrapper);
 		}
 
+		#region IWeakableSubscriberStore Implementation
 		/// <summary>
 		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
 		/// </summary>
@@ -186,28 +210,43 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		}
 
 		/// <summary>
-		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
+		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>. This base
+		/// method counts down the purge timer and purges/resets if we are
+		/// in "count" mode. Doesn't matter much if called before or
+		/// after logic in the override.
 		/// </summary>
 		/// <remarks>
-		/// This one is specific to the delegate type.
+		/// This one is specific to the delegate type, thus must be overridden.
 		/// </remarks>
-		public abstract void NotifySubscribers();
-
-		/// <summary>
-		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
-		/// </summary>
-		public virtual void WeaklySubscribe(TDelegate addedDelegate)
+		public virtual void NotifySubscribers()
 		{
-			if (m_ShouldStoreStop)
+			// If not in count mode, we do nothing.
+			if (m_PurgeIntervalInMilliseconds > 0)
 				return;
 
-			Start();
-			Subscribe(addedDelegate);
+			// Increment number of broadcasts in a thread-safe manner.
+			m_NumBroadcasts = Interlocked.Add(ref m_NumBroadcasts, 1);
+
+			// Need local for thread-safety.
+			var localNumBroadcasts = m_NumBroadcasts;
+
+			// Exit if no need to purge.
+			if ((m_PurgeIntervalInMilliseconds != 0)
+			    &&
+			   (localNumBroadcasts % -m_PurgeIntervalInMilliseconds != 0)) return;
+
+			// Purge and reset.
+			PurgeDeadSubscribers();
+			m_NumBroadcasts = 0;
+
+			// Do the notification if the developer decided to use a plugin.
+			EventDispatcherPlugin?.Invoke(this);
 		}
 
 		/// <summary>
 		/// In this implementation, the method kicks off the purge timer,
-		/// if the interval is non-zero.
+		/// if the interval is greater than zero. Doesn't do a thing if
+		/// we are starting or stopping.
 		/// </summary>
 		public virtual void Start()
 		{
@@ -217,17 +256,22 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			if (m_IsStoreStarted)
 				return;
 
-			m_RecurringPurge.SetRecurranceTime(m_PurgeIntervalInMilliseconds);
+			if(m_PurgeIntervalInMilliseconds > 0)
+				m_RecurringPurge.SetRecurranceTime(m_PurgeIntervalInMilliseconds);
 			m_IsStoreStarted = true;
 		}
 
 		/// <summary>
-		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
+		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>. Does nothing if
+		/// store is stopping.
 		/// </summary>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IPAFDelegateExceptionData}">
-		/// <see cref="PAFDelegateExceptionMessageTags.DELEGATE_HAS_SUBSCRIBERS"/>
+		/// <see cref="PDEMT.DELEGATE_HAS_SUBSCRIBERS"/>
 		/// The delegate that is entered into the store cannot have subscribers.
+		/// This backing store is used to shed "undiciplined subscribers" and
+		/// if a delegate has subscribers, we don't want to deal with them.
+		/// This philosophy works in almost all but the weirdest scenarios.
 		/// </exception>
 		/// </exceptions>
 		public virtual void Subscribe(TDelegate addedDelegate, bool isWeak = true)
@@ -251,6 +295,35 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			SubscribePD(addedPD);
 		}
 
+		/// <summary>
+		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
+		/// </summary>
+		/// <param name="removedDelegate">Delegate to remove.</param>
+		public virtual void Unsubscribe(TDelegate removedDelegate)
+		{
+			if (m_ShouldStoreStop)
+				return;
+
+			Start();
+			if (removedDelegate == null) return;
+			var removedPD = removedDelegate.GetPseudoDelegate();
+			UnsubscribePD(removedPD);
+		}
+
+		/// <summary>
+		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
+		/// </summary>
+		public virtual void WeaklySubscribe(TDelegate addedDelegate)
+		{
+			if (m_ShouldStoreStop)
+				return;
+
+			Start();
+			Subscribe(addedDelegate);
+		}
+		#endregion // IWeakableSubscriberStore Implementation
+
+
 
 		/// <summary>
 		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
@@ -268,21 +341,6 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			{
 				subscribersWrapper.WriteLockedNullableObject.AddNoDupes(addedPD);
 			}
-		}
-
-		/// <summary>
-		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
-		/// </summary>
-		/// <param name="removedDelegate">Delegate to remove.</param>
-		public virtual void Unsubscribe(TDelegate removedDelegate)
-		{
-			if (m_ShouldStoreStop)
-				return;
-
-			Start();
-			if (removedDelegate == null) return;
-			var removedPD = removedDelegate.GetPseudoDelegate();
-			UnsubscribePD(removedPD);
 		}
 
 		/// <summary>
@@ -329,31 +387,38 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// weak delegates that have not been nullified.
 		/// </summary>
 		/// <returns>
-		/// A list, never <see langword="null"/>, unless store is disposed.
+		/// A list, never <see langword="null"/>, empty if store is disposed.
 		/// </returns>
-		[CanBeNull]
-		protected virtual IList<TDelegate> GetLiveHandlers()
+		/// <remarks>
+		/// This method is public but NOT part of the interface. This is an
+		/// implementation detail, but needs to be public so we can build
+		/// extension methods to implement plugins for the event dispatcher
+		/// and other things.
+		/// </remarks>
+		[NotNull]
+		public virtual IList<TDelegate> GetLiveHandlers()
 		{
+			IList<TDelegate> liveDelegates = new List<TDelegate>();
+
 			if (m_ShouldStoreStop)
-				return null;
+				return liveDelegates;
 
 			Start();
-			IList<TDelegate> liveDelegates = new List<TDelegate>();
 
 			using (var subscriberWrapper = m_SubscribersWrapper.GetReadLockedObject())
 			{
 				var subscribers = subscriberWrapper.ReadLockedNullableObject;
+				// ReSharper disable once LoopCanBePartlyConvertedToQuery
 				foreach (var pseudoDelegate in subscribers)
 				{
 					// Target is a Type (never null) for static delegates.....
 					var target = pseudoDelegate.GetPseudoDelegateTargetIfAlive();
-					if (target != null)
-					{
-						var del = pseudoDelegate.GetDelegateIfAlive();
-						// Instance delegate can't be dead, since we are holding a strong
-						// reference to its target.
-						liveDelegates.Add(del);
-					}
+					if (target == null) continue;
+
+					var del = pseudoDelegate.GetDelegateIfAlive();
+					// Instance delegate can't be dead, since we are holding a strong
+					// reference to its target.
+					liveDelegates.Add(del);
 				}
 			}
 
@@ -364,20 +429,28 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// weak PDs that have not been nullified.
 		/// </summary>
 		/// <returns>
-		/// A list, never <see langword="null"/>, unless store is disposed.
+		/// A list, never <see langword="null"/>, empty if store is disposed.
 		/// </returns>
-		[CanBeNull]
-		protected virtual IList<IPseudoDelegate<TDelegate>> GetLivePDs()
+		/// <remarks>
+		/// This method is public but NOT part of the interface. This is an
+		/// implementation detail, but needs to be public so we can build
+		/// extension methods to implement plugins for the event dispatcher
+		/// and other things.
+		/// </remarks>
+		[NotNull]
+		public virtual IList<IPseudoDelegate<TDelegate>> GetLivePDs()
 		{
+			IList<IPseudoDelegate<TDelegate>> livePDs = new List<IPseudoDelegate<TDelegate>>();
 			if (m_ShouldStoreStop)
-				return null;
+				return livePDs;
 
 			Start();
-			IList<IPseudoDelegate<TDelegate>> livePDs = new List<IPseudoDelegate<TDelegate>>();
 
 			using (var subscriberWrapper = m_SubscribersWrapper.GetReadLockedObject())
 			{
 				var subscribers = subscriberWrapper.ReadLockedNullableObject;
+				// ReSharper disable once LoopCanBePartlyConvertedToQuery
+				//// NOTE: It's harder to read, ReSharper!
 				foreach (var pseudoDelegate in subscribers)
 				{
 					// Target is a Type (never null) for static delegates.....
@@ -499,6 +572,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			using (var handlerWrapper = m_SubscribersWrapper.GetReadLockedObject())
 			{
 				var handlers = handlerWrapper.ReadLockedNullableObject;
+
+				// ReSharper disable once LoopCanBePartlyConvertedToQuery
+				//// NOTE: It's harder to read, ReSharper!
 				foreach (var pseudoDelegate in handlers)
 				{
 					var target = pseudoDelegate.GetPseudoDelegateTargetIfAlive();
