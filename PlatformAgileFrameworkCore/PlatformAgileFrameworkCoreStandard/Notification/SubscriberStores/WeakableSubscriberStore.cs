@@ -28,13 +28,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.MultiProcessing.Threading.Locks;
 using PlatformAgileFramework.MultiProcessing.Threading.NullableObjects;
-using PlatformAgileFramework.Notification.Exceptions;
 using PlatformAgileFramework.Notification.Helpers;
 using PlatformAgileFramework.TypeHandling.Delegates;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
@@ -57,6 +57,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 	/// our internal <see cref="IPseudoDelegate{TDelegate}"/> implemenation so
 	/// the user never sees it.
 	/// </summary>
+	/// <threadsafety>
+	/// Safe.
+	/// </threadsafety>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
@@ -126,7 +129,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 
 		/// <summary>
 		/// This is the method that will be called to dispatch events.
-		/// If <see langword="null"/> notification method must be overridden.
+		/// If <see langword="null"/>, notification method must be overridden.
 		/// </summary>
 		protected Action<WeakableSubscriberStore<TDelegate>> EventDispatcherPlugin { get; set; }
 		#endregion Fields and Autoproperties
@@ -148,7 +151,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		}
 
 		/// <summary>
-		/// Default constructor sets up the list and its read/write container.
+		/// Defaul constructor sets up the list and its read/write container.
 		/// </summary>
 		/// <param name="eventDispatherPlugin">
 		/// Plugin for dispatching events or "notifying" subscribers. If
@@ -169,8 +172,10 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// in 0 for the time and calling <see cref="PurgeDeadSubscribers"/>
 		/// in the mandatory override of <see cref="NotifySubscribers"/>
 		/// </remarks>
-		public WeakableSubscriberStore([CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null,
-			int purgeIntervalInMilliseconds = int.MaxValue)
+		public WeakableSubscriberStore(
+			int purgeIntervalInMilliseconds = int.MaxValue,
+			[CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null
+			)
 		{
 			EventDispatcherPlugin = eventDispatherPlugin;
 
@@ -185,6 +190,10 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			m_SubscribersWrapper
 				= new NullableSynchronizedWrapper<IList<IPseudoDelegate<TDelegate>>>
 					(handlers, new ReaderWriterLockSlimWrapper());
+
+			// Note: KRM - we have a problem right now with an element in the
+			// NetStandard2.0 TPL that prevents us from using the timer.
+			m_PurgeIntervalInMilliseconds = -10;
 
 			// Hook up to the async wrapper so we can stop the action
 			// immediately. The timer is never started if in "purge countdown"
@@ -216,29 +225,11 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// after logic in the override.
 		/// </summary>
 		/// <remarks>
-		/// This one is specific to the delegate type, thus must be overridden.
+		/// This one is specific to the delegate type.
 		/// </remarks>
 		public virtual void NotifySubscribers()
 		{
-			// If not in count mode, we do nothing.
-			if (m_PurgeIntervalInMilliseconds > 0)
-				return;
-
-			// Increment number of broadcasts in a thread-safe manner.
-			m_NumBroadcasts = Interlocked.Add(ref m_NumBroadcasts, 1);
-
-			// Need local for thread-safety.
-			var localNumBroadcasts = m_NumBroadcasts;
-
-			// Exit if no need to purge.
-			if ((m_PurgeIntervalInMilliseconds != 0)
-			    &&
-			   (localNumBroadcasts % -m_PurgeIntervalInMilliseconds != 0)) return;
-
-			// Purge and reset.
-			PurgeDeadSubscribers();
-			m_NumBroadcasts = 0;
-
+			PurgeCountdown();
 			// Do the notification if the developer decided to use a plugin.
 			EventDispatcherPlugin?.Invoke(this);
 		}
@@ -271,7 +262,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// The delegate that is entered into the store cannot have subscribers.
 		/// This backing store is used to shed "undiciplined subscribers" and
 		/// if a delegate has subscribers, we don't want to deal with them.
-		/// This philosophy works in almost all but the weirdest scenarios.
+		/// This philosophy works in all but the weirdest scenarios.
 		/// </exception>
 		/// </exceptions>
 		public virtual void Subscribe(TDelegate addedDelegate, bool isWeak = true)
@@ -323,7 +314,32 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		}
 		#endregion // IWeakableSubscriberStore Implementation
 
+		/// <summary>
+		/// This helper method counts down the purge timer and purges/resets
+		/// if we are in "count" mode. Normally called at the top of
+		/// <see cref="NotifySubscribers"/>.
+		/// </summary>
+		protected virtual void PurgeCountdown()
+		{
+			// If not in count mode, we do nothing.
+			if (m_PurgeIntervalInMilliseconds > 0)
+				return;
 
+			// Increment number of broadcasts in a thread-safe manner.
+			m_NumBroadcasts = Interlocked.Add(ref m_NumBroadcasts, 1);
+
+			// Need local for thread-safety.
+			var localNumBroadcasts = m_NumBroadcasts;
+
+			// Exit if no need to purge.
+			if ((m_PurgeIntervalInMilliseconds != 0)
+			    &&
+			    (localNumBroadcasts % -m_PurgeIntervalInMilliseconds != 0)) return;
+
+			// Purge and reset.
+			PurgeDeadSubscribers();
+			m_NumBroadcasts = 0;
+		}
 
 		/// <summary>
 		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
@@ -462,6 +478,13 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 						livePDs.Add(pseudoDelegate);
 					}
 				}
+				// Note: Do NOT do this:
+				//foreach (var pseudoDelegate in from pseudoDelegate in subscribers let target = pseudoDelegate.GetPseudoDelegateTargetIfAlive() where target != null select pseudoDelegate)
+				//{
+				//	// Instance delegate can't be dead, since we are holding a strong
+				//	// reference to its target.
+				//	livePDs.Add(pseudoDelegate);
+				//}
 			}
 
 			return livePDs;
@@ -561,7 +584,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// Virtual backing for the interface.
 		/// </summary>
 		/// <exception cref="PAFStandardException{IPAFDelegateExceptionData}">
-		/// <see cref="PAFDelegateExceptionMessageTags.SUBSCRIBER_STORE_HAS_NOT_BEEN_STARTED"/>
+		/// <see cref="PDEMT.SUBSCRIBER_STORE_HAS_NOT_BEEN_STARTED"/>
 		/// The start method was not called.
 		/// </exception>
 		protected virtual void GetNumSubscribersPV(out int numAlive, out int numDead)
@@ -573,11 +596,8 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			{
 				var handlers = handlerWrapper.ReadLockedNullableObject;
 
-				// ReSharper disable once LoopCanBePartlyConvertedToQuery
-				//// NOTE: It's harder to read, ReSharper!
-				foreach (var pseudoDelegate in handlers)
+				foreach (var target in handlers.Select(pseudoDelegate => pseudoDelegate.GetPseudoDelegateTargetIfAlive()))
 				{
-					var target = pseudoDelegate.GetPseudoDelegateTargetIfAlive();
 					if (target != null)
 					{
 						numAlive++;

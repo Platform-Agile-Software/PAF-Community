@@ -32,10 +32,10 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 	/// </summary>
 	/// <history>
 	/// <contribution>
-	/// <author> KRM </author>
-	/// <date>23jan2018 </date>
+	/// <author> JWM(P) </author>
+	/// <date>26jan2018 </date>
 	/// <description>
-	/// New. Refactoring view models.
+	/// New. Took over refactoring view models.
 	/// </description>
 	/// </contribution>
 	/// </history>

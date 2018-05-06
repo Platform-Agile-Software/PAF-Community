@@ -25,6 +25,7 @@
 
 
 using System;
+using PlatformAgileFramework.Annotations;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores
 {
@@ -50,6 +51,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		public object NotificationSource { get; protected set; }
 		#endregion // Fields and Autoproperties
 		#region Constructors
+
 		/// <summary>
 		/// Constructor just pushes in the object that the store is
 		/// being used as a backing source for. This is the
@@ -59,8 +61,12 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
-		public EventArgsSubscriberStore(object eventSourceObject, int purgeIntervalInMilliseconds = -1)
-			:base(null, purgeIntervalInMilliseconds)
+		/// <param name="eventDispatcherPlugin">See Base.</param>
+		public EventArgsSubscriberStore(object eventSourceObject,
+			int purgeIntervalInMilliseconds = -1,
+			[CanBeNull] Action<WeakableSubscriberStore<Action<object, EventArgs>>> eventDispatcherPlugin = null
+			)
+			:base(purgeIntervalInMilliseconds, eventDispatcherPlugin)
 		{
 			NotificationSource = eventSourceObject;
 		}
@@ -72,6 +78,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// </summary>
 		public override void NotifySubscribers()
 		{
+			// Work the purge.
+			base.NotifySubscribers();
+
 			foreach (var subscriber in GetLivePDs())
 //			foreach (var subscriber in GetLiveHandlers())
 			{
@@ -79,6 +88,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 				// NOTE: JMY - we need to do testing to see if creating delegates or just using the
 				// PD is fastest. We may have to use a retargetable delegate if neither is fast
 				// enough.
+				// UPdate: Test reveals that speed is the same for PD's.
 //				subscriber(this, EventArgs.Empty);
 			}
 		}

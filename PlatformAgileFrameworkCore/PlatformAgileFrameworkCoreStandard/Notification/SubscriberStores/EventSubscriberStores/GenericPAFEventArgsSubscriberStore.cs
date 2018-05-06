@@ -23,6 +23,8 @@
 //THE SOFTWARE.
 //@#$&-
 using System;
+using System.ComponentModel;
+using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Events;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores
@@ -37,7 +39,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 	/// <typeparam name="TSource">
 	/// Generic must be a reference type. Make it an <see cref="object"/>
 	/// to reproduce the standard .Net style.
-	/// <see cref="IGenericEventSourcedSubscriberStore{TSource}"/>.
+	/// <see cref="IGenericNotificationSourcedSubscriberStore{TDelegate,TSource}"/>.
 	/// </typeparam>
 	/// <history>
 	/// <contribution>
@@ -50,11 +52,12 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 	/// </history>
 	public class GenericPAFEventArgsSubscriberStore<TPayload, TSource>
 		: WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload>,
-			IGenericNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TSource> where TSource : class
+			IGenericNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TSource>
+		where TSource : class
 	{
 		#region Fields and Autoproperties
 		/// <summary>
-		/// <see cref="INotificationSourcedSubscriberStore{T}"/>
+		/// <see cref="IGenericNotificationSourcedSubscriberStore{TDelegate, TSource}"/>
 		/// </summary>
 		public TSource NotificationSourceItem { get; protected set; }
 
@@ -67,12 +70,11 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 			= new EventArgs<TPayload>(default(TPayload));
 
 		/// <summary>
-		/// More weirdness - this what we expose.
+		/// More weirdness - this what we expose - remember the interface thing, folks.
 		/// </summary>
 		protected IPAFEventArgsProvider<TPayload> m_GenericEventArgs;
 
 		#endregion Fields and Autoproperties
-
 		#region Constructors
 
 		/// <summary>
@@ -87,12 +89,16 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
+		/// <param name="eventDispatherPlugin">See Base.</param>
 		public GenericPAFEventArgsSubscriberStore(TSource eventSource,
-			int purgeIntervalInMilliseconds = -1)
-			:base(purgeIntervalInMilliseconds)
+			int purgeIntervalInMilliseconds = -1,
+			[CanBeNull] Action<WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>>> eventDispatherPlugin = null
+			)
+			:base(purgeIntervalInMilliseconds, eventDispatherPlugin)
 		{
 			NotificationSourceItem = eventSource;
 			m_GenericEventArgs = m_GenericEventArgsImplementation;
+			
 		}
 
 		#endregion // Constructors
@@ -130,6 +136,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 #pragma warning restore 1584
 		public override void NotifySubscribers()
 		{
+			// Work the purge.
+			base.NotifySubscribers();
+
 			foreach (var subscriber in GetLiveHandlers())
 			{
 				subscriber(this, m_GenericEventArgs);

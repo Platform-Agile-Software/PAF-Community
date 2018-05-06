@@ -25,6 +25,7 @@
 
 
 using System;
+using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Notification.SubscriberStores;
 
 namespace PlatformAgileFramework.Notification.TestHelpers
@@ -51,6 +52,7 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 		public int IntegerPayload { get; protected set; }
 		#endregion // Fields and Autpproperties
 		#region Constructors
+
 		/// <summary>
 		/// Constructor just loads the per - instance payload.
 		/// </summary>
@@ -58,8 +60,12 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
-		public WeakableIntegerSubscriberStore(int integerPayload, int purgeIntervalInMilliseconds = -1)
-			:base(null, purgeIntervalInMilliseconds)
+		/// <param name="eventDispatcherPlugin">See Base.</param>
+		public WeakableIntegerSubscriberStore(
+			int integerPayload, int purgeIntervalInMilliseconds = -1,
+			[CanBeNull] Action<WeakableSubscriberStore<Action<int>>> eventDispatcherPlugin = null
+			)
+			:base(purgeIntervalInMilliseconds, eventDispatcherPlugin)
 		{
 			IntegerPayload = integerPayload;
 		}
@@ -71,6 +77,9 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 		/// </summary>
 		public override void NotifySubscribers()
 		{
+			// Work the purge.
+			base.NotifySubscribers();
+
 			foreach (var subscriber in GetLiveHandlers())
 			{
 				subscriber(IntegerPayload);

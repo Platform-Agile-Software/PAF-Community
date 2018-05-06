@@ -22,6 +22,9 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
+
+using System;
+using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.MultiProcessing.Threading.Locks;
 using PlatformAgileFramework.MultiProcessing.Threading.NullableObjects;
 
@@ -50,6 +53,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		protected internal NullableSynchronizedWrapper<TPayload> m_PayloadWrapper;
 		#endregion Fields and Autoproperties
 		#region Constructors
+
 		/// <summary>
 		/// It would have been nice if we could have made a constructor
 		/// that could accept the <typeparamref name="TPayload"/> as
@@ -64,13 +68,23 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// wrapper to null, to indicate that nothing was ever loaded.
 		/// One must load it with the <see cref="Payload"/> property or
 		/// set it dynamically, on a per-call basis in
-		/// <see cref="NotifySubscribers"/>.
+		/// <see cref="NotifySubscribers"/>. It needs a lock anyway, for
+		/// complete thread-safety of the class.
 		/// </summary>
+		/// <param name="eventDispatherPlugin">
+		/// Plugin that dispatches events instead of using the default
+		/// logic which is the same as the .Net event dispatcher, which
+		/// is NOT reliable. This implementation class is designed to
+		/// optionally handle the "undisciplined subscriber" problem. 
+		/// </param>
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
-		protected WeakableSubscriberStore(int purgeIntervalInMilliseconds = -1)
-			:base(null, purgeIntervalInMilliseconds)
+		protected WeakableSubscriberStore(
+			int purgeIntervalInMilliseconds = -1,
+			[CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null
+			)
+			:base( purgeIntervalInMilliseconds, eventDispatherPlugin)
 		{
 			m_PayloadWrapper
 				= new NullableSynchronizedWrapper<TPayload>
@@ -86,6 +100,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		{
 			get
 			{
+				// Utilize the "side-door" on the lock.
 				using (var readablePayloadWrapper = m_PayloadWrapper.GetReadLockedObject())
 				{
 					var readablePayload = readablePayloadWrapper.ReadLockedNullableObject;
@@ -94,6 +109,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 			}
 			set
 			{
+				// Utilize the "side-door" on the lock.
 				using (var readwriteablePayloadWrapper = m_PayloadWrapper.GetWriteLockedObject())
 				{
 					readwriteablePayloadWrapper.WriteLockedNullableObject = value;
@@ -110,10 +126,16 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		}
 		#endregion // Properties
 		#region Methods
+
 		/// <summary>
-		/// <see cref="IPayloadWeakableSubscriberStore{TDelegate,TPayload}"/>
+		/// <see cref="IPayloadWeakableSubscriberStore{TDelegate,TPayload}"/>.
+		/// Just does a <see cref="WeakableSubscriberStore{TDelegate}.PurgeCountdown"/>.
+		/// This method must be overridden to do anything.
 		/// </summary>
-		public abstract void NotifySubscribers(TPayload payload);
+		public virtual void NotifySubscribers(TPayload payload)
+		{
+			PurgeCountdown();
+		}
 
 		/// <summary>
 		/// <see cref="IPayloadWeakableSubscriberStore{TDelegate,TPayload}"/>

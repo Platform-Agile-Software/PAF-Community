@@ -24,7 +24,9 @@
 //@#$&-
 
 
+using System;
 using System.ComponentModel;
+using PlatformAgileFramework.Annotations;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores
 {
@@ -52,6 +54,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		public object NotificationSource { get; protected set; }
 		#endregion // Fields and Autoproperties
 		#region Constructors
+
 		/// <summary>
 		/// Constructor just pushes in the object that the store is
 		/// being used as a backing source for. This is the
@@ -61,8 +64,12 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
-		public PropertyChangedEventArgsSubscriberStore(object eventSourceObject, int purgeIntervalInMilliseconds = -1)
-			:base(purgeIntervalInMilliseconds)
+		/// <param name="eventDispatherPlugin">See Base.</param>
+		public PropertyChangedEventArgsSubscriberStore(object eventSourceObject,
+			int purgeIntervalInMilliseconds = -1,
+			[CanBeNull] Action<WeakableSubscriberStore<PropertyChangedEventHandler>> eventDispatherPlugin = null
+			)
+			: base(purgeIntervalInMilliseconds, eventDispatherPlugin)
 		{
 			NotificationSource = eventSourceObject;
 		}
@@ -74,6 +81,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// </summary>
 		public override void NotifySubscribers()
 		{
+			// Work the purge.
+			base.NotifySubscribers();
+
 			foreach (var subscriber in GetLiveHandlers())
 			{
 				subscriber(NotificationSource, Payload);

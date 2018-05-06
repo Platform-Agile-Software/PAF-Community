@@ -123,3 +123,8 @@ MainLogger
 DebugLoggerHeader
 [Default]
 Hello from debugging logger
+[Default - 05/06/2018 17:08:38]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
