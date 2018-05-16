@@ -28,13 +28,56 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 {
 	/// <summary>
 	/// This is a general model of the lifecycle of a view from the controller's perspective.
-	/// These phases are platform-independent, as are the view controller's
+	/// These phases are platform-independent, as are the view controller's.
 	/// </summary>
 	public interface IGenericViewLifecycle
 	{
+		/// <summary>
+		/// This method is called when a controller's view is presented
+		/// to the user, becoming an active view.
+		/// </summary>
+		/// <returns>
+		/// <see cref="Task"/> to be examined for completion status.
+		/// </returns>
+		/// <exceptions>
+		/// Any exceptions should be attached to the <see cref="Task"/>.
+		/// </exceptions>
 		Task OnAppearing();
+		/// <summary>
+		/// This method is called when the controller or view is created.
+		/// Sometimes a controller is expensive in terms of resources used
+		/// and this is where those resources are created.
+		/// </summary>
+		/// <returns>
+		/// <see cref="Task"/> to be examined for completion status.
+		/// </returns>
+		/// <exceptions>
+		/// Any exceptions should be attached to the <see cref="Task"/>.
+		/// </exceptions>
 		Task OnCreating();
+		/// <summary>
+		/// This method is called when the controller or view is inactive.
+		/// This assumes that controller/view can be kept alive, but simply
+		/// hidden from view.
+		/// </summary>
+		/// <returns>
+		/// <see cref="Task"/> to be examined for completion status.
+		/// </returns>
+		/// <exceptions>
+		/// Any exceptions should be attached to the <see cref="Task"/>.
+		/// </exceptions>
 		Task OnDisappearing();
+		/// <summary>
+		/// This method is called when the controller or view is no
+		/// longer needed. Sometimes a controller is expensive in terms
+		/// of resources used and this is where those resources are released.
+		/// </summary>
+		/// <returns>
+		/// <see cref="Task"/> to be examined for completion status.
+		/// </returns>
+		/// <exceptions>
+		/// Any exceptions should be attached to the <see cref="Task"/>.
+		/// </exceptions>
 		Task OnDestroying();
 	}
 }
