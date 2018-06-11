@@ -23,9 +23,8 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Manufacturing;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator
 {

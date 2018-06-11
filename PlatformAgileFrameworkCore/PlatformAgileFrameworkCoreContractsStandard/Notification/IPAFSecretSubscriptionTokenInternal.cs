@@ -26,7 +26,7 @@
 using System;
 using PlatformAgileFramework.Security;
 
-namespace PlatformAgileFramework.Events
+namespace PlatformAgileFramework.Notification
 {
 	/// <summary>
 	/// Interface describes a subscription token.

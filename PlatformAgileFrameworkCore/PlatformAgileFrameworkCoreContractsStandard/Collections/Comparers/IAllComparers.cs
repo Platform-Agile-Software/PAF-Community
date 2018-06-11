@@ -37,7 +37,7 @@ namespace PlatformAgileFramework.Collections.Comparers
 	/// <typeparam name="T">
 	/// Any Type that can be compared.
 	/// </typeparam>
-	public interface IAllComparers<T> : IComparer<T>, IEqualityComparer<T>, IComparer, IEqualityComparer
+	public interface IAllComparers<in T> : IComparer<T>, IEqualityComparer<T>, IComparer, IEqualityComparer
 	{
 	}
 }

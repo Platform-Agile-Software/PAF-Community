@@ -29,7 +29,7 @@ using PlatformAgileFramework.TypeHandling.PartialClassSupport;
 
 #endregion // Using Directives
 
-namespace PlatformAgileFramework.Notification.Connectors
+namespace PlatformAgileFramework.Connections
 {
 	/// <summary>
 	/// Used pseudoenums here because of past problems in mono handling

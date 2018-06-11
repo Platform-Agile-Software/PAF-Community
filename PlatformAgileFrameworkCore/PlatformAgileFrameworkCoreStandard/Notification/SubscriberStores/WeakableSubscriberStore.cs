@@ -30,12 +30,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.MultiProcessing.Threading.Locks;
 using PlatformAgileFramework.MultiProcessing.Threading.NullableObjects;
 using PlatformAgileFramework.Notification.Helpers;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling.Delegates;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 

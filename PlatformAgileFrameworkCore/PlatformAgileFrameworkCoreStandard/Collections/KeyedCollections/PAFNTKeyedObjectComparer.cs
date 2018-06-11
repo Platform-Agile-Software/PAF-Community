@@ -40,6 +40,7 @@ namespace PlatformAgileFramework.Collections.KeyedCollections
 	/// <typeparam name="T">
 	/// Any reference type implementing <see cref="IPAFNameAndTypeKeyedObject"/>.
 	/// </typeparam>
+	// ReSharper disable once InconsistentNaming
 	public class PAFNTKeyedObjectComparer<T> : AbstractComparerShell<T>
 		where T : IPAFNameAndTypeKeyedObject
 	{
@@ -47,7 +48,7 @@ namespace PlatformAgileFramework.Collections.KeyedCollections
 		/// <summary>
 		/// Gives access to our wrapped comparer.
 		/// </summary>
-		protected PAFNameAndTypeComparer NAndTComparer { get; private set; }
+		protected PAFNameAndTypeComparer NAndTComparer { get; }
 		#endregion // Class AutoProperties
 		#region Constructors
 		/// <summary>

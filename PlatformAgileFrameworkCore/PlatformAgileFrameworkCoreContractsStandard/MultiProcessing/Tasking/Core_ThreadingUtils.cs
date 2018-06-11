@@ -35,7 +35,7 @@ using CED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFCon
 
 #endregion
 
-namespace PlatformAgileFramework.MultiProcessing.Threading
+namespace PlatformAgileFramework.MultiProcessing.Tasking
 {
 	/// <summary>
 	/// This class implements simple utilities that assist in managing threads.

@@ -54,7 +54,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// This is the stream we are built with.
 		/// </summary>
-		private Stream m_StreamInUse;
+		private readonly Stream m_StreamInUse;
 		#endregion // Fields and AutoProperies
 		#region Constructors
 

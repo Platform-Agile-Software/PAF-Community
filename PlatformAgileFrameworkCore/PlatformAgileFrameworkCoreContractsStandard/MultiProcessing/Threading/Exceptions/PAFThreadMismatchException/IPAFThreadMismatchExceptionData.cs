@@ -23,7 +23,6 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using System.Collections.Generic;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;

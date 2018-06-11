@@ -24,9 +24,9 @@
 //@#$&-
 
 using System;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.MultiProcessing.Threading.Locks;
 using PlatformAgileFramework.MultiProcessing.Threading.NullableObjects;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores
 {

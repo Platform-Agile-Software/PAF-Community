@@ -8,7 +8,7 @@ namespace PlatformAgileFramework.Collections.Enumerators
 	/// for a collection of items. The enumeration is arbitrary and can be infinite.
 	/// </summary>
 	/// <typeparam name="T">Type that is to be enumerated.</typeparam>
-	public interface IPAFEnumerableProvider<T>: IDisposable
+	public interface IPAFEnumerableProvider<out T>: IDisposable
 	{
 		#region Methods
 		/// <summary>

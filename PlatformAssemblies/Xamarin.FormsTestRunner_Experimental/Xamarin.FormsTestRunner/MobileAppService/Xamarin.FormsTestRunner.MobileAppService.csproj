@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\OptionalLibraries\BasicxUnit\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj" />
     <ProjectReference Include="..\..\..\..\PAFNWSTests\PAF.CoreNetStandard.Tests.csproj" />
-    <ProjectReference Include="..\..\..\..\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
-    <ProjectReference Include="..\..\..\..\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
   </ItemGroup>
 </Project>

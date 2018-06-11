@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlatformAgileFrameworkCore.Manufacturing
+namespace PlatformAgileFramework.Manufacturing
 {
 	/// <summary>
 	///	Useful extensions for objects.

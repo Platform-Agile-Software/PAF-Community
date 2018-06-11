@@ -23,9 +23,6 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Logging;
 

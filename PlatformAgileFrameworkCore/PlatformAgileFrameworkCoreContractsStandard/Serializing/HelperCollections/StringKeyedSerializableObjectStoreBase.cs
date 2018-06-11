@@ -110,7 +110,7 @@ namespace PlatformAgileFramework.Serializing.HelperCollections
 			{
 				m_IReaderWriterLock.EnterReadLock();
 				var names = new string[m_Objects.Keys.Count];
-				this.m_Objects.Keys.CopyTo(names, 0);
+				m_Objects.Keys.CopyTo(names, 0);
 				m_IReaderWriterLock.ExitReadLock();
 				return names;
 			}
@@ -125,7 +125,7 @@ namespace PlatformAgileFramework.Serializing.HelperCollections
 		/// </summary>
 		protected internal virtual IDictionary<string, object> ObjectStore
 		{
-			get { return this.m_Objects; }
+			get { return m_Objects; }
 		}
 		/// <summary>
 		/// For synchronized access.
@@ -251,7 +251,7 @@ namespace PlatformAgileFramework.Serializing.HelperCollections
 		/// </exceptions>
 		public virtual bool TryGetItem(string key, out object item)
 		{
-			return this.ObjectStore.TryGetValue(key, out item);
+			return ObjectStore.TryGetValue(key, out item);
 		}
 		#endregion // ISerializableObjectStore Implementation
 		#region IPAFSerializableCollection<KeyValuePair> Implementation

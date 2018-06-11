@@ -25,7 +25,7 @@
 
 
 using System;
-using PlatformAgileFramework.Annotations;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores
 {

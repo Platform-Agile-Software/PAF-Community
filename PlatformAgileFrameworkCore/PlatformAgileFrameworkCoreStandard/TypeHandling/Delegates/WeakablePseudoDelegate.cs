@@ -27,10 +27,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Notification.Exceptions;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling.MethodHelpers;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 using PlatformAgileFramework.TypeHandling.WeakBindings;

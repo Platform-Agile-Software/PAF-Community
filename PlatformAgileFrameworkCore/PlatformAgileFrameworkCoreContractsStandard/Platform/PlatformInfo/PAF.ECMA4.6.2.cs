@@ -24,7 +24,8 @@
 //@#$&-
 
 // ReSharper disable once RedundantUsingDirective
-using System;
+
+
 
 // ReSharper disable once CheckNamespace
 namespace PlatformAgileFramework.Platform

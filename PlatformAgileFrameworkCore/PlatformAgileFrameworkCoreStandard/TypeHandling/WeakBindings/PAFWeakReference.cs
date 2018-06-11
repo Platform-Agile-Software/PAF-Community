@@ -72,7 +72,7 @@ namespace PlatformAgileFramework.TypeHandling.WeakBindings
 		/// <summary>
 		/// Backing...
 		/// </summary>
-		private bool m_IsWeak;
+		private readonly bool m_IsWeak;
 
 		#endregion // Class Fields and AutoProperties
 

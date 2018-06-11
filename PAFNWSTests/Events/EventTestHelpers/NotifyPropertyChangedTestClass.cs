@@ -24,9 +24,9 @@
 //@#$&-
 
 using System.ComponentModel;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Notification.Helpers;
 using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Events.EventTestHelpers
 {

@@ -46,7 +46,7 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Attributes
 		/// <remarks>
 		/// Private visibility since we don't expect the use of a surrogate.
 		/// </remarks>
-		private PAFSynchronizedVisibilityType m_SynchronizedVisibilityType;
+		private readonly PAFSynchronizedVisibilityType m_SynchronizedVisibilityType;
 		#endregion // Fields and Autoproperties
 		#region Constructors
 		/// <summary>

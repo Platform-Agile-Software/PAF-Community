@@ -61,7 +61,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// <typeparam name="T">
 	/// Subinterface of <see cref="IPAFService"/>.
 	/// </typeparam>
-	public interface IPAFServicePipelineObject<T>:
+	public interface IPAFServicePipelineObject<in T>:
 		IPAFServicePipelineObject where T: class, IPAFService
 	{
 		#region Properties

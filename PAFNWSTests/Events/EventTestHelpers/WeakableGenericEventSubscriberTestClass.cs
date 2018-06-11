@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.Notification.SubscriberStores;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Events.EventTestHelpers
 {

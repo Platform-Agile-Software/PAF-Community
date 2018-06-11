@@ -58,20 +58,19 @@ namespace PlatformAgileFramework.TypeHandling.PartialClassSupport
 		/// <summary>
 		/// Gets the integer value for the enum.
 		/// </summary>
-		public T Value { get; private set; }
+		public T Value { get; }
 		/// <summary>
 		/// Gets the string name for the enum.
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name { get; }
 		#endregion // Class Fields And Autoproperties
 		#region Constructors
 
 	    static PEValue()
 	    {
-	        PAFTED data;
-	        if ((typeof(T) == typeof(byte)) || (typeof(T) == typeof(short)) || (typeof(T) == typeof(int)) ||
+		    if ((typeof(T) == typeof(byte)) || (typeof(T) == typeof(short)) || (typeof(T) == typeof(int)) ||
 	            (typeof(T) == typeof(long))) return;
-	        data = new PAFTED(typeof(T));
+	        var data = new PAFTED(typeof(T));
 	        throw new PAFStandardException<PAFTED>
 	            (data, PAFTypeMismatchExceptionMessageTags.GENERIC_MUST_BE_SIGNED_INTEGER_TYPE);
 	    }

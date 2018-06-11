@@ -1,8 +1,6 @@
 using System;
 
-
-
-namespace PlatformAgileFrameworkCore.MultiProcessing.Threading.NullableObjects
+namespace PlatformAgileFramework.MultiProcessing.Threading.NullableObjects
 {
 	/// <summary>
 	/// This interface prescribes members for a type that is designed to wrap an object that

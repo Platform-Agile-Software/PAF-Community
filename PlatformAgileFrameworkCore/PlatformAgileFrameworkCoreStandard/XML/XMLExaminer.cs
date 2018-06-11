@@ -113,11 +113,11 @@ namespace PlatformAgileFramework.XML
 		/// XMLreader error is hooked.
 		/// </summary>
 		public IList<Exception> ExceptionList { get; protected set; }
-	
+
 		/// <summary>
 		/// Overall settings we always want.
 		/// </summary>
-		static readonly XmlReaderSettings s_GlobalSettings = new XmlReaderSettings();
+		private static readonly XmlReaderSettings s_GlobalSettings = new XmlReaderSettings();
 		#endregion // Class Fields and Autoproperties
 		#region Constructors
 		#region Static Constructor

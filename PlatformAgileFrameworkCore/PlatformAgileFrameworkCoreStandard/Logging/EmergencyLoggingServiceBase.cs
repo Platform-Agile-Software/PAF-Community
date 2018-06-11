@@ -25,13 +25,13 @@
 
 using System;
 using System.Collections.Generic;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.FileAndIO;
 using PlatformAgileFramework.FileAndIO.FileAndDirectoryService;
 using PlatformAgileFramework.FrameworkServices;
 using PlatformAgileFramework.FrameworkServices.Exceptions;
 using PlatformAgileFramework.Platform;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
@@ -140,7 +140,7 @@ namespace PlatformAgileFramework.Logging
 		/// <summary>
 		/// Handle on myself.
 		/// </summary>
-		protected internal IPAFLoggingService MeAsLogger { get; private set; }
+		protected internal IPAFLoggingService MeAsLogger { get; }
 		/// <summary>
 		/// The main logger is <see langword="null"/> until constructed.
 		/// </summary>

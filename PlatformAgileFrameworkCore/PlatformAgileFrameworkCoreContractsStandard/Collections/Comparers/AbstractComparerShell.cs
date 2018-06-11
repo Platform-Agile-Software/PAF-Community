@@ -78,15 +78,17 @@ namespace PlatformAgileFramework.Collections.Comparers
 		/// <summary>
 		/// This is the comparer that is used to pre-compare before the main comparison.
 		/// </summary>
-		IComparer<T> m_iPreComparer;
+		private IComparer<T> m_iPreComparer;
+
 		/// <summary>
 		/// This is the comparer that is used for the main comparison.
 		/// </summary>
-		IComparer<T> m_iMainComparer;
+		private IComparer<T> m_iMainComparer;
+
 		/// <summary>
 		/// This is the comparer that is used to post-compare after the main comparison.
 		/// </summary>
-		IComparer<T> m_iPostComparer;
+		private IComparer<T> m_iPostComparer;
 		#endregion // Class Fields
 		#region Properties
 		/// <summary>

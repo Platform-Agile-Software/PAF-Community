@@ -23,8 +23,6 @@
 //THE SOFTWARE.
 //@#$&-
 
-using PlatformAgileFramework.Notification.Connectors;
-
 namespace PlatformAgileFramework.Connections.BaseConnectors
 {
 	/// <summary>

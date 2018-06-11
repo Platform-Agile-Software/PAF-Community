@@ -133,64 +133,81 @@ namespace PlatformAgileFramework.Platform
 		/// Platform-specific information. Internal version is wide-open.
 		/// </summary>
 		internal static IPlatformInfo PlatformInfoInternal { get; set; }
+
 		//// These four are platform-specific, but not part of .Net.
 		//// Noted (krm), these have all been changed to currentplatform, since these
 		//// are basic sanity rules, anyway.
 		// We actually want files to be transported across platforms, so we want
 		// to limit length for all.
-		const int MAX_FILENAME_LENGTH = 260;
-		const int MAX_DIRECTORYNAME_LENGTH = 248;
+		private const int MAX_FILENAME_LENGTH = 260;
+		private const int MAX_DIRECTORYNAME_LENGTH = 248;
+
 		// Needed to validate a filename.
-		const string FILENAME_REGEX = @"^(([a-zA-Z]:)|.)[^:]*$";
+		private const string FILENAME_REGEX = @"^(([a-zA-Z]:)|.)[^:]*$";
+
 		// Prohibited base filenames.
-		static readonly string[] s_ProhibitedBaseFileNames
+		private static readonly string[] s_ProhibitedBaseFileNames
 			= {"CON", "PRN", "AUX", "NUL",
 				"COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
 				"LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
+
 		// All the filename and directory characters we don't like. These are loaded dynamically.
-		static readonly char[] s_ProhibitedFileNameChars;
-		static readonly char[] s_ProhibitedPathChars;
+		private static readonly char[] s_ProhibitedFileNameChars;
+		private static readonly char[] s_ProhibitedPathChars;
+
 		// Eliminate wildcards, .bak, etc.
-		static readonly string[] s_ProhibitedFileNameExtensions;
+		private static readonly string[] s_ProhibitedFileNameExtensions;
+
 		// These are the ones we never like, no matter what OS.
-		static readonly char[] s_GenerallyProhibitedFileNameChars
+		private static readonly char[] s_GenerallyProhibitedFileNameChars
 			= { '\"', '<', '>', '|', '\0', (char)1, (char)2, (char)3, (char)4, (char)5, (char)6,
 				  (char)7, (char)8, (char)9, (char)10, (char)11, (char)12, (char)13, (char)14,
 				  (char)15, (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22,
 				  (char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30,
 				  (char)31, ':', '*', '?', '\\', '/' };
-		static readonly char[] s_GenerallyProhibitedPathChars = { };
+		private static readonly char[] s_GenerallyProhibitedPathChars = { };
+
 		// We don't want .bak files accessed without special permission.
-		static readonly string[] s_GenerallyProhibitedFilenameExtensions = { "*", "BAK" };
+		private static readonly string[] s_GenerallyProhibitedFilenameExtensions = { "*", "BAK" };
+
 		// Volume separator character. This is loaded dynamically.
-		static readonly char s_VolumeSeparatorChar;
+		private static readonly char s_VolumeSeparatorChar;
+
 		// End of line terminator. This is loaded dynamically.
 		// ReSharper disable once InconsistentNaming
-		static readonly string s_LTRMN = Environment.NewLine;
+		private static readonly string s_LTRMN = Environment.NewLine;
+
 		// Indicates a "missing character" in methods that expect
 		// char args.
-		static readonly char s_NoChar;
+		private static readonly char s_NoChar;
+
 		// "Standard" directory separator character. This is loaded dynamically.
-		static char s_DirectorySeparatorChar;
+		private static char s_DirectorySeparatorChar;
+
 		// "Alternative" directory separator character. This is loaded dynamically.
 		// Update for .Net 2.0.
-		static char s_AlternativeDirectorySeparatorChar;
+		private static char s_AlternativeDirectorySeparatorChar;
+
 		// A set of characters that can be used as path separators, not including
 		// a volume separator. These are loaded dynamically.
-		static char[] s_DirectorySeparatorChars;
+		private static char[] s_DirectorySeparatorChars;
+
 		// String versions of the above, so we have them for input to method
 		// calls that require strings and we don't have to burden the GC by
 		// creating them on the fly.
-		static string[] s_DirectorySeparatorStrings;
+		private static string[] s_DirectorySeparatorStrings;
+
 		// Path separator characters including volume separator. These are loaded
 		// dynamically.
-		static char[] s_FilePathSeparatorChars;
+		private static char[] s_FilePathSeparatorChars;
+
 		// Directory "up" indicators used in relative directory spcifications.
 		// (e.g. "..\" and "../". Loaded dynamically.
-		static string[] s_DirectoryUpStrings;
+		private static string[] s_DirectoryUpStrings;
+
 		// "Current" directory indicators used in relative directory spcifications.
 		// (e.g. ".\" and "./". Loaded dynamically.
-		static string[] s_CurrentDirectoryStrings;
+		private static string[] s_CurrentDirectoryStrings;
 		///////////////////////////////////////////////////////////////////////
 		// Endian stuff.
 		///////
@@ -216,49 +233,57 @@ namespace PlatformAgileFramework.Platform
 				"telnet:", "nfs:", "pop:"};
 		// "Custom" URL prefixes. Supplied by client.
 		internal static string[] s_CustomInternetURLSchemeStrings;
+
 		// The total set of internet and/or remote URL prefixes. Loaded dynamically.
-		static readonly string[] s_RemoteURLSchemeStrings;
+		private static readonly string[] s_RemoteURLSchemeStrings;
+
 		// The standard "local" locator prefixes. These indicate a locator, but
 		// one that is known not to resolve to a remote location.
-		static readonly string[] s_LocalURLSchemeStrings
+		private static readonly string[] s_LocalURLSchemeStrings
 			= { "file:" };
+
 		// All locator prefixes, both internet and non-internet. Built dynamically.
-		static readonly string[] s_URLSchemeStrings;
+		private static readonly string[] s_URLSchemeStrings;
 		// This string, found anywhere, is used to detect a URN that is resolved with
 		// a locator. Use this to capture things like file://SomeFilePath as well as
 		// the internet URL's.
 		private const string URL_INDICATOR_STRING = "://";
+
 		// UNC indicator string array. This is constructed dynamically in the static
 		// class constructor and will depend on what is loaded as an alternative
 		// prexfix (including possibly a null value). The platform dependency is
 		// marked as "current", but obviously that might not hold if a system supports
 		// three UNC strings, for example.
-		static readonly string[] s_UNCPrefixes;
+		private static readonly string[] s_UNCPrefixes;
+
 		// The total set of URI prefixes. These are URIs but not URLs. Supplied by
 		// client. These are needed instead of just a check for a ":" past the
 		// volume descriptor since we must be backward compatible with "symbolic"
 		// directories.
-		static readonly string[] s_URISchemeStrings = { "mailto:", "urn:", "data:" // Client load more data here.
+		private static readonly string[] s_URISchemeStrings = { "mailto:", "urn:", "data:" // Client load more data here.
 		};
+
 		// The set of known URNs that we deal with and want to identify.
 		// Golea clients: For handling SD's, scan these first to see if the string
 		// in question is a known URN. If not, assume it is a SD. These prefixes
 		// should never be used as SDs. It is useful to check a SD that a user
 		// wants to define against this set. Built dynamically.
-		static readonly string[] s_KnownURNStrings;
+		private static readonly string[] s_KnownURNStrings;
 		// Holds installed version strings. protected internal for extensions.
 // Awaiting rewrite for Non-Windows.
 // ReSharper disable UnassignedReadonlyField
 		/// <remarks/>
 		protected internal static readonly IList<string> s_InstalledVersions;
-// ReSharper restore UnassignedReadonlyField
+
+		// ReSharper restore UnassignedReadonlyField
 		///////////////////////////////////////////////////////////////////////
 		// (e.g. ".\" and "./" and "../" and "..\"). Loaded dynamically.
-		static string[] s_DirectoryNavigationStrings;
+		private static string[] s_DirectoryNavigationStrings;
+
 		// Total set of directory punctuation strings, including up, current
 		// and separators. (e.g. ".\" and "./" and "../" and "..\" and "/" and "\".
 		// Loaded dynamically.
-		static string[] s_DirectoryPunctuationStrings;
+		private static string[] s_DirectoryPunctuationStrings;
 		///////////////////////////////////////////////////////////////////////
 		// (e.g. ".exe" and ".app"). Loaded dynamically or initialized by somebody.
 		internal static string s_ExecutableFileExtensionStringWithDot;

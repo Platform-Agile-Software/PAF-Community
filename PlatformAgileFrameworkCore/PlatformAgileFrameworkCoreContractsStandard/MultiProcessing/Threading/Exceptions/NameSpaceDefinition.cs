@@ -1,5 +1,5 @@
 
-namespace GoshalomaCore.MultiProcessing.Threading.Exceptions
+namespace PlatformAgileFramework.MultiProcessing.Threading.Exceptions
 {
 	/// <summary>
 	/// <para>

@@ -23,17 +23,16 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using System.Collections.Generic;
 
 namespace PlatformAgileFramework.Collections.Enumerators
-{	/// <summary>
+{   /// <summary>
 	/// Wraps an <see cref="IEnumerable{T}"/> and manipulates it's enumerator.
 	/// </summary>
 	/// <typeparam name="T">Type that is to be enumerated.</typeparam>
 	/// <threadsafety>
 	/// Implementations need not necessarily be thread-safe. The enumerators handed
-	/// out by providers like <see cref="IPAFResettableEnumerableProvider{T}"/> are
+	/// out by providers like <c>IPAFResettableEnumerableProvider{T}</c> are
 	/// normally NOT expected to be thread-safe.
 	/// </threadsafety>
 	/// <history>
@@ -41,11 +40,11 @@ namespace PlatformAgileFramework.Collections.Enumerators
 	/// <date> 15oct2012 </date>
 	/// <contribution>
 	/// <para>
-	/// New, so we don't have to use <see cref="IPAFResettableEnumerable{T}"/>.
+	/// New, so we don't have to use <c>IPAFResettableEnumerable{T}</c>.
 	/// </para>
 	/// </contribution>
 	/// </history>
-	public interface IPAFEnumeratorWrapper<T>: IEnumerator<T>, IEnumerable<T>
+	public interface IPAFEnumeratorWrapper<out T>: IEnumerator<T>, IEnumerable<T>
 {
 		#region Properties
 		/// <summary>

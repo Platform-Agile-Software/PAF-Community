@@ -170,17 +170,21 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
             bool findInheritedAttributes = false)
         {
             // tack on suffix if caller forgot.
-            if (!string.IsNullOrEmpty(typeStringOfAttribute)
-                &&
-                !typeStringOfAttribute.Contains("Attribute"))
-                typeStringOfAttribute += "Attribute";
-            TypeInfo typeInfo;
+	        if (!string.IsNullOrEmpty(typeStringOfAttribute)
+	            &&
+	            // ReSharper disable once PossibleNullReferenceException
+				// Rare ReSharper bug
+	            !typeStringOfAttribute.Contains("Attribute"))
+	        {
+		        typeStringOfAttribute += "Attribute";
+	        }
 
-            var col = new Collection<CustomAttributeData>();
+	        var col = new Collection<CustomAttributeData>();
             do
             {
                 var aDatas = memberInfo.CustomAttributes;
                 if (aDatas == null) return null;
+	            // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (var aData in aDatas)
                 {
                     var aDataType = aData.AttributeType;
@@ -192,7 +196,8 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
                     }
                 }
 
-                if (((typeInfo = (memberInfo as TypeInfo)) == null) || (!findInheritedAttributes)) break;
+	            TypeInfo typeInfo;
+	            if (((typeInfo = (memberInfo as TypeInfo)) == null) || (!findInheritedAttributes)) break;
 
                 // Bail out if we're at the root. Writing it this way is a bit more clear.
                 Type type = typeInfo.AsType();
@@ -627,7 +632,6 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
 				{
 					// ReSharper disable once InconsistentNaming
 					var foundNSQTN = type.FullName;
-//						PAFTypeHolderBase.GetNamespaceQualifiedTypeName(type.AssemblyQualifiedName);
 					if (string.CompareOrdinal(foundNSQTN, namespaceQualifiedTypeName) == 0)
 					{
 						foundType = type;

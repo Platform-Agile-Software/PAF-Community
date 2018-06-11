@@ -208,8 +208,8 @@ namespace PlatformAgileFramework.Collections
 		/// <summary>
 		/// This extension method converts any <see cref="IEnumerable{T}"/> into a
 		/// list of elements that are of a different type, with possibly fewer
-		/// elelemnts. It checks each element to see if it convertible
-		/// (<see cref="TypeHandling.TypeExtensionMethods.IsTypeAssignableFrom"/>) and converts it if it is.
+		/// elements. It checks each element to see if it convertible
+		/// and converts it if it is.
 		/// </summary>
 		/// <typeparam name="T">Generic Type of the enumerable.</typeparam>
 		/// <typeparam name="U">Generic type of the outgoing list.</typeparam>

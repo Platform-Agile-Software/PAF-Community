@@ -716,6 +716,7 @@ namespace PlatformAgileFramework.FileAndIO
 			IList<string> directorySegments = null;
 
 			// We must build up the directory spec. if we are recursive.
+			// ReSharper disable once JoinDeclarationAndInitializer
 			string finishedSpec;
 
 			// Cater to the fact that directory symbols can be nested.

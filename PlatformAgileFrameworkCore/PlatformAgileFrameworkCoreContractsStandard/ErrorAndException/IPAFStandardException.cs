@@ -6,7 +6,7 @@
 	/// <typeparam name="T">
 	/// Generic which is constrained in this class.
 	/// </typeparam>
-	public interface IPAFStandardException<T>:
+	public interface IPAFStandardException<out T>:
 		IPAFExceptionBase<T> where T : IPAFStandardExceptionData
 	{
 	}

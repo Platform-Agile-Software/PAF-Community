@@ -25,8 +25,6 @@
 
 #region Using Directives
 
-using System;
-
 #endregion
 
 // ReSharper disable once CheckNamespace

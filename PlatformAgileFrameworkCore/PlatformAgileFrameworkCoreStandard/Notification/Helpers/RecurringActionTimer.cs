@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 
 namespace PlatformAgileFramework.Notification.Helpers
 {
+
 	/// <summary>
 	/// Provides a container for a recurring action. This implementation uses
 	/// a long-running task, since this is presumed to be a recurring action,
 	/// whose operation would overload the thread pool. In order to begin
 	/// execution, it is simply necessary to set the timing
 	/// </summary>
+	/// <threadsafety>Safe.</threadsafety>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
@@ -19,8 +21,15 @@ namespace PlatformAgileFramework.Notification.Helpers
 	/// </contribution>
 	/// </history>
 	/// <remarks>
+	/// <para>
+	/// This class currently only works reliably on .Net 4.*. There is a known
+	/// problem in .Net standard 2.0 TPL that causes tasks to be destroyed
+	/// early.  
+	/// </para>
+	/// <para>
 	/// As one can imagine, this class requires extensive concurrent testing.
 	/// This is the reason for the accessibility of some of the internal members.
+	/// </para>
 	/// </remarks>
 	public class RecurringActionTimer : IRecurringActionTimer
 	{
@@ -143,8 +152,10 @@ namespace PlatformAgileFramework.Notification.Helpers
 					= currentStateOfRecurranceTime - timeItTookInMilliseconds;
 
 				// Delay the appropriate time if required.
+				// NOTE: JMY Task is null sometimes and it should not be.
 				if (possibleTimeToDelayIfPositive > 0)
-					m_ActionLongRunningTask.Wait(possibleTimeToDelayIfPositive);
+					m_ActionLongRunningTask?.Wait(possibleTimeToDelayIfPositive);
+					//m_ActionLongRunningTask.Wait(possibleTimeToDelayIfPositive);
 			}
 
 			// This is the one shot case. This is placed at the end of the run loop
@@ -163,7 +174,8 @@ namespace PlatformAgileFramework.Notification.Helpers
 
 			// Start the disposal task.
 			// NOTE: JMY Task is null sometimes and it should not be.
-			m_ActionLongRunningTask.ContinueWith(TaskContinuationMethod,
+			//m_ActionLongRunningTask.ContinueWith(TaskContinuationMethod,
+				m_ActionLongRunningTask?.ContinueWith(TaskContinuationMethod,
 				DISPOSAL_TASK_CONTINUATION_OPTIONS);
 			return 0;
 		}

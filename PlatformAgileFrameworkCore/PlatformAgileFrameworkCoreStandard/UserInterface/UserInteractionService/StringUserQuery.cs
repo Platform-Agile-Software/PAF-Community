@@ -54,12 +54,14 @@ namespace PlatformAgileFramework.UserInterface.UserInteractionService
 		/// the user if none is specified in the method calls.
 		/// </summary>
 		protected static readonly string s_DefaultNegativeResponseString = "no";
+
 		// These are the strings that establish the query/response for this instance.
-		readonly string m_UserPromptString;
-		readonly string m_PositiveResponseString;
-		readonly string m_NegativeResponseString;
+		private readonly string m_UserPromptString;
+		private readonly string m_PositiveResponseString;
+		private readonly string m_NegativeResponseString;
+
 		// This tells if we accept <CR> for a positive response.
-		readonly bool m_AcceptCrForPositive;
+		private readonly bool m_AcceptCrForPositive;
 		#endregion
 		#region Constructors
 		/// <summary>

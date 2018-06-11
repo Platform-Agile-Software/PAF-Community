@@ -37,7 +37,7 @@ namespace PlatformAgileFramework.TypeHandling
 	/// </typeparam>
 	public class EnumeratedSingleton<T> : IEnumerable<T>
 	{
-		readonly List<T> m_List = new List<T>();
+		private readonly List<T> m_List = new List<T>();
 		/// <summary>
 		/// Just puts the typed object into a list.
 		/// </summary>

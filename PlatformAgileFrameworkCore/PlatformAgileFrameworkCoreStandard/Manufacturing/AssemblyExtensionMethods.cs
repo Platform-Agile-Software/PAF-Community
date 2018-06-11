@@ -64,12 +64,7 @@ namespace PlatformAgileFramework.Manufacturing
                 return dictionary;
             }
 
-            string culture;
-            string version;
-            string strongName;
-            string publicKeyToken;
-
-            // Name is always on the front with no label.
+	        // Name is always on the front with no label.
             var name = components[0];
             dictionary["Name"] = components[0].Trim();
 
@@ -80,14 +75,14 @@ namespace PlatformAgileFramework.Manufacturing
             {
                 if (components[strNum].Contains("Culture"))
                 {
-                    culture = components[strNum].Substring(components[strNum].LastIndexOf("=") + 1);
+                    var culture = components[strNum].Substring(components[strNum].LastIndexOf("=", StringComparison.Ordinal) + 1);
                     culture = culture.Trim();
                     lastNonPositionalElementIndex = strNum;
                     dictionary["Culture"] = culture;
                 }
                 if (components[strNum].Contains("Version"))
                 {
-                    version = components[strNum].Substring(components[strNum].LastIndexOf("=") + 1);
+                    var version = components[strNum].Substring(components[strNum].LastIndexOf("=", StringComparison.Ordinal) + 1);
                     version = version.Trim();
                     lastNonPositionalElementIndex = strNum;
                     dictionary["Version"] = version;
@@ -100,13 +95,13 @@ namespace PlatformAgileFramework.Manufacturing
                 // We are partial style. See if we have other stuff on the end.
                 if (components.Length > lastNonPositionalElementIndex + 1)
                 {
-                    strongName = components[lastNonPositionalElementIndex + 1].Trim();
-                    dictionary["StrongName"] = strongName;
+	                var strongName = components[lastNonPositionalElementIndex + 1].Trim();
+	                dictionary["StrongName"] = strongName;
                 }
                 if (components.Length > lastNonPositionalElementIndex + 2)
                 {
-                    publicKeyToken = components[lastNonPositionalElementIndex + 2].Trim();
-                    dictionary["PublicKeyToken"] = publicKeyToken;
+	                var publicKeyToken = components[lastNonPositionalElementIndex + 2].Trim();
+	                dictionary["PublicKeyToken"] = publicKeyToken;
                 }
 
                 // If we are here, everything has to be loaded by now.

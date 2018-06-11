@@ -128,3 +128,23 @@ MainLogger
 DebugLoggerHeader
 [Default]
 Hello from debugging logger
+[Default - 06/01/2018 16:28:08]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 06/07/2018 15:53:39]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 06/07/2018 23:02:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 06/07/2018 23:11:16]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger

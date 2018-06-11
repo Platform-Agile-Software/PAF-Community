@@ -739,9 +739,10 @@ namespace PlatformAgileFramework.FrameworkServices
 				{
 					serviceImplementationType = serviceDescription.ServiceImplementationType.TypeType;
 				}
-				ICollection<Type> col;
+
 				if (serviceImplementationType == null)
 				{
+					ICollection<Type> col;
 					if (serviceDescription.ServiceImplementationType != null)
 					{
                         col = ManufacturingUtils.Instance.LocateReflectionServices(

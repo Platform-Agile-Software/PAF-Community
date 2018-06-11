@@ -25,8 +25,9 @@
 
 #region Using Directives
 using System;
-using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.MultiProcessing.Threading;
+using PlatformAgileFramework.Properties;
+
 #endregion
 
 namespace PlatformAgileFramework.Events

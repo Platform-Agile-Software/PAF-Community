@@ -49,7 +49,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// <summary>
 		/// Holds the matches.
 		/// </summary>
-		readonly List<MatchDescriptor> m_MDList;
+		private readonly List<MatchDescriptor> m_MDList;
 
 		/// <summary>
 		/// Constructor just initializes the list.

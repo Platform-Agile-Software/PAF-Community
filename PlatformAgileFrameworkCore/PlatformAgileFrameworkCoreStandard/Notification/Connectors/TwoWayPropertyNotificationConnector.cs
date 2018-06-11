@@ -25,9 +25,10 @@
 
 using System;
 using System.ComponentModel;
-using PlatformAgileFramework.Annotations;
+using PlatformAgileFramework.Connections;
 using PlatformAgileFramework.Connections.BaseConnectors;
 using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling.PartialClassSupport;
 
 namespace PlatformAgileFramework.Notification.Connectors

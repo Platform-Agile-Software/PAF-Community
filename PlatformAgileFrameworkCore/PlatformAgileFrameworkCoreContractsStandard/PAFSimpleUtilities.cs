@@ -406,7 +406,7 @@ namespace PlatformAgileFramework
 		/// <summary>
 		/// Character array that is used to identify whitespace characters.
 		/// </summary>
-		static readonly char[] s_DefaultWhitespaceChars
+		private static readonly char[] s_DefaultWhitespaceChars
 			= { ' ', '\n', '\t', '\r', '\f', '\v' };
 		/// <summary>
 		/// Method concatenates strings to a main string if they are not <see langword="null"/>.

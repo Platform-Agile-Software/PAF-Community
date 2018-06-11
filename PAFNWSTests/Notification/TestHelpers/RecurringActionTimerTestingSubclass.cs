@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using PlatformAgileFramework.MultiProcessing.Tasking;
 using PlatformAgileFramework.Notification.Helpers;
 
 namespace PlatformAgileFramework.Notification.TestHelpers

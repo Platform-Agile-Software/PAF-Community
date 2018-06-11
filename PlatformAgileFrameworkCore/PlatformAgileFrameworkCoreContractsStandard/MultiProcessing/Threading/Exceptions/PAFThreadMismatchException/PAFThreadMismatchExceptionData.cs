@@ -23,7 +23,7 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
+using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Logging;
 
 // ReSharper disable once CheckNamespace

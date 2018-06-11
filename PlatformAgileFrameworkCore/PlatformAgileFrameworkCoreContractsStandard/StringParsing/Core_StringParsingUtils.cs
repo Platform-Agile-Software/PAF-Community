@@ -938,7 +938,7 @@ namespace PlatformAgileFramework.StringParsing
 			// First trim the string of whitespace.
 			var outputString = inputString.Trim();
 			// Find delimiter from both the front and the back?
-			if (outputString.StartsWith(startingDelimiter) && outputString.EndsWith(endingDelimiter)) {
+			if (outputString.StartsWith(startingDelimiter, StringComparison.Ordinal) && outputString.EndsWith(endingDelimiter, StringComparison.Ordinal)) {
 				var lengthOfStartingDelimiter = startingDelimiter.Length;
 				var lengthOfEndingDelimiter = endingDelimiter.Length;
 				var lengthOfDelimiters = lengthOfStartingDelimiter + lengthOfEndingDelimiter;

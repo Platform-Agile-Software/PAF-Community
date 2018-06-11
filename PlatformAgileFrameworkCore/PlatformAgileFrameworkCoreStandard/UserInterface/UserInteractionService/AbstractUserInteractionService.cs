@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Collections.Generic;
 using System.Security;
 using PlatformAgileFramework.Collections.ExtensionMethods;

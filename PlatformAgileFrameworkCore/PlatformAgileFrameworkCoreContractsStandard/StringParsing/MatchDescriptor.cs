@@ -44,9 +44,9 @@ namespace PlatformAgileFramework.StringParsing
 	[PAFSerializable]
 	public struct MatchDescriptor
 	{
-		int m_OffsetOfMatchStart;
-		int m_OffsetOfMatchEnd;
-		int m_NumMatches;
+		private int m_OffsetOfMatchStart;
+		private int m_OffsetOfMatchEnd;
+		private int m_NumMatches;
 
 		/// <summary>
 		/// Constructor loads the Type with the three search result parameters.
