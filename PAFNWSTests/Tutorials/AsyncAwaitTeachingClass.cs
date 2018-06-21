@@ -16,7 +16,7 @@ namespace PlatformAgileFramework.Tutorials
 	/// </description>
 	/// </contribution>
 	/// </history>
-	[TestFixture]
+	//[TestFixture]
 	public class AsyncAwaitTeachingClass
 	{
 		#region Fields and Autoproperties

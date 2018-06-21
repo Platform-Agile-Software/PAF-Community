@@ -150,29 +150,35 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 				throw new InvalidOperationException("TDelegate must derive from System.MulticastDelegate.");
 		}
 
-		/// <summary>
-		/// Defaul constructor sets up the list and its read/write container.
-		/// </summary>
-		/// <param name="eventDispatherPlugin">
-		/// Plugin for dispatching events or "notifying" subscribers. If
-		/// <see langword="null"/> <see cref="NotifySubscribers"/> MUST be overridden.
-		/// </param>
-		/// <param name="purgeIntervalInMilliseconds">
-		/// Default of <see cref="int.MaxValue"/> results in use of
-		/// internal static value. 0 results
-		/// in purging before each notification. Positive values result in
-		/// purging of dead references on a time shedule. Running the purge
-		/// on a timer is useful, for example in applications that involve
-		/// high-speed graphics. It does take some time to purge. In some
-		/// applications, there are a large number of subscribers. 
-		/// </param>
-		/// <remarks>
-		/// This implementation is designed with sufficient flexibility so
-		/// you can do things the old-fashioned way by passing
-		/// in 0 for the time and calling <see cref="PurgeDeadSubscribers"/>
-		/// in the mandatory override of <see cref="NotifySubscribers"/>
+        /// <summary>
+        /// Defaul constructor sets up the list and its read/write container.
+        /// </summary>
+        /// <param name="eventDispatherPlugin">
+        /// Plugin for dispatching events or "notifying" subscribers. If
+        /// <see langword="null"/> <see cref="NotifySubscribers"/> MUST be overridden.
+        /// </param>
+        /// <param name="purgeIntervalInMilliseconds">
+        /// Default of <see cref="int.MaxValue"/> results in use of
+        /// internal static value. 0 results
+        /// in purging before each notification. Positive values result in
+        /// purging of dead references on a time shedule. Running the purge
+        /// on a timer is useful, for example in applications that involve
+        /// high-speed graphics. It does take some time to purge. In some
+        /// applications, there are a large number of subscribers. 
+        /// </param>
+        /// <remarks>
+        /// <para>
+        /// This implementation is designed with sufficient flexibility so
+        /// you can do things the old-fashioned way by passing
+        /// in 0 for the time and calling <see cref="PurgeDeadSubscribers"/>
+        /// in the mandatory override of <see cref="NotifySubscribers"/>
+        /// </para>
+        /// <para>
+        /// This class had to be temporarily crippled due to a p[roblem in the TPL on .Net Standard.
+        /// NOTE: KRM now putrge interval is forced to be 0.
+        /// </para>
 		/// </remarks>
-		public WeakableSubscriberStore(
+        public WeakableSubscriberStore(
 			int purgeIntervalInMilliseconds = int.MaxValue,
 			[CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null
 			)
@@ -183,6 +189,9 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 				m_PurgeIntervalInMilliseconds = PURGE_INTERVAL_IN_MILLISECONDS;
 			else
 				m_PurgeIntervalInMilliseconds = purgeIntervalInMilliseconds;
+
+            // BUG: tempory patch.
+		    m_PurgeIntervalInMilliseconds = 0;
 
 			var handlers = new List<IPseudoDelegate<TDelegate>>();
 
