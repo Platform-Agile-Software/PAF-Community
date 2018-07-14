@@ -20,7 +20,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "NETStandard.Library/2.0.0": {
+      "NETStandard.Library/2.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -33,6 +33,15 @@
         },
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
+        }
+      },
+      "Newtonsoft.Json/11.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -310,6 +319,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
           "PAFCoreContractsStandardLibrary": "1.0.0",
           "System.Xml.ReaderWriter": "4.3.1"
         },
@@ -349,10 +359,10 @@
         "runtime.json"
       ]
     },
-    "NETStandard.Library/2.0.0": {
-      "sha512": "7jnbRU+L08FXKMxqUflxEXtVymWvNOrS8yHgu9s6EM8Anr6T/wIX4nZ08j/u3Asz+tCufp3YVwFSEvFTPYmBPA==",
+    "NETStandard.Library/2.0.1": {
+      "sha512": "oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==",
       "type": "package",
-      "path": "netstandard.library/2.0.0",
+      "path": "netstandard.library/2.0.1",
       "files": [
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -473,8 +483,36 @@
         "build/netstandard2.0/ref/netstandard.dll",
         "build/netstandard2.0/ref/netstandard.xml",
         "lib/netstandard1.0/_._",
-        "netstandard.library.2.0.0.nupkg.sha512",
+        "netstandard.library.2.0.1.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/11.0.2": {
+      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "type": "package",
+      "path": "newtonsoft.json/11.0.2",
+      "files": [
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.11.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec"
       ]
     },
     "System.Collections/4.3.0": {
@@ -1759,53 +1797,46 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.0",
+      "NETStandard.Library >= 2.0.1",
       "PAFCoreContractsStandardLibrary >= 1.0.0",
       "PAFCoreStandardLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\v65346\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\kroge\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\v65346\\Dropbox\\PAF-Community\\OptionalLibraries\\BasicxUnit\\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj",
+      "projectUniqueName": "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\OptionalLibraries\\BasicxUnit\\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj",
       "projectName": "PlatformAgileFrameworkBasicxUnitStandard1.6",
-      "projectPath": "C:\\Users\\v65346\\Dropbox\\PAF-Community\\OptionalLibraries\\BasicxUnit\\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj",
-      "packagesPath": "C:\\Users\\v65346\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\v65346\\Dropbox\\PAF-Community\\OptionalLibraries\\BasicxUnit\\obj\\",
+      "projectPath": "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\OptionalLibraries\\BasicxUnit\\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj",
+      "packagesPath": "C:\\Users\\kroge\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\OptionalLibraries\\BasicxUnit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\v65346\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\kroge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://10.6.170.72/EMG/nuget/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\v65346\\Dropbox\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreContractsStandard\\PAFCoreContractsStandardLibrary.csproj": {
-              "projectPath": "C:\\Users\\v65346\\Dropbox\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreContractsStandard\\PAFCoreContractsStandardLibrary.csproj"
+            "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreContractsStandard\\PAFCoreContractsStandardLibrary.csproj": {
+              "projectPath": "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreContractsStandard\\PAFCoreContractsStandardLibrary.csproj"
             },
-            "C:\\Users\\v65346\\Dropbox\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\PAFCoreStandardLibrary.csproj": {
-              "projectPath": "C:\\Users\\v65346\\Dropbox\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\PAFCoreStandardLibrary.csproj"
+            "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\PAFCoreStandardLibrary.csproj": {
+              "projectPath": "C:\\Users\\kroge\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\PAFCoreStandardLibrary.csproj"
             }
           }
         }
@@ -1822,7 +1853,7 @@
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.0, )",
+            "version": "[2.0.1, )",
             "autoReferenced": true
           }
         },

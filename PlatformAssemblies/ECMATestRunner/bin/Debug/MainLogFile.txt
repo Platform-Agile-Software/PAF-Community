@@ -168,3 +168,18 @@ MainLogger
 DebugLoggerHeader
 [Default]
 Hello from debugging logger
+[Default - 07/06/2018 16:51:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 07/14/2018 14:57:26]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 07/14/2018 15:02:13]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger

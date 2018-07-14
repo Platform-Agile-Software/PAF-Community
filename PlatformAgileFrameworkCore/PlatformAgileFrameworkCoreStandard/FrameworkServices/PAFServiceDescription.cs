@@ -137,7 +137,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// is <see langword="null"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{T}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message if the implementation type does not inherit from the interface.
 		/// </exception>
 		/// Additional exceptios are thrown from <see cref="ValidateServiceObject"/> if
@@ -149,7 +149,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			bool isDefault = false, object serviceObject = null)
 		{
 			if (serviceInterfaceType == null)
-				throw (new ArgumentNullException("serviceInterfaceType"));
+				throw (new ArgumentNullException(nameof(serviceInterfaceType)));
 
 			InitializePAFServiceDescription();
 
@@ -194,7 +194,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			: this(PAFTypeHolder.IHolder(nto.ObjectType), null, nto.ObjectName, nto.IsDefaultObject)
 		{
 			if (nto == null)
-				throw (new ArgumentNullException("nto"));
+				throw (new ArgumentNullException(nameof(nto)));
 			InitializePAFServiceDescription();
 		}
 		#endregion // Constructors

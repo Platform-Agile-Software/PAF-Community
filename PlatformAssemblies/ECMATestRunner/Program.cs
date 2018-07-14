@@ -5,8 +5,10 @@ using PlatformAgileFramework.Application;
 using PlatformAgileFramework.UserInterface.ConsoleUI;
 using PlatformAgileFramework.Manufacturing;
 using System.Reflection;
+using Newtonsoft.Json;
 using PlatformAgileFramework.AssemblyHandling;
 using PlatformAgileFramework.Events;
+using PlatformAgileFramework.Logging.Tests;
 using PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator.Display;
 using PlatformAgileFramework.Tutorials;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
@@ -17,6 +19,9 @@ namespace PlatformAgileFramework
     {
         static void Main(string[] args)
         {
+            // weird NuGet problem requires this to be linked into main.
+            if (false)
+                JsonConvert.SerializeObject(null);
             // Net standard deficiencies causes us to need to push in a couple of things.
             ManufacturingUtils.AssemblyLister = AppDomain.CurrentDomain.GetAssemblies;
             ManufacturingUtils.AssemblyLoadFromLoader = Assembly.LoadFrom;
@@ -48,32 +53,31 @@ namespace PlatformAgileFramework
             var testConsoleUI = new PAFTestResultUserInteraction(assemblyInfo.TestElementResultInfo);
             testConsoleUI.ProcessCommand("OR");
             return;
-
             ////////////////////////////////////////////////////////////////////////////
             ///// To run tests in a fixture.
-   //         var fixtureInfo = new PAFTestFixtureInfo(typeof(AsyncAwaitTeachingClass).ToTypeholder(),
-			//	PAFTestFrameworkBehavior.GetStandardNUnitParams());
-			//var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
-			//fixtureWrapper.InitializeExePipeline(null);
-			//fixtureWrapper.RunPipelinedObject(null);
-			//var testConsoleUI = new PAFTestResultUserInteraction(fixtureWrapper.TestElementResultInfo);
-			//testConsoleUI.ProcessCommand("OR");
+            //var fixtureInfo = new PAFTestFixtureInfo(typeof(JSONLoggerTests).ToTypeholder(),
+            //    PAFTestFrameworkBehavior.GetStandardNUnitParams());
+            //var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
+            //fixtureWrapper.InitializeExePipeline(null);
+            //fixtureWrapper.RunPipelinedObject(null);
+            //var testConsoleUI = new PAFTestResultUserInteraction(fixtureWrapper.TestElementResultInfo);
+            //testConsoleUI.ProcessCommand("OR");
 
 
-			//////////////////////////////////////////////////////////////////////////////
-			/////// To run just some tests in a fixture, in this case, 1.
-			////fixtureInfo.TestMethodInclusionList
-			//// = new[] { "TestProperTaskCreationAndDisposal" };
-			//var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
+            //////////////////////////////////////////////////////////////////////////////
+            /////// To run just some tests in a fixture, in this case, 1.
+            ////fixtureInfo.TestMethodInclusionList
+            //// = new[] { "TestProperTaskCreationAndDisposal" };
+            //var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
 
-			//// Fire off the tests.
-			//fixtureWrapper.InitializeExePipeline(fixtureWrapper);
-			//fixtureWrapper.RunPipelinedObject(null);
-			//////////////////
-			////// This runs the test Console UI.
-			//var testConsoleUI = new PAFTestResultUserInteraction(fixtureInfo.TestElementResultInfo);
-			//testConsoleUI.ProcessCommand(null);
+            //// Fire off the tests.
+            //fixtureWrapper.InitializeExePipeline(fixtureWrapper);
+            //fixtureWrapper.RunPipelinedObject(null);
+            //////////////////
+            ////// This runs the test Console UI.
+            //var testConsoleUI = new PAFTestResultUserInteraction(fixtureInfo.TestElementResultInfo);
+            //testConsoleUI.ProcessCommand(null);
 
-		}
+        }
 	}
 }

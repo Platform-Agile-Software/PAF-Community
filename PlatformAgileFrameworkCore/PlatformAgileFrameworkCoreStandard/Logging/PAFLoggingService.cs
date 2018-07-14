@@ -152,16 +152,17 @@ namespace PlatformAgileFramework.Logging
 		}
 
 		/// <summary>
-		/// Constructor allows setting of time stamp and header, etc..
+		/// Constructor allows setting of time stamp and header, etc.
 		/// </summary>
 		/// <param name="loggingLevel">
-		/// This is the verbosity level of this log entry. It will  
+		/// This is the threshold level for the logger. All logging calls with a
+		/// level more severe than this will be output. 
 		/// </param>
 		/// <param name="enableTimeStamp">
 		/// <see langword="true"/> to enable time stamp. This is the default.
 		/// </param>
 		/// <param name="header">
-		/// Stringful header to be put at top of log entry. <see langword="null"/> for
+		/// Stringful header to be put at top of every log entry. <see langword="null"/> for
 		/// no entry. This is the default. 
 		/// </param>
 		/// <param name="logFile">
@@ -169,7 +170,7 @@ namespace PlatformAgileFramework.Logging
 		/// access to it. Other log files can be specified by creating a set of loggers
 		/// and calling them in turn or by supplying an external logging delegate in the
 		/// logger property below. Please synchronize access to it or we will have no
-		/// sympathy for you when you all in for support. See our example.
+		/// sympathy for you when you call in for support. See our example.
 		/// </param>
 		/// <param name="logFormatter">
 		/// Optional argument allows a delegate to be plugged in to do the writing.
@@ -361,7 +362,7 @@ namespace PlatformAgileFramework.Logging
 		/// <summary>
 		/// <see cref="IPAFLoggingServiceInternal"/>
 		/// </summary>
-		void IPAFLoggingServiceInternal.SetFormattingDelegatee(LogFormatterDelegate logFormattingDelegate)
+		void IPAFLoggingServiceInternal.SetFormattingDelegate(LogFormatterDelegate logFormattingDelegate)
 		{
 			FormatterDelegate = logFormattingDelegate;
 		}
@@ -470,7 +471,7 @@ namespace PlatformAgileFramework.Logging
 		/// Our writer that writes to a file if one is specified.
 		/// </summary>
 		/// <param name="logEntry">Entry to write.</param>
-		/// <param name="logFile">file to write to.</param>
+		/// <param name="logFile">File to write to.</param>
 		protected internal virtual void WriteToLogFile(string logEntry, string logFile)
 		{
 			if (string.IsNullOrEmpty(logFile)) return;

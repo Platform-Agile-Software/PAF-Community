@@ -75,7 +75,7 @@ namespace PlatformAgileFramework.Logging
 		/// <summary>
 		/// This is the delegate we use if set.
 		/// </summary>
-		void SetFormattingDelegatee(LogFormatterDelegate logFormattingDelegate);
+		void SetFormattingDelegate(LogFormatterDelegate logFormattingDelegate);
 		/// <summary>
 		/// This is the file to write to.
 		/// </summary>
