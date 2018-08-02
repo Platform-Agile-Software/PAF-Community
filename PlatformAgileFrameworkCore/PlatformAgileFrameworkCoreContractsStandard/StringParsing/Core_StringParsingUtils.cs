@@ -806,19 +806,25 @@ namespace PlatformAgileFramework.StringParsing
 			// Safety valves.
 			if (string.IsNullOrEmpty(stringToProcess) || (searchChar == 0)
 				|| (stringIndex < 0)
-				|| stringIndex >= stringToProcess.Length) {
+				|| stringIndex >= stringToProcess.Length)
+			{
 				return null;
 			}
 			var stringLen = stringToProcess.Length;
 			//// Let's first find out if we have anything to do.
 			if (stringToProcess.IndexOf(searchChar, stringIndex) < 0)
 				return stringToProcess;
+			if (searchChar == replaceChar)
+				return stringToProcess;
 			// OK, Create the stringbuilder, but only if we are replacing.
-			if (replaceChar != PlatformUtils.NoChar) {
+			if (replaceChar != PlatformUtils.NoChar)
+			{
 				outputMString = new StringBuilder(stringToProcess);
-				do {
+				do
+				{
 					// See if we match.
-					if (outputMString[stringIndex] == searchChar) {
+					if (outputMString[stringIndex] == searchChar)
+					{
 						numReplacementsMade++;
 						if (replaceChar != PlatformUtils.NoChar)
 							outputMString[stringIndex] = replaceChar;
@@ -827,7 +833,22 @@ namespace PlatformAgileFramework.StringParsing
 			}
 			// Replaced anything?
 			if ((outputMString != null) && (outputMString.Length > 0))
-				return outputMString.ToString();
+			{
+				var finalOutputString = "";
+				for (var charNum = 0; charNum < outputMString.Length; charNum++)
+				{
+					finalOutputString += outputMString[charNum];
+
+				}
+
+				outputMString.Clear();
+				outputMString.Append(finalOutputString);
+
+				finalOutputString = outputMString.ToString();
+
+				return finalOutputString;
+			}
+
 			// Nope.
 			return stringToProcess;
 		}

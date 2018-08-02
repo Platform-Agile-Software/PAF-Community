@@ -471,7 +471,7 @@ namespace PlatformAgileFramework.Logging
 		/// Our writer that writes to a file if one is specified.
 		/// </summary>
 		/// <param name="logEntry">Entry to write.</param>
-		/// <param name="logFile">File to write to.</param>
+		/// <param name="logFile"> File to write to. <see langword="null"/> writes nothing.</param>
 		protected internal virtual void WriteToLogFile(string logEntry, string logFile)
 		{
 			if (string.IsNullOrEmpty(logFile)) return;

@@ -141,12 +141,34 @@ namespace PlatformAgileFramework.Manufacturing
 				interfaceName, typeNameSpace, typeName,
 				typeFilter);
 		}
-		#region Internal/Secure Methods for Framework Extenders
-		/// <remarks>
-		/// <see cref="ManufacturingUtils"/>.
-		/// Virtual method for extenders.
-		/// </remarks>
-		internal virtual bool AddAssemblyToAssembliesLoadedInternal(Assembly assembly)
+
+	    /// <summary>
+	    /// Pushes in an assembly lister. Does nothing if lister already pushed.
+	    /// </summary>
+	    /// <param name="assemblyLister">The lister delegate.</param>
+	    public void PushAssemblyLister(Func<IEnumerable<Assembly>> assemblyLister)
+	    {
+	        if (ManufacturingUtils.AssemblyLister != null)
+	            return;
+	        ManufacturingUtils.AssemblyLister = assemblyLister;
+	    }
+	    /// <summary>
+	    /// Pushes in an assembly "LoadFrom" loader. Does nothing if loader already pushed.
+	    /// </summary>
+	    /// <param name="assemblyLoadFromLoader">The loader delegate.</param>
+	    public void PushAssemblyLoadFromLoader(Func<string, Assembly> assemblyLoadFromLoader)
+	    {
+	        if (ManufacturingUtils.AssemblyLoadFromLoader!= null)
+	            return;
+	        ManufacturingUtils.AssemblyLoadFromLoader = assemblyLoadFromLoader;
+	    }
+
+        #region Internal/Secure Methods for Framework Extenders
+        /// <remarks>
+        /// <see cref="ManufacturingUtils"/>.
+        /// Virtual method for extenders.
+        /// </remarks>
+        internal virtual bool AddAssemblyToAssembliesLoadedInternal(Assembly assembly)
 		{
 			return ManufacturingUtils.AddAssemblyToAssembliesLoadedInternal(assembly);
 		}

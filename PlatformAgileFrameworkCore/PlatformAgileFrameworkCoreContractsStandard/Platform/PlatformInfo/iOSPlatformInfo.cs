@@ -36,7 +36,8 @@ namespace PlatformAgileFramework.Platform
 	/// This is the iOS version.
 	/// </para>
 	/// </summary>
-	public class IosPlatformInfo: IPlatformInfo
+	// ReSharper disable once InconsistentNaming
+	public class iOSPlatformInfo: IPlatformInfo
 	{
 		#region Fields and Autoproperties
 		/// <summary>
@@ -45,6 +46,7 @@ namespace PlatformAgileFramework.Platform
 		public const string CURRENT_PLATFORM_NAME = "iOS";
 		/// <summary>
 		/// This represents the name of the current platform binding assembly.
+		/// For the assembly search and load option.
 		/// </summary>
 		public const string CURRENT_PLATFORM_ASSY = "IOS";
 		/// <summary>

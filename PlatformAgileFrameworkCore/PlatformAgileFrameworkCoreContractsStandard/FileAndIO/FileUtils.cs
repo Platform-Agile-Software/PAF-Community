@@ -662,7 +662,7 @@ namespace PlatformAgileFramework.FileAndIO
 			ISymbolicDirectoryMappingDictionary localDictionary = null,
 			bool throwException = true)
 		{
-			if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException("filePath");
+			if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
 
 			var index = filePath.IndexOf("file:", StringComparison.OrdinalIgnoreCase);
 			// reject file URI

@@ -196,6 +196,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			if (nto == null)
 				throw (new ArgumentNullException(nameof(nto)));
 			InitializePAFServiceDescription();
+			ServiceObject = nto.ObjectValue;
 		}
 		#endregion // Constructors
 		#region Construction Helpers
@@ -229,19 +230,16 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </param>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message is thrown if the object does not implement
-		//// ReSharper disable CSharpWarnings::CS1584
-		//// ReSharper Problem
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>.
 		/// <see cref="IPAFServiceDescription.ServiceInterfaceType.TypeType"/>
 		/// </exception">
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.TYPES_NOT_AN_EXACT_MATCH"/>
+		/// <see cref="PAFTypeMismatchExceptionDataBase.TYPES_NOT_AN_EXACT_MATCH"/>
 		/// message is thrown if the object does not exactly match the
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>.
 		/// if it is here.
-		//// ReSharper restore CSharpWarnings::CS1584
 		/// </exception">
 		/// </exceptions>
 		protected internal object ValidateServiceObject(object serviceObject)

@@ -89,7 +89,7 @@ namespace PlatformAgileFramework.Logging
 		/// Security critical, since we don't want underpriveliged callers to construct this.
 		/// </remarks>
 		[SecurityCritical]
-		public EmergencyLoggingService(bool canRunWithoutMain,
+		public EmergencyLoggingService(bool canRunWithoutMain = false,
 			IPAFServiceDescription mainServiceDescription = null,
 			string emergencyLogFilePath = null)
 			: base(mainServiceDescription, emergencyLogFilePath)

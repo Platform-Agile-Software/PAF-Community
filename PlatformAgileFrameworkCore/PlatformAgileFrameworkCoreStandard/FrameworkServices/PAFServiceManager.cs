@@ -99,9 +99,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		public static IList<IPAFServiceDescription> InitialServices
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return InitialServicesInternal; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { InitialServicesInternal = value; }
 		}
 
@@ -358,7 +358,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		IPAFServiceManager IPAFServiceManagerExtended.ParentManager
 		{
 			get { return ParentManagerPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ParentManagerPIV = value; }
 		}
 
@@ -460,7 +460,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
-		[SecurityCritical]
+		//[SecurityCritical]
 		IPAFServiceDescription IPAFServiceManagerExtended.CreateService(
 			IPAFServicePipelineObject servicePipelineObject,
 			IPAFServiceDescription serviceDescription,

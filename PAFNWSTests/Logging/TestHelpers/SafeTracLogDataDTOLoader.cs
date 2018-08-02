@@ -11,43 +11,43 @@ namespace Delta.SafeTrac.Logging
     /// This is a test loader for SafeTrac data. It acccepts raw data and validates it
     /// before loading into the DTO.
     /// </summary>
-    public class SafeTracLogDataDTOLoader: SafeTracLogDataDTO
-    {
-        /// <summary>
-        /// Log message timestamp in ISO8601 format using GMT time zone if at all possible.
-        /// Format is yyyy-mm-ddThh24:mi:ss,fffZ.  The “Z” is included when the timestamp is in GMT.
-        /// ToDo: KRM - there should be no reason why this can't always be GMT, right?
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Example: 2018-06-08T18:20:24,533Z
-        /// </para>
-        /// <para>
-        /// Required field.
-        /// </para>
-        /// </remarks>
-        public string CreateSafeTracTimeStamp(DateTime dateTime)
-        {
-            var universalTime = dateTime.ToUniversalTime();
-            var dayOfMonth = universalTime.Day;
-            var month = universalTime.Month;
-            var year = universalTime.Year;
-            var hour = universalTime.Hour;
-            var minute = universalTime.Minute;
-            var second = universalTime.Second;
-            var millisecond = universalTime.Millisecond;
-
-            var timeStamp = year.ToString();
-            timeStamp += "-" + month;
-            timeStamp += "-" + dayOfMonth;
-            timeStamp += "T";
-            timeStamp += hour +":" + minute + ":" + second;
-            timeStamp += "," + millisecond;
-            timeStamp += "Z";
-
-            return timeStamp;
-        }
+    //public class SafeTracLogDataDTOLoader: SafeTracLogDataDTO
+    //{
         ///// <summary>
+        ///// Log message timestamp in ISO8601 format using GMT time zone if at all possible.
+        ///// Format is yyyy-mm-ddThh24:mi:ss,fffZ.  The “Z” is included when the timestamp is in GMT.
+        ///// ToDo: KRM - there should be no reason why this can't always be GMT, right?
+        ///// </summary>
+        ///// <remarks>
+        ///// <para>
+        ///// Example: 2018-06-08T18:20:24,533Z
+        ///// </para>
+        ///// <para>
+        ///// Required field.
+        ///// </para>
+        ///// </remarks>
+        //public string CreateSafeTracTimeStamp(DateTime dateTime)
+        //{
+        //    var universalTime = dateTime.ToUniversalTime();
+        //    var dayOfMonth = universalTime.Day;
+        //    var month = universalTime.Month;
+        //    var year = universalTime.Year;
+        //    var hour = universalTime.Hour;
+        //    var minute = universalTime.Minute;
+        //    var second = universalTime.Second;
+        //    var millisecond = universalTime.Millisecond;
+
+        //    var timeStamp = year.ToString();
+        //    timeStamp += "-" + month;
+        //    timeStamp += "-" + dayOfMonth;
+        //    timeStamp += "T";
+        //    timeStamp += hour +":" + minute + ":" + second;
+        //    timeStamp += "," + millisecond;
+        //    timeStamp += "Z";
+
+        //    return timeStamp;
+        //}
+        /////// <summary>
         ///// A unique identifier denoting a logical unit of work. ToDo: KRM is a 64-bit integer OK?
         ///// </summary>
         ///// <remarks>
@@ -384,5 +384,5 @@ namespace Delta.SafeTrac.Logging
         ///// </para>
         ///// </remarks>
         //public string FlightID { get; set; }
-   }
+   //}
 }

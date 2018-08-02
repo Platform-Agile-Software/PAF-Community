@@ -11,7 +11,7 @@
     </metadata>
     <files>
                         <file src="bin/Release/netstandard2.0/PAFCoreContractsStandardLibrary.dll" target="lib/netstandard2.0/PAFCoreContractsStandardLibrary.dll" />
-                        <!-- <file src="bin/Release/netstandard2.0/PAFCoreStandardLibrary.dll" target="lib/netstandard2.0/PAFCoreStandardLibrary.dll" /> -->
+                        <file src="bin/Release/netstandard2.0/PAFCoreStandardLibrary.dll" target="lib/netstandard2.0/PAFCoreStandardLibrary.dll" />
 
     </files>
 </package>

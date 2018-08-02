@@ -21,7 +21,9 @@ namespace PlatformAgileFramework
         {
             // weird NuGet problem requires this to be linked into main.
             if (false)
+#pragma warning disable 162
                 JsonConvert.SerializeObject(null);
+#pragma warning restore 162
             // Net standard deficiencies causes us to need to push in a couple of things.
             ManufacturingUtils.AssemblyLister = AppDomain.CurrentDomain.GetAssemblies;
             ManufacturingUtils.AssemblyLoadFromLoader = Assembly.LoadFrom;
@@ -33,7 +35,6 @@ namespace PlatformAgileFramework
             // Just to get the ECMA assy statically loaded - .Net standard has trouble probing.
             var uiUtils = new ConsoleUIUtils();
 
-            //var assemblies =  AppDomain.CurrentDomain.GetAssemblies();
             ServiceBootStrapper.Instance.LoadCoreServices();
 
 			// Get our test assembly.

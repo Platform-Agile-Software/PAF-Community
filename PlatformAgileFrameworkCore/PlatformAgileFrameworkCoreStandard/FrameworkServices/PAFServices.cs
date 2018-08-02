@@ -95,9 +95,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		// ReSharper disable once InconsistentNaming
 		public static IPAFServiceDescription<IPAFUIService> s_SiPAFUIService
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return s_SiPAFUIServiceInternal; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { s_SiPAFUIServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFUIService> s_SiPAFUIServiceInternal
@@ -108,9 +108,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		public static IPAFServiceDescription<IPAFLoggingService> s_SiPAFLoggingService
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return s_SiPAFLoggingServiceInternal; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { s_SiPAFLoggingServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFLoggingService> s_SiPAFLoggingServiceInternal
@@ -124,9 +124,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		public static IPAFServiceDescription<IPAFStorageService> s_SiPAFStorageService
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return SiPAFStorageServiceInternal; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { SiPAFStorageServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFStorageService> SiPAFStorageServiceInternal { get; set; }
@@ -167,7 +167,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		///	This is private to enforce the singleton condition.
 		/// </remarks>
-		[SecurityCritical]
+		//[SecurityCritical]
 		private PAFServices()
 			: base(GetStaticGuid())
 		{
@@ -218,7 +218,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		/// <param name="o">An optional provisioning object.</param>
 		/// <returns></returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		internal static PAFServices InstantiateAndProvision(object o)
 		{
 			var manager = new PAFServices();

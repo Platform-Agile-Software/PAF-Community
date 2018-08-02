@@ -316,7 +316,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// elevated-trust environments.
 		/// </para>
 		/// </summary>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public void Dispose()
 		{
 			m_PAFDisposer.Dispose();
@@ -388,7 +388,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		IPAFServiceManager IPAFServiceExtended.ServiceManager
 		{
 			get { return ServiceManagerPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceManagerPIV = value; }
 		}
 
@@ -398,7 +398,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		bool IPAFServiceExtended.ServiceIsInitialized
 		{
 			get { return ServiceIsInitializedPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceIsInitializedPIV = value; }
 		}
 		/// <summary>
@@ -407,7 +407,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		bool IPAFServiceExtended.ServiceIsLoaded
 		{
 			get { return ServiceIsLoadedPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceIsLoadedPIV = value; }
 		}
 		/// <summary>
@@ -416,7 +416,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		bool IPAFServiceExtended.ServiceIsUninitialized
 		{
 			get { return ServiceIsUninitializedPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceIsUninitializedPIV = value; }
 		}
 		/// <summary>
@@ -425,7 +425,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		bool IPAFServiceExtended.ServiceIsUnloaded
 		{
 			get { return ServiceIsUnloadedPIV; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceIsUnloadedPIV = value; }
 		}
 		/// <summary>
@@ -433,7 +433,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		IEnumerable<IPAFServiceDescription> IPAFServiceExtended.ServicesRequiredForInitialization
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return ServicesRequiredForInitializationPIV; }
 		}
 		/// <summary>
@@ -441,7 +441,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		IEnumerable<IPAFServiceDescription> IPAFServiceExtended.ServicesRequiredForLoad
 		{
-			[SecurityCritical]
+			//[SecurityCritical]
 			get { return ServicesRequiredForLoadPIV; }
 		}
 		#endregion // Properties
@@ -452,7 +452,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="servicePipelineObject">
 		/// See <see cref="IPAFServiceExtended"/>.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void IPAFServiceExtended.InitializeService(IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{ InitializeServicePIV(servicePipelineObject); }
 		/// <summary>
@@ -461,7 +461,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="servicePipelineObject">
 		/// See <see cref="IPAFServiceExtended"/>.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void IPAFServiceExtended.LoadService(IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{ LoadServicePIV(servicePipelineObject); }
 		/// <summary>
@@ -470,7 +470,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="servicePipelineObject">
 		/// See <see cref="IPAFServiceExtended"/>.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void IPAFServiceExtended.UninitializeService(IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{ UninitializeServicePIV(servicePipelineObject); }
 		/// <summary>
@@ -479,7 +479,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="servicePipelineObject">
 		/// See <see cref="IPAFServiceExtended"/>.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void IPAFServiceExtended.UnloadService(IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{ UnloadServicePIV(servicePipelineObject); }
 		/// <summary>
@@ -488,7 +488,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="servicePipelineObject">
 		/// Just fires the <see cref="Update"/> event. See <see cref="IPAFServiceExtended"/>.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void IPAFServiceExtended.UpdateService(IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{ UpdateServicePIV(servicePipelineObject); }
 		#endregion // Methods
@@ -700,7 +700,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string ObjectName
 		{
 			get { return m_IPAFNamedAndTypedObject.ObjectName; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IPAFNamedAndTypedObject.ObjectName = value; }
 		}
 		#endregion
@@ -710,7 +710,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string AssemblyQualifiedObjectType
 		{
 			get { return m_IPAFNamedAndTypedObject.AssemblyQualifiedObjectType; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IPAFNamedAndTypedObject.AssemblyQualifiedObjectType = value; }
 		}
 		/// <summary>
@@ -719,7 +719,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public bool IsDefaultObject
 		{
 			get { return m_IPAFNamedAndTypedObject.IsDefaultObject; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IPAFNamedAndTypedObject.IsDefaultObject = value; }
 		}
 		/// <summary>
@@ -729,7 +729,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public Type ObjectType
 		{
 			get { return m_IPAFNamedAndTypedObject.ObjectType; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IPAFNamedAndTypedObject.ObjectType = value; }
 		}
 		/// <summary>
@@ -739,7 +739,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public object ObjectValue
 		{
 			get { return m_IPAFNamedAndTypedObject.ObjectValue; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IPAFNamedAndTypedObject.ObjectValue = value; }
 		}
 		#endregion

@@ -59,17 +59,23 @@ namespace PlatformAgileFramework.Collections
 		/// the type. The name should never be <see langword="null"/>.
 		/// </remarks>
 		string ObjectName
-		{ get; [SecurityCritical] set; }
+		{ get;
+			//[SecurityCritical]
+			set; }
 		/// <summary>
 		/// Manipulates the value of the object.
 		/// </summary>
 		object ObjectValue
-		{ get; [SecurityCritical] set; }
+		{ get;
+			//[SecurityCritical]
+			set; }
 		/// <summary>
 		/// Manipulates the default flag. This identifies the "default" object
 		/// in a collection. Overrides the "blank" item in a collection being the default.
 		/// </summary>
 		bool IsDefaultObject
-		{ get; [SecurityCritical] set; }
+		{ get;
+			//[SecurityCritical]
+			set; }
 	}
 }

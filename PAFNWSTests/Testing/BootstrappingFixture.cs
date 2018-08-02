@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
 using PlatformAgileFramework.Manufacturing;
 using PlatformAgileFramework.Platform;
 
@@ -50,7 +51,7 @@ namespace PlatformAgileFramework.Testing
 	        {
 	            s_HasFixtureBeenSetupForTests = true;
 
-	            ManufacturingUtils.DirectoryMappingFileName = "TestSymbolicDirectories.xml";
+	            SymbolicDirectoryMappingDictionary.DirectoryMappingFileName = "TestSymbolicDirectories.xml";
 
 	            DS = PlatformUtils.GetDirectorySeparatorChar();
 	        }

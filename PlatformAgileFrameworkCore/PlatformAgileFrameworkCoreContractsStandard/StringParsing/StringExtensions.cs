@@ -96,8 +96,7 @@ namespace PlatformAgileFramework.StringParsing
         {
             if (string.IsNullOrEmpty(stringToExamine))
                 return PlatformUtils.LTRMN;
-            var lenthOfTerminator = stringToExamine.Length;
-            if (!stringToExamine.EndsWith(PlatformUtils.LTRMN, StringComparison.Ordinal))
+	        if (!stringToExamine.EndsWith(PlatformUtils.LTRMN, StringComparison.Ordinal))
                 return stringToExamine += PlatformUtils.LTRMN;
             return stringToExamine;
         }
@@ -137,33 +136,69 @@ namespace PlatformAgileFramework.StringParsing
 			return indexOfNth;
 		}
 
-        /// <summary>
-        /// Removes the terminators and sends out the segments of the string that
-        /// were separated by the terminators.
-        /// </summary>
-        /// <returns>
-        /// The list of separated strings - never <see langword = "null"/>. Will
-        /// send out a single-element list if no terminators.
-        /// </returns>
-        /// <param name="stringWithPossibleTerminators">
-        /// String with possible terminators.
-        /// </param>
-        /// <exceptions>
-        /// <exception cref = "ArgumentNullException">
-        /// "stringWithPossibleTerminators"
-        /// </exception>
-        /// </exceptions>
-        public static IList<string> RemoveTerminators(this string stringWithPossibleTerminators)
-        {
-            if (stringWithPossibleTerminators == null)
-                throw new ArgumentNullException("stringWithPossibleTerminators");
-            if (!stringWithPossibleTerminators.Contains(PlatformUtils.LTRMN))
-                return new List<string>(new string []{stringWithPossibleTerminators});
+		/// <summary>
+		/// Removes the terminators and sends out the segments of the string that
+		/// were separated by the terminators.
+		/// </summary>
+		/// <returns>
+		/// The list of separated strings - never <see langword = "null"/>. Will
+		/// send out a single-element list if no terminators.
+		/// </returns>
+		/// <param name="stringWithPossibleTerminators">
+		/// String with possible terminators.
+		/// </param>
+		/// <exceptions>
+		/// <exception cref = "ArgumentNullException">
+		/// "stringWithPossibleTerminators"
+		/// </exception>
+		/// </exceptions>
+		public static IList<string> RemoveTerminators(this string stringWithPossibleTerminators)
+		{
+			if (stringWithPossibleTerminators == null)
+				throw new ArgumentNullException(nameof(stringWithPossibleTerminators));
+			if (!stringWithPossibleTerminators.Contains(PlatformUtils.LTRMN))
+				return new List<string>(new string[] { stringWithPossibleTerminators });
 
-            var strings = stringWithPossibleTerminators.Split(PlatformUtils.LTRMN.ToCharArray());
+			var strings = stringWithPossibleTerminators.Split(PlatformUtils.LTRMN.ToCharArray());
 
-            // return an actual writable list in case some clown tries to fiddle with it.
-            return strings.ToList();
-        }
+			// return an actual writable list in case some clown tries to fiddle with it.
+			return strings.ToList();
+		}
+
+		/// <summary>
+		/// Replaces certain substrings with other substrings, if found.
+		/// </summary>
+		/// <returns>
+		/// A string with the substrings replaced.
+		/// </returns>
+		/// <param name="stringWithPossibleSubstrings">
+		/// </param>
+		/// <param name="searchString">
+		/// String to look for.
+		/// </param>
+		/// <param name="replaceString">
+		/// String to replace every instance of a found substring.
+		/// </param>
+		/// <exceptions>
+		/// <exception cref = "ArgumentNullException">
+		/// "stringWithPossibleSubstrings"
+		/// </exception>
+		/// </exceptions>
+		/// <remarks>
+		/// Needed due to a bad bug in netstandard string class.
+		/// </remarks>
+		//public static string ReplaceStringsInString(this string stringWithPossibleSubstrings,
+		//	string searchString, string replaceString)
+		//{
+		//	var workingString = "";
+		//	var outputString = "";
+		//	if (stringWithPossibleSubstrings == null)
+		//		throw new ArgumentNullException(nameof(stringWithPossibleSubstrings));
+
+		//	workingString string
+
+		//	while()
+
+		//}
 	}
 }

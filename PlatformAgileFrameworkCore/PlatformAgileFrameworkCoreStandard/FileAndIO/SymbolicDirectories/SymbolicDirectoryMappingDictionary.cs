@@ -68,6 +68,11 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		private static readonly IDictionary<string, string> s_DirectoryMappingDictionary;
 
 		/// <summary>
+		/// <see langword = "null"/> to not read the file at all.
+		/// </summary>
+		public static string DirectoryMappingFileName { get; set; }
+
+		/// <summary>
 		/// The dictionary containing the mappings. This is the instance version,
 		/// which can augment and/or override the static version. Access is thread-safe
 		/// if access rules (below) are followed.
@@ -91,18 +96,16 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 			};
 		}
 		/// <summary>
-		/// Default constructor just creates the instance dictionary.
+		/// Constructor builds with a pre-loaded dictionary. It will load static mappings if
+		/// <see cref="DirectoryMappingFileName"/> has been set.
 		/// </summary>
-		public SymbolicDirectoryMappingDictionary()
-		{
-			m_DirectoryMappingDictionary = new Dictionary<string, string>();
-		}
-		/// <summary>
-		/// Constructor builds with a pre-loaded dictionary.
-		/// </summary>
+		/// <param name="directoryMappingDictionary">
+		/// This is a preload of the dictionary. Any mappings from an XML file will be appended.
+		/// </param>
 		public SymbolicDirectoryMappingDictionary(IDictionary<string, string> directoryMappingDictionary = null)
 		{
 			m_DirectoryMappingDictionary = directoryMappingDictionary ?? new Dictionary<string, string>();
+			PopulateStaticDictionaryFromXML(DirectoryMappingFileName);
 		}
 		#endregion // Constructors
 		#region Methods
@@ -120,7 +123,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <see langword="false"/> if another thread snuck in before us and
 		/// added the mapping we are trying to add.
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static bool AddStaticMapping(string token, string directory)
 		{
 			return AddStaticMappingInternal(token, directory);
@@ -159,7 +162,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public bool AddMapping(string token, string directory)
 		{
 			return AddMappingPIV(token, directory);
@@ -189,7 +192,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static string GetStaticMapping(string token)
 		{
 			return GetStaticMappingInternal(token);
@@ -219,7 +222,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public virtual string GetMapping(string token)
 		{
 			return GetMappingPIV(token);
@@ -250,7 +253,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// For privileged callers. This method needs to be called AFTER core
         /// services are loaded, since it uses the file system.
 		/// </remarks>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public void PopulateStaticDictionaryFromXML(string filePath)
 		{
 			PopulateStaticDictionaryFromXMLPIV(filePath);
@@ -293,6 +296,8 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// </remarks>
         protected internal virtual void PopulateStaticDictionaryFromXMLPIV(string filePath)
         {
+            if (DirectoryMappingFileName == null)
+                return;
             var xmlParameters = new XMLExaminerParams { XMLInputFilePath = filePath };
             var pipelineParams = new PAFPipelineParams<IXMLExaminerParams>(xmlParameters);
             var examiner = new XMLExaminer();

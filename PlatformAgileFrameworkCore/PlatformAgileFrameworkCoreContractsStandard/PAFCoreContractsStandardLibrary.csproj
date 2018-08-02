@@ -6,6 +6,12 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/Platform-Agile-Software/PAF-Community</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Platform-Agile-Software/PAF-Community</RepositoryUrl>
+    <Description>"Core Functionality for a PAF Application."</Description>
+    <Authors>Platform-Agile Software</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

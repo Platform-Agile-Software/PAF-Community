@@ -82,7 +82,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// </summary>
         /// <param name="filePath">
         /// File path to the xml file, including filename. This one must
-        /// obviously be absolute (non-symbolic).
+        /// obviously be absolute (non-symbolic). <see langword="null"/> not to load from file.
         /// </param>
         [SecurityCritical]
         void PopulateStaticDictionaryFromXML(string filePath);

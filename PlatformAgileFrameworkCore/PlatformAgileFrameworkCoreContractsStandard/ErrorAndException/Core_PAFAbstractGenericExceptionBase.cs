@@ -103,7 +103,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// <param name="context">
 		/// Not used in this method.
 		/// </param>
-		[SecurityCritical]
+		//[SecurityCritical]
 // ReSharper disable UnusedParameter.Local
 		protected internal PAFAbstractExceptionBase(IPAFSerializationInfoCLS info,
 			PAFSerializationContext context)

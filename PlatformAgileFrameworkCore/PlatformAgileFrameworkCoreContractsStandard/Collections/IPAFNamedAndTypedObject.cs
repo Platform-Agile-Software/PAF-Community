@@ -55,13 +55,17 @@ namespace PlatformAgileFramework.Collections
 		/// <see langword="null"/>.
 		/// </exception>
 		/// </exceptions>
-		string AssemblyQualifiedObjectType { get; [SecurityCritical] set; }
+		string AssemblyQualifiedObjectType { get;
+			//[SecurityCritical]
+			set; }
 		/// <summary>
 		/// Gets the type of the object. Any object should usually match the
 		/// type. There are some extreme cases where the type can be reset to
 		/// a type that the object inherits from or implements. This is not
 		/// a good idea and the setter is left here for legacy code support.
 		/// </summary>
-		Type ObjectType { get; [SecurityCritical]  set; }
+		Type ObjectType { get;
+			//[SecurityCritical]
+			set; }
 	}
 }

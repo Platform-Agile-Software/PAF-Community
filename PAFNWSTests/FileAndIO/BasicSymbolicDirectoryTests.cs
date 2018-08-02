@@ -91,7 +91,8 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			// We want to push in the "Documents" mapping if it is not already there.
 			if (SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents") == null)
 				SymbolicDirectoryMappingDictionary.AddStaticMappingInternal("Documents",
-				ManufacturingUtils.s_CurrentPlatformInfo.CDriveMapping + DS + "Documents");
+					PlatformUtils.s_C_DriveMapping + DS + "Documents");
+			//ManufacturingUtils.s_CurrentPlatformInfo.CDriveMapping + DS + "Documents");
 
 			var documentsMapping = SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents");
 
@@ -103,7 +104,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			var normalizedResult
 				= FileUtils.NormalizeFilePath(recursiveSymbolResult);
 
-			var correctNormalizedResult = ManufacturingUtils.s_CurrentPlatformInfo.CDriveMapping + DS
+			var correctNormalizedResult = PlatformUtils.s_C_DriveMapping + DS
 				+ "Documents" + DS + "specialfiles";
 
 			Assert.IsTrue(normalizedResult.Equals(correctNormalizedResult, StringComparison.Ordinal));

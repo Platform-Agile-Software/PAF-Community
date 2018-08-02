@@ -146,3 +146,17 @@ C:\Users\kroge\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\Plat
 C:\Users\kroge\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CopyComplete
 C:\Users\kroge\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
 C:\Users\kroge\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll.config
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.deps.json
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.pdb
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreContractsStandardLibrary.dll.config
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csprojAssemblyReference.cache
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CoreCompileInputs.cache
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfoInputs.cache
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.AssemblyInfo.cs
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.csproj.CopyComplete
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.dll
+C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\obj\Debug\netstandard2.0\PAFCoreStandardLibrary.pdb

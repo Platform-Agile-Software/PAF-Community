@@ -464,6 +464,24 @@ namespace PlatformAgileFramework.Platform
 		// ReSharper restore PartialMethodWithSinglePart
 		// ReSharper restore UnusedMember.Local
 		#endregion // Partial Methods
+
+		/// <summary>
+		/// Method simply checks a character against both platform
+		/// and alt directory sep character.
+		/// </summary>
+		/// <returns>
+		/// <see langword="true"/> if a match..
+		/// </returns>
+
+		public static bool IsADirSepChar(char characterToCheck)
+		{
+			if (characterToCheck == GetDirectorySeparatorChar())
+				return true;
+			if (characterToCheck == GetAlternativeDirectorySeparatorChar())
+				return true;
+			return false;
+
+		}
 		/// <summary>
 		/// Returns the "alternative" directory separator character.
 		/// </summary>

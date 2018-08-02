@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.FormsTestRunner.Dro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.FormsTestRunner.MobileAppService", "MobileAppService\Xamarin.FormsTestRunner.MobileAppService.csproj", "{66043003-013A-4CE3-B617-83838DD6A180}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.FormsTestRunner", "Xamarin.FormsTestRunnerCore\Xamarin.FormsTestRunner.csproj", "{1A9D3D27-72ED-45FD-BBDC-C8240028B991}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.FormsTestRunner", "Forms\Xamarin.FormsTestRunner.csproj", "{1A9D3D27-72ED-45FD-BBDC-C8240028B991}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreContractsStandardLibrary", "..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj", "{3A54966E-EF31-4FD1-9DA4-97B19A9E7C86}"
 EndProject

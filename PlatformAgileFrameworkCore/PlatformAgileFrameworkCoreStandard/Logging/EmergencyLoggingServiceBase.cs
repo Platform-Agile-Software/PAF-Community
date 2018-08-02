@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.FileAndIO;
 using PlatformAgileFramework.FileAndIO.FileAndDirectoryService;
@@ -144,18 +145,18 @@ namespace PlatformAgileFramework.Logging
 		/// <summary>
 		/// The main logger is <see langword="null"/> until constructed.
 		/// </summary>
-		public IPAFLoggingService MainService { get; protected internal set; }
+		public IPAFLoggingService MainService { get; set; }
 		/// <summary>
 		/// This is an extension point for the logging system. A description of a main logger that
 		/// is installed when the requisite services it needs are available.
 		/// </summary>
 		public IPAFServiceDescription MainServiceDescription
-		{ get; protected internal set; }
+		{ get; set; }
 		/// <summary>
 		/// This is the text that is printed above each log message. date/time is printed at the end of this text.
 		/// </summary>
 		public string HeaderPrefixText
-		{ get; protected internal set; }
+		{ get; set; }
 		/// <summary>
 		/// Tells whether service has been created. We are not designed with a singleton
 		/// pattern. Thus just prevents us from being created multiple times
@@ -170,14 +171,15 @@ namespace PlatformAgileFramework.Logging
 		/// service lookup, since it is generally assumed that the file service has no dependencies.
 		/// It can also be installed after construction, prior to any pipeline stages.
 		/// </summary>
-		protected internal static IPAFStorageService StorageService { get; set; }
+		public static IPAFStorageService StorageService { get; set; }
 		/// <summary>
 		/// <see langword="true"/> to truncate file when logger is constructed. Set this before
 		/// service is loaded to maintain thread safety.
 		/// </summary>
-		protected internal bool TruncateFileOnStart { get; set; }
+		public bool TruncateFileOnStart { get; set; }
 		#endregion // Class Fields and Autoproperties
 		#region Constructors
+
 		/// <summary>
 		/// Initializes a new instance of us.
 		///  </summary>
@@ -190,7 +192,9 @@ namespace PlatformAgileFramework.Logging
 		/// This optional parameter allows the name of an emergency plain text logging file
 		/// to be specified. Default = <see cref="DEFAULT_EMERGENCY_FILE"/>.
 		/// </param>
-		///  <exception> <see cref="PAFStandardException{T}"/> is thrown if
+		/// <param name="truncateOnStart">Sets <see cref="TruncateFileOnStart"/>.</param>
+		/// <param name="headerText">Sets <see cref="HeaderPrefixText"/>.</param>
+		/// <exception> <see cref="PAFStandardException{T}"/> is thrown if
 		///  an instance of the class is already constructed.
 		///  <see>
 		///      <cref>PAFServiceExceptionData.SERVICE_ALREADY_CREATED</cref>
@@ -198,7 +202,7 @@ namespace PlatformAgileFramework.Logging
 		///      .
 		///  </exception>
 		protected internal EmergencyLoggingServiceBase(IPAFServiceDescription mainServiceDescription = null,
-			string emergencyLogFilePath = null)
+			string emergencyLogFilePath = null, bool truncateOnStart = true, string headerText = null)
 		{
 			if (s_ServiceIsCreated)
 			{
@@ -207,8 +211,10 @@ namespace PlatformAgileFramework.Logging
                 throw new PAFStandardException<IPAFSED>(exceptionData, PAFServiceExceptionMessageTags.SERVICE_ALREADY_CREATED);
 			}
 
-			// Shove in the default header.
+			// Default if not incoming.
 			HeaderPrefixText = DEFAULT_HEADER_TEXT;
+			if (headerText != null)
+				HeaderPrefixText = headerText;
 
 			// Default if not incoming.
 			m_EmergencyLogFilePath = emergencyLogFilePath ?? DEFAULT_EMERGENCY_FILE;
@@ -216,6 +222,8 @@ namespace PlatformAgileFramework.Logging
 			// Default if not incoming.
 			MainServiceDescription = mainServiceDescription ??
 				new PAFServiceDescription(PAFTypeHolder.IHolder(typeof(IPAFLoggingService)));
+
+			TruncateFileOnStart = truncateOnStart;
 
 			MeAsLogger = this;
 
@@ -257,6 +265,8 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// If <see cref="StorageService"/> is already loaded, it is used.
 		/// </remarks>
+		// This is called only by the initialization thread.
+		[SuppressMessage("ReSharper", "InconsistentlySynchronizedField")]
 		protected internal override void LoadServicePIV(
 			IPAFServicePipelineObject<IPAFService> serviceObject)
 		{

@@ -3,10 +3,12 @@
   <metadata>
     <id>PAFCoreStandardLibrary</id>
     <version>1.0.0</version>
-    <authors>PAFCoreStandardLibrary</authors>
-    <owners>PAFCoreStandardLibrary</owners>
+    <authors>Platform-Agile Software</authors>
+    <owners>Platform-Agile Software</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Platform-Agile-Software/PAF-Community</projectUrl>
     <description>"Core Functionality for a PAF Application."</description>
+    <repository url="https://github.com/Platform-Agile-Software/PAF-Community" />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="PAFCoreContractsStandardLibrary" version="1.0.0" exclude="Build,Analyzers" />
@@ -16,6 +18,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\kroge\Dropbox\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll" target="lib\netstandard2.0\PAFCoreStandardLibrary.dll" />
+    <file src="C:\Users\v65346\Dropbox\PAF\PAFCore\PAF-Community\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\bin\Debug\netstandard2.0\PAFCoreStandardLibrary.dll" target="lib\netstandard2.0\PAFCoreStandardLibrary.dll" />
   </files>
 </package>

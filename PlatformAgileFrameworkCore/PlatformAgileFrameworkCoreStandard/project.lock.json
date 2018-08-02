@@ -9,22 +9,23 @@
     ".NETStandard,Version=v1.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Home\\.nuget\\packages\\": {}
+    "C:\\Users\\v65346\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "\\\\vmware-host\\Shared Folders\\Documents\\PAF\\PAFCore\\PAFCommunity\\PlatformAgileFrameworkCoreStandard",
+      "projectUniqueName": "C:\\Users\\v65346\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard",
       "projectName": "PlatformAgileFrameworkCoreStandard",
-      "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\PAF\\PAFCore\\PAFCommunity\\PlatformAgileFrameworkCoreStandard",
-      "projectJsonPath": "\\\\vmware-host\\Shared Folders\\Documents\\PAF\\PAFCore\\PAFCommunity\\PlatformAgileFrameworkCoreStandard\\project.json",
-      "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+      "projectPath": "C:\\Users\\v65346\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard",
+      "projectJsonPath": "C:\\Users\\v65346\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\project.json",
+      "packagesPath": "C:\\Users\\v65346\\.nuget\\packages\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
-        "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\v65346\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://10.6.170.72/EMG/nuget/": {},
         "https://api.nuget.org/v3/index.json": {}
       }
     },

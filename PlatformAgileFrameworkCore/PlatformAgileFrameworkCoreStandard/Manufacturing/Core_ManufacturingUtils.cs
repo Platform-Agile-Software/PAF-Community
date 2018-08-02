@@ -122,7 +122,7 @@ namespace PlatformAgileFramework.Manufacturing
         /// <summary>
         /// Push this in for loading assemblies on platform. Loads "from" a fileSpec.
         /// </summary>
-        internal static Func<string, Assembly> AssemblyLoadFromLoader { get; set; }
+        protected internal static Func<string, Assembly> AssemblyLoadFromLoader { get; set; }
         /// <summary>
         /// Push this in for listing assemblies on platform. Even on platforms where
         /// some sort of "GetAssemblies" functionality is not available, the platform
@@ -130,16 +130,16 @@ namespace PlatformAgileFramework.Manufacturing
         /// returned from this call are not added if they are already in our collection.
         /// The function may return <see langword="null"/>.
         /// </summary>
-		internal static Func<IEnumerable<Assembly>> AssemblyLister { get; set; }
+		protected internal static Func<IEnumerable<Assembly>> AssemblyLister { get; set; }
         #endregion // Extension points for static linking
-	    /// <summary>
-	    /// This one has to be manually set, since there is no reliable way
-	    /// to find out what platform we are on from Microsoft/Xamarin. Used
-	    /// to be able to examine BCL assys, but no more. Too many variations.....
-	    /// </summary>
-        public static readonly IPlatformInfo s_CurrentPlatformInfo = new PAF_ECMA4_6_2PlatformInfo();
-        // public static readonly IPlatformInfo s_CurrentPlatformInfo = new WinPlatformInfo();
-	    //public static readonly IPlatformInfo s_CurrentPlatformInfo = new MacPlatformInfo();
+	    ///// <summary>
+	    ///// This one has to be manually set, since there is no reliable way
+	    ///// to find out what platform we are on from Microsoft/Xamarin. Used
+	    ///// to be able to examine BCL assys, but no more. Too many variations.....
+	    ///// </summary>
+     //   public static readonly IPlatformInfo s_CurrentPlatformInfo = new PAF_ECMA4_6_2PlatformInfo();
+     //   // public static readonly IPlatformInfo s_CurrentPlatformInfo = new WinPlatformInfo();
+	    ////public static readonly IPlatformInfo s_CurrentPlatformInfo = new MacPlatformInfo();
 
         /// <summary>
         /// We need this to do symbolic directory mapping. Set in construction path.
@@ -153,26 +153,6 @@ namespace PlatformAgileFramework.Manufacturing
         internal static ISymbolicDirectoryMappingDictionaryInternal DirectoryMappingsInternal
         { get; set; }
 
-	    /// <summary>
-	    /// This is our "standard" file name.
-	    /// </summary>
-	    public const string DEFAULT_DIRECTORY_MAPPING_FILE_NAME
-	        = "SymbolicDirectories.xml";
-
-	    /// <summary>
-	    /// This is settable for tests, etc. Set in construction path.
-	    /// </summary>
-	    public static string DirectoryMappingFileName { get; protected internal set; }
-
-	    /// <summary>
-	    /// Static that can be reset for platform tests, etc. By default, this is set up
-	    /// to point to the <see cref="DirectoryMappingFileName"/> living in
-	    /// <see cref="PlatformUtils.FormPlatformAssemblyLoadFromPath"/>
-	    /// </summary>
-	    public static string DirectoryMappingFilePathWithFile
-	    {
-	        get; protected internal set;
-	    }
 	    #endregion // Class Fields and Autoproperties
         /// <summary>
         /// Create needed collections. Load this assembly
@@ -182,7 +162,7 @@ namespace PlatformAgileFramework.Manufacturing
 		{
 			s_AssembliesLoadedInAppdomain = new Dictionary<string,Assembly>();
 		    // Make sure that Platform utils gets loaded when this class gets touched.
-		    PlatformUtils.PlatformInfoInternal = s_CurrentPlatformInfo;
+		    var platform = PlatformUtils.PlatformInfoInternal;
 		}
         #region Properties
         /// <summary>
@@ -210,16 +190,6 @@ namespace PlatformAgileFramework.Manufacturing
 	        // of the way.
 	        var unusedVariable = PlatformUtils.Instance;
 
-	        // Set defaults if stuff not set...
-	        if (DirectoryMappingFileName == null)
-	        {
-	            DirectoryMappingFileName = DEFAULT_DIRECTORY_MAPPING_FILE_NAME;
-	        }
-	        if (DirectoryMappingFilePathWithFile == null)
-	        {
-	            var path = PlatformUtils.FormPlatformAssemblyLoadFromPath();
-	            DirectoryMappingFilePathWithFile = path + DirectoryMappingFileName;
-	        }
 
 	        // platform statics are loaded, so now we can load the dictionary.
             DirectoryMappingsInternal = new SymbolicDirectoryMappingDictionary();
@@ -323,7 +293,7 @@ namespace PlatformAgileFramework.Manufacturing
 			}
 
             // No name means statically linked.
-            if (string.IsNullOrEmpty(s_CurrentPlatformInfo.CurrentPlatformAssyName)) s_IsPlatformAssemblyLoaded = true;
+            if (string.IsNullOrEmpty(PlatformUtils.PlatformInfo.CurrentPlatformAssyName)) s_IsPlatformAssemblyLoaded = true;
 
             /////////////////////////////////////////////////////////////////////////////
             // Remainder is executed if platform assy is still needed.
@@ -331,8 +301,8 @@ namespace PlatformAgileFramework.Manufacturing
 
             // We determine if the platform assy has gotten loaded along the way.
             var platformAssembly =
-                // ReSharper disable once InconsistentlySynchronizedField
-                s_CurrentPlatformInfo.CurrentPlatformAssyName.GetAssemblyFromFullNameKeyedDictionary(s_AssembliesLoadedInAppdomain);
+				// ReSharper disable once InconsistentlySynchronizedField
+	            PlatformUtils.PlatformInfo.CurrentPlatformAssyName.GetAssemblyFromFullNameKeyedDictionary(s_AssembliesLoadedInAppdomain);
             if (platformAssembly != null)
 		    {
                 // ReSharper disable once InconsistentlySynchronizedField
