@@ -23,13 +23,8 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
-using System.Reflection;
 using System.Threading;
-using PlatformAgileFramework.Application;
-using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
 using PlatformAgileFramework.FrameworkServices;
-using PlatformAgileFramework.Manufacturing;
 using Xamarin.Forms;
 using Xamarin.FormsTestRunner.Services;
 using Xamarin.FormsTestRunner.Views;
@@ -81,16 +76,7 @@ namespace Xamarin.FormsTestRunner
 		/// </summary>
 		public SharedXamlApplication()
 		{
-			// Net standard deficiencies causes us to need to push in a couple of things.
-			ManufacturingUtils.AssemblyLister = AppDomain.CurrentDomain.GetAssemblies;
-			ManufacturingUtils.AssemblyLoadFromLoader = Assembly.LoadFrom;
-
-			// Override standard file with test file.
-			SymbolicDirectoryMappingDictionary.DirectoryMappingFileName
-				= "TestSymbolicDirectories.xml";
-
-			ServiceBootStrapper.Instance.LoadCoreServices();
-			s_ServiceManager = PAFServiceManagerContainer.ServiceManager;
+            LoadServiceManagerXamarinMobile.PreLoadManager();
 
 			InitializeComponent();
 
@@ -110,14 +96,6 @@ namespace Xamarin.FormsTestRunner
 		        MainPage = new NavigationPage(new XamarinTestRunnerMainPage());
 	        }
         }
-		/// <summary>
-		/// Just holds the manager. Constructed at application load time. This
-		/// one just points into the static ROOT manager.
-		/// </summary>
-		public static IPAFServiceManager<IPAFService> ServiceManager
-		{
-			get { return s_ServiceManager; }
-		}       
 		/// <summary>
 		/// Holds the <see cref="SynchronizationContext"/> pushed in from the UI
 		/// initialization code on each platform. This allows posts or sends to

@@ -153,7 +153,8 @@ namespace PlatformAgileFramework.Manufacturing
         internal static ISymbolicDirectoryMappingDictionaryInternal DirectoryMappingsInternal
         { get; set; }
 
-	    #endregion // Class Fields and Autoproperties
+        #endregion // Class Fields and Autoproperties
+        #region Constructors
         /// <summary>
         /// Create needed collections. Load this assembly
         /// into <c>AssembliesLoadedInAppdomain</c>.
@@ -162,8 +163,18 @@ namespace PlatformAgileFramework.Manufacturing
 		{
 			s_AssembliesLoadedInAppdomain = new Dictionary<string,Assembly>();
 		    // Make sure that Platform utils gets loaded when this class gets touched.
+		    // ReSharper disable once UnusedVariable
 		    var platform = PlatformUtils.PlatformInfoInternal;
 		}
+
+        /// <summary>
+        /// Non-public for testing.
+        /// </summary>
+	    protected internal ManufacturingUtils()
+	    {
+	    }
+	    #endregion Constructors
+
         #region Properties
         /// <summary>
         /// Get the singleton instance of the class.
@@ -171,15 +182,15 @@ namespace PlatformAgileFramework.Manufacturing
         /// <returns>The singleton.</returns>
         public static ManufacturingUtils Instance
 	    {
-	        get { return s_Singleton.Value; }
+            get
+            {
+                return s_Singleton.Value;
+            }
 	    }
         #endregion // Properties
         #region Methods
         /// <summary>
-        /// Not quite a constructor - a factory for the lazy construction. If
-        /// <see cref="DirectoryMappingFilePathWithFile"/> is <see langword="null"/>,
-        /// it is constructed with the <see cref="DirectoryMappingFileName"/> to
-        /// point to the platform assembly load directory.
+        /// Not quite a constructor - a factory for the lazy construction.
         /// </summary>
         protected static ManufacturingUtils ConstructManufacturingUtils()
 	    {

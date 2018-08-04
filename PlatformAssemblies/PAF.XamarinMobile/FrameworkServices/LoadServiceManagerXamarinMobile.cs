@@ -39,6 +39,7 @@ using PlatformAgileFramework.UserInterface.ConsoleUI;
 
 namespace PlatformAgileFramework.FrameworkServices
 {
+
 	/// <summary>
 	/// Version for Xamarin mobile that loads the service manager with
 	/// pre-configured services.
@@ -65,7 +66,13 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </threadsafety>
 	public static class LoadServiceManagerXamarinMobile
 	{
-	    private static volatile bool s_IsManagerPreloaded;
+	    /// <summary>
+	    /// Backing for the SM. Set by this class or by trusted platform classes.
+	    /// </summary>
+	    internal static IPAFServiceManager<IPAFService>
+	        s_ServiceManager;
+
+        private static volatile bool s_IsManagerPreloaded;
 		public static void PreLoadManager()
 		{
 		    if (s_IsManagerPreloaded)
@@ -78,7 +85,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			// Set the app root to our special folder.
 			PlatformUtils.ApplicationRoot = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-			var initialServices = PAFServiceManager.InitialServices;
+			var initialServices = PAFServiceManager.InitialServicesInternal;
 			if(initialServices == null)
 				PAFServiceManager.InitialServices = new Collection<IPAFServiceDescription>();
 
@@ -126,6 +133,18 @@ namespace PlatformAgileFramework.FrameworkServices
 
 			// Bootstrapper loads core services only if they are not already loaded.
 			ServiceBootStrapper.Instance.LoadCoreServices();
-		}
-	}
+
+		    s_ServiceManager = PAFServiceManagerContainer.ServiceManager;
+
+        }
+        /// <summary>
+        /// Just holds the manager. Constructed at application load time. This
+        /// one just points into the static ROOT manager.
+        /// </summary>
+        public static IPAFServiceManager<IPAFService> ServiceManager
+	    {
+	        get { return s_ServiceManager; }
+	    }
+
+    }
 }

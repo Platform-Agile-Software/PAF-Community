@@ -34,6 +34,7 @@
     <ProjectReference Include="..\..\..\PAFNWSTests\PAF.CoreNetStandard.Tests.csproj" />
     <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
     <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
+    <ProjectReference Include="..\..\PAF.XamarinMobile\PAF.XamarinMobileStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
