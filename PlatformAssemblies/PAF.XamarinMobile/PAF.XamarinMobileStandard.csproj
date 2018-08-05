@@ -8,6 +8,7 @@
     <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

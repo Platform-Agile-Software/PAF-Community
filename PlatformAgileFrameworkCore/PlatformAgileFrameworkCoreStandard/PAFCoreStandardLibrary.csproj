@@ -8,10 +8,10 @@
     <AssemblyOriginatorKeyFile>PAF.snk</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/Platform-Agile-Software/PAF-Community</PackageProjectUrl>
     <DelaySign>false</DelaySign>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Platform-Agile Software</Authors>
     <RepositoryUrl>https://github.com/Platform-Agile-Software/PAF-Community</RepositoryUrl>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
