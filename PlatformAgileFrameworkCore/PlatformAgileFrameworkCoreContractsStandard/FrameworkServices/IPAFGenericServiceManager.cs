@@ -59,7 +59,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="serviceName">Name of the service, which is usually not "".</param>
 		/// <param name="isDefaultService"><see langword="true"/> if this is to become the
 		/// "default" service.</param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		void AddTypedService<U>(U service, string serviceName, bool isDefaultService)
 			 where U : class, T;
 		/// <summary>
@@ -93,6 +93,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <para>
 		/// If a service is an extended service, the service
 		/// is only returned if it is initialized.
+		/// </para>
+		/// <para>
+		/// This is the one you have to call for named services.
 		/// </para>
 		/// </remarks>
 		U GetTypedService<U>(string serviceName, bool exactTypeMatch,

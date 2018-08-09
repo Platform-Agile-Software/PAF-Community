@@ -261,7 +261,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string ObjectName
 		{
 			get { return ServiceName; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceName = value; }
 		}
 
@@ -271,7 +271,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string AssemblyQualifiedObjectType
 		{
 			get { return ServiceInterfaceType.AssemblyQualifiedTypeName; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { ServiceInterfaceType.GetAssemblyHolder().AssemblyNameString = value; }
 		}
 
@@ -281,7 +281,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public bool IsDefaultObject
 		{
 			get { return m_IsDefault; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_IsDefault = value; }
 		}
 
@@ -298,7 +298,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public Type ObjectType
 		{
 			get { return ServiceInterfaceType.TypeType; }
-			[SecurityCritical]
+			//[SecurityCritical]
 			set { m_ServiceInterfaceType.TypeType = value; }
 		}
 
@@ -312,7 +312,8 @@ namespace PlatformAgileFramework.FrameworkServices
 		public object ObjectValue
 		{
 			get { return ServiceObject; }
-			[SecurityCritical] set
+			//[SecurityCritical]
+			set
 			{
 				if (value != null)
 				{

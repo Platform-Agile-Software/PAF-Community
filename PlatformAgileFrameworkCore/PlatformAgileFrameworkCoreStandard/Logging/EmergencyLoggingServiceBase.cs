@@ -311,6 +311,11 @@ namespace PlatformAgileFramework.Logging
 		}
 		#endregion // IPAFFrameworkServiceExtended Overrides
 		#region IPAFLoggingService Implementation
+		/// <remarks>
+		/// See <see cref="IPAFLoggingService"/>
+		/// </remarks>
+		public bool IsPaused { get; set; }
+
 		/// <summary>
 		///	<see cref="IPAFLoggingService"/>.
 		/// </summary>
@@ -326,6 +331,8 @@ namespace PlatformAgileFramework.Logging
 			// Handle in the main logger, if active, avoiding recursion.
 			if((MainService != null) && (MainService != this))
 			{
+				// We never pause the emergency logger - just the main.
+				if (IsPaused) return;
 				MainService.LogEntry(message, logLevel, exception);
 				return;
 			}

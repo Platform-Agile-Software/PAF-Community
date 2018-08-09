@@ -13,6 +13,7 @@
     <None Remove="bin\Debug\netstandard2.0\obj\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Logging\TestHelpers\" />
     <Folder Include="Manufacturing\" />
     <Folder Include="Notification\Helpers\" />
   </ItemGroup>

@@ -112,7 +112,7 @@ namespace PlatformAgileFramework.Logging
 		/// Adds a writer.
 		/// </summary>
 		/// <param name="writer">Writer to add.</param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static void AddPreLoadWriter(Action<string> writer)
 		{
 			s_PreloadedWriters.Add(writer);
@@ -126,7 +126,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static IEnumerable<Action<string>> GetPreLoadWriters()
 		{
 			return s_PreloadedWriters;
@@ -135,7 +135,7 @@ namespace PlatformAgileFramework.Logging
 		/// Deletes a writer if found.
 		/// </summary>
 		/// <param name="writer">Writer to remove.</param>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static void RemovePreLoadWriter(Action<string> writer)
 		{
 			s_PreloadedWriters.Remove(writer);
@@ -205,7 +205,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public virtual void AddWriter(Action<string> writer)
 		{
 			m_Writers.Add(writer);
@@ -219,7 +219,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual IEnumerable<Action<string>> GetWriters()
 		{
 			return m_Writers;
@@ -231,7 +231,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void RemoveWriter(Action<string> writer)
 		{
 			m_Writers.Remove(writer);
@@ -250,7 +250,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual string ReadLogFileUtility(string logFile)
 		{
 			return ReadLogFile(logFile);
@@ -261,7 +261,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void SetFormattingDelegatee(LogFormatterDelegate logFormattingDelegate)
 		{
 			FormatterDelegate = logFormattingDelegate;
@@ -277,7 +277,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void SetLoggingLevel(PAFLoggingLevel loggingLevel)
 		{
 			LoggingLevel = loggingLevel;
@@ -294,7 +294,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void SetLogFile(string logFile)
 		{
 			LogFile = logFile;
@@ -305,7 +305,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void SetHeader(string header)
 		{
 			Header = header;
@@ -316,7 +316,7 @@ namespace PlatformAgileFramework.Logging
 		/// <remarks>
 		/// For privileged callers.
 		/// </remarks>
-		[SecurityCritical]
+		////[SecurityCritical]
 		public virtual void SetTimeStampEnabled(bool enableTimeStamp)
 		{
 			EnableTimeStamp = enableTimeStamp;
@@ -396,6 +396,12 @@ namespace PlatformAgileFramework.Logging
 		}
 		#endregion // Implementation of IPAFLoggingServiceInternal
 		#region Implementation of IPAFLoggingService
+
+		/// <remarks>
+		/// See <see cref="IPAFLoggingService"/>
+		/// </remarks>
+		public bool IsPaused { get; set; }
+
 		/// <remarks>
 		/// See <see cref="IPAFLoggingService"/>
 		/// </remarks>
@@ -403,6 +409,8 @@ namespace PlatformAgileFramework.Logging
 			PAFLoggingLevel logLevel = PAFLoggingLevel.Error,
 			Exception exception = null)
 		{
+			if (IsPaused)
+				return;
 			var header = Header;
 			var enableTimeStamp = EnableTimeStamp != false;
 			var loggingLevel = LoggingLevel;

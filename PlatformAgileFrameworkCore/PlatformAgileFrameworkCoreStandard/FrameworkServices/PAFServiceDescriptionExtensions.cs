@@ -125,7 +125,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// First located service or <see langword="null"/>.
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static IPAFServiceDescription FindServiceInterfaceInCollection<T>(
 			this IEnumerable<IPAFServiceDescription> serviceDescriptions)
 			where T : class, IPAFService
@@ -175,7 +175,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// First located service or <see langword="null"/>.
 		/// </returns>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static IPAFServiceDescription FindServiceImplementationTypeInCollection<T>(
 			this IEnumerable<IPAFServiceDescription> serviceDescriptions)
 			where T : class, IPAFService

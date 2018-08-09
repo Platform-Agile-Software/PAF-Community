@@ -822,7 +822,7 @@ namespace PlatformAgileFramework.Manufacturing
 		/// <threadsafety>
 		/// <see cref="AddAssemblyToAssembliesLoadedInternal"/>.
 		/// </threadsafety>
-		[SecurityCritical]
+		//[SecurityCritical]
 		public static bool AddAssemblyToAssembliesLoaded(Assembly assembly)
 		{
 			return AddAssemblyToAssembliesLoadedInternal(assembly);

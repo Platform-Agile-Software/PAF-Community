@@ -54,6 +54,13 @@ namespace PlatformAgileFramework.Logging
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
+	/// <date> 09aug2018 </date>
+	/// <description>
+	/// Added "IsPaused".
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
 	/// <date> 22jan2011 </date>
 	/// <description>
 	/// Added history and documentation.
@@ -62,6 +69,18 @@ namespace PlatformAgileFramework.Logging
 	/// </history>
 	public interface IPAFLoggingService: IPAFService
 	{
+		#region Properties
+		/// <summary>
+		/// Indicates whether the logger is paused. When paused, nothing is output.
+		/// Create the logger, then pause it if it's desired to shut it off until
+		/// needed.
+		/// </summary>
+		/// <threadsafety>
+		/// Should normally be thread-safe.
+		/// </threadsafety>
+		bool IsPaused { get; set; }
+	
+		#endregion // Properties
 		#region Methods
 		/// <summary>
 		///	Logs the exception with a message.

@@ -8,14 +8,17 @@ using System.Reflection;
 using Newtonsoft.Json;
 using PlatformAgileFramework.AssemblyHandling;
 using PlatformAgileFramework.Events;
+using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
 using PlatformAgileFramework.Logging.Tests;
+using PlatformAgileFramework.Platform;
 using PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator.Display;
 using PlatformAgileFramework.Tutorials;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 
 namespace PlatformAgileFramework
 {
-    class ECMATestRunner
+	// ReSharper disable once InconsistentNaming
+	class ECMATestRunner
     {
         static void Main(string[] args)
         {
@@ -24,12 +27,13 @@ namespace PlatformAgileFramework
 #pragma warning disable 162
                 JsonConvert.SerializeObject(null);
 #pragma warning restore 162
+			PlatformUtils.PlatformInfo = new PAF_ECMA4_6_2PlatformInfo();
             // Net standard deficiencies causes us to need to push in a couple of things.
             ManufacturingUtils.AssemblyLister = AppDomain.CurrentDomain.GetAssemblies;
             ManufacturingUtils.AssemblyLoadFromLoader = Assembly.LoadFrom;
 
 			// Override standard file with test file.
-            ManufacturingUtils.DirectoryMappingFilePathWithFile
+            SymbolicDirectoryMappingDictionary.DirectoryMappingFileName
                 = "TestSymbolicDirectories.xml";
 
             // Just to get the ECMA assy statically loaded - .Net standard has trouble probing.

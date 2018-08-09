@@ -315,7 +315,7 @@
           "bin/placeholder/PAFCoreContractsStandardLibrary.dll": {}
         }
       },
-      "PAFCoreStandardLibrary/1.0.1": {
+      "PAFCoreStandardLibrary/1.0.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -1788,7 +1788,7 @@
       "path": "../../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj",
       "msbuildProject": "../../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj"
     },
-    "PAFCoreStandardLibrary/1.0.1": {
+    "PAFCoreStandardLibrary/1.0.2": {
       "type": "project",
       "path": "../../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreStandard/PAFCoreStandardLibrary.csproj",
       "msbuildProject": "../../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreStandard/PAFCoreStandardLibrary.csproj"
@@ -1798,7 +1798,7 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "PAFCoreContractsStandardLibrary >= 1.0.2",
-      "PAFCoreStandardLibrary >= 1.0.1"
+      "PAFCoreStandardLibrary >= 1.0.2"
     ]
   },
   "packageFolders": {

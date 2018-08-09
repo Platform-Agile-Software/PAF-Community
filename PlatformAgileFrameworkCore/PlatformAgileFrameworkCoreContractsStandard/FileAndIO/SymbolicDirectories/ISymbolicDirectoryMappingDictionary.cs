@@ -64,7 +64,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// <see langword="false"/> if another thread snuck in before
         /// us and already stored it.
         /// </returns>
-        [SecurityCritical]
+        //[SecurityCritical]
         bool AddMapping(string token, string directory);
         /// <summary>
         /// Gets a mapping from the mapping dictionary.
@@ -75,7 +75,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// <returns>
         /// The mapping if found or <see langword="null"/>.
         /// </returns>
-        [SecurityCritical]
+        //[SecurityCritical]
         string GetMapping(string token);
         /// <summary>
         /// Populates the static dictionary from xml.
@@ -84,7 +84,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// File path to the xml file, including filename. This one must
         /// obviously be absolute (non-symbolic). <see langword="null"/> not to load from file.
         /// </param>
-        [SecurityCritical]
+        //[SecurityCritical]
         void PopulateStaticDictionaryFromXML(string filePath);
 		#endregion // Methods
 	}

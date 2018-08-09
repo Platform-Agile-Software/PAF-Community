@@ -91,7 +91,7 @@ namespace PlatformAgileFramework.Platform
 	/// <para>
 	/// TODO - make all of the private readonly arrays internal collections or lists
 	/// TODO so extenders can load them. Also need to make both internal and public
-	/// TODO [SecurityCritical] versions of most methods/props.
+	/// TODO //[SecurityCritical] versions of most methods/props.
 	/// </para>
 	/// </description>
 	/// </contribution>
@@ -117,7 +117,7 @@ namespace PlatformAgileFramework.Platform
 		public static string ApplicationRoot
 		{
 			get { return ApplicationRootInternal;}
-			[SecurityCritical]
+			////[SecurityCritical]
 			set { ApplicationRootInternal = value; }
 		}
 		/// <summary>
@@ -128,7 +128,9 @@ namespace PlatformAgileFramework.Platform
 		/// Platform-specific information. Public version has security critical setter.
 		/// </summary>
 		public static IPlatformInfo PlatformInfo
-		{ get { return PlatformInfoInternal;} [SecurityCritical] set { PlatformInfoInternal = value; } }
+		{ get { return PlatformInfoInternal;}
+			////[SecurityCritical]
+			set { PlatformInfoInternal = value; } }
 		/// <summary>
 		/// Platform-specific information. Internal version is wide-open.
 		/// </summary>
