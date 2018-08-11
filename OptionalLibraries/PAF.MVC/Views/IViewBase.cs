@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2017 Icucom Corporation
+//Copyright (c) 2010 - 2018 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -23,35 +23,26 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System.Threading;
-using PlatformAgileFramework.Application;
+using PlatformAgileFramework.MVC.Controllers;
 
-namespace Xamarin.FormsTestRunner.XamarinFormsHelpers
+namespace PlatformAgileFramework.MVC.Views
 {
 	/// <summary>
-	/// This interface provides a protocol for accessing platform-independent services
-	/// that should be available on ALL platforms. This extension of the base interface
-	/// includes functionality for graphics applications under .Net Core.
+	/// This interface provides a prescription for what any view in the
+	/// PAF MVC model must implement.
 	/// </summary>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 01apr18 </date>
-	/// New. Will use synchronization contexts universally now. Originally
-	/// built for Xamarin.Forms support.
+	/// New. Refactored original to be more modular.
 	/// </contribution>
 	/// </history>
-	// TODO KRM - move this to Forms-independent assembly.
-	public interface ISharedUIApplication: ISharedApplication
+	public interface IViewBase
 	{
 		/// <summary>
-		/// Holds the <see cref="SynchronizationContext"/> pushed in from the UI
-		/// initialization code on each platform. This allows posts or sends to
-		/// the UI thread.
+		/// Reference to this view's controller.
 		/// </summary>
-		SynchronizationContext UISynchronizationContext
-		{
-			get;
-		}
+		IControllerBase ControllerBase { get; set; }
 	}
 }

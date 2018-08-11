@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>PlatformAgileFramework.MVC</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
+    <ProjectReference Include="..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

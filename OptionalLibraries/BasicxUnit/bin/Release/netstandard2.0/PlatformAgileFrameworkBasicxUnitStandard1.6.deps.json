@@ -11,7 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "PAFCoreContractsStandardLibrary": "1.0.2",
-          "PAFCoreStandardLibrary": "1.0.1"
+          "PAFCoreStandardLibrary": "1.0.2"
         },
         "runtime": {
           "PlatformAgileFrameworkBasicxUnitStandard1.6.dll": {}
@@ -215,7 +215,7 @@
           "PAFCoreContractsStandardLibrary.dll": {}
         }
       },
-      "PAFCoreStandardLibrary/1.0.1": {
+      "PAFCoreStandardLibrary/1.0.2": {
         "dependencies": {
           "Newtonsoft.Json": "11.0.2",
           "PAFCoreContractsStandardLibrary": "1.0.2",
@@ -406,7 +406,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "PAFCoreStandardLibrary/1.0.1": {
+    "PAFCoreStandardLibrary/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
