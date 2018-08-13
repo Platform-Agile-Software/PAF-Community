@@ -305,7 +305,7 @@
           "lib/netstandard1.3/System.Xml.ReaderWriter.dll": {}
         }
       },
-      "PAFCoreContractsStandardLibrary/1.0.2": {
+      "PAFCoreContractsStandardLibrary/1.0.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -1768,7 +1768,7 @@
         "system.xml.readerwriter.nuspec"
       ]
     },
-    "PAFCoreContractsStandardLibrary/1.0.2": {
+    "PAFCoreContractsStandardLibrary/1.0.3": {
       "type": "project",
       "path": "../PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj",
       "msbuildProject": "../PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj"
@@ -1778,7 +1778,7 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 11.0.2",
-      "PAFCoreContractsStandardLibrary >= 1.0.2",
+      "PAFCoreContractsStandardLibrary >= 1.0.3",
       "System.Xml.ReaderWriter >= 4.3.1"
     ]
   },
@@ -1787,7 +1787,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "restore": {
       "projectUniqueName": "C:\\Users\\v65346\\Dropbox\\PAF\\PAFCore\\PAF-Community\\PlatformAgileFrameworkCore\\PlatformAgileFrameworkCoreStandard\\PAFCoreStandardLibrary.csproj",
       "projectName": "PAFCoreStandardLibrary",

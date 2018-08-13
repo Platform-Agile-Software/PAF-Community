@@ -305,7 +305,7 @@
           "lib/netstandard1.3/System.Xml.ReaderWriter.dll": {}
         }
       },
-      "PAFCoreContractsStandardLibrary/1.0.2": {
+      "PAFCoreContractsStandardLibrary/1.0.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -315,12 +315,12 @@
           "bin/placeholder/PAFCoreContractsStandardLibrary.dll": {}
         }
       },
-      "PAFCoreStandardLibrary/1.0.2": {
+      "PAFCoreStandardLibrary/1.0.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Newtonsoft.Json": "11.0.2",
-          "PAFCoreContractsStandardLibrary": "1.0.2",
+          "PAFCoreContractsStandardLibrary": "1.0.3",
           "System.Xml.ReaderWriter": "4.3.1"
         },
         "compile": {
@@ -1784,12 +1784,12 @@
         "system.xml.readerwriter.nuspec"
       ]
     },
-    "PAFCoreContractsStandardLibrary/1.0.2": {
+    "PAFCoreContractsStandardLibrary/1.0.3": {
       "type": "project",
       "path": "../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj",
       "msbuildProject": "../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreContractsStandard/PAFCoreContractsStandardLibrary.csproj"
     },
-    "PAFCoreStandardLibrary/1.0.2": {
+    "PAFCoreStandardLibrary/1.0.3": {
       "type": "project",
       "path": "../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreStandard/PAFCoreStandardLibrary.csproj",
       "msbuildProject": "../PlatformAgileFrameworkCore/PlatformAgileFrameworkCoreStandard/PAFCoreStandardLibrary.csproj"
@@ -1798,8 +1798,8 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.1",
-      "PAFCoreContractsStandardLibrary >= 1.0.2",
-      "PAFCoreStandardLibrary >= 1.0.2"
+      "PAFCoreContractsStandardLibrary >= 1.0.3",
+      "PAFCoreStandardLibrary >= 1.0.3"
     ]
   },
   "packageFolders": {
