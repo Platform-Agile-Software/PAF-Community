@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -62,9 +62,9 @@ namespace PlatformAgileFramework.Security
 	/// must be a <see cref="IPAFDeepCloneable"/>.
 	/// </para>
 	/// <para>
-	/// This interface deals only with <see cref="Object"/>'s to provide
+	/// This interface deals only with <see cref="object"/>'s to provide
 	/// security. Any key that is a <see cref="ValueType"/> should override
-	/// <see cref="ValueType.Equals(Object)"/> if it contains any fields
+	/// <see cref="ValueType.Equals(object)"/> if it contains any fields
 	/// that are reference types. Otherwise comparisons are fast.
 	/// </para>
 	/// </remarks>
@@ -81,12 +81,12 @@ namespace PlatformAgileFramework.Security
 		/// <returns><see langword="true"/> if key matches.</returns>
 		/// <remarks>
 		/// If the secret key is a value type containing any reference fields,
-		/// its <see cref="Object.Equals(Object)"/> method must be overriden
+		/// its <see cref="object.Equals(object)"/> method must be overriden
 		/// for this method to work properly. Something like a <see cref="Guid"/>
 		/// doesn't have this problem, since <see cref="ValueType"/>'s
-		/// <see cref="Object.Equals(Object)"/> override will just do
+		/// <see cref="object.Equals(object)"/> override will just do
 		/// a memcmp on the datastructure. Curiously, <see cref="Guid"/>
-		/// overrides <see cref="Object.Equals(Object)"/> anyway.
+		/// overrides <see cref="object.Equals(object)"/> anyway.
 		/// </remarks>
 		bool KeyMatches(object secretKeyThatNeedsToMatch);
 		#endregion // Methods

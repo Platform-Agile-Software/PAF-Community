@@ -13,6 +13,7 @@ namespace PlatformAgileFramework.Testing
     /// </summary>
     public class BootstrappingTestFixtureBase: IDisposable
 	{
+
 	    /// <summary>
 	    /// Saves typing.
 	    /// </summary>
@@ -22,7 +23,7 @@ namespace PlatformAgileFramework.Testing
 	    protected bool s_HasFixtureBeenSetupForTests;
 
 	    /// <summary>
-	    /// Gets around the problem of NUnit being crippled without testfixture setups.
+	    /// Gets around the problem of NUnit being crippled without test fixture setups.
 	    /// </summary>
 	    [SetUp]
 	    public virtual void SetUp()

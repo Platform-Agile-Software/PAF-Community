@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// Protocol for a container for an event's generic arguments.
-	/// Renamed thusly to confusion with something in .Net.
+	/// Renamed thusly to avoid confusion with something in .Net.
 	/// </summary>
 	/// <history>
 	/// <contribution>

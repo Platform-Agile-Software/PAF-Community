@@ -70,7 +70,7 @@ namespace PlatformAgileFramework.Serializing.ECMAReplacements
 		void AddValue<T>(string name, T value);
 
 		/// <summary>
-		/// Adds an <see cref="Object"/> to the serialization info.
+		/// Adds an <see cref="object"/> to the serialization info.
 		/// </summary>
 		/// <param name="name">
 		/// Name to be stored under. Normally the name of the serialized member.
@@ -80,7 +80,7 @@ namespace PlatformAgileFramework.Serializing.ECMAReplacements
 		/// Legacy method.
 		/// If the incoming <paramref name="value"/> is <see langword="null"/>, the
 		/// type recorded is "typeof(Object)". If the object is not <see langword="null"/>
-		/// the type of the object is stored. Use <see cref="AddValue(String, Object, Type)"/>
+		/// the type of the object is stored. Use <see cref="AddValue(string, object, Type)"/>
 		/// to store type info.
 		/// </remarks>
 		void AddValue(string name, object value);
@@ -125,7 +125,7 @@ namespace PlatformAgileFramework.Serializing.ECMAReplacements
 		/// <summary>
 		/// This is the main method for fetching and converting objects using
 		/// the type converters which may be accessible within the
-		/// <see cref="IPAFFormatterConverterCLS.Convert(Object, Type)"/> method.
+		/// <see cref="IPAFFormatterConverterCLS.Convert(object, Type)"/> method.
 		/// </summary>
 		/// <param name="name">The name of the serialized entry.</param>
 		/// <param name="type">
@@ -147,7 +147,7 @@ namespace PlatformAgileFramework.Serializing.ECMAReplacements
 		/// Generic version.
 		/// </summary>
 		/// <param name="name">
-		/// See <see cref="GetValue(String, Type)"/>.
+		/// See <see cref="GetValue(string, Type)"/>.
 		/// </param>
 		/// <returns>
 		/// "default(T)" ifs entry not found.
@@ -157,18 +157,18 @@ namespace PlatformAgileFramework.Serializing.ECMAReplacements
 		/// </remarks>
 		T GetValueNoThrow<T>(string name);
 		/// <summary>
-		/// See <see cref="GetValue(String, Type)"/>.
+		/// See <see cref="GetValue(string, Type)"/>.
 		/// The only difference between this method and that is that this method
 		/// returns a <see langword="null"/> when an entry is not found.
 		/// </summary>
 		/// <param name="name">
-		/// See <see cref="GetValue(String, Type)"/>.
+		/// See <see cref="GetValue(string, Type)"/>.
 		/// </param>
 		/// <param name="type">
-		/// See <see cref="GetValue(String, Type)"/>.
+		/// See <see cref="GetValue(string, Type)"/>.
 		/// </param>
 		/// <returns>
-		/// See <see cref="GetValue(String, Type)"/>.
+		/// See <see cref="GetValue(string, Type)"/>.
 		/// </returns>
 		/// <remarks>
 		/// Legacy internal method. We have exposed this method publicly, since it provides

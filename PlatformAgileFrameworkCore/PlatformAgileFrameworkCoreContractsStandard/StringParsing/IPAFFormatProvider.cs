@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -60,7 +60,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// Returns an object that provides formatting services for the specified instance.
 		/// </summary> 
 		/// <param name="formatSelector">
-		/// An <see cref="Object"/> that specifies the type of format object to return.
+		/// An <see cref="object"/> that specifies the type of format object to return.
 		/// The use of this parameter is entirely implementation-dependent. It may
 		/// be an instance of the type of the object that requires formatting or something
 		/// else entirely.

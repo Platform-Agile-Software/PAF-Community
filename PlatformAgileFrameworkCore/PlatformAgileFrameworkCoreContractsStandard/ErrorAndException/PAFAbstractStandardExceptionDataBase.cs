@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -154,7 +154,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// in extended.
 		/// </summary>
 		/// <param name="tag">
-		/// String name of the excception.
+		/// String name of the exception.
 		/// </param>
 		/// <param name="exceptionType">
 		/// The type of the calling exception.
@@ -248,7 +248,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		}
 		/// <remarks>
 		/// <see cref="IPAFFormattable"/>. This method just calls
-		/// <see cref="FormatToString(String, IPAFFormatProvider )"/>.
+		/// <see cref="FormatToString(string, IPAFFormatProvider )"/>.
 		/// </remarks>
 		public virtual string FormatToString(string format)
 		{
@@ -256,7 +256,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		}
 		/// <remarks>
 		/// <see cref="IPAFFormattable"/>. This method just calls
-		/// <see cref="FormatToString(String, IPAFFormatProvider )"/>
+		/// <see cref="FormatToString(string, IPAFFormatProvider )"/>
 		/// with <see langword="null"/>.
 		/// </remarks>
 		public virtual string FormatToString()
@@ -288,7 +288,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// </summary>
 		/// <param name="heading">
 		/// String that provides input for the formatting process. Normally one of the constant
-		/// error description strings for the exception. If the string is <see cref="String.Empty"/>,
+		/// error description strings for the exception. If the string is <see cref="string.Empty"/>,
 		/// no heading is printed. If the string is <see langword="null"/>, the <see cref="Type.FullName"/>
 		/// of "this" is used as a heading.
 		/// </param>
@@ -304,7 +304,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// <summary>
 		/// This override calls <see cref="FormatToString()"/>, which calls
 		/// <c>base.ToString()</c> by default. If
-		/// <see cref="FormatToString(String, IPAFFormatProvider)"/> is overridden,
+		/// <see cref="FormatToString(string, IPAFFormatProvider)"/> is overridden,
 		/// you get something else of the inheritor's choosing.
 		/// </summary>
 		/// <returns></returns>

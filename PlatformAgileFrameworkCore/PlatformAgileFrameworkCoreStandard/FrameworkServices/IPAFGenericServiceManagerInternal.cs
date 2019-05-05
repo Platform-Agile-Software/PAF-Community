@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2018 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -16,14 +16,13 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -50,19 +49,35 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </history>
 	// ReSharper disable once PartialTypeWithSinglePart
 	// Core removes any late instantiations of interfaces.
-	internal partial interface IPAFServiceManagerInternal<T> : IPAFServiceManagerExtended<T>
+	internal partial interface IPAFServiceManagerInternal<in T> : IPAFServiceManagerExtended<T>
 		where T : class, IPAFService
 	{
 		#region Properties
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
-		IEnumerable<IPAFServiceDescription<T>> ServiceArrayInternal
+		IEnumerable<IPAFServiceDescription> ServiceArrayInternal
 		{
 			get;
 		}
 		#endregion
 		#region Methods
+		/// <summary>
+		/// Re-added 10oct2018 to support Golea. Doesn't need
+		/// any public version and we don't want one. This is to support
+		/// a legacy application.
+		/// </summary>
+		/// <param name="iFservice">
+		/// The service to be added. If there is already one in the manager,
+		/// it is first removed. The preferred way to upgrade services is
+		/// now through the use of <see cref="IPAFEmergencyServiceProvider{T}"/>,
+		/// not by replacing the old service.
+		/// </param>
+		/// <returns>
+		/// <see langword="false"/> if service not already in dictionary.
+		/// </returns>
+		bool AddOrReplaceServiceInternal<U>(IPAFServiceDescription<U> iFservice)
+			where U: class, T;
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
@@ -75,14 +90,16 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exception>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </exception>
-		void AddServiceInternal(IPAFServiceDescription<T> iFservice);
+		void AddServiceInternal<U>(IPAFServiceDescription<U> iFservice)
+			where U: class,T;
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
 		/// <param name="iFservices">
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </param>
-		void AddServicesInternal(IEnumerable<IPAFServiceDescription<T>> iFservices);
+		void AddServicesInternal<U>(IEnumerable<IPAFServiceDescription<U>> iFservices)
+			where U: class, T;
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
@@ -101,21 +118,19 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </returns>
-		IPAFServiceDescription<T> CreateServiceInternal(
+		IPAFServiceDescription<U> CreateServiceInternal<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription,
+			IPAFServiceDescription<U> serviceDescription,
 			IPAFTypeFilter typeFilter,
-			PAFLocalServiceInstantiator<T> localServiceInstantiator);
+			PAFLocalServiceInstantiator<U> localServiceInstantiator)
+			where U: class,T;
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
-		/// <param name="exactTypeMatch">
-		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
-		/// </param>
 		/// <returns>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </returns>
-		IEnumerable<IPAFServiceDescription> GetServicesInternal<U>(bool exactTypeMatch)
+		IEnumerable<IPAFServiceDescription> GetServiceDescriptionsInternal<U>()
 			where U: class, T;
 
 		/// <summary>
@@ -133,10 +148,11 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </returns>
-		IPAFServiceDescription<T> InstantiateLocalServiceInternal(
+		IPAFServiceDescription<U> InstantiateLocalServiceInternal<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, 
-			IPAFTypeFilter typeFilter);
+			IPAFServiceDescription serviceDescription, 
+			IPAFTypeFilter typeFilter)
+			where U : class, T;
 		/// <summary>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </summary>
@@ -148,6 +164,19 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </exceptions>
 		void MakeServiceDefaultForInterfaceInternal<U>(
 			IPAFServiceDescription<U> iFservice) where U: class, T;
+		/// <summary>
+		/// Re-added 10oct2018 to support Golea. Doesn't need
+		/// any public version and we don't want one. This is to support
+		/// a legacy application.
+		/// </summary>
+		/// <param name="iFservice">
+		/// The service to be removed.
+		/// </param>
+		/// <returns>
+		/// <see langword="false"/> if service not in dictionary.
+		/// </returns>
+		bool RemoveServiceInternal<U>(IPAFServiceDescription<U> iFservice)
+			where U : class, T;
 		#endregion
 	}
 }

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -35,19 +35,14 @@ using PAFSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceEx
 namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
-	/// <para>
-	///	Class providing a method with the same signature as <see cref="WaitCallback"/>
-	/// wrapping a <see cref="PAFServicePipelineDelegate{T}"/>.
-	/// </para>
+	/// Closure of the delegator for initializing services.
 	/// </summary>
 	/// <history>
 	/// <contribution>
 	/// <author> BMC </author>
 	/// <date> 22jan2012 </date>
 	/// <description>
-	/// Killed all the pseudo-delegate stuff in lieu of simple wrappers like
-	/// these. We only need two of these in core. Pseudo-delegates moved to
-	/// extended.
+	/// New.
 	/// </description>
 	/// </contribution>
 	/// </history>
@@ -76,7 +71,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// The service that needs to be staged.
 		/// </param>
 		public CoreStandardServicePipelineDelegator(
-			PAFContravariantThreadMethod<IPAFServicePipelineObject<T>>
+			Action<IPAFServicePipelineObject<T>>
 			servicePipelineDelegate,
 			IPAFServiceExtended
 			pipelinedService)
@@ -107,9 +102,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public virtual bool FetchNeededServices(
 			IPAFServicePipelineObject pipelineObject)
 		{
-			if (pipelineObject == null) throw new ArgumentNullException("pipelineObject");
-			//if ((pipelineObject == null) || (pipelineObject.PipelineStage == null))
-			//	return false;
+			if (pipelineObject == null) throw new ArgumentNullException(nameof(pipelineObject));
 
 			IEnumerable<IPAFServiceDescription> neededServices = null;
 			if (pipelineObject.PipelineStage == ServicePipelineStage.LOAD)

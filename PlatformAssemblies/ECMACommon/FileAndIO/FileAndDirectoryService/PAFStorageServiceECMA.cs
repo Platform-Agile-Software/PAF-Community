@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-
-
+using System.Security.AccessControl;
+using PlatformAgileFramework.Annotations;
 namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 {
 	/// <summary>
@@ -28,7 +28,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override void PAFCopyFilePIV(string sourceFileName,
+		protected override void PAFCopyFilePV(string sourceFileName,
 			string destinationFileName, bool overwrite)
 		{
 			File.Copy(sourceFileName, destinationFileName, overwrite);
@@ -38,7 +38,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// cannot be part of a platform-independent interface, it is returned as
 		/// an object.
 		/// </summary>
-		protected override object PAFCreateDirectoryPIV(string dir)
+		protected override object PAFCreateDirectoryPV(string dir)
 		{
 			return Directory.CreateDirectory(dir);
 		}
@@ -48,49 +48,49 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// any interface extensions to use. client object not used in this base
 		/// implementation.
 		/// </summary>
-		protected override object PAFCreateDirectoryPIV(string dir, object clientObject)
+		protected override object PAFCreateDirectoryPV(string dir, object clientObject)
 		{
-			return PAFCreateDirectoryPIV(dir);
+			return PAFCreateDirectoryPV(dir);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override IPAFStorageStream PAFCreateFilePIV(string path)
+		protected override IPAFStorageStream PAFCreateFilePV(string path)
 		{
 			return new PAFStorageStream(File.Create(path));
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override void PAFDeleteDirectoryPIV(string dir)
+		protected override void PAFDeleteDirectoryPV(string dir)
 		{
 			Directory.Delete(dir);
 		}
 		/// <summary>
 		/// backing for the interface. Client object not used in this implementation.
 		/// </summary>
-		protected override void PAFDeleteDirectoryPIV(string dir, object clientObject)
+		protected override void PAFDeleteDirectoryPV(string dir, object clientObject)
 		{
-			PAFDeleteDirectoryPIV(dir);
+			PAFDeleteDirectoryPV(dir);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override void PAFDeleteFilePIV(string file)
+		protected override void PAFDeleteFilePV(string file)
 		{
 			File.Delete(file);
 		}
 		/// <summary>
 		/// backing for the interface. Client object not used in this implementation.
 		/// </summary>
-		protected override void PAFDeleteFilePIV(string file, object clienObject)
+		protected override void PAFDeleteFilePV(string file, object clientObject)
 		{
-			PAFDeleteFilePIV(file);
+			PAFDeleteFilePV(file);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override bool PAFDirectoryExistsPIV(string dir)
+		protected override bool PAFDirectoryExistsPV(string dir)
 		{
 			if (dir == null)
 				return false;
@@ -100,7 +100,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// backing for the interface. In ECMA, path specs can be relative and
 		/// the runtime figures out a rooted path.
 		/// </summary>
-		protected override bool PAFFileExistsPIV(string path)
+		protected override bool PAFFileExistsPV(string path)
 		{
 			if (string.IsNullOrEmpty(path))
 				return false;
@@ -110,9 +110,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// backing for the interface. This implementation returns
 		/// <see cref="DateTime.MinValue"/> if the file does not exist.
 		/// </summary>
-		protected override DateTime PAFGetCreationTimePIV(string path)
+		protected override DateTime PAFGetCreationTimePV(string path)
 		{
-			if(!PAFFileExistsPIV(path))
+			if(!PAFFileExistsPV(path))
 				return DateTime.MinValue;
 			return File.GetCreationTime(path);
 		}
@@ -120,9 +120,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// backing for the interface.
 		/// </summary>
 		/// <remarks>
-		/// <see langword="null"/> or <see cref="String.Empty"/> defers to CWD.
+		/// <see langword="null"/> or <see cref="string.Empty"/> defers to CWD.
 		/// </remarks>
-		protected override IEnumerable<string> PAFGetDirectoryNamesPIV(string dirSpec)
+		protected override IEnumerable<string> PAFGetDirectoryNamesPV(string dirSpec)
 		{
 			if(string.IsNullOrEmpty(dirSpec))
 				dirSpec = Environment.CurrentDirectory;
@@ -132,9 +132,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// Backing support for the interface.
 		/// </summary>
 		/// <remarks>
-		/// <see langword="null"/> or <see cref="String.Empty"/> defers to CWD.
+		/// <see langword="null"/> or <see cref="string.Empty"/> defers to CWD.
 		/// </remarks>
-		protected override IEnumerable<string> PAFGetFileNamesPIV(string dirSpec)
+		protected override IEnumerable<string> PAFGetFileNamesPV(string dirSpec)
 		{
 			if (string.IsNullOrEmpty(dirSpec))
 				dirSpec = Environment.CurrentDirectory;
@@ -144,9 +144,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// Backing support for the interface. This implementation returns
 		/// <see cref="DateTime.MinValue"/> if the file does not exist.
 		/// </summary>
-		protected override DateTime PAFGetLastAccessTimePIV(string path)
+		protected override DateTime PAFGetLastAccessTimePV(string path)
 		{
-			if (!PAFFileExistsPIV(path))
+			if (!PAFFileExistsPV(path))
 				return DateTime.MinValue;
 			return File.GetLastAccessTime(path);
 		}
@@ -154,23 +154,23 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// Backing support for the interface. This implementation returns
 		/// <see cref="DateTime.MinValue"/> if the file does not exist.
 		/// </summary>
-		protected override DateTime PAFGetLastWriteTimePIV(string path)
+		protected override DateTime PAFGetLastWriteTimePV(string path)
 		{
-			if (!PAFFileExistsPIV(path))
+			if (!PAFFileExistsPV(path))
 				return DateTime.MinValue;
 			return File.GetLastWriteTime(path);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override void PAFMoveDirectoryPIV(string sourceDirectoryName, string destinationDirectoryName)
+		protected override void PAFMoveDirectoryPV(string sourceDirectoryName, string destinationDirectoryName)
 		{
 			Directory.Move(sourceDirectoryName, destinationDirectoryName);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected override void PAFMoveFilePIV(string sourceFileName, string destinationFileName)
+		protected override void PAFMoveFilePV([NotNull] string sourceFileName, [NotNull] string destinationFileName)
 		{
 			File.Move(sourceFileName, destinationFileName);
 		}
@@ -178,8 +178,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <remarks>
 		/// <see cref="IPAFStorageService"/>.
 		/// </remarks>
-		protected override IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode)
+		protected override IPAFStorageStream PAFOpenFilePV([NotNull] string path, PAFFileAccessMode mode)
 		{
+			// KRM patch made 05may2019 to make this work on all platforms.
+			if ((mode != null) && ((mode & PAFFileAccessMode.REPLACE) != 0))
+			{
+				PAFDeleteFilePV(path);
+			}
 			var accessProps = FileAccessProps.MapFileAccess(mode);
 			return new PAFStorageStream(File.Open(path, accessProps.Mode, accessProps.Access));
 		}
@@ -188,9 +193,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <see cref="IPAFStorageService"/>. <paramref name="clientObject"/> is
 		/// not used in this implementation.
 		/// </remarks>
-		protected override IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode, object clientObject)
+		protected override IPAFStorageStream PAFOpenFilePV(string path, PAFFileAccessMode mode, object clientObject)
 		{
-			return s_AsIstorage.PAFOpenFile(path, mode);
+			return m_AsIstorage.PAFOpenFile(path, mode);
 		}
 	}
 	/// <summary>
@@ -202,11 +207,11 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// Standard .Net file mode.
 		/// </summary>
-		public FileMode Mode { get; private set; }
+		public FileMode Mode { get; internal set; }
 		/// <summary>
 		/// Standard .Net access type.
 		/// </summary>
-		public FileAccess Access { get; private set; }
+		public FileAccess Access { get; internal set; }
 		#endregion // Fields and Autoprops
 		#region Constructors
 		/// <summary>
@@ -230,7 +235,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// and <see cref="FileMode.OpenOrCreate"/>.
 		/// </param>
 		/// <returns><see langword = "false"/>
-		/// if bit fileds are inconsistent.
+		/// if bit fields are inconsistent.
 		/// </returns>
 		public static FileAccessProps MapFileAccess(PAFFileAccessMode pafFileAccessMode)
 		{
@@ -244,16 +249,19 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 
 			FileMode mode;
 
-			var access = FileAccess.Read;
+			FileAccess access;
 			if ((pafFileAccessMode & PAFFileAccessMode.READONLY) != 0)
 			{
-				access = FileAccess.Read;
 				mode = FileMode.Open;
+				access = FileAccess.Read;
 				return new FileAccessProps(mode, access);
 			}
 			// Now map to the mode.
 			if ((pafFileAccessMode & PAFFileAccessMode.REPLACE) != 0)
+			{
 				mode = FileMode.CreateNew;
+				access = FileAccess.ReadWrite;
+			}
 			else if ((pafFileAccessMode & PAFFileAccessMode.APPEND) != 0)
 			{
 				mode = FileMode.Append;

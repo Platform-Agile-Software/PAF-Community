@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -25,11 +25,15 @@
 
 
 #region Using Directives
-using System;
+
 using System.Collections.Generic;
 using PlatformAgileFramework.Collections;
-using PlatformAgileFramework.TypeHandling.PartialClassSupport;
-
+using PlatformAgileFramework.ErrorAndException;
+using PlatformAgileFramework.FrameworkServices.Exceptions;
+#region Exception Shorthand
+using PAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionData;
+using IPAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.IPAFServiceExceptionData;
+#endregion // Exception Shorthand
 #endregion // Using Directives
 
 namespace PlatformAgileFramework.FrameworkServices
@@ -60,7 +64,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		#region Constructors
 		/// <summary>
 		/// Constructor installs our <see cref="PAFServiceTypeComparer"/> to sort our
-		/// inner dictionaries.
+		/// inner dictionaries by type.
 		/// </summary>
 		public PAFGenericServiceDictionary()
 			: base(new PAFServiceTypeComparer()) { } 
@@ -75,7 +79,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// Empty dictionary.
 		/// </returns>
-		protected internal virtual IDictionary<IPAFNamedAndTypedObject, IPAFServiceDescription>
+		public static IDictionary<IPAFNamedAndTypedObject, IPAFServiceDescription>
 			NewInnerDictionary()
 		{
 			return new Dictionary<IPAFNamedAndTypedObject, IPAFServiceDescription>
@@ -96,9 +100,12 @@ namespace PlatformAgileFramework.FrameworkServices
 				nameDictionary = NewInnerDictionary();
 				Add(serviceDescription, nameDictionary);
 			}
-			// TODO - KRM - need to add exception for dupes in the dictionary.
-			// TODO - we may want to consider whether we want to automatically non-default
-			// TODO - one if it's already in there nd is the default
+			if (nameDictionary.ContainsKey(serviceDescription))
+			{
+				throw new PAFStandardException<IPAFSED>(new PAFSED(serviceDescription),
+					PAFServiceExceptionMessageTags.DUPLICATE_SERVICE);
+			}
+
 			// Recall that service is it's own key.
 			nameDictionary.Add(serviceDescription, serviceDescription);
 		}

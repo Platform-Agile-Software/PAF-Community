@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -335,30 +335,30 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
 			return type.GetTypeInfo().IsSubclassOf(potentialSuperclassType);
 		}
 
-        /// <summary>
-        /// Method provides local formatting for Core. Prints a heading followed by a
-        /// string representation of all public gettable instance properties not in
-        /// <paramref name="excludedProperties"/>. The format is a column of
-        /// name/value pairs. Travels up the inheritance chain up to but not including
-        /// <see cref="Object"/>.
-        /// </summary>
-        /// <param name="objectToFormat">
-        /// An object whose properties are to be output of <see langword="null"/>.
-        /// <see langword="null"/> returns <see langword="null"/>.
-        /// </param>
-        /// <param name="heading">
-        /// String that provides input for the formatting process. If the string is <see cref="String.Empty"/>,
-        /// no heading is printed. If the string is <see langword="null"/>, the <see cref="Type.FullName"/>
-        /// of <paramref name="objectToFormat"/> is used as a heading.
-        /// </param>
-        /// <param name="excludedProperties">
-        /// Names of all properties that are to be excluded in the output.
-        /// </param>
-        /// <returns>
-        /// A string representation of the properties or <see langword="null"/> if
-        /// <paramref name="objectToFormat"/> is <see langword="null"/>.
-        /// </returns>
-        public static string PublicPropsToString(object objectToFormat, string heading = null,
+		/// <summary>
+		/// Method provides local formatting for Core. Prints a heading followed by a
+		/// string representation of all public gettable instance properties not in
+		/// <paramref name="excludedProperties"/>. The format is a column of
+		/// name/value pairs. Travels up the inheritance chain up to but not including
+		/// <see cref="object"/>.
+		/// </summary>
+		/// <param name="objectToFormat">
+		/// An object whose properties are to be output of <see langword="null"/>.
+		/// <see langword="null"/> returns <see langword="null"/>.
+		/// </param>
+		/// <param name="heading">
+		/// String that provides input for the formatting process. If the string is <see cref="string.Empty"/>,
+		/// no heading is printed. If the string is <see langword="null"/>, the <see cref="Type.FullName"/>
+		/// of <paramref name="objectToFormat"/> is used as a heading.
+		/// </param>
+		/// <param name="excludedProperties">
+		/// Names of all properties that are to be excluded in the output.
+		/// </param>
+		/// <returns>
+		/// A string representation of the properties or <see langword="null"/> if
+		/// <paramref name="objectToFormat"/> is <see langword="null"/>.
+		/// </returns>
+		public static string PublicPropsToString(object objectToFormat, string heading = null,
             IEnumerable<string> excludedProperties = null, bool fullName = false)
 		{
 			if (objectToFormat == null) return null;
@@ -419,13 +419,13 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
 		/// This method determines if a <see cref="Type"/> has a certain "unqualified"
 		/// name. This is the type name without the namespace. A check is made for a 
 		/// namespace string, followed by a dot which is then stripped off before
-		/// the comparison is made with an incoming <see cref="String"/>.
+		/// the comparison is made with an incoming <see cref="string"/>.
 		/// </summary>
 		/// <param name="type">"this" reference from Type class.</param>
 		/// <param name="obj">
 		/// Additional object argument to allow the method to be compliant with
 		/// <see cref="MemberExtensions.FilterMember{Type}"/>. In this case, the
-		/// object is an <see cref="String"/> containing the unqualified name. If this
+		/// object is an <see cref="string"/> containing the unqualified name. If this
 		/// parameter is <see langword="null"/> or empty, <see langword="false"/> is returned.
 		/// </param>
 		/// <returns>
@@ -433,7 +433,7 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
 		/// </returns>
 		/// <exception cref="PAFStandardException{PAFTMED}">
 		/// The exception is thrown with <see cref="PAFTypeMismatchExceptionMessageTags.IS_WRONG_TYPE_FOR_PARAMETER_TYPE"/>
-		/// if the <paramref name="obj"/> is not an <see cref="String"/>.
+		/// if the <paramref name="obj"/> is not an <see cref="string"/>.
 		/// </exception>
 		public static bool UnqualifiedNamesMatch(this Type type, object obj = null)
 		{

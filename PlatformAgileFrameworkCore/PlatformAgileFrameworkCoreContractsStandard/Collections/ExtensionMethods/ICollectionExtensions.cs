@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Collections.ExtensionMethods
 {
@@ -95,12 +96,12 @@ namespace PlatformAgileFramework.Collections.ExtensionMethods
 		/// <typeparam name="T">The type of items in the collection.</typeparam>
 		/// <param name="coll">The collection to be added to (this). </param>
 		/// <param name="items">The new items to be added. This argument may be <see langword="null"/>,
-		/// in which case nothing is added and no exception is thrown.  The usual admonishion
-		/// about not changing the contents of an <see cref="IEnumerable"/> while it is
-		/// being enumerated apply here.
+		/// in which case nothing is added and no exception is thrown.
 		/// </param>
-		public static void AddItems<T>(this ICollection<T> coll, IEnumerable<T> items)
+		public static void AddItems<T>(this ICollection<T> coll,[CanBeNull] IEnumerable<T> items)
 		{
+			if (items == null)
+				return;
 			foreach (var item in items) {
 				coll.Add(item);
 			}

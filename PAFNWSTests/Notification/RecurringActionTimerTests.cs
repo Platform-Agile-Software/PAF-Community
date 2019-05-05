@@ -137,10 +137,10 @@ namespace PlatformAgileFramework.Events.Tests{
 			// The one shot schedule should have been "remembered" and
 			// run after the scheduler is shut down.
 			isCountWithinRange = s_NumCalls == 5;			Assert.IsTrue(isCountWithinRange, " (num calls(5)) ");		}
-		/// <summary>		/// This one tests the ability to change schedule. We do it in the middle of 		/// an action to see that the effect doesn't take effect until after		/// the action has completed.		/// </summary>        [Test]		public void TestTimerScheduleChange()		{			m_RecurringActionTimerTestingSubclass.SetRecurranceTime((int)(500 * s_TimeFactor));			Task.Delay((int)(1750 * s_TimeFactor)).Wait();
+		/// <summary>		/// This one tests the ability to change schedule. We do it in the middle of 		/// an action to see that the change doesn't take effect until after		/// the action has completed.		/// </summary>        [Test]		public void TestTimerScheduleChange()		{			m_RecurringActionTimerTestingSubclass.SetRecurranceTime((int)(500 * s_TimeFactor));			Task.Delay((int)(1750 * s_TimeFactor)).Wait();
 
 			// We should have time for about 3 calls to complete and be
-			// in the middle of the 4'th. However, nums calls is updated BEFORE
+			// in the middle of the 4'th. However, num calls is updated BEFORE
 			// the delay, so we expect 4.
 			var isCountWithinRange = s_NumCalls == 4;			Assert.IsTrue(isCountWithinRange, " (num calls(4)) ");
 

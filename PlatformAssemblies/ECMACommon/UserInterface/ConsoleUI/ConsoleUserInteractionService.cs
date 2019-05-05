@@ -29,7 +29,7 @@ namespace PlatformAgileFramework.UserInterface.ConsoleUI
 		/// </summary>
 		[SecurityCritical]
 		public ConsoleUserInteractionService()
-			: this(default(Guid))
+			: this(null)
 		{
 		}
 
@@ -37,9 +37,9 @@ namespace PlatformAgileFramework.UserInterface.ConsoleUI
 		/// This is the way our friends can construct us. Builds with standard
 		/// internals.
 		/// </remarks>
-		protected internal ConsoleUserInteractionService(Guid guid,
-			Type serviceImplementationType = null, string serviceName = null)
-			: base(guid, serviceImplementationType, serviceName)
+		protected internal ConsoleUserInteractionService(
+			Type serviceImplementationType = null, string serviceName = null, Guid guid = default(Guid))
+			: base(serviceImplementationType, serviceName, guid)
 		{
 			// Build a standard IUI.
 			m_IUiUtils = new ConsoleUIUtils();

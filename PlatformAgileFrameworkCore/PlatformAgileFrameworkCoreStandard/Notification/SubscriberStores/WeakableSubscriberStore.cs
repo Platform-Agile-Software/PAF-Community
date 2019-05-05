@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -153,7 +153,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
         /// <summary>
         /// Defaul constructor sets up the list and its read/write container.
         /// </summary>
-        /// <param name="eventDispatherPlugin">
+        /// <param name="eventDispatcherPlugin">
         /// Plugin for dispatching events or "notifying" subscribers. If
         /// <see langword="null"/> <see cref="NotifySubscribers"/> MUST be overridden.
         /// </param>
@@ -174,24 +174,21 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
         /// in the mandatory override of <see cref="NotifySubscribers"/>
         /// </para>
         /// <para>
-        /// This class had to be temporarily crippled due to a p[roblem in the TPL on .Net Standard.
-        /// NOTE: KRM now putrge interval is forced to be 0.
+        /// This class had to be temporarily crippled due to a problem in the TPL on .Net Standard.
+        /// NOTE: KRM now purge interval is forced to be 0.
         /// </para>
 		/// </remarks>
         public WeakableSubscriberStore(
 			int purgeIntervalInMilliseconds = int.MaxValue,
-			[CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatherPlugin = null
+			[CanBeNull] Action<WeakableSubscriberStore<TDelegate>> eventDispatcherPlugin = null
 			)
 		{
-			EventDispatcherPlugin = eventDispatherPlugin;
+			EventDispatcherPlugin = eventDispatcherPlugin;
 
 			if (purgeIntervalInMilliseconds == int.MaxValue)
 				m_PurgeIntervalInMilliseconds = PURGE_INTERVAL_IN_MILLISECONDS;
 			else
 				m_PurgeIntervalInMilliseconds = purgeIntervalInMilliseconds;
-
-            // BUG: tempory patch.
-		    m_PurgeIntervalInMilliseconds = 0;
 
 			var handlers = new List<IPseudoDelegate<TDelegate>>();
 
@@ -202,7 +199,8 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 
 			// Note: KRM - we have a problem right now with an element in the
 			// NetStandard2.0 TPL that prevents us from using the timer.
-			m_PurgeIntervalInMilliseconds = -10;
+			// m_PurgeIntervalInMilliseconds = -10;
+			// Note: KRM 24mar2019 This seems to be fixed, but we don't trust it....
 
 			// Hook up to the async wrapper so we can stop the action
 			// immediately. The timer is never started if in "purge countdown"
@@ -212,7 +210,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 
 		#region IWeakableSubscriberStore Implementation
 		/// <summary>
-		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
+		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>.
 		/// </summary>
 		public virtual void ClearSubscribers()
 		{
@@ -269,7 +267,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// <exception cref="PAFStandardException{IPAFDelegateExceptionData}">
 		/// <see cref="PDEMT.DELEGATE_HAS_SUBSCRIBERS"/>
 		/// The delegate that is entered into the store cannot have subscribers.
-		/// This backing store is used to shed "undiciplined subscribers" and
+		/// This backing store is used to shed "undisciplined subscribers" and
 		/// if a delegate has subscribers, we don't want to deal with them.
 		/// This philosophy works in all but the weirdest scenarios.
 		/// </exception>
@@ -369,7 +367,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		}
 
 		/// <summary>
-		/// Removes a <see cref="IPseudoDelegate{TDelegate}"/>
+		/// Removes a <see cref="IPseudoDelegate{TDelegate}"/>.
 		/// </summary>
 		/// <param name="removedPD">PD to remove.</param>
 		protected virtual void UnsubscribePD(IPseudoDelegate<TDelegate> removedPD)

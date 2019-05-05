@@ -94,18 +94,6 @@ namespace PlatformAgileFramework.FrameworkServices
 			return new PAFServiceDescription(nto);
 		}
 
-
-		/// <summary>
-		/// Makes a safe call into the service description property. Useful for user-supplied services without
-		/// access to the internal interface.
-		/// </summary>
-		/// <param name="serviceDescription">One of us.</param>
-		/// <param name="isDefault">param to set.</param>
-		[SecuritySafeCritical]
-		internal static void SafeSetIsDefault(this IPAFServiceDescription serviceDescription, bool isDefault)
-		{
-			serviceDescription.IsDefault = isDefault;
-		}
 		/// <summary>
 		/// Makes a safe call into the service description property. Useful for user-supplied services without
 		/// access to the internal interface.
@@ -125,7 +113,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// First located service or <see langword="null"/>.
 		/// </returns>
-		//[SecurityCritical]
 		public static IPAFServiceDescription FindServiceInterfaceInCollection<T>(
 			this IEnumerable<IPAFServiceDescription> serviceDescriptions)
 			where T : class, IPAFService
@@ -175,7 +162,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns>
 		/// First located service or <see langword="null"/>.
 		/// </returns>
-		//[SecurityCritical]
 		public static IPAFServiceDescription FindServiceImplementationTypeInCollection<T>(
 			this IEnumerable<IPAFServiceDescription> serviceDescriptions)
 			where T : class, IPAFService

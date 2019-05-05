@@ -183,3 +183,646 @@ MainLogger
 DebugLoggerHeader
 [Default]
 Hello from debugging logger
+[Default - 09/21/2018 12:21:45]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 09/21/2018 12:27:11]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 09/21/2018 12:32:28]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 09/22/2018 15:27:36]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/10/2018 20:03:55]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/10/2018 20:19:53]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/10/2018 20:27:45]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/25/2018 19:46:55]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/28/2018 13:29:37]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/28/2018 13:51:41]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/28/2018 14:33:18]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 10/28/2018 15:04:13]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 11/06/2018 14:53:21]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/24/2018 19:11:10]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/27/2018 15:04:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 13:59:38]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 14:06:46]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 17:40:20]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 17:44:47]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 19:39:34]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 19:45:52]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 19:47:20]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 12/31/2018 19:50:27]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/01/2019 18:14:33]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/01/2019 18:18:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/01/2019 18:43:14]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/01/2019 18:50:48]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/01/2019 18:57:40]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 17:26:41]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 17:38:23]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:04:24]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:14:33]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:21:13]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:23:35]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:39:37]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 19:41:49]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 20:39:05]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 20:45:48]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 20:48:40]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 20:52:39]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 20:55:56]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 21:00:30]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 22:35:28]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 22:59:38]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 23:05:58]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/02/2019 23:19:30]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:00:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:14:09]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:24:44]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:26:25]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:29:01]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 01/03/2019 00:30:00]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/11/2019 13:53:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/11/2019 15:23:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 02/23/2019 15:46:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 03/09/2019 19:38:37]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 03/24/2019 16:55:28]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 03/24/2019 16:55:28]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 14:40:36]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 14:40:36]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 15:08:03]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 15:08:03]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 21:18:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 21:18:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/28/2019 21:19:02]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:19:02]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:19:10]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/28/2019 21:27:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 21:27:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/28/2019 21:27:51]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:27:51]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:27:51]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/28/2019 21:29:52]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/28/2019 21:29:52]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/28/2019 21:29:53]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:29:53]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/28/2019 21:29:53]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:13:07]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:13:07]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:13:07]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:13:07]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:13:07]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:14:42]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:14:42]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:14:42]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:14:42]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:14:42]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:38:16]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:38:16]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:38:17]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:38:17]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:38:17]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:40:46]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:40:46]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:40:46]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:40:46]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:40:46]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:41:11]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:41:11]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:41:11]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:41:11]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:41:11]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:43:25]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:43:25]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:43:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:43:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:43:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 11:54:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 11:54:50]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 11:54:50]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:54:50]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 11:54:50]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 12:08:25]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 12:08:25]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 12:08:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 12:08:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 12:08:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 12:23:04]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 12:23:04]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 12:23:05]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 12:23:05]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 12:23:05]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 13:16:33]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 13:16:33]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 13:16:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 13:16:54]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 13:16:54]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 13:16:55]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 13:16:55]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 04/29/2019 13:40:58]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 04/29/2019 13:40:58]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 04/29/2019 13:40:59]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 13:40:59]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 04/29/2019 13:40:59]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 05/03/2019 11:13:03]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 05/03/2019 11:13:03]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 05/03/2019 11:13:03]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/03/2019 11:13:03]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/03/2019 11:13:03]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 05/04/2019 20:00:47]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 05/04/2019 20:00:47]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 05/04/2019 20:01:02]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/04/2019 20:01:02]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/04/2019 20:01:02]
+Error Disposing Type
+Exception: Error Disposing Type
+[Default - 05/04/2019 20:13:43]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 05/04/2019 20:13:43]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 05/04/2019 20:13:58]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/04/2019 20:13:58]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/04/2019 20:13:58]
+Error Disposing Type
+Exception: Error Disposing Type

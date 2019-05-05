@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -27,7 +27,6 @@ using System;
 using System.Security;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.ErrorAndException;
-using PlatformAgileFramework.Notification.Exceptions;
 using PlatformAgileFramework.Serializing;
 using PlatformAgileFramework.Serializing.Attributes;
 using PlatformAgileFramework.TypeHandling;
@@ -37,25 +36,37 @@ namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
 	/// <para>
-	/// This class is an implementation of the <see cref="IPAFServiceDescription"/>
+	/// This class is an implementation of the <see cref="IPAFServiceDescription"/>.
+	/// <see cref="IPAFNamedAndTypedObject"/> is mapped to the interface type for
+	/// use in dictionary lookup.
 	/// interface.
 	/// </para>
 	/// </summary>
 	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 21jan2019 </date>
+	/// <description>
+	/// Redirected <see cref="IPAFNamedAndTypedObject"/> to the interface
+	/// for proper direct use in the dictionary.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
 	/// <author> DAP </author>
 	/// <date> 07jan2012 </date>
-	/// <contribution>
+	/// <description>
 	/// Rewrote the class based on type holders.
+	/// </description>
 	/// </contribution>
 	/// </history>
 	/// <threadsafety>
 	/// Safe. Secured with monitors - low traffic.
 	/// </threadsafety>
-	//TODO - KRM make copy constructor for this class that accepts the interface.
-	//TODO - also implement deepcopy - this should have been done when the class was touched.
 	[PAFSerializable(PAFSerializationType.PAFSurrogate)]
+
 	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class PAFServiceDescription : IPAFServiceDescriptionInternal
+	public partial class PAFServiceDescription
+		: IPAFServiceDescriptionInternal
 	{
 		#region Class Fields and Autoproperties
 		/// <summary>
@@ -63,41 +74,21 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		protected internal PAFTypeHolder m_ServiceInterfaceType;
 		/// <summary>
-		/// Lock for the interface.
-		/// </summary>
-		private object m_ServiceInterfaceType_Lock;
-		/// <summary>
 		/// Backing field. Concrete type for serialization.
 		/// </summary>
 		protected internal PAFTypeHolder m_ServiceImplementationType;
-		/// <summary>
-		/// Lock for the implementation.
-		/// </summary>
-		private object m_ServiceImplementationType_Lock;
 		/// <summary>
 		/// Backing field.
 		/// </summary>
 		protected internal string m_ServiceName;
 		/// <summary>
-		/// Lock for the name.
-		/// </summary>
-		private object m_ServiceName_Lock;
-		/// <summary>
 		/// Backing field.
 		/// </summary>
 		protected internal object m_ServiceObject;
 		/// <summary>
-		/// Lock for the service object.
-		/// </summary>
-		private object m_ServiceObject_Lock;
-		/// <summary>
 		/// Backing field.
 		/// </summary>
 		protected internal bool m_IsDefault;
-		/// <summary>
-		/// Lock for the default flag.
-		/// </summary>
-		private object m_IsDefault_Lock;
 		#endregion // Class Fields and Autoproperties
 		#region Constructors
 		/// <summary>
@@ -105,7 +96,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		protected internal PAFServiceDescription()
 		{
-			InitializePAFServiceDescription();
 		}
 
 		/// <summary>
@@ -140,7 +130,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message if the implementation type does not inherit from the interface.
 		/// </exception>
-		/// Additional exceptios are thrown from <see cref="ValidateServiceObject"/> if
+		/// Additional exceptions are thrown from <see cref="ValidateServiceObject"/> if
 		/// the incoming service object is not <see langword="null"/>. See that method for
 		/// details.
 		/// </exceptions>
@@ -150,8 +140,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			if (serviceInterfaceType == null)
 				throw (new ArgumentNullException(nameof(serviceInterfaceType)));
-
-			InitializePAFServiceDescription();
 
 			m_ServiceInterfaceType = new PAFTypeHolder(serviceInterfaceType);
 			if (serviceName == null) serviceName = "";
@@ -195,27 +183,10 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			if (nto == null)
 				throw (new ArgumentNullException(nameof(nto)));
-			InitializePAFServiceDescription();
 			ServiceObject = nto.ObjectValue;
 		}
 		#endregion // Constructors
 		#region Construction Helpers
-		/// <summary>
-		/// Initializes basic stuff in the class. Can be called multiple times.
-		/// </summary>
-		protected internal void InitializePAFServiceDescription()
-		{
-			if (m_ServiceInterfaceType_Lock == null)
-				m_ServiceInterfaceType_Lock = new object();
-			if (m_ServiceImplementationType_Lock == null)
-				m_ServiceImplementationType_Lock = new object();
-			if (m_ServiceName_Lock == null)
-				m_ServiceName_Lock = new object();
-			if (m_IsDefault_Lock == null)
-				m_IsDefault_Lock = new object();
-			if (m_ServiceObject_Lock == null)
-				m_ServiceObject_Lock = new object();
-		}
 		/// <summary>
 		/// Purpose of this method is to throw an exception if an attempt is made
 		/// to set a serviceObject (a type implementing the service that does not actually
@@ -230,13 +201,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </param>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> with
-		/// <see cref="PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message is thrown if the object does not implement
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>.
 		/// <see cref="IPAFServiceDescription.ServiceInterfaceType.TypeType"/>
 		/// </exception">
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> with
-		/// <see cref="PAFTypeMismatchExceptionDataBase.TYPES_NOT_AN_EXACT_MATCH"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.TYPES_NOT_AN_EXACT_MATCH"/>
 		/// message is thrown if the object does not exactly match the
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>.
 		/// if it is here.
@@ -267,12 +238,8 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		public bool IsDefault
 		{
-			get
-			{
-				lock (m_IsDefault_Lock) { return m_IsDefault; }
-			}
-			[SecurityCritical]
-			set { lock (m_IsDefault_Lock) { m_IsDefault = value; } }
+			get { return m_IsDefault; }
+			protected internal set { m_IsDefault = value; }
 		}
 		/// <summary>
 		/// <see cref="IPAFServiceDescription"/>.
@@ -280,22 +247,14 @@ namespace PlatformAgileFramework.FrameworkServices
 		public IPAFTypeHolder ServiceInterfaceType
 		{
 			get
-			{
-				lock (m_ServiceInterfaceType_Lock)
-				{
-					return m_ServiceInterfaceType;
-				}
-			}
+			{ return m_ServiceInterfaceType; }
 			[SecurityCritical]
 			set
 			{
-				lock (m_ServiceInterfaceType_Lock)
-				{
-					if (value == null)
-						throw (new ArgumentNullException("value"));
+				if (value == null)
+					throw (new ArgumentNullException(nameof(value)));
 
-					m_ServiceInterfaceType = new PAFTypeHolder(value);
-				}
+				m_ServiceInterfaceType = new PAFTypeHolder(value);
 			}
 		}
 		/// <summary>
@@ -305,24 +264,18 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			get
 			{
-				lock (m_ServiceImplementationType_Lock)
-				{
-					return m_ServiceImplementationType;
-				}
+				return m_ServiceImplementationType;
 			}
 			[SecurityCritical]
 			set
 			{
-				lock (m_ServiceImplementationType_Lock)
+				if (value == null)
 				{
-					if (value == null)
-					{
-						m_ServiceImplementationType = null;
-						return;
-					}
-					m_ServiceImplementationType
-						= new PAFTypeHolder(value);
+					m_ServiceImplementationType = null;
+					return;
 				}
+				m_ServiceImplementationType
+					= new PAFTypeHolder(value);
 			}
 		}
 		/// <summary>
@@ -332,18 +285,12 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			get
 			{
-				lock (m_ServiceName_Lock)
-				{
-					return m_ServiceName;
-				}
+				return m_ServiceName;
 			}
 			[SecurityCritical]
 			set
 			{
-				lock (m_ServiceName_Lock)
-				{
-					m_ServiceName = value ?? string.Empty;
-				}
+				m_ServiceName = value ?? string.Empty;
 			}
 		}
 		/// <summary>
@@ -353,10 +300,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			get
 			{
-				lock (m_ServiceObject_Lock)
-				{
-					return m_ServiceObject;
-				}
+				return m_ServiceObject;
 			}
 			[SecurityCritical]
 			set
@@ -384,10 +328,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="serviceObject">Sets the non-Generic.</param>
 		internal void SetServiceObjectI(object serviceObject)
 		{
-			lock (m_ServiceObject_Lock)
-			{
-				m_ServiceObject = ValidateServiceObject(serviceObject);
-			}
+			m_ServiceObject = ValidateServiceObject(serviceObject);
 		}
 		#endregion // Methods
 		/////////////////////////////////////////////////////////////////////////////////////
@@ -400,11 +341,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// See <see cref="IPAFServiceDescriptionInternal"/>.
 		/// </summary>
 		/// <param name="isDefault">
-		/// See <see cref="IPAFServiceDescriptionInternal"/>.
+		///     See <see cref="IPAFServiceDescriptionInternal"/>.
 		/// </param>
-		void IPAFServiceDescriptionInternal.SetIsDefault(bool isDefault)
+		bool IPAFServiceDescriptionInternal.SetIsDefault(bool isDefault)
 		{
+			var retval = isDefault != m_IsDefault;
 			m_IsDefault = isDefault;
+			return retval;
 		}
 		/// <summary>
 		/// See <see cref="IPAFServiceDescriptionInternal"/>.
@@ -481,8 +424,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		bool IPAFNamedObject.IsDefaultObject
 		{
 			get { return IsDefault; }
-			[SecurityCritical]
-			set { IsDefault = value; }
 		}
 		#endregion //IPAFNamedObject Implementation
 		/// <summary>
@@ -490,7 +431,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		string IPAFNamedAndTypedObject.AssemblyQualifiedObjectType
 		{
-			get { return ServiceImplementationType.AssemblyQualifiedTypeName; }
+			get { return ServiceInterfaceType.AssemblyQualifiedTypeName; }
 			[SecurityCritical]
 			set { throw new NotImplementedException(); }
 		}
@@ -499,7 +440,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		Type IPAFNamedAndTypedObject.ObjectType
 		{
-			get { return ServiceImplementationType.TypeType; }
+			get { return ServiceInterfaceType?.TypeType; }
 			[SecurityCritical]
 			set { throw new NotImplementedException(); }
 		}

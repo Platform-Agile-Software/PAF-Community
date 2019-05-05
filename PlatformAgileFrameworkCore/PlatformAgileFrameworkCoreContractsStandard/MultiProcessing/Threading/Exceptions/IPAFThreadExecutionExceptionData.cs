@@ -16,14 +16,13 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using System.Collections.Generic;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
@@ -56,7 +55,7 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Exceptions
     /// Set of tags with an enumerator for exception messages. These are the dictionary keys
     /// for extended.
     /// </summary>
-    public class PAFAssemblyLoadExceptionMessageTags
+    public class PAFThreadExecutionExceptionMessageTags
         : PAFExceptionMessageTagsBase<IPAFThreadExecutionExceptionData>
     {
         #region Fields and Autoproperties
@@ -85,7 +84,7 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Exceptions
         /// <summary>
         /// Just puts the tags in a list to hand out.
         /// </summary>
-        static PAFAssemblyLoadExceptionMessageTags()
+        static PAFThreadExecutionExceptionMessageTags()
         {
             if ((s_Tags != null) && (s_Tags.Count > 0)) return;
             s_Tags = new List<string>

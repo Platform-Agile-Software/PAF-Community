@@ -16,17 +16,12 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
-
-using System;
-using System.Collections.Generic;
-using PlatformAgileFramework.Remoting;
-using PlatformAgileFramework.Security;
 
 namespace PlatformAgileFramework.FrameworkServices
 {
@@ -34,6 +29,14 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// Remnants of the internal interface that must be provided for the SL model.
 	/// </summary>
 	/// <history>
+	/// <contribution>
+	/// <author> Brian T. </author>
+	/// <date> 02jan2019 </date>
+	/// <description>
+	/// Refactored this to contain just "IsDefault" manipulation. Old interface
+	/// hierarchy was not right.
+	/// </description>
+	/// </contribution>
 	/// <contribution>
 	/// <author> DAP </author>
 	/// <date> 04jan2012 </date>
@@ -43,100 +46,24 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </description>
 	/// </contribution>
 	/// </history>
-// ReSharper disable once PartialTypeWithSinglePart
-	internal partial interface IPAFServiceInternal : IPAFServiceExtended
+	// ReSharper disable once PartialTypeWithSinglePart
+	internal partial interface IPAFServiceInternal : IPAFService
 	{
-		#region Properties
-		/// <summary>
-		/// Manipulates the LMO for remote services.
-		/// </summary>
-		IPAFLifetimeManagedObjectInternal<IPAFSecretKeyProvider> LifetimeManagedObjectInternal { get; set; }
-		/// <summary>
-		/// This property gets the manager associated with the service. It is often
-		/// used to climb a tree of managers that are constructed hierarchically. This
-		/// property can return <see langword="null"/> if the service has not yet
-		/// been added to a service manager or if the information is not revealed
-		/// by the service designer. This latter case is rare.
-		/// </summary>
-		IPAFServiceManager ServiceManagerInternal
-		{ get; set; }
-		/// <summary>
-		/// Secures the service. Used in extended.
-		/// </summary>
-		IPAFSecretKey SecurityObjectInternal { get; }
-		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		IEnumerable<IPAFServiceDescription> ServicesRequiredForInitializationInternal { get; }
-		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		IEnumerable<IPAFServiceDescription> ServicesRequiredForLoadInternal { get; }
-		#endregion // Properties
 		#region Methods
 		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
+		/// Should service be the default service for the type?
 		/// </summary>
-		/// <param name="serviceIsInitialized">
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
+		/// <param name="serviceIsDefault">
+		/// <see langword = "true"/> to mark the service as default.
 		/// </param>
-		void SetServiceIsInitialized(bool serviceIsInitialized);
+		/// <return>
+		///<see langword = "true"/> if a change was made.
+		/// </return>
+		bool SetServiceAsDefault(bool serviceIsDefault);
 		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
+		/// Gets the manager the service is contained in.
 		/// </summary>
-		/// <param name="serviceIsLoaded">
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void SetServiceIsLoaded(bool serviceIsLoaded);
-		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="serviceIsUninitialized">
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void SetServiceIsUninitialized(bool serviceIsUninitialized);
-		/// <summary>
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="serviceIsUnloaded">
-		/// See the corresponding property in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void SetServiceIsUnloaded(bool serviceIsUnloaded);
-		/// <summary>
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="pipelineObject">
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void InitializeServiceInternal(IPAFServicePipelineObject<IPAFService> pipelineObject);
-		/// <summary>
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="pipelineObject">
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void LoadServiceInternal(IPAFServicePipelineObject<IPAFService> pipelineObject);
-		/// <summary>
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="pipelineObject">
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void UninitializeServiceInternal(IPAFServicePipelineObject<IPAFService> pipelineObject);
-		/// <summary>
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="pipelineObject">
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void UnloadServiceInternal(IPAFServicePipelineObject<IPAFService> pipelineObject);
-		/// <summary>
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </summary>
-		/// <param name="pipelineObject">
-		/// See the corresponding method in <see cref="IPAFServiceExtended"/>.
-		/// </param>
-		void UpdateServiceInternal(IPAFServicePipelineObject<IPAFService> pipelineObject);
+		IPAFServiceManagerInternal ServiceManager { get; set; }
 		#endregion // Methods
 	}
 }

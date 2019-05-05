@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -91,7 +91,7 @@ namespace PlatformAgileFramework.TypeHandling
 		}
 
 		/// <summary>
-		/// This method converts an <see cref="Enum"/> to an <see cref="Int64"/>. This
+		/// This method converts an <see cref="Enum"/> to an <see cref="long"/>. This
 		/// should work for everything we use. It converts by outputting a string value,
 		/// then parsing into an integer.
 		/// </summary>
@@ -111,7 +111,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// This method returns a set of strings corresponding to the bits that
 		/// are <see langword="true"/> in the Enum. This method is generally useful only when
 		/// the enums involved wear the "flags" attribute. This method is just a
-		/// convenience to turn the strings returned from <see cref="Enum.ToString(String)"/>
+		/// convenience to turn the strings returned from <see cref="Enum.ToString(string)"/>
 		/// into a list.
 		/// </summary>
 		/// <param name="thisEnum">
@@ -154,7 +154,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// Type of the <see cref="Enum"/> we are to create.
 		/// </param>
 		/// <param name="value">
-		/// <see cref="String"/>-ful representation of the Enum.
+		/// <see cref="string"/>-ful representation of the Enum.
 		/// </param>
 		/// <exception cref="ArgumentException">
 		/// // TODO

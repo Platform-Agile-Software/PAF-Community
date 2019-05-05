@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -30,8 +30,10 @@ using System.Collections.Generic;
 using System.Security;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
+using PlatformAgileFramework.FileAndIO.Exceptions;
 //using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
 using PlatformAgileFramework.FrameworkServices;
+using PlatformAgileFramework.Properties;
 
 #region Exception Shorthand
 
@@ -152,12 +154,12 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 	/// cannot be found in the symbol dictionary. This means that the proper
 	/// symbol has not been installed in the configuration file for the
 	/// application or in code.
-	///  Message = <see cref="PAFStoragePathFormatExceptionDataBase.DIRECTORY_SYMBOL_NOT_FOUND"/>.
+	///  Message = <see cref="PAFStoragePathFormatExceptionMessageTags.DIRECTORY_SYMBOL_NOT_FOUND"/>.
 	/// </exception>
 	/// <exception cref="PAFStandardException{IPAFFFED}"> is thrown in every
 	/// method that takes a filepath, when the filepath must be a filename
 	/// only (no path characters).
-	/// Message = <see cref="PAFStoragePathFormatExceptionDataBase.DIRECTORY_SPECIFICATION_NOT_ALLOWED"/>.
+	/// Message = <see cref="PAFStoragePathFormatExceptionMessageTags.DIRECTORY_SPECIFICATION_NOT_ALLOWED"/>.
 	/// </exception>
 	/// </exceptions>
 	/// <history>
@@ -229,7 +231,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// Indicates the available free space within the CWD. For SL this will
 		/// always return the same as <see cref="PAFAvailableFreeSpace"/>. For ECMA/CLR
-		/// this should USUALLY return  <see cref="Int64.MaxValue"/>.
+		/// this should USUALLY return  <see cref="long.MaxValue"/>.
 		/// </summary>
 		/// <threadsafety>
 		/// This method cannot be relied upon to produce correct indications
@@ -241,7 +243,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// This is the SL equivalent and has the same name. It returns the
 		/// available free space within the CWD for the addins. For ECMA/CLR
-		/// this should USUALLY return  <see cref="Int64.MaxValue"/>.
+		/// this should USUALLY return  <see cref="long.MaxValue"/>.
 		/// </summary>
 		/// <threadsafety>
 		/// This method cannot be relied upon to produce correct indications
@@ -299,7 +301,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <exceptions>
 		/// <exception>
 		/// <see cref="PAFStandardException{IPAFFilePathFormatExceptionData}"/>
-		/// <see cref="PAFStoragePathFormatExceptionDataBase.BAD_FILE_PATH"/> if filepath
+		/// <see cref="PAFStoragePathFormatExceptionMessageTags.BAD_FILE_PATH"/> if filepath
 		/// cannot be resolved.
 		/// </exception>
 		/// </exceptions>
@@ -347,10 +349,10 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </remarks>
 		void PAFCreateDirectory(string dir);
 		/// <summary>
-		/// Secured version of <see cref="PAFCreateDirectory(String)"/>.
+		/// Secured version of <see cref="PAFCreateDirectory(string)"/>.
 		/// </summary>
 		/// <param name="dir">
-		/// See <see cref="PAFCreateDirectory(String)"/>.
+		/// See <see cref="PAFCreateDirectory(string)"/>.
 		/// </param>
 		/// <param name="clientObject">
 		/// An object that MAY contain security information.
@@ -384,10 +386,10 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </param>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IFIOED}">
-		/// Message: <see cref="PAFFileAndDirectoryIOExceptionDataBase.ERROR_DELETING_DIRECTORY"/> is thrown
+		/// Message: <see cref="PAFFileAndIOExceptionMessageTags.ERROR_DELETING_DIRECTORY"/> is thrown
 		/// if anything goes wrong with the operation. This exception may contain
 		/// various inner exceptions which are platform-specific. If the directory
-		/// does not exist, an exception is thrown. Check for existance first
+		/// does not exist, an exception is thrown. Check for existence first
 		/// to avoid this.
 		/// </exception>
 		/// </exceptions>
@@ -401,7 +403,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// Removes the specified directory from within the current storage area.
 		/// </summary>
 		/// <param name="dir">
-		/// See <see cref="PAFDeleteDirectory(String)"/>.
+		/// See <see cref="PAFDeleteDirectory(string)"/>.
 		/// </param>
 		/// <param name="clientObject">
 		/// An object that MAY contain security information.
@@ -420,10 +422,10 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </remarks>
 		void PAFDeleteFile(string file);
 		/// <summary>
-		/// Secured version of <see cref="PAFDeleteFile(String)"/>.
+		/// Secured version of <see cref="PAFDeleteFile(string)"/>.
 		/// </summary>
 		/// <param name="file">
-		/// See <see cref="PAFDeleteFile(String)"/>.
+		/// See <see cref="PAFDeleteFile(string)"/>.
 		/// </param>
 		/// <param name="clientObject">
 		/// An object that MAY contain security information.
@@ -515,17 +517,17 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </exceptions>
 		IEnumerable<string> PAFGetDirectoryNames(string dirSpec);
 		/// <summary>
-		/// Obtains the names of files in the specified directory of the
+		/// Obtains the names of files in the CWD of the
 		/// storage area. For Core SL model, this is either the app store
 		/// root or the site store root. For ECMA, this is the exe directory.
 		/// For phones, this is platform-dependent.
 		/// </summary>
 		/// <returns>
-		/// An array of filenames in the CWD of the storage area.
+		/// An array of file paths in the CWD of the storage area.
 		/// A <see langword = "null"/> specifies that there are no files in the storage area.
 		/// </returns>
 		/// <threadsafety>
-		/// Generally NOT thead-safe if CWD is in use in the infrastructure. For multithreaded
+		/// Generally NOT thead-safe if CWD is in use in the infrastructure. For multi-threaded
 		/// applications, this call should be made in the bootstrapper only or from the (single) thread
 		/// that sets the CWD.
 		/// </threadsafety>
@@ -535,23 +537,22 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		IEnumerable<string> PAFGetFileNames();
 
 		/// <summary>
-		/// Obtains the names of filess in the specified directory of the
-		/// storage area. For Core SL model, this is either the app store
-		/// root or the site store root. For ECMA, this is the exe directory.
-		/// For phones, this is platform-dependent.
+		/// Obtains the names of files in the specified directory of the
+		/// storage area.
 		/// </summary>
 		/// <param name="dirSpec">
-		/// Can be a rooted path or a relative path, with trailing dirsep or not.
+		/// Can be a relative path if CWD model is active. Can have trailing dirsep or not.
 		/// </param>
 		/// <returns>
-		/// An array of filenames in the specified storage area.
+		/// An array of file paths in the specified storage area.
 		/// A <see langword = "null"/> specifies that there are no files in the
-		/// storage area.
+		/// storage area. Will contain a directory spec if storage system is
+		/// directory-based.
 		/// </returns>
 		/// <exceptions>
 		/// None generated and none caught.
 		/// </exceptions>
-		IEnumerable<string> PAFGetFileNames(string dirSpec);
+		[CanBeNull] IEnumerable<string> PAFGetFileNames(string dirSpec);
 		/// <summary>
 		/// Returns the last access date and time of a specified file or directory.
 		/// </summary> 
@@ -606,16 +607,16 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </remarks>
 		bool PAFIncreaseQuotaTo(long newQuotaSize);
 		/// <summary>
-		/// Secured version of <see cref="PAFIncreaseQuotaTo(Int64)"/>.
+		/// Secured version of <see cref="PAFIncreaseQuotaTo(long)"/>.
 		/// </summary>
 		/// <param name="newQuotaSize">
-		/// See <see cref="PAFIncreaseQuotaTo(Int64)"/>.
+		/// See <see cref="PAFIncreaseQuotaTo(long)"/>.
 		/// </param>
 		/// <param name="clientObject">
 		/// An object that MAY contain security information.
 		/// </param>
 		/// <returns>
-		/// See <see cref="PAFIncreaseQuotaTo(Int64)"/>.
+		/// See <see cref="PAFIncreaseQuotaTo(long)"/>.
 		/// </returns>
 		/// <exceptions>
 		/// None generated and none caught.
@@ -687,7 +688,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </exceptions>
 		IPAFStorageStream PAFOpenFile(string path, PAFFileAccessMode mode, object clientObject);
 		/// <remarks>
-		/// <see cref="PAFOpenFile(String, PAFFileAccessMode , Object)"/>.
+		/// <see cref="PAFOpenFile(string, PAFFileAccessMode , object)"/>.
 		/// Uses "clientObject" = <see langword="null"/>.
 		/// </remarks>
 		/// <exceptions>
@@ -695,7 +696,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </exceptions>
 		IPAFStorageStream PAFOpenFile(string path, PAFFileAccessMode mode);
 		/// <remarks>
-		/// <see cref="PAFOpenFile(String, PAFFileAccessMode , Object)"/>.
+		/// <see cref="PAFOpenFile(string, PAFFileAccessMode , object)"/>.
 		/// Uses "clientObject" = <see langword="null"/>.
 		/// Default access mode depends on platform.
 		/// </remarks>

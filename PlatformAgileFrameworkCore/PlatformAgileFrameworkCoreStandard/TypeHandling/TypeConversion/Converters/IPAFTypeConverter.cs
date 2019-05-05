@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -63,7 +63,7 @@ namespace PlatformAgileFramework.TypeHandling.TypeConversion.Converters
 		/// </summary>
 		/// <param name="value">Value to be converted.</param>
 		/// <returns>
-		/// The <see cref="Object"/> if conversion is successful, <see langword="null"/>
+		/// The <see cref="object"/> if conversion is successful, <see langword="null"/>
 		/// otherwise. No exceptions are generated.
 		/// </returns>
 		object ConvertFrom(object value);
@@ -73,7 +73,7 @@ namespace PlatformAgileFramework.TypeHandling.TypeConversion.Converters
 		/// </summary>
 		/// <param name="stringValue">String value to be converted.</param>
 		/// <returns>
-		/// The <see cref="Object"/> if conversion is successful, <see langword="null"/>
+		/// The <see cref="object"/> if conversion is successful, <see langword="null"/>
 		/// otherwise. No exceptions are generated.
 		/// </returns>
 		object ConvertFromString(string stringValue);

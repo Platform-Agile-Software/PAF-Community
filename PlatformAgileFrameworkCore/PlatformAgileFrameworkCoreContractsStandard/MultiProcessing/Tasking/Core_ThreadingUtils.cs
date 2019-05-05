@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -77,7 +77,7 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 		#endregion // Some Static Data
 		#region Utility Methods
 		/// <summary>
-		/// Works with an integer that is used to act as a <see cref="Boolean"/>. A reference
+		/// Works with an integer that is used to act as a <see cref="bool"/>. A reference
 		/// to the int is passed in. We attempt to clear it (set the int to 0) and and
 		/// a method from the <see cref="Interlocked"/> class is used to determine if we
 		/// were the first one to clear it.
@@ -91,7 +91,7 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 			return oneForFirstCleared == 1;
 		}
 		/// <summary>
-		/// Works with an integer that is used to act as a <see cref="Boolean"/>. A reference
+		/// Works with an integer that is used to act as a <see cref="bool"/>. A reference
 		/// to the int is passed in. We attempt to set it (set the int to 1) and
 		/// a method from the <see cref="Interlocked"/> class is used to determine if we
 		/// were the first one to set it.

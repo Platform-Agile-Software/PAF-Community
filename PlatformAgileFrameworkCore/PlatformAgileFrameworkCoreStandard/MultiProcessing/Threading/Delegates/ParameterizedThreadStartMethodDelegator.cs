@@ -16,33 +16,26 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
+using System;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.TypeHandling;
 
 // Exception shorthand.
+// ReSharper disable IdentifierTypo
 using PAFTMED = PlatformAgileFramework.TypeHandling.Exceptions.PAFTypeMismatchExceptionData;
 using IPAFTMED = PlatformAgileFramework.TypeHandling.Exceptions.IPAFTypeMismatchExceptionData;
 using PAFTypeMismatchExceptionMessageTags = PlatformAgileFramework.TypeHandling.Exceptions.PAFTypeMismatchExceptionMessageTags;
+// ReSharper restore IdentifierTypo
 
 namespace PlatformAgileFramework.MultiProcessing.Threading.Delegates
 {
-	#region Delegates
-	/// <summary>
-	/// Provides a contravariant delegate for delegating tasks defined by
-	/// a method with a single argument that can be converted to
-	/// <typeparamref name="T"/>.
-	/// </summary>
-	/// <param name="argument">The argument to the method.</param>
-	/// <typeparam name="T">An arbitrary type.</typeparam>
-	public delegate void PAFContravariantThreadMethod<in T>(T argument);
-	#endregion // Delegates
 	/// <summary>
 	/// <para>
 	///	Class providing a method with the same signature as
@@ -69,12 +62,12 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Delegates
 		/// <summary>
 		/// Holds the delegate we have been built with.
 		/// </summary>
-		protected PAFContravariantThreadMethod<T> ContravariantThreadMethod
+		public Action<T> ContravariantThreadMethod
 		{ get; set; }
 		/// <summary>
 		/// Holds a copy of the argument.
 		/// </summary>
-		protected T ThreadMethodArgument
+		public T ThreadMethodArgument
 		{ get; set; }
 		#endregion // Class Fields and Autoproperties
 		#region Constructors
@@ -86,10 +79,11 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Delegates
 		/// </param>
 		/// <param name="threadMethodArgument">
 		/// The argument. This argument will only be used if the
-		/// <see cref="WaitCallbackMethod"/> is <see langword="null"/>.
+		/// argument passed in to the <see cref="WaitCallbackMethod"/>
+		/// is <see langword="null"/>.
 		/// </param>
 		public ParameterizedThreadStartMethodDelegator(
-			PAFContravariantThreadMethod<T> contravariantThreadMethod,
+			Action<T> contravariantThreadMethod,
 			T threadMethodArgument = default(T))
 		{
 			ContravariantThreadMethod = contravariantThreadMethod;
@@ -106,7 +100,7 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.Delegates
 		/// is used as the argument.
 		/// </param>
 		/// <exception cref="PAFStandardException{IPAFTMED}">
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>.
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>.
 		/// The incoming <paramref name="obj"/> must be castable to
 		/// <typeparamref name="T"/>.
 		/// </exception>

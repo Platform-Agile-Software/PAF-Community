@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -29,6 +29,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.Collections.KeyedCollections;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 
@@ -325,21 +326,21 @@ namespace PlatformAgileFramework.Collections
 	    /// </param>
 	    /// <returns>The list. Never <see langword="null"/>.</returns>
 	    /// <remarks>
-	    /// If <paramref name="iEnumerable"/> is <see langword="null"/>, <see langword="null"/> is returned.
-	    /// If <paramref name="iEnumerable"/> returns no items, an empty array is returned.
+	    /// If <paramref name="iEnumerable"/> is <see langword="null"/>, or if
+	    /// <paramref name="iEnumerable"/> returns no items, an empty array is returned.
 	    /// Better to use this rather than <c>ConvertableEnumIntoList</c> if inheritance
 	    /// relationship is known.
 	    /// </remarks>
 	    public static IList<USubtype> EnumIntoSubtypeList<TSupertype, USubtype>
 	        (this IEnumerable<TSupertype> iEnumerable) where USubtype : TSupertype
 	    {
-	        if (iEnumerable == null) return null;
-
 	        // Never return null.
 	        Collection<USubtype> collection = new Collection<USubtype>();
 
-	        // ReSharper disable LoopCanBeConvertedToQuery
-	        foreach (var item in iEnumerable)
+		    if (iEnumerable == null) return collection;
+
+			// ReSharper disable LoopCanBeConvertedToQuery
+			foreach (var item in iEnumerable)
 	        {
 	            if (item is USubtype subtype)
 	            {
@@ -439,8 +440,8 @@ namespace PlatformAgileFramework.Collections
 			return foundItem;
 		}
 		/// <summary>
-		/// This extension method returns the first element in an enumeration
-		/// of reference types.
+		/// This extension method returns the first element or <see langword="null"/>
+		/// in an enumeration of reference types.
 		/// </summary>
 		/// <typeparam name="T">Generic Type of the enumerable. Must be reference type</typeparam>
 		/// <param name="iEnumerable">
@@ -450,6 +451,7 @@ namespace PlatformAgileFramework.Collections
 		/// <remarks>
 		/// If <paramref name="iEnumerable"/> is <see langword="null"/>, <see langword="null"/> is returned.
 		/// </remarks>
+		[CanBeNull]
 		public static T GetFirstElement<T>(this IEnumerable<T> iEnumerable) where T : class
 		{
 			if (iEnumerable == null) return null;
@@ -463,7 +465,7 @@ namespace PlatformAgileFramework.Collections
 		}
 		/// <summary>
 		/// This extension method converts any <see cref="IEnumerable"/> into an
-		/// array of <see cref="Object"/>'s.
+		/// array of <see cref="object"/>'s.
 		/// </summary>
 		/// <param name="iEnumerable">
 		/// An object implementing <see cref="IEnumerable"/>. May be <see langword="null"/>.
@@ -540,6 +542,33 @@ namespace PlatformAgileFramework.Collections
 			}
 			return col;
 		}
+		/// <summary>
+		/// This extension method converts any <see cref="IEnumerable{T}"/> into a
+		/// <see cref="IList{T}"/>. A <see cref="Collection{T}"/> is used  as the
+		/// backing container.
+		/// </summary>
+		/// <typeparam name="T">Generic Type of the enumerable.</typeparam>
+		/// <param name="iEnumerable">
+		/// An object implementing <see cref="IEnumerable{T}"/>. May be <see langword="null"/>.
+		/// </param>
+		/// <returns>The list or <see langword="null"/>.</returns>
+		/// <remarks>
+		/// If <paramref name="iEnumerable"/> is <see langword="null"/>, <see langword="null"/> is returned.
+		/// If <paramref name="iEnumerable"/> returns no items, an empty list is returned.
+		/// </remarks>
+		[CanBeNull]
+		public static IList<T> IntoList<T>([CanBeNull] this IEnumerable<T> iEnumerable)
+		{
+			Collection<T> collection = null;
+			if (iEnumerable == null) return null;
+			foreach (var item in iEnumerable)
+			{
+				if (collection == null) collection = new Collection<T>();
+				collection.Add(item);
+			}
+			return collection;
+		}
+
 
 		/// <summary>
 		/// This method removes a set of elements from a collection, if
@@ -647,31 +676,6 @@ namespace PlatformAgileFramework.Collections
 			return collection;
 		}
 		/// <summary>
-		/// This extension method converts any <see cref="IEnumerable{T}"/> into a
-		/// <see cref="IList{T}"/>. A <see cref="Collection{T}"/> is used  as the
-		/// backing container.
-		/// </summary>
-		/// <typeparam name="T">Generic Type of the enumerable.</typeparam>
-		/// <param name="iEnumerable">
-		/// An object implementing <see cref="IEnumerable{T}"/>. May be <see langword="null"/>.
-		/// </param>
-		/// <returns>The list or <see langword="null"/>.</returns>
-		/// <remarks>
-		/// If <paramref name="iEnumerable"/> is <see langword="null"/>, <see langword="null"/> is returned.
-		/// If <paramref name="iEnumerable"/> returns no items, an empty list is returned.
-		/// </remarks>
-		public static IList<T> IntoList<T>(this IEnumerable<T> iEnumerable)
-		{
-			Collection<T> collection = null;
-			if (iEnumerable == null) return null;
-			foreach (var item in iEnumerable)
-			{
-				if (collection == null) collection = new Collection<T>();
-				collection.Add(item);
-			}
-			return collection;
-		}
-		/// <summary>
 		/// This extension method just tells if an enumerable reference
 		/// is <see langword="null"/> or enumeration is empty.
 		/// </summary>
@@ -682,6 +686,17 @@ namespace PlatformAgileFramework.Collections
 		{
 			if (iEnumerable == null) return true;
 			return !iEnumerable.Any();
+		}
+		/// <summary>
+		/// This extension method just tells if an enumerable reference
+		/// is <see langword="null"/> or enumeration is empty.
+		/// </summary>
+		/// <returns>
+		/// <c>0</c> if input is <see langword="null"/>, the count otherwise.
+		/// </returns>
+		public static int SafeCount<T>([CanBeNull] this IEnumerable<T> iEnumerable)
+		{
+			return iEnumerable?.Count() ?? 0;
 		}
 		/// <summary>
 		/// This extension method returns the first element in an enumeration

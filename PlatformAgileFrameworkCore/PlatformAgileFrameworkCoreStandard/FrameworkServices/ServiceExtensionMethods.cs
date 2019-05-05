@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 
@@ -71,16 +72,9 @@ namespace PlatformAgileFramework.FrameworkServices
 			IPAFServiceManager tempManager = null;
 			while(true)
 			{
-				// Infrastructure services are called through their internals.
 				IPAFServiceInternal serviceInternal;
 				if((serviceInternal = service as IPAFServiceInternal) != null)
-					tempManager = serviceInternal.ServiceManagerInternal;
-				IPAFServiceExtended serviceExtended;
-
-				// Now we have a chance to call as extended.
-				if((tempManager == null)
-					&& ((serviceExtended = service as IPAFServiceExtended) != null))
-				tempManager = serviceExtended.ServiceManager;
+					tempManager = serviceInternal.ServiceManager;
 
 				// Quit if we are not climbing anymore.
 				if (tempManager == null) break;
@@ -182,9 +176,11 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <returns> The constructed NTO. </returns>
 		public static IPAFNamedAndTypedObject GetServiceNTO(this IPAFServiceDescription serviceDescription)
 		{
-			return new PAFNamedAndTypedObject(serviceDescription.ServiceInterfaceType.TypeType,
-				serviceDescription.ServiceName);
+			return serviceDescription;
+//			return new PAFNamedAndTypedObject(serviceDescription.ServiceInterfaceType.TypeType,
+//				serviceDescription.ServiceName);
 		}
+
 		/// <summary>
 		/// This method creates a <see cref="IPAFNamedAndTypedObject"/> from an
 		/// incoming <see cref="IPAFService"/>.
@@ -192,12 +188,21 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="serviceObject">
 		/// One of us. <see langword="null"/> returns <see langword="null"/>.
 		/// </param>
+		/// <param name="registeredType">
+		/// Specific type (usually an interface type) that the object inherits
+		/// or implements. Default = <see langword="null"/> causes type of
+		/// <typeparamref name="U"/> to be used, which is usually not what is
+		/// wanted.
+		/// </param>
 		/// <returns> The constructed NTO. </returns>
-		public static IPAFNamedAndTypedObject<U> GetServiceNTOFromServiceObject<U>(this U serviceObject) where U: class, IPAFService
+		public static IPAFNamedAndTypedObject<U> GetServiceNTOFromServiceObject<U>
+			(this U serviceObject, Type registeredType = null) where U: class, IPAFService
 		{
 			if (serviceObject == null)
 				return null;
-			return new PAFNamedAndTypedObject<U>(null, null, serviceObject, true);
+			if(registeredType == null)
+				registeredType = typeof(U);
+			return new PAFNamedAndTypedObject<U>(registeredType, null, serviceObject, true);
 		}
 		/// <summary>
 		/// This method determines whether a service has been initialized.

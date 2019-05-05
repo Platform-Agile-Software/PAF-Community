@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -29,29 +29,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.ErrorAndException;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
 
 #region Exception shorthand.
-using PAFCED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFConstructorExceptionData;
-using IPAFCED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.IPAFConstructorExceptionData;
 using PAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionData;
 using IPAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.IPAFServiceExceptionData;
-using PAFSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionDataBase;
-using PAFSSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServicesExceptionData;
-using IPAFSSED = PlatformAgileFramework.FrameworkServices.Exceptions.IPAFServicesExceptionData;
-using PAFSSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServicesExceptionDataBase;
-using PAFALED = PlatformAgileFramework.Manufacturing.Exceptions.PAFAssemblyLoadExceptionData;
-using PAFALEDB = PlatformAgileFramework.Manufacturing.Exceptions.PAFAssemblyLoadExceptionDataBase;
-using IPAFALED = PlatformAgileFramework.Manufacturing.Exceptions.IPAFAssemblyLoadExceptionData;
-using PAFTLED = PlatformAgileFramework.Manufacturing.Exceptions.PAFTypeLoadExceptionData;
-using PAFTLEDB = PlatformAgileFramework.Manufacturing.Exceptions.PAFTypeLoadExceptionDataBase;
-using IPAFTLED = PlatformAgileFramework.Manufacturing.Exceptions.IPAFTypeLoadExceptionData;
 using PlatformAgileFramework.FrameworkServices.Exceptions;
 #endregion // Exception shorthand.
 
@@ -76,6 +64,13 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </typeparam>
 	/// <history>
 	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 10oct2018 </date>
+	/// <description>
+	/// Put "addorreplace" back in to support Golea project.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
 	/// <author> DAP </author>
 	/// <date> 21feb2012 </date>
 	/// <description>
@@ -87,7 +82,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// <author> KRM </author>
 	/// <date> 27jan2012 </date>
 	/// <description>
-	///  Converted from 3.5 and cleaned up.
+	/// Converted from 3.5 and cleaned up.
 	/// </description>
 	/// </contribution>
 	/// </history>
@@ -101,13 +96,37 @@ namespace PlatformAgileFramework.FrameworkServices
 		// ReSharper restore PartialTypeWithSinglePart
 		where T : class, IPAFService
 	{
-		#region Class Fields And Autoproperties
 		/// <summary>
-		/// Pluggable service instantiator. Immutable field needs no synchronization.
+		/// Generic version.
 		/// </summary>
-		protected internal readonly PAFLocalServiceInstantiator<T> m_TypedLocalServiceInstantiator;
+		/// <param name="servicePipelineObject">
+		/// See non-Generic version.
+		/// </param>
+		/// <param name="serviceDescription">
+		/// See non-Generic version.
+		/// </param>
+		/// <param name="typeFilter">
+		/// See non-Generic version.
+		/// </param>
+		/// <param name="assemblyList">
+		/// See non-Generic version.
+		/// </param>
+		/// <returns>
+		/// See non-Generic version.
+		/// </returns>
+		public delegate IPAFServiceDescription<U> PAFLocalServiceInstantiator1<U>(
+			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
+			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter = null,
+			IEnumerable<Assembly> assemblyList = null) where U : class, T;
+		#region Class Fields And Autoproperties
+		///// <summary>
+		///// Pluggable service instantiator. Immutable field needs no synchronization.
+		///// </summary>
+		//protected internal readonly PAFLocalServiceInstantiator1<T>
+		//	m_TypedLocalServiceInstantiator;
 		#endregion // Class Fields And Autoproperties
 		#region Constructors
+
 		/// <summary>
 		/// Constructor that gives the service manager a name and a set of
 		/// initial services. Noted that services are not initialized as they
@@ -139,16 +158,17 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// causes <see cref="PAFServiceManager.DefaultLocalServiceInstantiator"/> to be used.
 		/// </param>
 		[SecurityCritical]
-		protected PAFGeneralServiceManager(Guid guid = default(Guid),
+		protected PAFGeneralServiceManager(
 			Type serviceManagerType = null, string serviceManagerName = null,
+			Guid guid = default(Guid),
 			IEnumerable<IPAFServiceDescription<T>> services = null,
 			PAFServiceCreator serviceCreator = null,
-			PAFLocalServiceInstantiator<T> typedLocalServiceInstantiator = null,
+			//PAFLocalServiceInstantiator1<T> typedLocalServiceInstantiator = null,
 			PAFLocalServiceInstantiator localServiceInstantiator = null)
-			: this(0, guid, serviceManagerType, serviceManagerName, services,
+			: this(0,  serviceManagerType, serviceManagerName, guid, services,
 			serviceCreator, localServiceInstantiator)
 		{
-			m_TypedLocalServiceInstantiator = typedLocalServiceInstantiator;
+			//m_TypedLocalServiceInstantiator = typedLocalServiceInstantiator;
 		}
 
 		// ReSharper disable CSharpWarnings::CS1580
@@ -187,18 +207,20 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// Default = <see langword="null"/>
 		/// causes <see cref="PAFServiceManager.DefaultLocalServiceInstantiator"/> to be used.
 		/// </param>
+		/// <param name="typedServiceCreator">
+		/// This is the service creator for Generically typed services.
+		/// </param>
 		// ReSharper restore CSharpWarnings::CS1580
 		// ReSharper disable UnusedParameter.Local
 		protected internal PAFGeneralServiceManager(int myFakeInternalConstructorArgument,
-			Guid guid = default(Guid),
 			Type serviceManagerType = null, string serviceManagerName = null,
+			Guid guid = default(Guid),
 			IEnumerable<IPAFServiceDescription<T>> services = null,
 			PAFServiceCreator serviceCreator = null,
 			PAFLocalServiceInstantiator localServiceInstantiator = null,
 			PAFLocalServiceInstantiator<T> typedLocalServiceInstantiator = null,
 			PAFServiceCreator<T> typedServiceCreator = null)
-
-			: base(guid, serviceManagerType, serviceManagerName)
+			: base(serviceManagerType, serviceManagerName, guid)
 		// ReSharper restore UnusedParameter.Local			
 		{
 		}
@@ -208,16 +230,14 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <summary>
 		/// Just an accessor for the service list.
 		/// </summary>
-		protected internal virtual IEnumerable<IPAFServiceDescription<T>> 
+		protected internal virtual IEnumerable<IPAFServiceDescription>
 			ServiceArrayPIV
 		{
 			get
 			{
-				// We need a read lock here, since we are using a wrapped, unsynchronized
-				// dictionary that dosen't necessarily have a safe enumerator.
 				using (var dict = m_ServiceDictionaryWrapper.GetReadLockedObject())
 				{
-					return dict.ReadLockedNullableObject.GetTypedServiceDescriptions<T>();
+					return dict.ReadLockedNullableObject.GetRegisteredTypedServiceDescriptions<T>();
 				}
 			}
 		}
@@ -226,63 +246,111 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
-		protected internal virtual void AddServicePIV<U>(IPAFServiceDescription<U> iFservice) where U : class, T
+		protected internal virtual bool AddOrReplaceServicePIV<U>(IPAFServiceDescription<U> iFservice)
+			where U : class, T
+		{
+			using (var manipulator = m_ServiceDictionaryWrapper.GetWriteLockedObject())
+			{
+				// Bit of syntax clarity.....
+				var outerServiceDictionary = manipulator.WriteLockedNullableObject;
+
+				var retval = RemoveServiceIfExistsPIV(iFservice, outerServiceDictionary);
+
+				AddServiceHelper(iFservice);
+
+				return retval;
+			}
+		}
+
+		/// <remarks>
+		/// Backing for the interfaces.
+		/// </remarks>
+		protected virtual void AddServicePV<U>(IPAFServiceDescription<U> iFservice) where U : class, T
 		{
 			AddServiceHelper(iFservice);
 		}
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
-		protected internal virtual void AddServicesPIV(IEnumerable<IPAFServiceDescription<T>> iFservices)
+		protected virtual void AddServicesPV<U>(IEnumerable<IPAFServiceDescription<U>> iFservices) where U : class, T
 		{
 			foreach (var iFservice in iFservices)
 			{
-				AddServicePIV(iFservice);
+				AddServicePV(iFservice);
 			}
 		}
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
-		protected internal virtual IEnumerable<IPAFServiceDescription> GetServicesPIV<U>(
-			bool exactTypeMatch) where U : class, T
+		protected virtual IEnumerable<IPAFServiceDescription> GetServiceDescriptionsPV<U>()
+			where U : class, T
 		{
-			return GetAnyServices<U>(exactTypeMatch);
+			return GetAnyServiceDescriptionsPV<U>();
 		}
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
-		protected internal virtual U GetTypedServicePIV<U>(string serviceName = "",
-			bool exactTypeMatch = true, object securityObject = null)
-			where U: class, T
+		[CanBeNull]
+		protected virtual U GetTypedServicePV<U>(string serviceName = "",
+			bool registeredTypesOnly = true, object securityObject = null)
+			where U : class, T
 		{
-			var services = GetServicesPIV<U>(exactTypeMatch); 
-			return (U)GetNamedService(serviceName, services).ServiceObject;
+			var returnedServices = new Collection<U>();
+
+			using (var dict = m_ServiceDictionaryWrapper.GetReadLockedObject())
+			{
+				// Get services that implement U.
+				var implementingServices
+					= dict.ReadLockedNullableObject.GetServiceImplementations<U>
+						(registeredTypesOnly, serviceName);
+
+				foreach (var implementingService in implementingServices)
+				{
+					// If we are an extended service, we don't return ourselves unless
+					// we are initialized.
+					IPAFServiceExtended extendedService;
+					if (
+						(implementingService.ServiceObject != null)
+						&&
+						(extendedService = (implementingService.ServiceObject as IPAFServiceExtended)) != null)
+					{
+						if (extendedService.ServiceIsInitialized)
+							returnedServices.AddNoNulls((U)implementingService.ServiceObject);
+					}
+					else
+					{
+						returnedServices.AddNoNulls((U)implementingService.ServiceObject);
+					}
+				}
+			}
+
+			return returnedServices.GetFirstElement();
 		}
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
 		//TODO arg exceptions.
 		//TODO DOCUMENT exceptions.
-		protected internal virtual void MakeServiceDefaultForInterfacePIV<U>(
-			IPAFServiceDescription<U> iFservice) where U: class, T
+		protected virtual void MakeServiceDefaultForInterfacePV<U>(
+			IPAFServiceDescription<U> iFservice) where U : class, T
 		{
 			using (var manipulator = m_ServiceDictionaryWrapper.GetWriteLockedObject())
 			{
 				// Bit of syntax clarity.....
 				var outerServiceDictionary = manipulator.WriteLockedNullableObject;
-				// Fetch only interfaces with an exact type match (true).
+				// Fetch only registered services (true).
 				// This is a check to see if the service exists somewhere
 				// in the dictionary.
 				var newDefaultService = outerServiceDictionary.GetService(iFservice, true);
 				if (newDefaultService == null)
 				{
 					throw new PAFStandardException<IPAFSED>(new PAFSED(iFservice),
-                        PAFServiceExceptionMessageTags.SERVICE_NOT_FOUND);
+						PAFServiceExceptionMessageTags.SERVICE_NOT_FOUND);
 				}
 
 				var innerServiceDictionary = outerServiceDictionary[iFservice];
 
-				// By construction of the dictionary sorter, service is guaranteed to be here.
+				// By construction of the dictionary, service is guaranteed to be here.
 				var innerServiceList = innerServiceDictionary.BuildCollection();
 				var oldDefaultService = innerServiceList[0];
 				innerServiceDictionary.Remove(oldDefaultService.Key);
@@ -292,69 +360,119 @@ namespace PlatformAgileFramework.FrameworkServices
 				var newDefaultServiceNTO = iFservice.GetServiceNTO();
 				innerServiceDictionary.Remove(newDefaultServiceNTO);
 
-				// Clear the "default" bit if it is set.
-				oldDefaultService.Value.SafeSetIsDefault(false);
+				// Clear the "default" bit.
+				((IPAFServiceDescriptionInternal) (oldDefaultService.Value)).SetIsDefault(false);
 
 				// Set "default" bit on new default service.
-				newDefaultService.SafeSetIsDefault(true);
+				((IPAFServiceDescriptionInternal)newDefaultService).SetIsDefault(true);
 
 				// Add services back in back in to trigger resort.
 				innerServiceDictionary.Add(oldDefaultService);
 				innerServiceDictionary.Add(newDefaultServiceNTO, newDefaultService);
 			}
 		}
+		/// <remarks>
+		/// Backing for the interfaces.
+		/// </remarks>
+		protected internal virtual bool RemoveServiceIfExistsPIV<U>(IPAFServiceDescription<U> iFservice)
+			where U : class, T
+		{
+			using (var manipulator = m_ServiceDictionaryWrapper.GetWriteLockedObject())
+			{
+				// Bit of syntax clarity.....
+				var outerServiceDictionary = manipulator.WriteLockedNullableObject;
+
+				var retval = RemoveServiceIfExistsPIV(iFservice, outerServiceDictionary);
+
+				return retval;
+			}
+		}
+
+		/// <summary>
+		/// Helper to remove a service from the manager, if present. Only registered
+		/// services are found.
+		/// </summary>
+		/// <typeparam name="U">Type of the service.</typeparam>
+		/// <param name="iFservice">The service to be removed, if found.</param>
+		/// <param name="serviceDictionary">
+		/// The dictionary to be searched.
+		/// </param>
+		/// <threadsafety>Unsafe. Must be used inside the lock.</threadsafety>
+		//TODO arg exceptions.
+		//TODO DOCUMENT exceptions.
+		protected internal virtual bool RemoveServiceIfExistsPIV<U>(
+			IPAFServiceDescription<U> iFservice, IPAFServiceDictionary serviceDictionary)
+			where U : class, T
+		{
+			// Fetch only interfaces with an exact type match (true).
+			// This is a check to see if the service exists somewhere
+			// in the dictionary.
+			var foundService = serviceDictionary.GetService(iFservice, true);
+			if (foundService == null)
+			{
+				return false;
+			}
+
+			var innerServiceDictionary = serviceDictionary[iFservice];
+			// By construction of the dictionary sorter, service is guaranteed to be here.
+			innerServiceDictionary.Remove(iFservice);
+			return true;
+		}
 		#endregion // Novel Methods
 		#endregion // Novel Members
 		#region Implementation of IPAFServiceManager{T}
 		#region Methods
 
-
 		#region Implementation of IPAFServiceManager<in T>
-
 		/// <remarks>
 		/// See <see cref="IPAFServiceManager{T}"/>.
 		/// </remarks>
-		void IPAFServiceManager<T>.AddTypedService<U>(U service, string serviceName, bool isDefaultService)
+		void IPAFServiceManager<T>.AddTypedService<U>(U service)
 		{
-			var description = new PAFServiceDescription<U>(service, serviceName, isDefaultService);
-			AddServicePIV(description);
+			var description = new PAFServiceDescription<U>(service, "");
+			AddServicePV(description);
 		}
-
+		/// <remarks>
+		/// See <see cref="IPAFServiceManager{T}"/>.
+		/// </remarks>
+		void IPAFServiceManager<T>.AddTypedService<U>(U service, string serviceName)
+		{
+			var description = new PAFServiceDescription<U>(service, serviceName);
+			AddServicePV(description);
+		}
 		#endregion
 		/// <remarks>
 		/// See <see cref="IPAFServiceManager{T}"/>.
-		/// The default service is identified
-		/// by <see cref="IPAFServiceDescription.IsDefault"/> being set or a blank
+		/// The default service is identified by a blank (<see cref="string.Empty"/>)
 		/// name or by being first in the set of installed services of a given type.
-		/// The identification of the "default" service is made by applying these
-		/// criteria in that order.
 		/// </remarks>
 		U IPAFServiceManager<T>.GetTypedService<U>(string serviceName,
-			bool exactTypeMatch,	object securityObject)
+			bool registeredServicesOnly, object securityObject)
 		{
-			 return GetTypedServicePIV<U>(serviceName, exactTypeMatch, securityObject);
+			return GetTypedServicePV<U>(serviceName, registeredServicesOnly,
+				securityObject);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManager{T}"/>.
 		/// </remarks>
-		U IPAFServiceManager<T>.GetTypedService<U>(bool exactTypeMatch,
+		U IPAFServiceManager<T>.GetTypedService<U>(bool registeredServicesOnly,
 			object securityObject)
 		{
-			return GetTypedServicePIV<U>("", exactTypeMatch, securityObject);
+			return GetTypedServicePV<U>("", registeredServicesOnly, securityObject);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManager{T}"/>.
 		/// </remarks>
-		U IPAFServiceManager<T>.GetTypedService<U>(object securityObject)
+		U IPAFServiceManager<T>.GetTypedService<U>(string serviceName)
 		{
-			return GetTypedServicePIV<U>("", true, securityObject);
+			return GetTypedServicePV<U>(serviceName);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManager{T}"/>.
 		/// </remarks>
 		U IPAFServiceManager<T>.GetTypedService<U>()
 		{
-			return GetTypedServicePIV<U>("", false);
+			return GetTypedServicePV<U>();
 		}
 		#endregion // Methods
 		#endregion // Implementation of IPAFServiceManager{T}
@@ -363,7 +481,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
-		IEnumerable<IPAFServiceDescription<T>> 
+		IEnumerable<IPAFServiceDescription>
 			IPAFServiceManagerExtended<T>.ServiceArray
 		{
 			[SecurityCritical]
@@ -379,51 +497,50 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// may be just interfaces and bad things happen when we try to instantiate them!!
 		/// </remarks>
 		[SecurityCritical]
-		void IPAFServiceManagerExtended<T>.AddService(IPAFServiceDescription<T> iFservice)
+		void IPAFServiceManagerExtended<T>.AddService<U>(IPAFServiceDescription<U> iFservice)
 		{
-			AddServicePIV(iFservice);
+			AddServicePV(iFservice);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
 		[SecurityCritical]
-		void IPAFServiceManagerExtended<T>.AddServices(IEnumerable<IPAFServiceDescription<T>> iFservices)
+		void IPAFServiceManagerExtended<T>.AddServices<U>(IEnumerable<IPAFServiceDescription<U>> iFservices)
 		{
-			AddServicesPIV(iFservices);
+			AddServicesPV(iFservices);
 		}
 
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
 		[SecurityCritical]
-		IPAFServiceDescription<T> IPAFServiceManagerExtended<T>.CreateService(
+		IPAFServiceDescription<U> IPAFServiceManagerExtended<T>.CreateService<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription,
+			IPAFServiceDescription<U> serviceDescription,
 			IPAFTypeFilter typeFilter,
-			PAFLocalServiceInstantiator<T> localServiceInstantiator)
+			PAFLocalServiceInstantiator<U> localServiceInstantiator)
 		{
-			return CreateServicePIV(servicePipelineObject, serviceDescription,
+			return CreateServicePV(servicePipelineObject, serviceDescription,
 									localServiceInstantiator, typeFilter);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
 		[SecurityCritical]
-		IEnumerable<IPAFServiceDescription> IPAFServiceManagerExtended<T>.GetServices<U>(
-			bool exactTypeMatch)
+		IEnumerable<IPAFServiceDescription> IPAFServiceManagerExtended<T>.GetServiceDescriptions<U>()
 		{
-			return GetServicesPIV<U>(exactTypeMatch);
+			return GetServiceDescriptionsPV<U>();
 		}
 
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
 		[SecurityCritical]
-		IPAFServiceDescription<T> IPAFServiceManagerExtended<T>.InstantiateLocalService(
+		IPAFServiceDescription<U> IPAFServiceManagerExtended<T>.InstantiateLocalService<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter)
+			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter)
 		{
-			return InstantiateLocalServicePIV(servicePipelineObject,
+			return InstantiateLocalServicePV<U>(servicePipelineObject,
 				serviceDescription, typeFilter);
 		}
 
@@ -431,9 +548,10 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
 		[SecurityCritical]
-		void IPAFServiceManagerExtended<T>.MakeServiceDefaultForInterface<U>(IPAFServiceDescription<U> iFservice)
+		void IPAFServiceManagerExtended<T>.MakeServiceDefaultForInterface<U>(
+			IPAFServiceDescription<U> iFservice)
 		{
-			MakeServiceDefaultForInterfacePIV(iFservice);
+			MakeServiceDefaultForInterfacePV(iFservice);
 		}
 		#endregion // Methods
 		#endregion // Implementation of IPAFServiceManagerExtended
@@ -442,7 +560,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		IEnumerable<IPAFServiceDescription<T>> IPAFServiceManagerInternal<T>.ServiceArrayInternal
+		IEnumerable<IPAFServiceDescription> IPAFServiceManagerInternal<T>.ServiceArrayInternal
 		{
 			get { return ServiceArrayPIV; }
 		}
@@ -452,48 +570,54 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		void IPAFServiceManagerInternal<T>.AddServiceInternal(IPAFServiceDescription<T> iFservice)
+		bool IPAFServiceManagerInternal<T>.AddOrReplaceServiceInternal<U>(IPAFServiceDescription<U> iFservice)
 		{
-			AddServicePIV(iFservice);
+			return AddOrReplaceServicePIV(iFservice);
 		}
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		void IPAFServiceManagerInternal<T>.AddServicesInternal(IEnumerable<IPAFServiceDescription<T>> iFservices)
+		void IPAFServiceManagerInternal<T>.AddServiceInternal<U>(IPAFServiceDescription<U> iFservice)
 		{
-			AddServicesPIV(iFservices);
+			AddServicePV(iFservice);
+		}
+		/// <remarks>
+		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
+		/// </remarks>
+		void IPAFServiceManagerInternal<T>.AddServicesInternal<U>(IEnumerable<IPAFServiceDescription<U>> iFservices)
+		{
+			AddServicesPV(iFservices);
 		}
 
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		IPAFServiceDescription<T> IPAFServiceManagerInternal<T>.CreateServiceInternal
+		IPAFServiceDescription<U> IPAFServiceManagerInternal<T>.CreateServiceInternal<U>
 			(IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription,
+			IPAFServiceDescription<U> serviceDescription,
 			IPAFTypeFilter typeFilter,
-			PAFLocalServiceInstantiator<T> localServiceInstantiator)
+			PAFLocalServiceInstantiator<U> localServiceInstantiator)
 		{
-			return CreateServicePIV(servicePipelineObject, serviceDescription,
+			return CreateServicePV(servicePipelineObject, serviceDescription,
 				localServiceInstantiator, typeFilter);
 		}
 
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		IEnumerable<IPAFServiceDescription> IPAFServiceManagerInternal<T>.GetServicesInternal<U>(
-			bool exactTypeMatch)
+		IEnumerable<IPAFServiceDescription> IPAFServiceManagerInternal<T>.GetServiceDescriptionsInternal<U>()
 		{
-			return GetServicesPIV<U>(exactTypeMatch);
+			return GetServiceDescriptionsPV<U>();
 		}
 
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
 		/// </remarks>
-		IPAFServiceDescription<T> IPAFServiceManagerInternal<T>.InstantiateLocalServiceInternal(
+		IPAFServiceDescription<U> IPAFServiceManagerInternal<T>.InstantiateLocalServiceInternal<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter)
+			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter)
 		{
-			return InstantiateLocalServicePIV(servicePipelineObject,
+			return InstantiateLocalServicePV<U>(servicePipelineObject,
 				serviceDescription, typeFilter);
 		}
 
@@ -503,7 +627,14 @@ namespace PlatformAgileFramework.FrameworkServices
 		void IPAFServiceManagerInternal<T>.MakeServiceDefaultForInterfaceInternal<U>(
 			IPAFServiceDescription<U> iFservice)
 		{
-			MakeServiceDefaultForInterfacePIV(iFservice);
+			MakeServiceDefaultForInterfacePV(iFservice);
+		}
+		/// <remarks>
+		/// See <see cref="IPAFServiceManagerInternal{T}"/>.
+		/// </remarks>
+		bool IPAFServiceManagerInternal<T>.RemoveServiceInternal<U>(IPAFServiceDescription<U> iFservice)
+		{
+			return RemoveServiceIfExistsPIV(iFservice);
 		}
 		#endregion // Methods
 		#endregion // Implementation of IPAFServiceManagerInternal
@@ -515,14 +646,15 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// load stuff.
 		/// </remarks>
 		[SecuritySafeCritical]
-		protected internal virtual IPAFServiceDescription<T> CreateServicePIV(
+		protected virtual IPAFServiceDescription<U> CreateServicePV<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription,
-			PAFLocalServiceInstantiator<T> localServiceInstantiator = null,
-			IPAFTypeFilter typeFilter = null)
+			IPAFServiceDescription<U> serviceDescription,
+			PAFLocalServiceInstantiator<U> localServiceInstantiator = null,
+			IPAFTypeFilter typeFilter = null) where U : class, T
+
 		{
 			Exception caughtException = null;
-			IPAFServiceDescription<T> createdService = null;
+			IPAFServiceDescription<U> createdService = null;
 			try
 			{
 				// KRM hook up full instantiator.
@@ -536,41 +668,33 @@ namespace PlatformAgileFramework.FrameworkServices
 			if (createdService == null)
 			{
 				var data = new PAFSED(null);
-                throw new PAFStandardException<IPAFSED>(data, PAFServiceExceptionMessageTags.SERVICE_CREATION_FAILED, caughtException);
+				throw new PAFStandardException<IPAFSED>(data, PAFServiceExceptionMessageTags.SERVICE_CREATION_FAILED, caughtException);
 			}
 			return createdService;
 		}
 		/// <summary>
 		/// This is a helper method  It retrieves a specified service by type.
 		/// </summary>
-		/// <param name="exactTypeMatch">
-		/// If set to <see langword="true"/>, derived Types will not be returned.
-		/// </param>
 		/// <returns>
 		/// The found <see cref="IPAFService"/>.
 		/// </returns>
-		protected internal virtual IPAFServiceDescription<U> GetAnyService<U>(bool exactTypeMatch)
+		[CanBeNull]
+		protected internal virtual IPAFServiceDescription<U> GetAnyServiceDescription<U>()
 			where U : class, T
 		{
-			var serviceList = GetAnyServices<U>(exactTypeMatch);
+			var serviceList = GetAnyServiceDescriptionsPV<U>();
 			return serviceList.GetFirstElement();
 		}
 		/// <summary>
-		/// This is a helper method. It retrieves a set of services by type, irrespective
+		/// This is a helper method. It retrieves a set of registered services by type, irrespective
 		/// of name.
 		/// </summary>
-		/// <param name="exactTypeMatch">
-		/// If set to <see langword="true"/>, derived Types will not be returned.
-		/// </param>
 		/// <returns>
 		/// The found <typeparamref name="T"/>s, or an empty collection.
 		/// </returns>
-		/// <remarks>
-		/// Services are collected first from the default collection, then from the main
-		/// service dictionary.
-		/// </remarks>
-		protected internal virtual ICollection<IPAFServiceDescription<U>> GetAnyServices<U>(
-			bool exactTypeMatch = false) where U : class, T
+		[NotNull]
+		protected virtual ICollection<IPAFServiceDescription<U>>
+			GetAnyServiceDescriptionsPV<U>() where U : class, T
 		{
 			var services = new Collection<IPAFServiceDescription<U>>();
 
@@ -581,8 +705,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			{
 				// Bit of syntax clarity.....
 				var serviceDictionary = accessor.ReadLockedNullableObject;
-				services.AddNoDupes(serviceDictionary.GetTypedServiceDescriptions<U>(
-					exactTypeMatch));
+				services.AddNoDupes(serviceDictionary.GetRegisteredTypedServiceDescriptions<U>());
 			}
 			return services;
 		}
@@ -605,16 +728,19 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// Common implementation for both interfaces.
 		/// </remarks>
-		protected internal virtual IPAFServiceDescription<T> InstantiateLocalServicePIV(
+		protected virtual IPAFServiceDescription<U> InstantiateLocalServicePV<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter = null)
+			IPAFServiceDescription serviceDescription,
+			IPAFTypeFilter typeFilter = null)
+			where U: class, T
 		{
-			if (m_TypedLocalServiceInstantiator != null)
-			{
-				return m_TypedLocalServiceInstantiator(servicePipelineObject, serviceDescription,
-					typeFilter);
-			}
-			return DefaultTypedLocalServiceInstantiator(servicePipelineObject, serviceDescription, typeFilter);
+			//if (m_TypedLocalServiceInstantiator != null)
+			//{
+			//	return m_TypedLocalServiceInstantiator(servicePipelineObject, serviceDescription,
+ 
+			//		typeFilter);
+			//}
+			return DefaultTypedLocalServiceInstantiator<U>(servicePipelineObject, serviceDescription, typeFilter);
 		}
 		#region Static Helper Methods
 		/// <summary>
@@ -634,7 +760,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// an array of services that inherit from a given Type. After gathering
 		/// an array of services, those services can then be checked by name.
 		/// </remarks>
-		protected internal static IPAFServiceDescription<T> GetNamedService(
+		protected internal static IPAFServiceDescription<T> GetNamedServiceDescription(
 			string serviceName, IEnumerable<IPAFServiceDescription<T>> iFServiceDescriptions)
 		{
 			// Scan incoming services to check names.
@@ -674,19 +800,19 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exception cref="ArgumentNullException"> for <paramref name="serviceDescription"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFSED}">
-        /// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
+		/// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
 		/// discovers multiple implementations.
 		/// </exception>
 		/// </exceptions>
 		/// 		// TODO - KRM - Need to make all type filters deep-copyable.
-		public IPAFServiceDescription<T> DefaultTypedLocalServiceInstantiator(
+		public virtual IPAFServiceDescription<U> DefaultTypedLocalServiceInstantiator<U>(
 			IPAFServicePipelineObject servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter = null,
-			IEnumerable<Assembly> assemblyList = null)
+			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter = null,
+			IEnumerable<Assembly> assemblyList = null) where U: class, T
 		{
 			var desc = LocalServiceInstantiator(servicePipelineObject, serviceDescription,
 				typeFilter, assemblyList);
-			return (IPAFServiceDescription<T>)desc;
+			return (IPAFServiceDescription<U>)desc;
 		}
 
 		/// <summary>
@@ -715,19 +841,20 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exception cref="ArgumentNullException"> for <paramref name="serviceDescription"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFSED}">
-        /// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
+		/// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
 		/// discovers multiple implementations.
 		/// </exception>
 		/// </exceptions>
 		/// 		// TODO - KRM - Need to make all type filters deep-copyable.
-		public IPAFServiceDescription<T> DefaultTypedServiceCreator(
+		public IPAFServiceDescription<U> DefaultTypedServiceCreator<U>(
 			IPAFServicePipelineObject servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter = null,
-			IEnumerable<Assembly> assemblyList = null)
+			IPAFServiceDescription<U> serviceDescription, IPAFTypeFilter typeFilter = null,
+			IEnumerable<Assembly> assemblyList = null) where U : class, T
+
 		{
 			var desc = DefaultServiceCreator(servicePipelineObject, serviceDescription,
 				typeFilter, DefaultLocalServiceInstantiator);
-			return (IPAFServiceDescription<T>)desc;
+			return (IPAFServiceDescription<U>)desc;
 		}
 
 		#endregion // Static Helper Methods

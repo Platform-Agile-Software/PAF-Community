@@ -4,7 +4,9 @@
 	<!-- this works for all non - Windows mobile platforms if "c" is mapped to something like "./" -->
     <symbolicdirectorymappings>
 		<!-- check on a physical mapping -->
-        <mapping symbol="SpecialFiles" mapto="c:/specialfiles"/>
+		<mapping symbol="SpecialFiles" mapto="c:/specialfiles"/>
+		<!-- create documents dir mapping -->
+	    <mapping symbol="Documents" mapto="c:/Documents"/>
 		<!-- check on a virtual mapping, assuming "Documents" is created ahead of time. -->
         <mapping symbol="SpecialFilesInDocuments" mapto="Documents:/specialfiles"/>
     </symbolicdirectorymappings>

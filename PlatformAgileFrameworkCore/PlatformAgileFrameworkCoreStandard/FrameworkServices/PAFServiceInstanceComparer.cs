@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -37,7 +37,6 @@ using PlatformAgileFramework.Collections.Comparers;
 #region Exception Shorthand
 using IPAFSSED = PlatformAgileFramework.FrameworkServices.Exceptions.IPAFServicesExceptionData;
 using PAFSSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServicesExceptionData;
-using PAFSSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServicesExceptionDataBase;
 #endregion // Exception Shorthand
 
 namespace PlatformAgileFramework.FrameworkServices
@@ -100,13 +99,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </returns>
 		/// <exceptions>
 		/// <exception> <see cref="PAFStandardException{IPAFServicesExceptionData}"/>
-		/// <see cref="PAFServicesExceptionDataBase.ONLY_ONE_UNNAMED_SERVICE_IMPLEMENTATION_IS_ALLOWED"/>
+		/// <see cref="PAFServicesExceptionMessageTags.ONLY_ONE_UNNAMED_SERVICE_IMPLEMENTATION_IS_ALLOWED"/>
 		/// is thrown if both <see cref="IPAFNamedAndTypedObject.ObjectName"/>s are 
 		/// <see langword="null"/> or blank. Dictionary throws a cryptic
 		/// exception, so a better one is thrown here.
 		/// </exception>
 		/// <exception> <see cref="PAFStandardException{IPAFServicesExceptionData}"/>
-		/// <see cref="PAFServicesExceptionDataBase.ONLY_ONE_DEFAULT_SERVICE_IMPLEMENTATION_IS_ALLOWED"/>
+		/// <see cref="PAFServicesExceptionMessageTags.ONLY_ONE_DEFAULT_SERVICE_IMPLEMENTATION_IS_ALLOWED"/>
 		/// is thrown if both <see cref="IPAFNamedAndTypedObject.IsDefaultObject"/>s are 
 		/// <see langword="true"/>. Dictionary throws a cryptic
 		/// exception, so a better one is thrown here.
@@ -120,9 +119,9 @@ namespace PlatformAgileFramework.FrameworkServices
 			IPAFNamedAndTypedObject secondKey)
 		{
 			if (firstKey == null)
-				throw new ArgumentNullException("firstKey");
+				throw new ArgumentNullException(nameof(firstKey));
 			if (secondKey == null)
-				throw new ArgumentNullException("secondKey");
+				throw new ArgumentNullException(nameof(secondKey));
 			// Handle degenerate/default cases.
 			if ((firstKey.IsDefaultObject) && (secondKey.IsDefaultObject))
 			{
@@ -175,7 +174,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </exceptions>
 		public override int GetHashCode(object obj)
 		{
-			if (obj == null) throw new ArgumentNullException("obj");
+			if (obj == null) throw new ArgumentNullException(nameof(obj));
 			var ntod = obj as IPAFNamedAndTypedObject;
 			if (ntod == null) throw new ArgumentException("Not a 'IPAFNamedAndTypedObject'");
 			return ntod.ObjectName.GetHashCode();

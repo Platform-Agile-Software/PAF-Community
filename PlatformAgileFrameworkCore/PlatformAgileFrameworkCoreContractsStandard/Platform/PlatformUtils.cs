@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2005 - 2016 Icucom Corporation
+//Copyright (c) 2005 - 2018 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+//using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text.RegularExpressions;
@@ -112,16 +112,20 @@ namespace PlatformAgileFramework.Platform
 			new Lazy<PlatformUtils>(ConstructPlatformUtils);
 
 		/// <summary>
+		/// This is the non-symbolic root directory name that is to be prepended
+		/// to any file name to read/write BEFORE the symbolic directory system
+		/// is initialized.non - <see langword="null"/> only when needs to be
+		/// forced to other than the CWD. No terminating directory separator, please.
 		/// Public version has security critical setter.
 		/// </summary>
 		public static string ApplicationRoot
 		{
 			get { return ApplicationRootInternal;}
-			////[SecurityCritical]
+			[SecurityCritical]
 			set { ApplicationRootInternal = value; }
 		}
 		/// <summary>
-		/// non - <see langword="null"/> only when needs to be forced to other than the CWD.
+		/// See public version.
 		/// </summary>
 		internal static string ApplicationRootInternal { get; set; }
 		/// <summary>
@@ -129,7 +133,7 @@ namespace PlatformAgileFramework.Platform
 		/// </summary>
 		public static IPlatformInfo PlatformInfo
 		{ get { return PlatformInfoInternal;}
-			////[SecurityCritical]
+			[SecurityCritical]
 			set { PlatformInfoInternal = value; } }
 		/// <summary>
 		/// Platform-specific information. Internal version is wide-open.
@@ -147,7 +151,7 @@ namespace PlatformAgileFramework.Platform
 		// Needed to validate a filename.
 		private const string FILENAME_REGEX = @"^(([a-zA-Z]:)|.)[^:]*$";
 
-		// Prohibited base filenames.
+		// Prohibited base file names.
 		private static readonly string[] s_ProhibitedBaseFileNames
 			= {"CON", "PRN", "AUX", "NUL",
 				"COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
@@ -310,7 +314,7 @@ namespace PlatformAgileFramework.Platform
 			var stringList = new List<string>();
 
 			// Using <see langword="null"/> as the missing char.
-			s_NoChar = (char) 0;
+			s_NoChar = (char)0;
 			// Build up a list of all prohibited file chars.
 			// Note: Put filename chars directly in upstairs - they are the same for
 			// Mac/Unix/Windows/Silverlight. Add any platform-specific ones
@@ -323,7 +327,7 @@ namespace PlatformAgileFramework.Platform
 
 			// Build up a list of all prohibited dir chars.
 			charList.Clear();
-//			charList.AddRange(Path.GetInvalidPathChars());
+			//			charList.AddRange(Path.GetInvalidPathChars());
 			// Don't want redundancies....
 			charList.AddRangeNoDupes(s_GenerallyProhibitedPathChars);
 			s_ProhibitedPathChars = charList.ToArray();
@@ -334,11 +338,11 @@ namespace PlatformAgileFramework.Platform
 			s_ProhibitedFileNameExtensions = stringList.ToArray();
 			// Note that everything is done in terms of global symbolic directories
 			// now.
-			s_VolumeSeparatorChar = FileUtils.DIR_SYM_SEP;
+			s_VolumeSeparatorChar = PAFFileUtils.DIR_SYM_SEP;
 			stringList.Clear();
 			stringList.AddNoDupes(UNC_PREFIX);
 			// Need to check if no alternative string, like on MS.
-			if(!string.IsNullOrEmpty(s_AlternativeUNCPrefix))
+			if (!string.IsNullOrEmpty(s_AlternativeUNCPrefix))
 				stringList.AddNoDupes(s_AlternativeUNCPrefix);
 			s_UNCPrefixes = stringList.ToArray();
 			//// URL strings.
@@ -365,7 +369,7 @@ namespace PlatformAgileFramework.Platform
 
 		/// <summary>
 		/// Constructor builds with platform-specific info. This constructor must be called
-		/// once at app initialization time. Subsequent calls generate an exception.
+		/// once at app initialization time.
 		/// </summary>
 		private PlatformUtils()
 		{
@@ -609,9 +613,9 @@ namespace PlatformAgileFramework.Platform
 		/// <returns>
 		/// The platform-specific extension (e.g. ".exe"). The returned string
 		/// always has the dot prepended. If executables have no extension, this
-		/// method will return a <see cref="String.Empty"/>.
+		/// method will return a <see cref="string.Empty"/>.
 		/// </returns>
-		
+
 		public static string GetDynamicLoadFileExtensionStringWithDot()
 		{ return s_DynamicLoadFileExtensionStringWithDot; }
 
@@ -621,7 +625,7 @@ namespace PlatformAgileFramework.Platform
 		/// <returns>
 		/// The platform-specific extension (e.g. ".exe"). The returned string
 		/// always has the dot prepended. If executables have no extension, this
-		/// method will return a <see cref="String.Empty"/>.
+		/// method will return a <see cref="string.Empty"/>.
 		/// </returns>
 		public static string GetExecutableFileExtensionStringWithDot()
 		{ return s_ExecutableFileExtensionStringWithDot; }
@@ -671,9 +675,9 @@ namespace PlatformAgileFramework.Platform
 		/// on the platform.
 		/// </summary>
 		/// <returns>
-		/// A <see cref="Int32"/> describing the maximum length.
+		/// A <see cref="int"/> describing the maximum length.
 		/// </returns>
-		
+
 		internal static int GetMaxDirectoryLength()
 		{
 			return MAX_DIRECTORYNAME_LENGTH;
@@ -684,9 +688,9 @@ namespace PlatformAgileFramework.Platform
 		/// The filename does not inculde the directory specification.
 		/// </summary>
 		/// <returns>
-		/// A <see cref="Int32"/> describing the maximum length.
+		/// A <see cref="int"/> describing the maximum length.
 		/// </returns>
-		
+
 		internal static int GetMaxFilenameLength()
 		{
 			return MAX_FILENAME_LENGTH;
@@ -871,7 +875,7 @@ namespace PlatformAgileFramework.Platform
 				}
 			}
 			// Scan for invalid filename chars.
-			var fileName = Path.GetFileName(fileNameWithOptionalPath);
+			var fileName = PAFFileUtils.KillDirectory(fileNameWithOptionalPath);
 			if (string.IsNullOrEmpty(fileName)) return false;
 			foreach (var invalidChar in GetProhibitedFileNameChars())
 			{
@@ -880,10 +884,10 @@ namespace PlatformAgileFramework.Platform
 			// Check the filename against OS pattern.
 			if (!Regex.IsMatch(fileNameWithOptionalPath, FileNameRegexPattern)) return false;
 			// Now check for problems with the base filename.
-			var nameWithoutExtension = Path.GetFileNameWithoutExtension(fileNameWithOptionalPath);
+			var nameWithoutExtension = PAFFileUtils.KillDirectory(fileNameWithOptionalPath);
 			// Can't have just an extension.
 			if (nameWithoutExtension == null) return false;
-			// We need case-insensitive comparisons for the bad filenames.
+			// We need case-insensitive comparisons for the bad file names.
 			nameWithoutExtension = nameWithoutExtension.ToUpper();
 			// Reject any bad names.
 			return GetProhibitedBaseFileNames().All(badFileName => nameWithoutExtension != badFileName);

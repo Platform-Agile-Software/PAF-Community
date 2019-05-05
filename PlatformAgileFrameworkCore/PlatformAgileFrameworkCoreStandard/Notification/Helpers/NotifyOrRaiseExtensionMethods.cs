@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -76,7 +76,7 @@ namespace PlatformAgileFramework.Notification.Helpers
 		/// desired value.
 		/// </returns>
 		/// <threadsafety>
-		/// Unsafe. <typeparamref name="T"/> has no contraints, so can't be accessed atomically.
+		/// Unsafe. <typeparamref name="T"/> has no constraints, so can't be accessed atomically.
 		/// </threadsafety>
 		public static bool NotifyOrRaiseIfPropertyChanged<T>(this IPropertyChangedEventArgsSubscriberStore pcArgsStore,
 			// ReSharper disable once AnnotateCanBeNullParameter

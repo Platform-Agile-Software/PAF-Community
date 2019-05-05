@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -65,7 +65,8 @@ namespace PlatformAgileFramework.StringParsing
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// If <paramref name="nthOccurrence"/> is less than 1.
 		/// </exception>
-		public static IList<string> BreakStringInTwo(this string stringToParse, char separatorChar = ',',
+		public static IList<string> BreakStringInTwo(
+			this string stringToParse, char separatorChar = ',',
 			int nthOccurrence = 1)
 		{
 			var index = IndexOfNth(stringToParse, separatorChar, nthOccurrence);
@@ -97,11 +98,14 @@ namespace PlatformAgileFramework.StringParsing
             if (string.IsNullOrEmpty(stringToExamine))
                 return PlatformUtils.LTRMN;
 	        if (!stringToExamine.EndsWith(PlatformUtils.LTRMN, StringComparison.Ordinal))
-                return stringToExamine += PlatformUtils.LTRMN;
-            return stringToExamine;
+	        {
+		        return stringToExamine + PlatformUtils.LTRMN;
+	        }
+
+	        return stringToExamine;
         }
 		/// <summary>
-		/// This method finds the nth occurance of a character in a string.
+		/// This method finds the nth occurence of a character in a string.
 		/// </summary>
 		/// <param name="stringToParse">
 		/// The string to be parsed.
@@ -149,7 +153,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// </param>
 		/// <exceptions>
 		/// <exception cref = "ArgumentNullException">
-		/// "stringWithPossibleTerminators"
+		/// <paramref name="stringWithPossibleTerminators"/>
 		/// </exception>
 		/// </exceptions>
 		public static IList<string> RemoveTerminators(this string stringWithPossibleTerminators)
@@ -157,48 +161,79 @@ namespace PlatformAgileFramework.StringParsing
 			if (stringWithPossibleTerminators == null)
 				throw new ArgumentNullException(nameof(stringWithPossibleTerminators));
 			if (!stringWithPossibleTerminators.Contains(PlatformUtils.LTRMN))
-				return new List<string>(new string[] { stringWithPossibleTerminators });
+				return new List<string>(new [] { stringWithPossibleTerminators });
 
 			var strings = stringWithPossibleTerminators.Split(PlatformUtils.LTRMN.ToCharArray());
 
-			// return an actual writable list in case some clown tries to fiddle with it.
+			// return an actual writable list.
 			return strings.ToList();
 		}
-
 		/// <summary>
-		/// Replaces certain substrings with other substrings, if found.
+		/// Finds a string on the end of "this" string after the last occurrence
+		/// of another string within "this" string.
 		/// </summary>
 		/// <returns>
-		/// A string with the substrings replaced.
+		/// The string found. <see langword="null"/> if the string is not found
+		/// or <paramref name="stringToFind"/> is <see langword="null"/>.
 		/// </returns>
-		/// <param name="stringWithPossibleSubstrings">
+		/// <param name="stringToCheck">
+		/// String with possible included string.
 		/// </param>
-		/// <param name="searchString">
-		/// String to look for.
-		/// </param>
-		/// <param name="replaceString">
-		/// String to replace every instance of a found substring.
+		/// <param name="stringToFind">
+		/// This is the string to find within the <paramref name="stringToCheck"/>.
 		/// </param>
 		/// <exceptions>
 		/// <exception cref = "ArgumentNullException">
-		/// "stringWithPossibleSubstrings"
+		/// <paramref name="stringToCheck"/>
 		/// </exception>
 		/// </exceptions>
-		/// <remarks>
-		/// Needed due to a bad bug in netstandard string class.
-		/// </remarks>
+		public static string SafeStringBeyondLastString(
+			this string stringToCheck, string stringToFind)
+		{
+			if (stringToCheck == null)
+				throw new ArgumentNullException(nameof(stringToCheck));
+
+			if (stringToFind == null)
+				return null;
+
+			var index = stringToCheck.LastIndexOf(stringToFind, StringComparison.Ordinal);
+
+			// Find it?
+			if (index < 0)
+				return null;
+
+			var lengthOfStringToFind = stringToFind.Length;
+			var targetStartIndex = index + lengthOfStringToFind;
+			if (targetStartIndex > (stringToCheck.Length - 1))
+				return null;
+
+			return stringToCheck.Substring(targetStartIndex);
+		}
+
+		///// <summary>
+		///// Replaces certain substrings with other substrings, if found.
+		///// </summary>
+		///// <returns>
+		///// A string with the substrings replaced.
+		///// </returns>
+		///// <param name="stringWithPossibleSubstrings">
+		///// </param>
+		///// <param name="searchString">
+		///// String to look for.
+		///// </param>
+		///// <param name="replaceString">
+		///// String to replace every instance of a found substring.
+		///// </param>
+		///// <exceptions>
+		///// <exception cref = "ArgumentNullException">
+		///// "stringWithPossibleSubstrings"
+		///// </exception>
+		///// </exceptions>
+		///// <remarks>
+		///// Needed due to a bad bug in netstandard string class.
+		///// </remarks>
+		/////Note: KRM - bug was fixed in 2.0 use .Net facilities.
 		//public static string ReplaceStringsInString(this string stringWithPossibleSubstrings,
 		//	string searchString, string replaceString)
-		//{
-		//	var workingString = "";
-		//	var outputString = "";
-		//	if (stringWithPossibleSubstrings == null)
-		//		throw new ArgumentNullException(nameof(stringWithPossibleSubstrings));
-
-		//	workingString string
-
-		//	while()
-
-		//}
 	}
 }

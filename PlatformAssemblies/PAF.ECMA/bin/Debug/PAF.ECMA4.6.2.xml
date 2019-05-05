@@ -23,19 +23,19 @@
             </contribution>
             </history>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCopyFilePIV(System.String,System.String,System.Boolean)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCopyFilePV(System.String,System.String,System.Boolean)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPV(System.String)">
             <summary>
             Backing support for the interface. Since <see cref="T:System.IO.DirectoryInfo"/>
             cannot be part of a platform-independent interface, it is returned as
             an object.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPIV(System.String,System.Object)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateDirectoryPV(System.String,System.Object)">
             <summary>
             Backing support for the interface. Since <see cref="T:System.IO.DirectoryInfo"/>
             cannot be part of a platform-independent interface, it is returned here for
@@ -43,49 +43,49 @@
             implementation.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateFilePIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFCreateFilePV(System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPV(System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPIV(System.String,System.Object)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteDirectoryPV(System.String,System.Object)">
             <summary>
             backing for the interface. Client object not used in this implementation.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePV(System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePIV(System.String,System.Object)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDeleteFilePV(System.String,System.Object)">
             <summary>
             backing for the interface. Client object not used in this implementation.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDirectoryExistsPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFDirectoryExistsPV(System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFFileExistsPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFFileExistsPV(System.String)">
             <summary>
             backing for the interface. In ECMA, path specs can be relative and
             the runtime figures out a rooted path.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetCreationTimePIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetCreationTimePV(System.String)">
             <summary>
             backing for the interface. This implementation returns
             <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetDirectoryNamesPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetDirectoryNamesPV(System.String)">
             <summary>
             backing for the interface.
             </summary>
@@ -93,7 +93,7 @@
             <see langword="null"/> or <see cref="F:System.String.Empty"/> defers to CWD.
             </remarks>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetFileNamesPIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetFileNamesPV(System.String)">
             <summary>
             Backing support for the interface.
             </summary>
@@ -101,34 +101,34 @@
             <see langword="null"/> or <see cref="F:System.String.Empty"/> defers to CWD.
             </remarks>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastAccessTimePIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastAccessTimePV(System.String)">
             <summary>
             Backing support for the interface. This implementation returns
             <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastWriteTimePIV(System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFGetLastWriteTimePV(System.String)">
             <summary>
             Backing support for the interface. This implementation returns
             <see cref="F:System.DateTime.MinValue"/> if the file does not exist.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveDirectoryPIV(System.String,System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveDirectoryPV(System.String,System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveFilePIV(System.String,System.String)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFMoveFilePV(System.String,System.String)">
             <summary>
             backing for the interface.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePIV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode)">
             <remarks>
             <see cref="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageService"/>.
             </remarks>
         </member>
-        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePIV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode,System.Object)">
+        <member name="M:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.PAFStorageServiceECMA.PAFOpenFilePV(System.String,PlatformAgileFramework.FileAndIO.PAFFileAccessMode,System.Object)">
             <remarks>
             <see cref="T:PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageService"/>. <paramref name="clientObject"/> is
             not used in this implementation.
@@ -165,8 +165,56 @@
             and <see cref="F:System.IO.FileMode.OpenOrCreate"/>.
             </param>
             <returns><see langword = "false"/>
-            if bit fileds are inconsistent.
+            if bit fields are inconsistent.
             </returns>
+        </member>
+        <member name="T:PlatformAgileFramework.Logging.PAFTraceLoggerFactory">
+            <summary>
+            Default implementation of <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </summary>
+            <remarks>
+            This should be a singleton, but doesn't need to implement
+            any sort of singleton pattern - implementation should be
+            created once at system startup and pushed into
+            <see cref="P:PlatformAgileFramework.Logging.PAFLoggingUtils.TraceLoggerFactory"/>.
+            </remarks>
+            <threadsafety>
+            Not safe. Our usage model doesn't require it. Any listeners should
+            be held in a common place at the application level and destroyed
+            upon shutdown.
+            </threadsafety>
+            <history>
+            <contribution>
+            <author> KRM </author>
+            <date> 04mar2019 </date>
+            <description>
+            New. Trace is now accessible on all platforms so we put
+            this in ECMA common.
+            </description>
+            </contribution>
+            </history>
+        </member>
+        <member name="M:PlatformAgileFramework.Logging.PAFTraceLoggerFactory.BuildTextWriterListener(System.IO.Stream)">
+            <summary>
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </summary>
+            <param name="outputStream">
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </param>
+            <returns>
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </returns>
+            <exceptions>
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </exceptions>
+        </member>
+        <member name="M:PlatformAgileFramework.Logging.PAFTraceLoggerFactory.DestroyListener(System.Diagnostics.TraceListener)">
+            <summary>
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </summary>
+            <param name="traceListener">
+            <see cref="T:PlatformAgileFramework.Logging.IPAFTraceLoggerFactory"/>.
+            </param>
         </member>
         <member name="T:PlatformAgileFramework.TypeHandling.Delegates.DelegateHelpers">
             <summary>
@@ -622,7 +670,7 @@
             Had to refactor constructors.
             </summary>
         </member>
-        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.#ctor(System.Guid,System.Type,System.String)">
+        <member name="M:PlatformAgileFramework.UserInterface.ConsoleUI.ConsoleUserInteractionService.#ctor(System.Type,System.String,System.Guid)">
             <remarks>
             This is the way our friends can construct us. Builds with standard
             internals.

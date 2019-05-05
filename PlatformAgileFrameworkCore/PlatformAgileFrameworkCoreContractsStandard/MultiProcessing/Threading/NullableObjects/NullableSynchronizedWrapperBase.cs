@@ -498,7 +498,7 @@ namespace PlatformAgileFramework.MultiProcessing.Threading.NullableObjects
 				exceptions.AddException(null);
 				// We just put these in the registry. If a framework is in use, it
 				// should dig these out and report them.
-				DisposalRegistry.RecordDisposalException(this, ex);
+				DisposalRegistry.RecordDisposalException(GetType(), ex);
 				return ex;
 			}
 			return null;

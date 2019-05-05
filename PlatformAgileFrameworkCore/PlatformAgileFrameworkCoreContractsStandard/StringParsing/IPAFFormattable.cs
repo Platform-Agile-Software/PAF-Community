@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -45,7 +45,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// the specified format.
 		/// </summary>
 		/// <param name="format">
-		/// The <see cref="String"/> specifying the format to use. Can be 
+		/// The <see cref="string"/> specifying the format to use. Can be 
 		/// <see langword="null"/>. If so, the implementing instance will
 		/// normally provide a default format.
 		/// </param>
@@ -55,9 +55,9 @@ namespace PlatformAgileFramework.StringParsing
 		/// normally provide a default provider.
 		/// </param>
 		/// <returns>
-		/// A <see cref="String"/> containing a string representation of the
+		/// A <see cref="string"/> containing a string representation of the
 		/// implementation instance in the specified format. Never <see langword="null"/>.
-		/// Implementors should return <see cref="Object.ToString()"/> if nothing
+		/// Implementors should return <see cref="object.ToString()"/> if nothing
 		/// else can be provided.
 		/// </returns>
 		/// <remarks>

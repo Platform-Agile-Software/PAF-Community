@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -91,17 +91,17 @@ namespace PlatformAgileFramework.FrameworkServices
 		IPAFService GetService(Type serviceType, string serviceName, bool exactTypeMatch,
 			object clientObject);
 		/// <remarks>
-		/// See <see cref="GetService(Type, String, Boolean, Object)"/>.
+		/// See <see cref="GetService(Type, string, bool, object)"/>.
 		/// "serviceName" is <see langword="null"/>
 		/// </remarks>
 		IPAFService GetService(Type serviceType, bool exactTypeMatch, object clientObject);
 		/// <remarks>
-		/// See <see cref="GetService(Type, Boolean, Object)"/>.
+		/// See <see cref="GetService(Type, bool, object)"/>.
 		/// "exactTypeMatch" is <see langword="false"/>
 		/// </remarks>
 		IPAFService GetService(Type serviceType, object clientObject);
 		/// <remarks>
-		/// See <see cref="GetService(Type, Object)"/>.
+		/// See <see cref="GetService(Type, object)"/>.
 		/// "clientObject" is <see langword="null"/>.
 		/// </remarks>
 		IPAFService GetService(Type serviceType);

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -103,7 +103,6 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// <param name="context">
 		/// Not used in this method.
 		/// </param>
-		//[SecurityCritical]
 // ReSharper disable UnusedParameter.Local
 		protected internal PAFAbstractExceptionBase(IPAFSerializationInfoCLS info,
 			PAFSerializationContext context)
@@ -152,15 +151,15 @@ namespace PlatformAgileFramework.ErrorAndException
         }
 		#region Obligatory Patch for Equals and Hash Code
 		/// <summary>
-		/// Determines whether the specified <see cref="Object"/> is equal to the
-		/// current <see cref="Object"/>.
+		/// Determines whether the specified <see cref="object"/> is equal to the
+		/// current <see cref="object"/>.
 		/// </summary>
 		/// <returns>
-		/// <see langword="true"/> if the specified <see cref="Object"/> is equal to the current
-		/// <see cref="Object"/>; otherwise, false.
+		/// <see langword="true"/> if the specified <see cref="object"/> is equal to the current
+		/// <see cref="object"/>; otherwise, false.
 		/// </returns>
 		/// <param name="obj">
-		/// The <see cref="Object"/> to compare with the current <see cref="Object"/>.
+		/// The <see cref="object"/> to compare with the current <see cref="object"/>.
 		/// </param>
 		/// <remarks>
 		/// Patch for Microsoft's mistake.

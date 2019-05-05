@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -26,7 +26,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.FileAndIO.FileAndDirectoryService;
 using PlatformAgileFramework.FrameworkServices;
 using PlatformAgileFramework.Logging;
@@ -131,9 +130,9 @@ namespace PlatformAgileFramework.Application
 		    /////////////////////////////////////////////////////////////////////
 		    if (PAFServiceManager.InitialServicesInternal.FindServiceInterfaceInCollection<IManufacturingUtils>() == null)
 		    {
-		        PAFServiceManager.InitialServicesInternal.Add(new PAFServiceDescription<IManufacturingUtils>
-		        (new PAFNamedAndTypedObject<IManufacturingUtils>
-		            (null, null, new ManufacturingUtilsInstance(), true)));
+		        PAFServiceManager.InitialServicesInternal.Add(
+			        new PAFServiceDescription<IManufacturingUtils>
+		            (new ManufacturingUtilsInstance()));
 		    }
 
 		    /////////////////////////////////////////////////////////////////////
@@ -151,14 +150,13 @@ namespace PlatformAgileFramework.Application
 				PAFLoggingService.s_PreloadedWriters = new Collection<Action<string>>();
 
 				// Note that in this base class, we write into the application root.
-				// This is legitimate only on desktops.
 				var emergencyLoggingService = new EmergencyLoggingService(mainLoggerDescription);
 				emergencyLoggingService.TruncateFileOnStart = true;
 				PAFServices.s_SiPAFLoggingServiceInternal
-					= new PAFServiceDescription<IPAFLoggingService>(
-						emergencyLoggingService.GetServiceNTOFromServiceObject());
+					= new PAFServiceDescription<IPAFLoggingService>
+						(emergencyLoggingService);
 			}
-
+		
             /////////////////////////////////////////////////////////////////////
             // Service 2 - storage. This one has dependency on the logger, and must have the
             // symbolic mapping dictionary loaded before symbolic directories can

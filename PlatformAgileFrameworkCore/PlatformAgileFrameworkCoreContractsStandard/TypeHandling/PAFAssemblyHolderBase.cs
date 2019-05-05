@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -34,38 +34,50 @@ namespace PlatformAgileFramework.TypeHandling
 {
 	#region Delegates
 	/// <summary>
-	/// Compares two assembly names to see if one (<paramref name="candidateAssy"/> can satisfy
-	/// the requirements of the other (<paramref name="assyToMatch"/>).
+	/// Compares two assembly names to see if one (<paramref name="candidateAssembly"/>
+	/// can satisfy the requirements of the other (<paramref name="assemblyToMatch"/>).
 	/// </summary>
-	/// <param name="assyToMatch">First one.</param>
-	/// <param name="candidateAssy">Second one.</param>
+	/// <param name="assemblyToMatch">First one.</param>
+	/// <param name="candidateAssembly">Second one.</param>
 	/// <returns>
-	/// <see langword="true"/> if the <paramref name="candidateAssy"/> is compatible.
+	/// <see langword="true"/> if the <paramref name="candidateAssembly"/> is compatible.
 	/// </returns>
-	public delegate bool CheckCandidateAssembly(IPAFAssemblyHolder assyToMatch, IPAFAssemblyHolder candidateAssy);
+	public delegate bool CheckCandidateAssembly(IPAFAssemblyHolder assemblyToMatch, IPAFAssemblyHolder candidateAssembly);
 	#endregion Delegates
 
 	/// <summary>
 	/// <para>
 	///	Contains information about an assembly that we need in PAF. Simpler
 	/// than the <c>AssemblyName</c> class in BCL. Just let's us putz with
-	/// the actual stringful name.
+	/// the actual stringful name. This class can only hold "leaf" nodes in
+	/// a Generic type tree.
 	/// </para>
 	/// </summary>
 	/// <threadsafety>
 	/// Immutable class.
 	/// </threadsafety>
 	/// <history>
-	/// <author> DAP </author>
-	/// <date> 06nov2011 </date>
 	/// <contribution>
+	/// <author> Brian T. </author>
+	/// <date> 01feb2019 </date>
+	/// <description>
+	/// Modified to handle Generic types.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <date> 06nov2011 </date>
+	/// <description>
+	/// <author> DAP </author>
 	/// <para>
 	/// Added history, changed name space. Put on the interfaces. Refactored to use
 	/// a provider for the holder.
 	/// </para>
+	/// </description>
 	/// </contribution>
 	/// </history>
-	public abstract class PAFAssemblyHolderBase : IPAFAssemblyHolderInternal,
+	// ReSharper disable once PartialTypeWithSinglePart
+	// Core part.
+	public abstract partial class PAFAssemblyHolderBase : IPAFAssemblyHolderInternal,
 		IPAFAssemblyHolderProvider
 	{
 		#region Fields and Autoproperties
@@ -112,7 +124,8 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </summary>
 		protected internal string m_AssemblyVersion;
 	    /// <summary>
-	    /// See <see cref="IPAFServiceManager{T}"/>. We staple the root generic service manager in.
+	    /// See <see cref="IPAFServiceManager{T}"/>. We staple
+	    /// the root generic service manager in.
 	    /// </summary>
 	    protected internal static IPAFServiceManager<IPAFService> Services { get; set; }
 		#endregion // Fields and Autoproperties
@@ -134,7 +147,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// <param name="assembly">
 		///     Assembly to be built with if it is available locally.
 		/// </param>
-		/// <param name="asmblyChecker">
+		/// <param name="assemblyChecker">
 		///     Delegate to check a candidate assembly for suitability to load.
 		/// </param>
 		/// <param name="assemblyLoader">
@@ -154,30 +167,25 @@ namespace PlatformAgileFramework.TypeHandling
 		/// <remarks>
 		/// This version only populates the <see cref="AssemblySimpleName"/>.
 		/// </remarks>
-		// TODO finish up parsing of assembly attributes. This should be done
-		// TODO by bringing general parsing routines over from MP/Gosh (if needed) and
-		// TODO and using them here.
 		protected PAFAssemblyHolderBase(string assemblyName, Assembly assembly = null,
-			CheckCandidateAssembly asmblyChecker = null, IPAFAssemblyLoader assemblyLoader = null)
+			CheckCandidateAssembly assemblyChecker = null, IPAFAssemblyLoader assemblyLoader = null)
 		{
 			m_Assembly = assembly;
 			if (m_Assembly != null)
 				assemblyName = m_Assembly.FullName;
-			// TODO - KRM. I think the logic here should be moved to a separate
-			// TODO method and split up into parse/ok and actual construction components.
-			// TODO The latter will have to wait until we have the constructor that
-			// TODO builds from individual fields, I think.
+
 			if (string.IsNullOrEmpty(assemblyName))
 				throw new ArgumentNullException(nameof(assemblyName));
 			m_AssemblyNameString = assemblyName;
 
 			// Install the default checker if we don't have one.
-			m_AssemblyChecker = asmblyChecker ?? SecondAssemblyWillWork;
+			m_AssemblyChecker = assemblyChecker ?? SecondAssemblyWillWork;
 
 			if (assemblyLoader == null)
 				m_AssemblyLoader = PAFAssemblyLoader.GetDefaultAssemblyLoader();
 			// If it's in simple format, we're done.
-			if (m_AssemblyNameString.IndexOf(',') < 0) {
+			if (m_AssemblyNameString.IndexOf(',') < 0)
+			{
 				m_AssemblySimpleName = m_AssemblyNameString.Trim();
 				return;
 			}
@@ -189,11 +197,10 @@ namespace PlatformAgileFramework.TypeHandling
 
 			// This lives on the front.
 			m_AssemblySimpleName = split[0].Trim();
-			// TODO finish up parsing of assembly attributes.
 		}
 		/// <summary>
 		/// Copy constructor. Note that this is NOT a full deep copy. We copy
-		/// the loader and the checker by reference. This is a consious design decision,
+		/// the loader and the checker by reference. This is a conscious design decision,
 		/// since the loaders in extended are more heavyweight than
 		/// ones like <see cref="PAFAssemblyLoader"/> and they are all supposed
 		/// to be thread-safe, anyway. Same deal with the checker. It should
@@ -210,7 +217,7 @@ namespace PlatformAgileFramework.TypeHandling
 		protected PAFAssemblyHolderBase(IPAFAssemblyHolder assemblyHolder)
 		{
 			if(assemblyHolder == null)
-				throw new ArgumentNullException("assemblyHolder");
+				throw new ArgumentNullException(nameof(assemblyHolder));
 			TransferAssemblyHolderProps(assemblyHolder);
 		}
 		
@@ -616,15 +623,15 @@ namespace PlatformAgileFramework.TypeHandling
 		#endregion // IPAFAssemblyHolderInternal Implementation
 		#region Obligatory Patch for Equals and Hash Code
 		/// <summary>
-		/// Determines whether the specified <see cref="Object"/> is equal to the
-		/// current <see cref="Object"/>.
+		/// Determines whether the specified <see cref="object"/> is equal to the
+		/// current <see cref="object"/>.
 		/// </summary>
 		/// <returns>
-		/// <see langword="true"/> if the specified <see cref="Object"/> is equal to the current
-		/// <see cref="Object"/>; otherwise, false.
+		/// <see langword="true"/> if the specified <see cref="object"/> is equal to the current
+		/// <see cref="object"/>; otherwise, false.
 		/// </returns>
 		/// <param name="obj">
-		/// The <see cref="Object"/> to compare with the current <see cref="Object"/>.
+		/// The <see cref="object"/> to compare with the current <see cref="object"/>.
 		/// </param>
 		/// <remarks>
 		/// Patch for Microsoft's mistake.
@@ -649,5 +656,23 @@ namespace PlatformAgileFramework.TypeHandling
 			// ReSharper restore BaseObjectGetHashCodeCallInGetHashCode
 		}
 		#endregion // Obligatory Patch for Equals and Hash Code
+		#region Static Helpers
+		/// <summary>
+		/// Just checks for the <c>'</c> character in Generic type name string. 
+		/// </summary>
+		/// <param name="assemblyQualifiedTypeNameString"></param>
+		/// <returns>
+		/// <see langword="true"/> if non - <see langword="null"/> and a
+		/// Generic.
+		/// </returns>
+		public static bool IsGenericTypeName(string assemblyQualifiedTypeNameString)
+		{
+			if ((!string.IsNullOrEmpty(assemblyQualifiedTypeNameString)
+			     && assemblyQualifiedTypeNameString.Contains("`")))
+				return true;
+			return false;
+		}
+
+		#endregion // Static Helpers
 	}
 }

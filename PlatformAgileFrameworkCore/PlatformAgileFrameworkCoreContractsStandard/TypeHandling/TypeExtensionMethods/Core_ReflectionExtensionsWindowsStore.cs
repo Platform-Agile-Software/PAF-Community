@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -229,39 +229,39 @@ namespace PlatformAgileFramework.TypeHandling.TypeExtensionMethods
             return methods;
         }
 
-        /// <summary>
-        /// A method to climb a type hierarchy and pull data from various supertypes
-        /// and aggregate it. This is needed to replace the functionality in binding flags.
-        /// </summary>
-        /// <param name="typeInfo">One of us.</param>
-        /// <param name="dataGetter">
-        /// Delegate to pull required data off a <see cref="TypeInfo"/>.
-        /// </param>
-        /// <param name="excludeDuplicates">
-        /// <see langword="true"/> to ignore duplicate data found in the hierarchy.
-        /// Default = <see langword="false"/>.
-        /// </param>
-        /// <param name="numLevelsUp">
-        /// Number of levels in the type inheritance hierarchy to climb. The default is -1,
-        /// which goes to the top. 0 just gets the current level
-        /// </param>
-        /// <param name="ignoreObject">
-        /// If <see langword="true"/> we don't grab stuff off the base class <see cref="Object"/>.
-        /// </param>
-        /// <returns>
-        /// Empty collection if no attributes with the correct characteristics are found.
-        /// </returns>
-        /// <exceptions>
-        /// <exception cref="ArgumentNullException">"typeInfo"</exception>
-        /// <exception cref="ArgumentNullException">"dataGetter"</exception>
-        /// </exceptions>
-        /// <remarks>
-        /// This method was needed to replace type constituent fetches with
-        /// "flattened" binding flags. There were a bunch of one-offs of more
-        /// sophisticated search specs that have also been absorbed into this
-        /// method and its <see paramref="datGetter"/>s.
-        /// </remarks>
-        public static IList<T> GetHierarchicalEnumerableTypeData<T>(
+		/// <summary>
+		/// A method to climb a type hierarchy and pull data from various supertypes
+		/// and aggregate it. This is needed to replace the functionality in binding flags.
+		/// </summary>
+		/// <param name="typeInfo">One of us.</param>
+		/// <param name="dataGetter">
+		/// Delegate to pull required data off a <see cref="TypeInfo"/>.
+		/// </param>
+		/// <param name="excludeDuplicates">
+		/// <see langword="true"/> to ignore duplicate data found in the hierarchy.
+		/// Default = <see langword="false"/>.
+		/// </param>
+		/// <param name="numLevelsUp">
+		/// Number of levels in the type inheritance hierarchy to climb. The default is -1,
+		/// which goes to the top. 0 just gets the current level
+		/// </param>
+		/// <param name="ignoreObject">
+		/// If <see langword="true"/> we don't grab stuff off the base class <see cref="object"/>.
+		/// </param>
+		/// <returns>
+		/// Empty collection if no attributes with the correct characteristics are found.
+		/// </returns>
+		/// <exceptions>
+		/// <exception cref="ArgumentNullException">"typeInfo"</exception>
+		/// <exception cref="ArgumentNullException">"dataGetter"</exception>
+		/// </exceptions>
+		/// <remarks>
+		/// This method was needed to replace type constituent fetches with
+		/// "flattened" binding flags. There were a bunch of one-offs of more
+		/// sophisticated search specs that have also been absorbed into this
+		/// method and its <see paramref="datGetter"/>s.
+		/// </remarks>
+		public static IList<T> GetHierarchicalEnumerableTypeData<T>(
 			this TypeInfo typeInfo, Func<TypeInfo, IEnumerable<T>> dataGetter,
 			bool excludeDuplicates = false, int numLevelsUp = -1, bool ignoreObject = true)
 		{

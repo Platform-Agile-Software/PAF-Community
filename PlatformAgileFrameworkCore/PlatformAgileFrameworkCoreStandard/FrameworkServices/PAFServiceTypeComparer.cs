@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -44,10 +44,20 @@ namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
 	/// This class implements a comparison of <see cref="IPAFServiceDescription"/>s.
-	/// We compare the interface type. This is designed to be used in the
-	/// outer dictionary of a two-level service dictionary.
+	/// We compare the stringful interface type. This is designed to be used in the
+	/// outer dictionary of a two-level service dictionary. Dictionary only requires
+	/// equality, but other operations require <see cref="IComparer{T}"/> with string
+	/// type.
 	/// </summary>
 	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 18jan2019 </date>
+	/// <description>
+	/// Changed back to string comparison for doing late-bound stuff, which
+	/// can be done now in .Net Standard. Needed for client.
+	/// </description>
+	/// </contribution>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 20jun2013 </date>
@@ -59,8 +69,6 @@ namespace PlatformAgileFramework.FrameworkServices
 	public class PAFServiceTypeComparer : AbstractComparerShell<IPAFNamedAndTypedObject>
 	{
 		/// <summary>
-// ReSharper disable once CSharpWarnings::CS1584
-// ReSharper problem.
 		/// Compares the <see cref="IPAFNamedAndTypedObject.ObjectType"/>s.
 		/// </summary>
 		/// <param name="firstKey">
@@ -73,10 +81,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// See <see cref="IComparer{T}"/>
 		/// </returns>
 		/// <exceptions>
-		/// <exception> <see cref="PAFStandardException{IPAFServiceExceptionData}"/>
-		/// <see cref="PAFServiceExceptionDataBase.TYPE_IS_NOT_RESOLVED"/>
-		/// Dictionary throws a cryptic exception, so a better one is thrown here.
-		/// </exception>
 		/// <exception> <see cref="ArgumentException"/> is thrown if either
 		/// <paramref name="firstKey"/> or <paramref name="secondKey"/>
 		/// is <see langword="null"/>.
@@ -86,68 +90,36 @@ namespace PlatformAgileFramework.FrameworkServices
 			IPAFNamedAndTypedObject secondKey)
 		{
 			if (firstKey == null)
-				throw new ArgumentNullException("firstKey");
+				throw new ArgumentNullException(nameof(firstKey));
 			if (secondKey == null)
-				throw new ArgumentNullException("secondKey");
+				throw new ArgumentNullException(nameof(secondKey));
 
-			var firstInterfaceType = firstKey.ObjectType;
-			var secondInterfaceType = secondKey.ObjectType;
+			var firstInterfaceType = firstKey.AssemblyQualifiedObjectType;
+			var secondInterfaceType = secondKey.AssemblyQualifiedObjectType;
 
 			// Types must be resolved.
 			if (firstInterfaceType == null)
 			{
 				var data = new PAFSED(firstKey.GetServiceDescriptionInterface());
 				throw new PAFStandardException<IPAFSED>(
-					data, PAFServiceExceptionMessageTags.TYPE_IS_NOT_RESOLVED);
+					data, PAFServiceExceptionMessageTags.TYPE_IS_NOT_SPECIFIED);
 			}
 			if (secondInterfaceType == null)
 			{
 				var data = new PAFSED(secondKey.GetServiceDescriptionInterface());
 				throw new PAFStandardException<IPAFSED>(
-                    data, PAFServiceExceptionMessageTags.TYPE_IS_NOT_RESOLVED);
+                    data, PAFServiceExceptionMessageTags.TYPE_IS_NOT_SPECIFIED);
 			}
-			if (secondInterfaceType.GetHashCode() == firstInterfaceType.GetHashCode())
+			if (string.Compare(secondInterfaceType, firstInterfaceType, StringComparison.Ordinal) == 0)
 				return 0;
-			if (secondInterfaceType.GetHashCode() > firstInterfaceType.GetHashCode())
+			if (string.Compare(secondInterfaceType, firstInterfaceType, StringComparison.Ordinal) == -1)
 				return -1;
 			return 1;
 		}
 
-		/// <summary>
-		/// This override gets the hash code of the service interface type, because
-		/// that is what we are sorting by.
-		/// </summary>
-		/// <param name="obj">
-		/// An <see cref="IPAFNamedAndTypedObject"/>.
-		/// </param>
-		/// <returns>The hash code of the service interface type.</returns>
-		/// <exceptions>
-		/// <exception cref="ArgumentNullException">
-		/// "obj"
-		/// </exception>
-		/// <exception cref="ArgumentException">
-		/// "Not a 'IPAFNamedAndTypedObject'"
-		/// </exception>
-		/// <exception> <see cref="PAFStandardException{IPAFServiceExceptionData}"/>
-		/// <see cref="PAFServiceExceptionDataBase.TYPE_IS_NOT_RESOLVED"/>. The
-		/// interface type must be resolved for this method. Dictionary throws
-		/// a cryptic exception, so a better one is thrown here.
-		/// </exception>
-		/// </exceptions>
-		public override int GetHashCode(object obj)
+		public override int GetHashCode(IPAFNamedAndTypedObject item)
 		{
-			if (obj == null) throw new ArgumentNullException("obj");
-			var ntod = obj as IPAFNamedAndTypedObject;
-			if (ntod == null) throw new ArgumentException("Not a 'IPAFNamedAndTypedObject'");
-			// Types must be resolved.
-			var interfaceType = ntod.ObjectType;
-			if (interfaceType == null)
-			{
-				var data = new PAFSED(ntod.GetServiceDescriptionInterface());
-				throw new PAFStandardException<IPAFSED>(
-                    data, PAFServiceExceptionMessageTags.TYPE_IS_NOT_RESOLVED);
-			}
-			return interfaceType.GetHashCode();
+			return item.AssemblyQualifiedObjectType.GetHashCode();
 		}
 	}
 }

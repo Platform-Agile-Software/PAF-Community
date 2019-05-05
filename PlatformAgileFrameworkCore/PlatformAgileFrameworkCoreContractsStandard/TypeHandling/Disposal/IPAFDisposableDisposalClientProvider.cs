@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -43,12 +43,13 @@ namespace PlatformAgileFramework.TypeHandling.Disposal
 	/// <threadsafety>
 	/// Not needed in implementations - only a get from a class that is normally immutable.
 	/// </threadsafety>
-	public interface IPAFDisposableDisposalClientProvider : IPAFDisposalClientProvider
+	public interface IPAFDisposableDisposalClientProvider
+		: IPAFDisposalClientProvider
 	{
 		#region Properties
 		/// <summary>
 		/// <para></para>
-		/// Fetches an <see cref="Object"/> that is reference to a client
+		/// Fetches an <see cref="object"/> that is reference to a client
 		/// for <see cref="PAFDisposerBase{T}"/>.
 		/// <para>
 		/// Can be <see langword="null"/>. This is used to hold references to clients,

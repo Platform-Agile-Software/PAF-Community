@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -24,8 +24,6 @@
 //@#$&-
 
 #region Using Directives
-
-using System;
 using PlatformAgileFramework.TypeHandling.PartialClassSupport;
 #endregion
 
@@ -43,30 +41,43 @@ namespace PlatformAgileFramework.FileAndIO
 	/// we run on, since we are not able to control access in such ways.
 	/// </para>
 	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 04may2019 </date>
+	/// <description>
+	/// Added history. Original from Silverlight days, I believe. Also needed to add/change
+	/// DOCs to reflect updated behavior WRT replace/append.
+	/// we assumed.
+	/// </description>
+	/// </contribution>
+	/// </history>
 	// ReSharper disable PartialTypeWithSinglePart
-	public sealed partial class PAFFileAccessMode: ExtendablePseudoEnumInt32
+	public sealed partial class PAFFileAccessMode : ExtendablePseudoEnumInt32
 	// ReSharper restore PartialTypeWithSinglePart
 	{
 		#region Class Fields And Autoproperties
 		/// <summary>
-		/// Set this bit to prevent writing. Overidden by "Replace"
-		/// if the file does not exist.
+		/// Set this bit to prevent writing. Invalid when used with <see cref="REPLACE"/>.
 		/// </summary>
+		// ReSharper disable once InconsistentNaming
 		public static readonly PAFFileAccessMode READONLY
 			= new PAFFileAccessMode("READONLY", 1, true);
 		/// <summary>
 		/// Scrolls to the end of a file if a file exists. Applicable to open
 		/// operations. New files should be created if they do not exist
-		/// and cursor left at the begining.
+		/// and cursor left at the beginning.
 		/// </summary>
+		// ReSharper disable once InconsistentNaming
 		public static readonly PAFFileAccessMode APPEND
-		= new PAFFileAccessMode("APPEND", 4, true);
+			= new PAFFileAccessMode("APPEND", 4, true);
 		/// <summary>
 		/// Replaces a file if it already exists. Applicable to open
 		/// operations.
 		/// </summary>
+		// ReSharper disable once InconsistentNaming
 		public static readonly PAFFileAccessMode REPLACE
-		= new PAFFileAccessMode("REPLACE", 16, true);
+			= new PAFFileAccessMode("REPLACE", 16, true);
 		#endregion // Class Fields And Autoproperties
 		/// <remarks>
 		/// See base.
@@ -78,8 +89,8 @@ namespace PlatformAgileFramework.FileAndIO
 		/// <remarks>
 		/// See base.
 		/// </remarks>
-		internal PAFFileAccessMode(string name, int value, bool addToDictonary)
-			: base(name, value, addToDictonary)
+		internal PAFFileAccessMode(string name, int value, bool addToDictionary)
+			: base(name, value, addToDictionary)
 		{
 		}
 

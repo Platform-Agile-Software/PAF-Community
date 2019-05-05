@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -55,17 +55,23 @@ namespace PlatformAgileFramework.Collections
 		/// <see langword="null"/>.
 		/// </exception>
 		/// </exceptions>
-		string AssemblyQualifiedObjectType { get;
-			//[SecurityCritical]
-			set; }
+		string AssemblyQualifiedObjectType
+		{
+			get;
+			[SecurityCritical]
+			set;
+		}
 		/// <summary>
 		/// Gets the type of the object. Any object should usually match the
 		/// type. There are some extreme cases where the type can be reset to
 		/// a type that the object inherits from or implements. This is not
 		/// a good idea and the setter is left here for legacy code support.
 		/// </summary>
-		Type ObjectType { get;
-			//[SecurityCritical]
-			set; }
+		Type ObjectType
+		{
+			get;
+			[SecurityCritical]
+			set;
+		}
 	}
 }

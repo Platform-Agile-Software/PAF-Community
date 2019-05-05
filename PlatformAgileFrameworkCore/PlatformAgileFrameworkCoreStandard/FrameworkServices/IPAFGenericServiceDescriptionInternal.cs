@@ -1,9 +1,8 @@
-using System.Security;
-
 namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
-	/// Provides a way to set the Generic service object by trusted callers.
+	/// Provides a way to set the Generic service properties by
+	/// internal callers.
 	/// See <see cref="IPAFServiceDescription{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">
@@ -12,9 +11,17 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
+	/// <date> 25jan2018 </date>
+	/// <description>
+	/// Moved the default setter to internal, because it was being
+	/// misused.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
 	/// <date> 16apr2016 </date>
 	/// <description>
-	/// New - the internal inerface was missing.
+	/// New - the internal interface was missing.
 	/// </description>
 	/// </contribution>
 	/// </history>
@@ -24,7 +31,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	// ReSharper disable PartialTypeWithSinglePart
 	//Core
 	internal partial interface IPAFServiceDescriptionInternal<T>
-		: IPAFServiceDescription<T> where T: class, IPAFService
+		: IPAFServiceDescription<T>, IPAFServiceDescriptionInternal where T: class, IPAFService
 // ReSharper restore PartialTypeWithSinglePart
 	{
 		/// <summary>

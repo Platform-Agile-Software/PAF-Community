@@ -16,14 +16,13 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Security;
@@ -58,7 +57,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		IPAFServiceDescription serviceDescription,
 		IPAFTypeFilter typeFilter = null,
 		PAFLocalServiceInstantiator<T> localServiceInstantiator = null)
-	where T:class, IPAFService;
+		where T: class, IPAFService;
 
 	/// <summary>
 	/// Generic version.
@@ -99,7 +98,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </history>
 // ReSharper disable once PartialTypeWithSinglePart
 	// Core removes any late instantiations of interfaces.
-	public partial interface IPAFServiceManagerExtended<T>
+	public partial interface IPAFServiceManagerExtended<in T>
 		:IPAFServiceManager<T>
 		where T : class, IPAFService
 	{
@@ -111,15 +110,16 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// is requested. The dictionary is NOT locked during the use of the array
 		/// obtained from this call.
 		/// </summary>
-		IEnumerable<IPAFServiceDescription<T>> ServiceArray
+		IEnumerable<IPAFServiceDescription> ServiceArray
 		{
 			[SecurityCritical]get;
 		}
 		#endregion
 		#region Methods
 		/// <summary>
-		/// Adds an <see cref="IPAFService"/> to the list of available services.
+		/// Adds a <typeparamref name="U"/> to the list of available services.
 		/// </summary>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <param name="iFservice">
 		/// A valid service description.
 		/// </param>
@@ -129,67 +129,70 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exception>
 		/// An exception must be thrown if an attempt is made to add a pure interface.
 		/// A <see cref="PAFStandardException{IPAFConstructorExceptionData}"/> is thrown with a
-		/// <see cref="PAFConstructorExceptionData.ATTEMPT_TO_INSTANTIATE_PURE_INTERFACE"/> message.
+		/// <see cref="PAFConstructorExceptionMessageTags.ATTEMPT_TO_INSTANTIATE_PURE_INTERFACE"/> message.
 		/// </exception>
 		[SecurityCritical]
-		void AddService(IPAFServiceDescription<T> iFservice);
+		void AddService<U>(IPAFServiceDescription<U> iFservice)
+			where U : class, T;
 		/// <summary>s
-		/// Adds a group of <see cref="IPAFService"/>s.
+		/// Adds a group of <typeparamref name="U"/>s.
 		/// </summary>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <param name="iFservices">
 		/// An enumeration of valid service description.
 		/// </param>
 		[SecurityCritical]
-		void AddServices(IEnumerable<IPAFServiceDescription<T>> iFservices);
+		void AddServices<U>(IEnumerable<IPAFServiceDescription<U>> iFservices)
+			where U : class, T;
 
 		/// <summary>
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </summary>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <param name="servicePipelineObject">
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </param>
 		/// <param name="serviceDescription">
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </param>
 		/// <param name="localServiceInstantiator">
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </param>
 		/// <param name="typeFilter">
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </param>
 		/// <returns>
-		/// See <see cref="PAFServiceCreator{T}"/>.
+		/// See <see cref="PAFServiceCreator{U}"/>.
 		/// </returns>
 		[SecurityCritical]
-		IPAFServiceDescription<T> CreateService(
+		IPAFServiceDescription<U> CreateService<U>(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription,
+			IPAFServiceDescription<U> serviceDescription,
 			IPAFTypeFilter typeFilter,
-			PAFLocalServiceInstantiator<T> localServiceInstantiator);
+			PAFLocalServiceInstantiator<U> localServiceInstantiator)
+			where U : class, T;
 		/// <summary>
 		/// This method requests a class of services by its type. All loaded services
-		/// that derive from the specified type are returned.
+		/// that are registered by the type <typeparamref name="U"/> are returned.
 		/// </summary>
-		/// <param name="exactTypeMatch">
-		/// If set to <see langword="true"/>, derived Types will not be returned.
-		/// </param>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <returns>
-		/// The found <typeparamref name="T"></typeparamref> matching the type
+		/// The found <see cref="IPAFServiceDescription"/>s matching the type
 		/// <typeparamref name="U"/>.
 		/// </returns>
 		[SecurityCritical]
-		IEnumerable<IPAFServiceDescription> GetServices<U>(bool exactTypeMatch)
+		IEnumerable<IPAFServiceDescription> GetServiceDescriptions<U>()
 			where U: class, T;
-
 		/// <summary>
 		/// Creates a service from loaded assemblies.
 		/// </summary>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <param name="servicePipelineObject">
 		/// Callees need <see cref="IPAFServicePipelineObject.ServiceManager"/>.
 		/// </param>
 		/// <param name="serviceDescription">
 		/// A proper service description for the context under which the service is being
-		/// created. See details on <see cref="IPAFServiceDescription{T}"/>. If this
+		/// created. See details on <see cref="IPAFServiceDescription{U}"/>. If this
 		/// service is already constructed this method does nothing.
 		/// </param>
 		/// <param name="typeFilter">
@@ -200,8 +203,10 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// If service is already constructed, the service is simply returned.
 		/// </returns>
 		[SecurityCritical]
-		IPAFServiceDescription<T> InstantiateLocalService(IPAFServicePipelineObject<IPAFService> servicePipelineObject,
-			IPAFServiceDescription<T> serviceDescription, IPAFTypeFilter typeFilter);
+		IPAFServiceDescription<U> InstantiateLocalService<U>(
+			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
+			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter)
+			where U : class, T;
 		/// <summary>
 		/// This method modifies the default DEFAULT lookup procedure by allowing
 		/// an interface type to have a service object registered as it's default
@@ -210,6 +215,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// service from the manager and use it here as an argument. This method
 		/// will cause the "IsDefault" property on the service to be set.
 		/// </summary>
+		/// <typeparam name="U">Any service derived from <typeparamref name="T"/>.</typeparam>
 		/// <param name="iFservice">
 		/// The specific service to be registered as the default. This service
 		/// must already be present in the dictionary of services and be constructed.
@@ -217,7 +223,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IPAFSED}"> is thrown if the
 		/// <paramref name="iFservice"/> is not found.
-		/// <see cref="PAFServiceExceptionDataBase.SERVICE_NOT_FOUND"/>.
+		/// <see cref="PAFServiceExceptionMessageTags.SERVICE_NOT_FOUND"/>.
 		/// </exception>
 		/// </exceptions>
 		[SecurityCritical]

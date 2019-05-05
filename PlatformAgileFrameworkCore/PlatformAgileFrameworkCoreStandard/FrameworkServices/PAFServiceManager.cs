@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -31,12 +31,12 @@ using System.Security;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
-using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
 using PlatformAgileFramework.FrameworkServices.Exceptions;
 using PlatformAgileFramework.Manufacturing;
 using PlatformAgileFramework.Manufacturing.Exceptions;
 using PlatformAgileFramework.MultiProcessing.Threading.Delegates;
 using PlatformAgileFramework.MultiProcessing.Threading.NullableObjects;
+using PlatformAgileFramework.Properties;
 using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
@@ -83,7 +83,7 @@ namespace PlatformAgileFramework.FrameworkServices
     // core part. Does not support lazy loading of individual services. All installed
     // services are staged at construction time of the manager. Services
     // added "on-the-fly" are immediately staged by the manager.
-     public partial class PAFServiceManager : PAFService,
+     public partial class PAFServiceManager : PAFServiceExtended,
 		IPAFServiceManagerInternal
 	// ReSharper restore PartialTypeWithSinglePart
 	{
@@ -94,14 +94,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// creator if these are to be created when the service first starts. Usually loaded
 		/// by a worker if done from afar. This is also an extensibility point for framework
 		/// builders. Basic low-level services that are platform-specific can be pre-created
-		/// and loaded here at application start. In core, these types must have parameterless
+		/// and loaded here at application start. In core, these types must have parameter-less
 		/// constructors.
 		/// </summary>
 		public static IList<IPAFServiceDescription> InitialServices
 		{
-			//[SecurityCritical]
 			get { return InitialServicesInternal; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { InitialServicesInternal = value; }
 		}
 
@@ -128,7 +127,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <summary>
 		/// This is normally loaded at/after construction time for any instance of a
 		/// service manager. For a manager that is not the root manager, it is
-		/// normally poined at the root manager, which is already constructed.
+		/// normally pointed at the root manager, which is already constructed.
 		/// </summary>
 		internal IPAFServiceManagerInternal<IPAFService> m_RootServiceManagerInternal;
 		#endregion // Class Fields and Autoproperties
@@ -175,13 +174,14 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// Loads <see cref="LocalServiceInstantiator"/>. Default = <see langword="null"/>
 		/// causes <see cref="DefaultLocalServiceInstantiator"/> to be used.
 		/// </param>
-		protected internal PAFServiceManager(Guid guid = default(Guid),
+		protected internal PAFServiceManager(
 			Type serviceType = null, string serviceManagerName = "",
+			Guid guid = default(Guid),
 			IPAFServiceManager parentManager = null,
 			IEnumerable<IPAFServiceDescription> services = null,
 			PAFServiceCreator serviceCreator = null,
 			PAFLocalServiceInstantiator localServiceInstantiator = null)
-			: base(guid, serviceType, serviceManagerName)
+			: base(serviceType, serviceManagerName, guid)
 		{
 			// Initialize our stuff.
 			m_ServiceDictionaryWrapper.NullableObject
@@ -210,21 +210,21 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// This method initializes the service manager by initializing all contained
 		/// services, then calling the base.InitializeService to broadcast the event.
 		/// </summary>
-		protected internal override void InitializeServicePIV(
+		protected override void InitializeServicePV(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{
 			InitializeServicesPIV(null);
-			base.InitializeServicePIV(servicePipelineObject);
+			base.InitializeServicePV(servicePipelineObject);
 		}
 		/// <summary>
 		/// This method loads the service manager by loading all contained
 		/// services, then calling the base.LoadService to broadcast the event.
 		/// </summary>
-		protected internal override void LoadServicePIV(
+		protected override void LoadServicePV(
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject)
 		{
 			LoadServicesPIV(null);
-			base.LoadServicePIV(servicePipelineObject);
+			base.LoadServicePV(servicePipelineObject);
 		}
 		#endregion // IPAFService Overrides
 		#region Novel Members
@@ -233,9 +233,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// This is provided from the root manager if it is under construction
 		/// and just returns the static root manager if we are anything
 		/// but the root manager. This is the standard implementation. Others
-		/// are possible with non-static root managers. (customer requiremet).
+		/// are possible with non-static root managers. (customer requirement).
 		/// </summary>
-		protected internal virtual IPAFServiceManagerExtended<IPAFService>
+		protected virtual IPAFServiceManagerExtended<IPAFService>
 			RootServiceManager
 		{
 			get { return RootServiceManagerInternal; }
@@ -358,7 +358,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		IPAFServiceManager IPAFServiceManagerExtended.ParentManager
 		{
 			get { return ParentManagerPIV; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { ParentManagerPIV = value; }
 		}
 
@@ -374,12 +374,12 @@ namespace PlatformAgileFramework.FrameworkServices
 			{
 				// Bit of syntax clarity.....
 				var serviceDictionary = accessor.ReadLockedNullableObject;
-				var services = serviceDictionary.GetAnyServicesUnsafe
+				var services = serviceDictionary.GetAnyTypedServices
 					(serviceType, exactTypeMatch);
-				var namedService = GetNamedService(serviceName, services);
+				var namedService = GetNamedServiceDescription(serviceName, services);
 				if (namedService == null)
 					return null;
-				return (IPAFService)GetNamedService(serviceName, services).ServiceObject;
+				return (IPAFService)GetNamedServiceDescription(serviceName, services).ServiceObject;
 			}
 		}
 
@@ -460,7 +460,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		/// See <see cref="IPAFServiceManagerExtended{T}"/>.
 		/// </remarks>
-		//[SecurityCritical]
+		[SecurityCritical]
 		IPAFServiceDescription IPAFServiceManagerExtended.CreateService(
 			IPAFServicePipelineObject servicePipelineObject,
 			IPAFServiceDescription serviceDescription,
@@ -502,20 +502,29 @@ namespace PlatformAgileFramework.FrameworkServices
 			if (serviceDescription == null)
 				throw new ArgumentNullException(nameof(serviceDescription));
 
-			var serviceInterfaceType = serviceDescription.ServiceInterfaceType.TypeType;
+			// Interface type is always early-bound.
+			var serviceInterfaceTypeType = serviceDescription.ServiceInterfaceType.TypeType;
 
-			// Check if a bogus service.
-			if (!(typeof(IPAFService).IsTypeAssignableFrom(serviceInterfaceType)))
-			{
-				var data = new PAFSED(serviceDescription);
-                throw new PAFStandardException<IPAFSED>(data, PAFServiceExceptionMessageTags.OBJECT_NOT_A_SERVICE);
-			}
+			// Implementation type will be null for late-bound services.
+			var serviceImplementationTypeType = serviceDescription.ServiceImplementationType?.TypeType;
 
-			// Check if service meets Generic constraint.
-			if (!(serviceInterfaceType.IsTypeAssignableFrom(serviceInterfaceType)))
+			// Early-bound means we can do type-checking.
+			if (serviceImplementationTypeType != null)
 			{
-				var data = new PAFSED(serviceDescription);
-                throw new PAFStandardException<IPAFSED>(data, PAFServiceExceptionMessageTags.TYPE_DOES_NOT_IMPLEMENT_INTERFACE);
+				// Check if a bogus service.
+				if (!(typeof(IPAFService).IsTypeAssignableFrom(serviceInterfaceTypeType)))
+				{
+					var data = new PAFSED(serviceDescription);
+					throw new PAFStandardException<IPAFSED>(data, PAFServiceExceptionMessageTags.TYPE_NOT_A_SERVICE);
+				}
+
+				// Check if service meets Generic constraint.
+				if (!(serviceInterfaceTypeType.IsTypeAssignableFrom(serviceImplementationTypeType)))
+				{
+					var data = new PAFSED(serviceDescription);
+					throw new PAFStandardException<IPAFSED>(data,
+						PAFServiceExceptionMessageTags.TYPE_DOES_NOT_IMPLEMENT_INTERFACE);
+				}
 			}
 
 			using (var accessor = m_ServiceDictionaryWrapper.GetWriteLockedObject())
@@ -713,8 +722,11 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <exception cref="ArgumentNullException"> for <paramref name="serviceDescription"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFSED}">
-        /// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
+		/// <see cref="PAFServiceExceptionMessageTags.MULTIPLE_IMPLEMENTATIONS_FOUND"/> if the service discovery process
 		/// discovers multiple implementations.
+		/// </exception>
+		/// <exception cref="PAFStandardException{IPAFSED}">
+		/// <see cref="PAFServiceExceptionMessageTags.SERVICE_IMPLEMENTATION_NOT_FOUND"/> if the service is not found.
 		/// </exception>
 		/// </exceptions>
 		/// 		// TODO - KRM - Need to make all type filters deep-copyable.
@@ -724,9 +736,9 @@ namespace PlatformAgileFramework.FrameworkServices
 			IEnumerable<Assembly> assemblyList = null)
 		{
 			if (servicePipelineObject == null)
-				throw new ArgumentNullException("servicePipelineObject");
+				throw new ArgumentNullException(nameof(servicePipelineObject));
 			if (serviceDescription == null)
-				throw new ArgumentNullException("serviceDescription");
+				throw new ArgumentNullException(nameof(serviceDescription));
 
 			// A bit of thread-safety.
 		    assemblyList = assemblyList?.IntoArray();
@@ -753,7 +765,7 @@ namespace PlatformAgileFramework.FrameworkServices
 					}
 					else
 					{
-						// In this case we have only an interface description - we serach the
+						// In this case we have only an interface description - we search the
 						// whole world.
                         col = ManufacturingUtils.Instance.LocateReflectionServices(
 							serviceDescription.ServiceInterfaceType.NamespaceQualifiedTypeName,
@@ -831,8 +843,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// an array of services, those services can then be checked by name and the first
 		/// one found is returned.
 		/// </remarks>
-		protected internal static IPAFServiceDescription GetNamedService(
-			string serviceName, IEnumerable<IPAFServiceDescription> iFServiceDescriptions)
+		[CanBeNull]
+		protected internal static IPAFServiceDescription GetNamedServiceDescription(
+			string serviceName,[CanBeNull] IEnumerable<IPAFServiceDescription> iFServiceDescriptions)
 		{
 			// Safety valve.
 			if (iFServiceDescriptions == null)
@@ -870,7 +883,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </param>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{T}">
-		/// Message: <see cref="PAFServicePipelineExceptionDataBase.SERVICE_DEADLOCK_IN_STAGE"/>
+		/// Message: <see cref="PAFServicePipelineExceptionMessageTags.SERVICE_DEADLOCK_IN_STAGE"/>
 		/// if there is a circular dependency between services.
 		/// </exception>
 		/// Exceptions occurring from the pipeline stage methods are collected and
@@ -894,7 +907,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			while (true)
 			{
 				ICollection<IPAFServiceExtended> beginningUnstagedServices;
-				// We must refetch the services anew each time through the loop,
+				// We must re-fetch the services anew each time through the loop,
 				// since new services may be added as we go.
 				// We must take a snapshot of the service dictionary here, since we are not using
 				// a synchronized dictionary.
@@ -921,7 +934,7 @@ namespace PlatformAgileFramework.FrameworkServices
 
 					// Load or initialize?
 					var pipelineDelegate
-						= new PAFContravariantThreadMethod<IPAFServicePipelineObject<IPAFService>>
+						= new Action<IPAFServicePipelineObject<IPAFService>>
 							(svc.InitializeService);
 					if (pipelineStage == ServicePipelineStage.LOAD)
 					{

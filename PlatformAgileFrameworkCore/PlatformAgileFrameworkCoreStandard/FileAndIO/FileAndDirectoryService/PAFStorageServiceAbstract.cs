@@ -37,7 +37,8 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// Saves some code.
 		/// </summary>
-		protected internal readonly IPAFStorageService s_AsIstorage;
+		// ReSharper disable once IdentifierTypo
+		protected internal readonly IPAFStorageService m_AsIstorage;
 		/// <summary>
 		/// Backing.
 		/// </summary>
@@ -49,10 +50,10 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		protected PAFStorageServiceAbstract()
 		{
-			s_AsIstorage = this;
+			m_AsIstorage = this;
 			if (PlatformUtils.ApplicationRoot != null)
 			{
-				// This mst be preset for startup.
+				// This must be preset for startup.
 				m_ApplicationRootDirectory = PlatformUtils.ApplicationRoot;
 			}
 		}
@@ -69,7 +70,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
-		protected virtual string ApplicationRootDirectoryPIV
+		protected virtual string ApplicationRootDirectoryPV
 		{
 			get { return m_ApplicationRootDirectory; }
 		}
@@ -80,12 +81,12 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		long IPAFStorageService.PAFAvailableFreeSpace
 		{
-			get{return PAFAvailableFreeSpacePIV;}
+			get{return PAFAvailableFreeSpacePV;}
 		}
 		/// <summary>
 		/// backing for the interface. Returns max value.
 		/// </summary>
-		protected virtual long PAFAvailableFreeSpacePIV
+		protected virtual long PAFAvailableFreeSpacePV
 		{
 			get{return long.MaxValue;}
 		}
@@ -95,13 +96,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		long IPAFStorageService.PAFAvailableSize
 		{
-			get { return PAFAvailableSizePIV; }
+			get { return PAFAvailableSizePV; }
 		}
 
 		/// <summary>
 		/// backing for the interface. Returns max value.
 		/// </summary>
-		protected virtual long PAFAvailableSizePIV
+		protected virtual long PAFAvailableSizePV
 		{
 			get {return long.MaxValue;}
 		}
@@ -111,12 +112,12 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		long IPAFStorageService.PAFQuota
 		{
-			get{return PAFQuotaPIV;}
+			get{return PAFQuotaPV;}
 		}
 		/// <summary>
 		/// backing for the interface. Returns max value.
 		/// </summary>
-		protected virtual long PAFQuotaPIV
+		protected virtual long PAFQuotaPV
 		{
 			get{return long.MaxValue;}
 		}
@@ -126,12 +127,12 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		long IPAFStorageService.PAFUsedSize
 		{
-			get { return PAFUsedSizePIV; }
+			get { return PAFUsedSizePV; }
 		}
 		/// <summary>
 		/// backing for the interface. Returns 0.
 		/// </summary>
-		protected virtual long PAFUsedSizePIV
+		protected virtual long PAFUsedSizePV
 		{
 			get{return 0;}
 		}
@@ -141,13 +142,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		string IPAFStorageService.StorageTag
 		{
-			get { return StorageTagPIV; }
+			get { return StorageTagPV; }
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// NO-OP returns "TAG" for base. 
 		/// </summary>
-		protected virtual string StorageTagPIV
+		protected virtual string StorageTagPV
 		{
 			get { return "TAG"; }
 		}
@@ -157,19 +158,19 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		string IPAFStorageService.GetConvertedFileSpec(string fileSpec)
 		{
-			return GetConvertedFileOrDirectorySpecPIV(fileSpec);
+			return GetConvertedFileOrDirectorySpecPV(fileSpec);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// Gets path with symbolic directories converted.
 		/// </summary>
-		protected virtual string GetConvertedFileOrDirectorySpecPIV(string fileSpec)
+		protected virtual string GetConvertedFileOrDirectorySpecPV(string fileSpec)
 		{
-			var normalizedPath =  FileUtils.NormalizeFilePathWithDriveOrDirectoryInternal(fileSpec);
+			var normalizedPath =  PAFFileUtils.NormalizeFilePathWithDriveOrDirectoryInternal(fileSpec);
 			// If not rooted and root dir is forced, use it.
-			if (!FileUtils.IsPathSpecRooted(normalizedPath) && !string.IsNullOrEmpty(ApplicationRootDirectoryPIV))
+			if (!PAFFileUtils.IsPathSpecRooted(normalizedPath) && !string.IsNullOrEmpty(ApplicationRootDirectoryPV))
 			{
-				normalizedPath = ApplicationRootDirectoryPIV + PlatformUtils.GetDirectorySeparatorChar() + normalizedPath;
+				normalizedPath = ApplicationRootDirectoryPV + PlatformUtils.GetDirectorySeparatorChar() + normalizedPath;
 			}
 			return normalizedPath;
 		}
@@ -179,13 +180,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		string IPAFStorageService.GetMappedDirectorySymbol(string symbolicDirectorySymbol)
 		{
-			return GetMappedDirectorySymbolPIV(symbolicDirectorySymbol);
+			return GetMappedDirectorySymbolPV(symbolicDirectorySymbol);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// Just accesses the static.
 		/// </summary>
-		protected virtual string GetMappedDirectorySymbolPIV(string symbolicDirectorySymbol)
+		protected virtual string GetMappedDirectorySymbolPV(string symbolicDirectorySymbol)
 		{
 			return SymbolicDirectoryMappingDictionary.GetStaticMappingInternal(symbolicDirectorySymbol);
 		}
@@ -196,25 +197,25 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		void IPAFStorageService.PAFCopyFile(string sourceFileName,
 			string destinationFileName, bool overwrite)
 		{
-			PAFCopyFileSymbolicPIV(sourceFileName, destinationFileName,overwrite);
+			PAFCopyFileSymbolicPV(sourceFileName, destinationFileName,overwrite);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// symbolic shim.
 		/// </summary>
-		protected virtual void PAFCopyFileSymbolicPIV(string sourceFileName,
+		protected virtual void PAFCopyFileSymbolicPV(string sourceFileName,
 			string destinationFileName, bool overwrite)
 		{
-			var convertedSourceFileName = GetConvertedFileOrDirectorySpecPIV(sourceFileName);
-			var convertedDestinationFileName = GetConvertedFileOrDirectorySpecPIV(destinationFileName);
-			PAFCopyFilePIV(convertedSourceFileName, convertedDestinationFileName, overwrite);
+			var convertedSourceFileName = GetConvertedFileOrDirectorySpecPV(sourceFileName);
+			var convertedDestinationFileName = GetConvertedFileOrDirectorySpecPV(destinationFileName);
+			PAFCopyFilePV(convertedSourceFileName, convertedDestinationFileName, overwrite);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract void PAFCopyFilePIV(string sourceFileName,
+		protected abstract void PAFCopyFilePV(string sourceFileName,
 			string destinationFileName, bool overwrite);
 /**/
 		/// <summary>
@@ -222,116 +223,116 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		void IPAFStorageService.PAFCreateDirectory(string dir)
 		{
-			PAFCreateDirectorySymbolicPIV(dir);
+			PAFCreateDirectorySymbolicPV(dir);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual object PAFCreateDirectorySymbolicPIV(string dir)
+		protected virtual object PAFCreateDirectorySymbolicPV(string dir)
 		{
-			var convertedDir = GetConvertedFileOrDirectorySpecPIV(dir);
-			return PAFCreateDirectoryPIV(convertedDir);
+			var convertedDir = GetConvertedFileOrDirectorySpecPV(dir);
+			return PAFCreateDirectoryPV(convertedDir);
 		}
 		/// <summary>
 		/// Backing support for the interface. Since <c>DirectoryInfo</c>
 		/// cannot be part of a platform-independent interface, an object
 		/// is returned here for any interface extensions to use.
 		/// </summary>
-		protected abstract object PAFCreateDirectoryPIV(string dir);
+		protected abstract object PAFCreateDirectoryPV(string dir);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFCreateDirectory(string dir, object clientObject)
 		{
-			PAFCreateDirectorySymbolicPIV(dir, clientObject);
+			PAFCreateDirectorySymbolicPV(dir, clientObject);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual object PAFCreateDirectorySymbolicPIV(string dir, object clientObject)
+		protected virtual object PAFCreateDirectorySymbolicPV(string dir, object clientObject)
 		{
-			var convertedDir = GetConvertedFileOrDirectorySpecPIV(dir);
-			return PAFCreateDirectoryPIV(convertedDir, convertedDir);
+			var convertedDir = GetConvertedFileOrDirectorySpecPV(dir);
+			return PAFCreateDirectoryPV(convertedDir, convertedDir);
 		}
 		/// <summary>
 		/// Backing support for the interface.
 		/// client object not used in this base
 		/// implementation.
 		/// </summary>
-		protected abstract object PAFCreateDirectoryPIV(string dir, object clientObject);
+		protected abstract object PAFCreateDirectoryPV(string dir, object clientObject);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		IPAFStorageStream IPAFStorageService.PAFCreateFile(string path)
 		{
-			return PAFCreateFileSmbolicPIV(path);
+			return PAFCreateFileSymbolicPV(path);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual IPAFStorageStream PAFCreateFileSmbolicPIV(string path)
+		protected virtual IPAFStorageStream PAFCreateFileSymbolicPV(string path)
 		{
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFCreateFilePIV(convertedPath);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFCreateFilePV(convertedPath);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract IPAFStorageStream PAFCreateFilePIV(string path);
+		protected abstract IPAFStorageStream PAFCreateFilePV(string path);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFDeleteDirectory(string dir)
 		{
-			PAFDeleteDirectorySymbolicPIV(dir);
+			PAFDeleteDirectorySymbolicPV(dir);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFDeleteDirectorySymbolicPIV(string dir)
+		protected virtual void PAFDeleteDirectorySymbolicPV(string dir)
 		{
-			var convertedDir = GetConvertedFileOrDirectorySpecPIV(dir);
-			PAFDeleteDirectoryPIV(convertedDir);
+			var convertedDir = GetConvertedFileOrDirectorySpecPV(dir);
+			PAFDeleteDirectoryPV(convertedDir);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract void PAFDeleteDirectoryPIV(string dir);
+		protected abstract void PAFDeleteDirectoryPV(string dir);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFDeleteDirectory(string dir, object clientObject)
 		{
-			PAFDeleteDirectorySymbolicPIV(dir, clientObject);
+			PAFDeleteDirectorySymbolicPV(dir, clientObject);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFDeleteDirectorySymbolicPIV(string dir, object clientObject)
+		protected virtual void PAFDeleteDirectorySymbolicPV(string dir, object clientObject)
 		{
-			var convertedDir = GetConvertedFileOrDirectorySpecPIV(dir);
-			PAFDeleteDirectoryPIV(convertedDir);
+			var convertedDir = GetConvertedFileOrDirectorySpecPV(dir);
+			PAFDeleteDirectoryPV(convertedDir, clientObject);
 		}
 		/// <summary>
 		/// backing for the interface. Client object not used in this implementation.
 		/// </summary>
-		protected virtual void PAFDeleteDirectoryPIV(string dir, object clientObject)
+		protected virtual void PAFDeleteDirectoryPV(string dir, object clientObject)
 		{
-			PAFDeleteDirectorySymbolicPIV(dir);
+			PAFDeleteDirectorySymbolicPV(dir);
 		}
 /**/
 		/// <summary>
@@ -339,46 +340,46 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		void IPAFStorageService.PAFDeleteFile(string file)
 		{
-			PAFSymbolicFileSymbolicPIV(file);
+			PAFSymbolicFileSymbolicPV(file);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFSymbolicFileSymbolicPIV(string file)
+		protected virtual void PAFSymbolicFileSymbolicPV(string file)
 		{
-			var convertedFile = GetConvertedFileOrDirectorySpecPIV(file);
-			PAFDeleteFilePIV(convertedFile);
+			var convertedFile = GetConvertedFileOrDirectorySpecPV(file);
+			PAFDeleteFilePV(convertedFile);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract void PAFDeleteFilePIV(string file);
+		protected abstract void PAFDeleteFilePV(string file);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFDeleteFile(string file, object clientObject)
 		{
-			PAFDeleteFileSymbolicPIV(file, clientObject);
+			PAFDeleteFileSymbolicPV(file, clientObject);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFDeleteFileSymbolicPIV(string file, object clientObject)
+		protected virtual void PAFDeleteFileSymbolicPV(string file, object clientObject)
 		{
-			var convertedFile = GetConvertedFileOrDirectorySpecPIV(file);
-			PAFDeleteFilePIV(convertedFile, clientObject);
+			var convertedFile = GetConvertedFileOrDirectorySpecPV(file);
+			PAFDeleteFilePV(convertedFile, clientObject);
 		}
 		/// <summary>
 		/// backing for the interface. Client object not used in this implementation.
 		/// </summary>
-		protected virtual void PAFDeleteFilePIV(string file, object clientObject)
+		protected virtual void PAFDeleteFilePV(string file, object clientObject)
 		{
-			PAFDeleteFilePIV(file);
+			PAFDeleteFilePV(file);
 		}
 /**/
 		/// <summary>
@@ -386,7 +387,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		bool IPAFStorageService.PAFDirectoryExists(string dir)
 		{
-			return PAFDirectoryExistsSymbolicPIV(dir);
+			return PAFDirectoryExistsSymbolicPV(dir);
 		}
 
 		/// <summary>
@@ -396,24 +397,24 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <remarks>
 		/// Gate null values in here.
 		/// </remarks>
-		protected virtual bool PAFDirectoryExistsSymbolicPIV(string dir)
+		protected virtual bool PAFDirectoryExistsSymbolicPV(string dir)
 		{
 			if (string.IsNullOrEmpty(dir))
 				return false;
-			var convertedDir = GetConvertedFileOrDirectorySpecPIV(dir);
-			return PAFDirectoryExistsPIV(convertedDir);
+			var convertedDir = GetConvertedFileOrDirectorySpecPV(dir);
+			return PAFDirectoryExistsPV(convertedDir);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract bool PAFDirectoryExistsPIV(string dir);
+		protected abstract bool PAFDirectoryExistsPV(string dir);
 		/**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		bool IPAFStorageService.PAFFileExists(string path)
 		{
-			return PAFFileExistsSymbolicPIV(path);
+			return PAFFileExistsSymbolicPV(path);
 		}
 
 		/// <summary>
@@ -423,24 +424,24 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <remarks>
 		/// Gate null values in here.
 		/// </remarks>
-		protected virtual bool PAFFileExistsSymbolicPIV(string path)
+		protected virtual bool PAFFileExistsSymbolicPV(string path)
 		{
 			if (string.IsNullOrEmpty(path))
 				return false;
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFFileExistsPIV(convertedPath);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFFileExistsPV(convertedPath);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract bool PAFFileExistsPIV(string path);
+		protected abstract bool PAFFileExistsPV(string path);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		DateTime IPAFStorageService.PAFGetCreationTime(string path)
 		{
-			return PAFGetCreationTimeSymbolicPIV(path);
+			return PAFGetCreationTimeSymbolicPV(path);
 		}
 
 		/// <summary>
@@ -450,31 +451,31 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// <remarks>
 		/// Gate null values in here.
 		/// </remarks>
-		protected virtual DateTime PAFGetCreationTimeSymbolicPIV(string path)
+		protected virtual DateTime PAFGetCreationTimeSymbolicPV(string path)
 		{
 			if (string.IsNullOrEmpty(path))
 				return DateTime.MinValue;
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFGetCreationTimePIV(convertedPath);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFGetCreationTimePV(convertedPath);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract DateTime PAFGetCreationTimePIV(string path);
+		protected abstract DateTime PAFGetCreationTimePV(string path);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		IEnumerable<string> IPAFStorageService.PAFGetDirectoryNames()
 		{
-			return PAFGetDirectoryNamesPIV();
+			return PAFGetDirectoryNamesPV();
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected virtual IEnumerable<string> PAFGetDirectoryNamesPIV()
+		protected virtual IEnumerable<string> PAFGetDirectoryNamesPV()
 		{
-			return PAFGetDirectoryNamesPIV(null);
+			return PAFGetDirectoryNamesPV(null);
 		}
 /**/
 		/// <summary>
@@ -482,36 +483,36 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		IEnumerable<string> IPAFStorageService.PAFGetDirectoryNames(string dirSpec)
 		{
-			return PAFGetDirectoryNamesSymbolicPIV(dirSpec);
+			return PAFGetDirectoryNamesSymbolicPV(dirSpec);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual IEnumerable<string> PAFGetDirectoryNamesSymbolicPIV(string dirSpec)
+		protected virtual IEnumerable<string> PAFGetDirectoryNamesSymbolicPV(string dirSpec)
 		{
-			var convertedDirSpec = GetConvertedFileOrDirectorySpecPIV(dirSpec);
-			return PAFGetDirectoryNamesPIV(convertedDirSpec);
+			var convertedDirSpec = GetConvertedFileOrDirectorySpecPV(dirSpec);
+			return PAFGetDirectoryNamesPV(convertedDirSpec);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract IEnumerable<string> PAFGetDirectoryNamesPIV(string dirSpec);
+		protected abstract IEnumerable<string> PAFGetDirectoryNamesPV(string dirSpec);
  /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		IEnumerable<string> IPAFStorageService.PAFGetFileNames()
 		{
-			return PAFGetFileNamesPIV();
+			return PAFGetFileNamesPV();
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected virtual IEnumerable<string> PAFGetFileNamesPIV()
+		protected virtual IEnumerable<string> PAFGetFileNamesPV()
 		{
-			return PAFGetFileNamesPIV(null);
+			return PAFGetFileNamesPV(null);
 		}
 /**/
 		/// <summary>
@@ -519,80 +520,80 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		IEnumerable<string> IPAFStorageService.PAFGetFileNames(string dirSpec)
 		{
-			return PAFGetFileNamesSymbolicPIV(dirSpec);
+			return PAFGetFileNamesSymbolicPV(dirSpec);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual IEnumerable<string> PAFGetFileNamesSymbolicPIV(string dirSpec)
+		protected virtual IEnumerable<string> PAFGetFileNamesSymbolicPV(string dirSpec)
 		{
-			var convertedDirSpec = GetConvertedFileOrDirectorySpecPIV(dirSpec);
-			return PAFGetFileNamesPIV(convertedDirSpec);
+			var convertedDirSpec = GetConvertedFileOrDirectorySpecPV(dirSpec);
+			return PAFGetFileNamesPV(convertedDirSpec);
 		}
 		/// <summary>
 		/// Backing support for the interface.
 		/// </summary>
-		protected abstract IEnumerable<string> PAFGetFileNamesPIV(string dirSpec);
+		protected abstract IEnumerable<string> PAFGetFileNamesPV(string dirSpec);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>.
 		/// </summary>
 		DateTime IPAFStorageService.PAFGetLastAccessTime(string path)
 		{
-			return PAFGetLastAccessTimeSymbolicPIV(path);
+			return PAFGetLastAccessTimeSymbolicPV(path);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual DateTime PAFGetLastAccessTimeSymbolicPIV(string path)
+		protected virtual DateTime PAFGetLastAccessTimeSymbolicPV(string path)
 		{
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFGetLastAccessTimePIV(convertedPath);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFGetLastAccessTimePV(convertedPath);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// </summary>
-		protected abstract DateTime PAFGetLastAccessTimePIV(string path);
+		protected abstract DateTime PAFGetLastAccessTimePV(string path);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		DateTime IPAFStorageService.PAFGetLastWriteTime(string path)
 		{
-			return PAFGetLastWriteTimeSymbolicPIV(path);
+			return PAFGetLastWriteTimeSymbolicPV(path);
 		}
 
 		/// <summary>
 		/// Backing support for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual DateTime PAFGetLastWriteTimeSymbolicPIV(string path)
+		protected virtual DateTime PAFGetLastWriteTimeSymbolicPV(string path)
 		{
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFGetLastWriteTimePIV(convertedPath);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFGetLastWriteTimePV(convertedPath);
 		}
 		/// <summary>
 		/// Backing support for the interface.
 		/// </summary>
-		protected abstract DateTime PAFGetLastWriteTimePIV(string path);
+		protected abstract DateTime PAFGetLastWriteTimePV(string path);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		bool IPAFStorageService.PAFIncreaseQuotaTo(long newQuotaSize)
 		{
-			return PAFIncreaseQuotaToPIV(newQuotaSize);
+			return PAFIncreaseQuotaToPV(newQuotaSize);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// NO-OP in ECMA. returns <see langword="true"/>.
 		/// </summary>
-		protected virtual bool PAFIncreaseQuotaToPIV(long newQuotaSize)
+		protected virtual bool PAFIncreaseQuotaToPV(long newQuotaSize)
 		{
 			return true;
 		}
@@ -602,13 +603,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		bool IPAFStorageService.PAFIncreaseQuotaTo(long newQuotaSize, object clientObject)
 		{
-			return PAFIncreaseQuotaToPIV(newQuotaSize, clientObject);
+			return PAFIncreaseQuotaToPV(newQuotaSize, clientObject);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// NO-OP in ECMA. returns <see langword="true"/>.
 		/// </summary>
-		protected virtual bool PAFIncreaseQuotaToPIV(long newQuotaSize, object clientObject)
+		protected virtual bool PAFIncreaseQuotaToPV(long newQuotaSize, object clientObject)
 		{
 			return true;
 		}
@@ -618,53 +619,53 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		void IPAFStorageService.PAFMoveDirectory(string sourceDirectoryName, string destinationDirectoryName)
 		{
-			PAFMoveDirectorySymbolicPIV(sourceDirectoryName, destinationDirectoryName);
+			PAFMoveDirectorySymbolicPV(sourceDirectoryName, destinationDirectoryName);
 		}
 
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFMoveDirectorySymbolicPIV(string sourceDirectoryName, string destinationDirectoryName)
+		protected virtual void PAFMoveDirectorySymbolicPV(string sourceDirectoryName, string destinationDirectoryName)
 		{
-			var convertedSourceDirectoryName = GetConvertedFileOrDirectorySpecPIV(sourceDirectoryName);
-			var convertedDestinationDirectoryName = GetConvertedFileOrDirectorySpecPIV(destinationDirectoryName);
-			PAFMoveDirectoryPIV(convertedSourceDirectoryName, convertedDestinationDirectoryName);
+			var convertedSourceDirectoryName = GetConvertedFileOrDirectorySpecPV(sourceDirectoryName);
+			var convertedDestinationDirectoryName = GetConvertedFileOrDirectorySpecPV(destinationDirectoryName);
+			PAFMoveDirectoryPV(convertedSourceDirectoryName, convertedDestinationDirectoryName);
 
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract void PAFMoveDirectoryPIV(string sourceDirectoryName, string destinationDirectoryName);
+		protected abstract void PAFMoveDirectoryPV(string sourceDirectoryName, string destinationDirectoryName);
 		/**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFMoveFile(string sourceFileName, string destinationFileName)
 		{
-			PAFMoveFileSymbolicPIV(sourceFileName, destinationFileName);
+			PAFMoveFileSymbolicPV(sourceFileName, destinationFileName);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// Symbolic shim.
 		/// </summary>
-		protected virtual void PAFMoveFileSymbolicPIV(string sourceFileName, string destinationFileName)
+		protected virtual void PAFMoveFileSymbolicPV(string sourceFileName, string destinationFileName)
 		{
-			var convertedSourceFileName = GetConvertedFileOrDirectorySpecPIV(sourceFileName);
-			var convertedDestinationFileName = GetConvertedFileOrDirectorySpecPIV(destinationFileName);
-			PAFMoveFilePIV(convertedSourceFileName, convertedDestinationFileName);
+			var convertedSourceFileName = GetConvertedFileOrDirectorySpecPV(sourceFileName);
+			var convertedDestinationFileName = GetConvertedFileOrDirectorySpecPV(destinationFileName);
+			PAFMoveFilePV(convertedSourceFileName, convertedDestinationFileName);
 		}
 		/// <summary>
 		/// backing for the interface.
 		/// </summary>
-		protected abstract void PAFMoveFilePIV(string sourceFileName, string destinationFileName);
+		protected abstract void PAFMoveFilePV(string sourceFileName, string destinationFileName);
 /**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		IPAFStorageStream IPAFStorageService.PAFOpenFile(string path)
 		{
-			return s_AsIstorage.PAFOpenFile(path, null);
+			return m_AsIstorage.PAFOpenFile(path, null);
 		}
 
 		/// <remarks>
@@ -672,22 +673,28 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </remarks>
 		IPAFStorageStream IPAFStorageService.PAFOpenFile(string path, PAFFileAccessMode mode)
 		{
-			return PAFOpenFileSymbolicPIV(path, mode);
+			return PAFOpenFileSymbolicPV(path, mode);
 		}
 
 		/// <remarks>
 		/// backing for interface.
 		/// Symbolic shim.
 		/// </remarks>
-		protected virtual IPAFStorageStream PAFOpenFileSymbolicPIV(string path, PAFFileAccessMode mode)
+		protected virtual IPAFStorageStream PAFOpenFileSymbolicPV(string path, PAFFileAccessMode mode)
 		{
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFOpenFilePIV(convertedPath, mode);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			if (mode == PAFFileAccessMode.REPLACE)
+			{
+				if(PAFFileExistsPV(path))
+					PAFDeleteFilePV(convertedPath);
+			}
+
+			return PAFOpenFilePV(convertedPath, mode);
 		}
 		/// <remarks>
 		/// backing for interface.
 		/// </remarks>
-		protected abstract IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode);
+		protected abstract IPAFStorageStream PAFOpenFilePV(string path, PAFFileAccessMode mode);
 /**/
 		/// <remarks>
 		/// <see cref="IPAFStorageService"/>. <paramref name="clientObject"/> is
@@ -695,35 +702,35 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </remarks>
 		IPAFStorageStream IPAFStorageService.PAFOpenFile(string path, PAFFileAccessMode mode, object clientObject)
 		{
-			return PAFOpenFileSymbolicPIV(path, mode, clientObject);
+			return PAFOpenFileSymbolicPV(path, mode, clientObject);
 		}
 
 		/// <remarks>
 		/// backing for interface.
 		/// Symbolic shim.
 		/// </remarks>
-		protected virtual IPAFStorageStream PAFOpenFileSymbolicPIV(string path, PAFFileAccessMode mode, object clientObject)
+		protected virtual IPAFStorageStream PAFOpenFileSymbolicPV(string path, PAFFileAccessMode mode, object clientObject)
 		{
-			var convertedPath = GetConvertedFileOrDirectorySpecPIV(path);
-			return PAFOpenFilePIV(convertedPath, mode);
+			var convertedPath = GetConvertedFileOrDirectorySpecPV(path);
+			return PAFOpenFilePV(convertedPath, mode, clientObject);
 		}
 
 		/// <remarks>
 		/// backing for interface.
 		/// </remarks>
-		protected abstract IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode, object clientObject);
+		protected abstract IPAFStorageStream PAFOpenFilePV(string path, PAFFileAccessMode mode, object clientObject);
 		/**/
 		/// <summary>
 		/// <see cref="IPAFStorageService"/>
 		/// </summary>
 		void IPAFStorageService.PAFRemove()
 		{
-			PAFRemovePIV();
+			PAFRemovePV();
 		}
 		/// <summary>
 		/// backing for interface. Doesn't do a thing by default.
 		/// </summary>
-		protected virtual void PAFRemovePIV()
+		protected virtual void PAFRemovePV()
 		{			
 		}
 /**/
@@ -732,13 +739,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		void IPAFStorageService.PAFRemove(object clientObject)
 		{
-			PAFRemovePIV();
+			PAFRemovePV(clientObject);
 		}
 
 		/// <summary>
 		/// backing for interface. Doesn't do a thing by default.
 		/// </summary>
-		protected virtual void PAFRemovePIV(object clientObject)
+		protected virtual void PAFRemovePV(object clientObject)
 		{
 		}
 /**/
@@ -747,12 +754,12 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// </summary>
 		void IPAFStorageService.SetApplicationRoot(string rootDirSpec)
 		{
-			SetApplicationRootPIV(rootDirSpec);
+			SetApplicationRootPV(rootDirSpec);
 		}
 		/// <summary>
 		/// backing for interface.
 		/// </summary>
-		protected virtual void SetApplicationRootPIV(string rootDirSpec)
+		protected virtual void SetApplicationRootPV(string rootDirSpec)
 		{
 			m_ApplicationRootDirectory = rootDirSpec;
 		}

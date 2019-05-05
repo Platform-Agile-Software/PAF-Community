@@ -2,20 +2,31 @@
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using PlatformAgileFramework.FileAndIO;
+using PlatformAgileFramework.Annotations;
+using PlatformAgileFramework.Collections.Dictionaries;
 using PlatformAgileFramework.FileAndIO.FileAndDirectoryService;
 using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
+using PlatformAgileFramework.FrameworkServices;
+using PlatformAgileFramework.FrameworkServices.Tests;
 using PlatformAgileFramework.Platform;
-using PlatformAgileFramework.Manufacturing;
 
 // ReSharper disable once CheckNamespace
-namespace PlatformAgileFramework.FrameworkServices.Tests
+namespace PlatformAgileFramework.FileAndIO.Tests
 {
 	/// <summary>
 	/// These tests check the loading of the symbolic directory mapping dictionary
 	/// and it's use.
 	/// </summary>
-    [TestFixture]
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 31dec2018 </date>
+	/// <description>
+	/// Documented. Added calls to <see cref="DictionaryExtensionMethods.EnsureEntry{T,U}"/>.
+	/// </description>
+	/// </contribution>
+	/// </history>
+	[TestFixture]
 	public class BasicSymbolicDirectoryTests : BasicServiceManagerTestFixtureBase
 	{
 		/// <summary>
@@ -54,25 +65,23 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			s_SpecialFilesTestDirectory = PlatformUtils.s_C_DriveMapping + DS + "specialfiles";
 		}
 
-        /// <summary>
-        /// Original NUnit attribute name.
-        /// </summary>
+		/// <summary>
+		/// Original NUnit attribute name.
+		/// </summary>
 		public override void TestFixtureTearDown()
 		{
 			var fileService = PAFServices.Manager.GetTypedService<IPAFStorageService>();
 			fileService.PAFEmptyAndDeleteDirectory("Documents:");
 			fileService.PAFEnsureDirectoryExists("Documents:");
 			Assert.IsTrue(fileService.PAFDirectoryExists("Documents:"));
-
 		}
 		/// <summary>
-		/// Gets around the problem of NUnit being crippled without testfixture setups.
+		/// Gets around the problem of NUnit being crippled without test fixture setups.
 		/// </summary>
 		[SetUp]
 		public override void SetUp()
 		{
 			base.SetUp();
-
 		}
 
 		/// <summary>
@@ -85,26 +94,33 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// mapping system works correctly. We show how to dynamically push in
 		/// symbolically directory mappings.
 		/// </summary>
+		/// <remarks>
+		/// This test expects a test symbolic directory mapping file to contain:
+		/// <c>"SpecialFiles" -> "c:/specialfiles"</c>
+		/// <c>SpecialFilesInDocuments" -> "Documents:/specialfiles" </c>
+		/// </remarks>
 		[Test]
 		public void A_TestToManipulateDictionary()
 		{
 			// We want to push in the "Documents" mapping if it is not already there.
-			if (SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents") == null)
-				SymbolicDirectoryMappingDictionary.AddStaticMappingInternal("Documents",
-					PlatformUtils.s_C_DriveMapping + DS + "Documents");
-			//ManufacturingUtils.s_CurrentPlatformInfo.CDriveMapping + DS + "Documents");
+			var internalDict = SymbolicDirectoryMappingDictionary.s_DirectoryMappingDictionary;
+			// We don't overwrite it if it's already been loaded.
+			internalDict.EnsureEntry("Documents", PlatformUtils.s_C_DriveMapping + DS + "Documents");
 
-			var documentsMapping = SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents");
+			var documentsMapping
+				= SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents");
 
-			var recursiveSymbolResult = FileUtils.NormalizeFilePath(FileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
+			var recursiveSymbolResult
+				= PAFFileUtils.NormalizeFilePath(PAFFileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
 			var correctResult = documentsMapping + DS + "specialfiles";
 
 			Assert.IsTrue(recursiveSymbolResult.Equals(correctResult, StringComparison.Ordinal));
 
 			var normalizedResult
-				= FileUtils.NormalizeFilePath(recursiveSymbolResult);
+				= PAFFileUtils.NormalizeFilePath(recursiveSymbolResult);
 
 			var correctNormalizedResult = PlatformUtils.s_C_DriveMapping + DS
+				// ReSharper disable once StringLiteralTypo
 				+ "Documents" + DS + "specialfiles";
 
 			Assert.IsTrue(normalizedResult.Equals(correctNormalizedResult, StringComparison.Ordinal));
@@ -113,7 +129,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// <summary>
 		/// This test verifies that we can delete directories recursively on a symbolic path.
 		/// </summary>
-        [Test]
+		[Test]
 		public void B_TestToRecursivelyDeleteDirectories()
 		{
 			// SOB ReSharper doesn't alphabetize tests in VS2017,
@@ -149,15 +165,13 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			var subdirectoriesInDocuments = fileService.PAFGetDirectoryNames("Documents:");
 
 			Assert.IsTrue((subdirectoriesInDocuments == null) || (subdirectoriesInDocuments.ToArray().Length == 0));
-
-
 		}
 
 		/// <summary>
 		/// This test uses our symbolic "C:" drive mapping and the "SpecialFiles"
 		/// mapping.
 		/// </summary>
-        [Test]
+		[Test]
 		public void C_TestToTestSymbolicDirectoryAccess()
 		{
 			var fileService = PAFServices.Manager.GetTypedService<IPAFStorageService>();
@@ -194,7 +208,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 
 			/* Again with a symbolic dir in a symbolic dir - tests path walking. */
 			var specialFilesInDocumentsDirMapping
-				= FileUtils.NormalizeFilePath(FileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
+				= PAFFileUtils.NormalizeFilePath(PAFFileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
 			var specialFilesInDocumentsDirExists = fileService.PAFDirectoryExists(specialFilesInDocumentsDirMapping);
 
 			if (specialFilesInDocumentsDirExists) fileService.PAFEmptyAndDeleteDirectory(specialFilesInDocumentsDirMapping);
@@ -212,7 +226,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// This test verifies that we can create and delete <see cref="s_DocumentInDocumentsFilePath"/>
 		/// and correctly write <see cref="TEXT_IN_DOCUMENT_FILE"/> into it.
 		/// </summary>
-        [Test]
+		[Test]
 		public void D_TestToWriteToSymbolicDirectoryFiles()
 		{
 			var fileService = PAFServices.Manager.GetTypedService<IPAFStorageService>();
@@ -247,7 +261,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// <summary>
 		/// This test verifies that we can create directories recursively on a symbolic path.
 		/// </summary>
-        [Test]
+		[Test]
 		public void E_TestToRecursivelyCreateDirectories()
 		{
 			var fileService = PAFServices.Manager.GetTypedService<IPAFStorageService>();
@@ -286,7 +300,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 
 
 		#region Helpers
-        /// <summary>
+		/// <summary>
 		/// This is a helper that just ensures that out specialfiles test directory
 		/// is there.
 		/// </summary>
@@ -295,7 +309,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// Exhibits just a tiny bit of test fixture design strategy - this
 		/// is called trivially in early tests, then for a purpose in later tests.
 		/// </remarks>
-        public virtual void EnsureSpecialDirExists(IPAFStorageService fileService)
+		public virtual void EnsureSpecialDirExists([NotNull] IPAFStorageService fileService)
 		{
 			var specialDirExists = fileService.PAFDirectoryExists(@"c:\specialfiles");
 
@@ -310,7 +324,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// is there.
 		/// </summary>
 		/// <param name="fileService">instance of storage service.</param>
-        public virtual void EnsureDocumentsDirExists(IPAFStorageService fileService)
+		public virtual void EnsureDocumentsDirExists(IPAFStorageService fileService)
 		{
 			var documentsMapping
 				= SymbolicDirectoryMappingDictionary.GetStaticMappingInternal("Documents");
@@ -328,10 +342,10 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// documents test directory is there.
 		/// </summary>
 		/// <param name="fileService">instance of storage service.</param>
-        public virtual void EnsureSpecialFilesDocumentsDirExists(IPAFStorageService fileService)
+		public virtual void EnsureSpecialFilesDocumentsDirExists(IPAFStorageService fileService)
 		{
 			var specialFilesInDocumentsDirMapping
-				= FileUtils.NormalizeFilePath(FileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
+				= PAFFileUtils.NormalizeFilePath(PAFFileUtils.WalkDirectorySymbol("SpecialFilesInDocuments"));
 			var specialFilesInDocumentsDirExists = fileService.PAFDirectoryExists(specialFilesInDocumentsDirMapping);
 
 			if (specialFilesInDocumentsDirExists) return;
@@ -344,7 +358,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 		/// documents test directory is there.
 		/// </summary>
 		/// <param name="fileService">instance of storage service.</param>
-        public virtual void EnsureDocumentInDocuments(IPAFStorageService fileService)
+		public virtual void EnsureDocumentInDocuments(IPAFStorageService fileService)
 		{
 			if (fileService.PAFFileExists(s_DocumentInDocumentsFilePath)) return;
 			var stream = fileService.PAFCreateFile(s_DocumentInDocumentsFilePath);
@@ -352,6 +366,6 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			Assert.IsTrue(fileService.PAFFileExists(s_DocumentInDocumentsFilePath));
 		}
 		#endregion Helpers
-    }
+	}
 }
 

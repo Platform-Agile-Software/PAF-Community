@@ -14,7 +14,7 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 	public class BasicServiceManagerTestFixtureBase: BootstrappingTestFixtureBase
 	{
 		/// <summary>
-		/// Gets around the problem of NUnit being crippled without testfixture setups.
+		/// Gets around the problem of NUnit being crippled without test fixture setups.
 		/// </summary>
 		[SetUp]
 		public override void SetUp()
@@ -22,11 +22,10 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 			base.SetUp();
 		}
 
-
 		/// <summary>
 		/// Loads the platform-specific assy and initializes the service manager, which
 		/// discovers its services inside. This represents the INITIAL set of tests themselves,
-		/// since the SM must be "boostrapped" and initialized at the beginning of
+		/// since the SM must be "bootstrapped" and initialized at the beginning of
 		/// application execution.
 		/// </summary>
 		public override void TestFixtureSetUp()

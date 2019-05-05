@@ -1,6 +1,5 @@
 
 using PlatformAgileFramework.Collections;
-
 namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
@@ -14,7 +13,7 @@ namespace PlatformAgileFramework.FrameworkServices
 // ReSharper disable PartialTypeWithSinglePart
 // Core
 	public partial interface IPAFService : IPAFNamedAndTypedObject
-// ReSharper restore PartialTypeWithSinglePart
+	// ReSharper restore PartialTypeWithSinglePart
 	{
 	}
 }

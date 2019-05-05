@@ -26,7 +26,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <summary>
 		/// See corresponding prop on <see cref="IPAFServiceDescription"/>.
 		/// </summary>
-		void SetIsDefault(bool isDefault);
+		bool SetIsDefault(bool isDefault);
 		/// <summary>
 		/// See corresponding prop on <see cref="IPAFServiceDescription"/>.
 		/// </summary>

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -135,7 +135,7 @@ namespace PlatformAgileFramework.TypeHandling
 		public static implicit operator PAFTypeHolder(Type type)
 		{
 			if (type == null)
-				throw new ArgumentNullException("type");
+				throw new ArgumentNullException(nameof(type));
 			return new PAFTypeHolder(type);
 		}
 		/// <summary>
@@ -155,7 +155,7 @@ namespace PlatformAgileFramework.TypeHandling
 		public static implicit operator PAFTypeHolder(string typeName)
 		{
 			if (string.IsNullOrEmpty(typeName))
-				throw new ArgumentNullException("typeName");
+				throw new ArgumentNullException(nameof(typeName));
 			return new PAFTypeHolder(null, typeName);
 		}
 		#endregion // Conversion Operators
@@ -177,7 +177,7 @@ namespace PlatformAgileFramework.TypeHandling
 		public static IPAFTypeHolder FromNTO(IPAFNamedAndTypedObject nto)
 		{
 			if (nto == null)
-				throw new ArgumentNullException("nto");
+				throw new ArgumentNullException(nameof(nto));
 			return new PAFTypeHolder(nto.ObjectType);
 		}
 		#endregion // Static Helpers

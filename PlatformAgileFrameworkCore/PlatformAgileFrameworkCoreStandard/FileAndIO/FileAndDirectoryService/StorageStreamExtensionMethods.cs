@@ -50,13 +50,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		}
 		/// <summary>
 		/// Reads a string from a <see cref="IPAFStorageStream"/>. Just calls
-		/// into <see cref="PAFReadChars(PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageStream,System.Text.Encoding)"/>.
+		/// into <see cref="PAFReadChars(IPAFStorageStream,Encoding)"/>.
 		/// </summary>
 		/// <param name="storageStream">
 		/// <see cref="IPAFStorageStream"/>
 		/// </param>
 		/// <param name="encoding">
-		/// See <see cref="PAFReadChars(PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageStream,System.Text.Encoding)"/>.
+		/// See <see cref="PAFReadChars(IPAFStorageStream,Encoding)"/>.
 		/// </param>
 		/// <returns>
 		/// String decoded from a stream. Empty stream returns <see langword="null"/>.
@@ -66,7 +66,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		{
 			var chars = storageStream.PAFReadChars(encoding);
 			if (chars == null) return null;
-			return new string(Enumerable.ToArray<char>(chars));
+			return new string(Enumerable.ToArray(chars));
 		}
 		/// <summary>
 		/// Writes a character set to the <see cref="IPAFStorageStream"/> with UNICODE
@@ -123,10 +123,10 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 		/// UniCode encoding to be used, Little-endian, no mark.
 		/// </param>
 		/// <exceptions>
-		/// See <see cref="PAFReadChars(PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageStream,System.Text.Encoding)"/>.
+		/// See <see cref="PAFReadChars(IPAFStorageStream,Encoding)"/>.
 		/// </exceptions>
 		/// <threadsafety>
-		/// See <see cref="PAFReadChars(PlatformAgileFramework.FileAndIO.FileAndDirectoryService.IPAFStorageStream,System.Text.Encoding)"/>.
+		/// See <see cref="PAFReadChars(IPAFStorageStream,Encoding)"/>.
 		/// </threadsafety>
 		public static void PAFWriteString(this IPAFStorageStream storageStream,
 			string stringToWrite, Encoding encoding = null)

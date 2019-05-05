@@ -9,13 +9,14 @@
 
   <ItemGroup>
     <Compile Remove="bin\Debug\netstandard2.0\obj\**" />
+    <Compile Remove="Notification\Helpers\**" />
     <EmbeddedResource Remove="bin\Debug\netstandard2.0\obj\**" />
+    <EmbeddedResource Remove="Notification\Helpers\**" />
     <None Remove="bin\Debug\netstandard2.0\obj\**" />
+    <None Remove="Notification\Helpers\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Logging\TestHelpers\" />
     <Folder Include="Manufacturing\" />
-    <Folder Include="Notification\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
@@ -24,8 +25,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OptionalLibraries\BasicxUnit\PlatformAgileFrameworkBasicxUnitStandard1.6.csproj" />
     <ProjectReference Include="..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj" />
     <ProjectReference Include="..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj" />
   </ItemGroup>

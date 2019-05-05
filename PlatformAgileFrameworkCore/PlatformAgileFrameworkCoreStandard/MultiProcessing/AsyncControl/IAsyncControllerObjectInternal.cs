@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -46,29 +46,9 @@ namespace PlatformAgileFramework.MultiProcessing.AsyncControl
 	{
 		#region Properties
 		/// <summary>
-		/// Getter for the delegate plugin that will be called back periodically. This
-		/// may be <see langword="null"/>, indicating that an internal default delegate will be used.
-		/// This delegate has access to only the <see cref="IAsyncControllerObject"/> by
-		/// default and can examine controlled threads/tasks and maninpulate them.
-		/// </summary>
-		ACOCallerProcessDelegate ControllerDelegate
-		{ get; }
-		/// <summary>
-		/// Delegate used to call <see cref="ControllerDelegate"/>. Can be <see langword="null"/>, in
-		/// which case an internal default will be used. TYPICAL delegates are expecting an
-		/// incoming object that implements <see cref="IAsyncControllerObjectInternal"/>
-		/// or can be used to produce one. This is the delegate that resets timers
-		/// and counters and thus has need for access to these items. This means that
-		/// developers wishing to author custom implementations of this delegate must
-		/// expose the internals of this assembly to their framework code or extension
-		/// code.
-		/// </summary>
-		Action<object> ControllerDelegateCallerDelegate
-		{ get; }
-		/// <summary>
 		/// Internal timer that we use to call us back to check the task completion. This
 		/// timer should never be created if the controller is running on a thread, indicated by
-		/// the existance of <see cref="IAsyncControlObject.ManagedThread"/>. If the managed
+		/// the existence of <see cref="IAsyncControlObject.ManagedThread"/>. If the managed
 		/// thread is <see langword="null"/>, a wait timer can be created to periodically callback the
 		/// delegates.
 		/// </summary>
@@ -77,17 +57,17 @@ namespace PlatformAgileFramework.MultiProcessing.AsyncControl
 		#endregion// Properties
 		#region Methods
 		/// <summary>
-		/// Setter for <see cref="IAsyncControllerObject.AbortTime"/>.
+		/// Setter for <see cref="IAsyncControllerObject.AbortTimeRemaining"/>.
 		/// </summary>
-		void SetAbortTimeInternal(TimeSpan timeSpan);
+		void SetAbortTimeRemainingInternal(TimeSpan abortTimeRemaining);
 		/// <summary>
-		/// Setter for <see cref="IAsyncControllerObject.WaitTime"/>.
+		/// Setter for <see cref="IAsyncControllerObject.ProcessRunTimeRemaining"/>.
 		/// </summary>
-		void SetWaitTimeInternal(TimeSpan timeSpan);
+		void SetWaitTimeRemainingInternal(TimeSpan waitTimeRemaining);
 		/// <summary>
-		/// Setter for <see cref="IAsyncControllerObject.MaxIterations"/>.
+		/// Setter for <see cref="IAsyncControllerObject.IterationsRemaining"/>.
 		/// </summary>
-		void SetMaxIterationsInternal(long maxIterations);
+		void SetIterationsRemainingInternal(long iterationsRemaining);
 		#endregion // Methods
 	}
 }

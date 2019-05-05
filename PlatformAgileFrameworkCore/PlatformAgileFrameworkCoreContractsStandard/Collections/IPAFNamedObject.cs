@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -59,23 +59,27 @@ namespace PlatformAgileFramework.Collections
 		/// the type. The name should never be <see langword="null"/>.
 		/// </remarks>
 		string ObjectName
-		{ get;
-			//[SecurityCritical]
-			set; }
+		{
+			get;
+			[SecurityCritical]
+			set;
+		}
 		/// <summary>
 		/// Manipulates the value of the object.
 		/// </summary>
 		object ObjectValue
-		{ get;
-			//[SecurityCritical]
-			set; }
+		{
+			get;
+			[SecurityCritical]
+			set;
+		}
 		/// <summary>
-		/// Manipulates the default flag. This identifies the "default" object
+		/// Defines the default flag. This identifies the "default" object
 		/// in a collection. Overrides the "blank" item in a collection being the default.
 		/// </summary>
 		bool IsDefaultObject
-		{ get;
-			//[SecurityCritical]
-			set; }
+		{
+			get;
+		}
 	}
 }

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -54,11 +54,12 @@ namespace PlatformAgileFramework.TypeHandling.Disposal
 		/// indicates all went well.
 		/// </returns>
 		public static Exception Disposer<U>(ref U disposable, bool nullTheInstance)
-			where U: class, IDisposable
+			where U : class, IDisposable
 		{
 			if (disposable == null) return null;
 			Exception caughtException = null;
-			try {
+			try
+			{
 				disposable.Dispose();
 			}
 			catch (Exception ex)
@@ -66,6 +67,45 @@ namespace PlatformAgileFramework.TypeHandling.Disposal
 				caughtException = ex;
 			}
 			if (nullTheInstance) disposable = null;
+			return caughtException;
+		}
+		/// <summary>
+		/// This helper acts upon a disposable instance to dispose it and catches any
+		/// disposal exceptions. It optionally <see langword="null"/>s the instance.
+		/// This method is typically called when we don't know if a Generic type
+		/// is constrained to be <see cref="IDisposable"/>.
+		/// </summary>
+		/// <typeparam name="U">
+		/// This is the type to be disposed. It must be a reference type (so we can
+		/// <see langword="null"/> it.) If it is <see cref="IDisposable"/> we will dispose it.
+		/// </typeparam>"/>
+		/// <param name="classToDispose">
+		/// This is potentially the <see cref="IDisposable"/> instance. <see langword="null"/> exits without
+		/// processing.
+		/// </param>
+		/// <param name="nullTheInstance">
+		/// <see langword="true"/> to <see langword="null"/> the instance regardless of whether we get
+		/// an exception or not.
+		/// </param>
+		/// <returns>
+		/// An exception that may have occurred in the dispose method. <see langword="null"/>
+		/// indicates all went well.
+		/// </returns>
+		public static Exception DisposableDisposer<U>(ref U classToDispose, bool nullTheInstance)
+			where U : class
+		{
+			if (classToDispose == null) return null;
+			Exception caughtException = null;
+			try
+			{
+				if(classToDispose is IDisposable disposable)
+					disposable.Dispose();
+			}
+			catch (Exception ex)
+			{
+				caughtException = ex;
+			}
+			if (nullTheInstance) classToDispose = null;
 			return caughtException;
 		}
 		/// <summary>

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -401,6 +401,15 @@ namespace PlatformAgileFramework
 	/// <summary>
 	/// This class is a utility class for strings.
 	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> Brian T. </author>
+	/// <date> 01feb2019 </date>
+	/// <description>
+	/// Added history. Fixed a problem in "Compress" that injected blanks.
+	/// </description>
+	/// </contribution>
+	/// </history>
 	public class PAFString
 	{
 		/// <summary>
@@ -539,12 +548,12 @@ namespace PlatformAgileFramework
 			var size = parts.Length;
 			// Put 'em back together
 			for (var i = 0; i < size; i++)
-				sb.AppendFormat("{0} ", parts[i]);
+				sb.AppendFormat("{0}", parts[i]);
 			return sb.ToString();
 		}
 		/// <summary>
 		/// Method to check strings for equality where either or both can be
-		/// <see langword="null"/> or <see cref="String.Empty"/> and they still we
+		/// <see langword="null"/> or <see cref="string.Empty"/> and they still we
 		/// be considered equal.
 		/// </summary>
 		/// <param name="string1">The first string to be checked.</param>

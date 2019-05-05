@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -64,7 +64,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// <see langword="false"/> if another thread snuck in before
         /// us and already stored it.
         /// </returns>
-        //[SecurityCritical]
+        [SecurityCritical]
         bool AddMapping(string token, string directory);
         /// <summary>
         /// Gets a mapping from the mapping dictionary.
@@ -75,7 +75,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// <returns>
         /// The mapping if found or <see langword="null"/>.
         /// </returns>
-        //[SecurityCritical]
+        [SecurityCritical]
         string GetMapping(string token);
         /// <summary>
         /// Populates the static dictionary from xml.
@@ -84,7 +84,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
         /// File path to the xml file, including filename. This one must
         /// obviously be absolute (non-symbolic). <see langword="null"/> not to load from file.
         /// </param>
-        //[SecurityCritical]
+        [SecurityCritical]
         void PopulateStaticDictionaryFromXML(string filePath);
 		#endregion // Methods
 	}

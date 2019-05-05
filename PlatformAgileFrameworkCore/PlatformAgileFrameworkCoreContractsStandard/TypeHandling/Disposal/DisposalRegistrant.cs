@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -52,20 +52,35 @@ namespace PlatformAgileFramework.TypeHandling.Disposal
 		/// </summary>
 		public Guid RegistrantGuid { get; protected set; }
 		/// <summary>
-		/// Registrant's Object.
+		/// Registrant's Object. Internal visibility to be nulled by the
+		/// infrastructure. Purposefully NOT explicitly typed.
 		/// </summary>
-		public IDisposable RegistrantDisposable { get; protected set; }
+		public object Registrant { get; protected internal set; }
 		#endregion // Class Fields and Autoproperties
 		#region Constructors
 		/// <summary>
-		/// Just builds with the props.
+		/// Just builds with the props. The delegate can be non-public with this constructor.
 		/// </summary>
 		/// <param name="registrantGuid">See <see cref="RegistrantGuid"/>.</param>
-		/// <param name="registrantDisposable">See <see cref="RegistrantDisposable"/>.</param>
+		/// <param name="registrantDisposeMethod">
+		/// Sets <see cref="Registrant"/>.
+		/// </param>
+		public DisposalRegistrant(Guid registrantGuid, Action registrantDisposeMethod)
+		{
+			RegistrantGuid = registrantGuid;
+			Registrant = registrantDisposeMethod;
+		}
+		/// <summary>
+		/// Builds with a <see cref="Guid"/> and a <see cref="IDisposable"/>.
+		/// </summary>
+		/// <param name="registrantGuid">See <see cref="RegistrantGuid"/>.</param>
+		/// <param name="registrantDisposable">
+		/// Sets <see cref="Registrant"/>.
+		/// </param>
 		public DisposalRegistrant(Guid registrantGuid, IDisposable registrantDisposable)
 		{
 			RegistrantGuid = registrantGuid;
-			RegistrantDisposable = registrantDisposable;
+			Registrant = registrantDisposable;
 		}
 		#endregion // Constructors
 	}

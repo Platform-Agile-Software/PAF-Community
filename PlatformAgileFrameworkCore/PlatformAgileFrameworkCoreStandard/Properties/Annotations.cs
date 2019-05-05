@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
 using System;
-// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
 #pragma warning disable 1591
 // ReSharper disable UnusedMember.Global
@@ -31,7 +30,7 @@ using System;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace PlatformAgileFramework.Properties
+namespace PlatformAgileFramework.Annotations
 {
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,

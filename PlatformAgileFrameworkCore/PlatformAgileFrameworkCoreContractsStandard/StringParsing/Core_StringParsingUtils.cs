@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -49,6 +49,15 @@ namespace PlatformAgileFramework.StringParsing
 	/// This is the half of the class that is Silverlight-compatible.
 	/// </para>
 	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 04jan2019 </date>
+	/// <description>
+	/// Started history. Added <see cref="GetNumberSpan"/>.
+	/// </description>
+	/// </contribution>
+	/// </history>
 // ReSharper disable PartialTypeWithSinglePart
 	public partial class StringParsingUtils
 // ReSharper restore PartialTypeWithSinglePart
@@ -75,7 +84,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// include the <see cref="IConvertible"/> types and the <see cref="Enum"/>-derived
 		/// types and <see cref="Guid"/>.
 		/// </summary>
-		public static readonly Type[] SimpleParsableTypes
+		public static readonly Type[] s_SimpleParsableTypes
 			=
 		{
 			typeof (bool), typeof (byte), typeof (char), typeof (DateTime), typeof (decimal),
@@ -167,7 +176,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// Just finds an isolated (not repeated) character.
 		/// </summary>
 		/// <param name="stringPossiblyContainingCharacter">
-		/// The name. <see langword="null"/> or <see cref="String.Empty"/>
+		/// The name. <see langword="null"/> or <see cref="string.Empty"/>
 		/// returns -1.
 		/// </param>
 		/// <param name="character">
@@ -194,8 +203,8 @@ namespace PlatformAgileFramework.StringParsing
 		/// line feed and carriage retrurn is added at the end.
 		/// </summary>
 		/// <param name="name">
-		/// The name. <see langword="null"/> or <see cref="String.Empty"/>
-		/// returns <see cref="String.Empty"/>.
+		/// The name. <see langword="null"/> or <see cref="string.Empty"/>
+		/// returns <see cref="string.Empty"/>.
 		/// </param>
 		/// <param name="value">
 		/// The value. <see langword="null"/> prints "null".
@@ -225,7 +234,7 @@ namespace PlatformAgileFramework.StringParsing
 		public static bool IsTypeSimpleParsable(Type type)
 		{
 			if (type.IsTypeAnEnum()) return true;
-			foreach (var t in SimpleParsableTypes)
+			foreach (var t in s_SimpleParsableTypes)
 			{
 				if (type == t) return true;
 			}
@@ -260,7 +269,69 @@ namespace PlatformAgileFramework.StringParsing
 				return true;
 			return false;
 		}
+
 		/// <summary>
+		/// Just gets how many numerical digits are contained in consecutive
+		/// positions in the string.
+		/// </summary>
+		/// <param name="str">
+		/// String to process. Null or empty returns 0.
+		/// </param>
+		/// <returns>
+		/// The number of consecutive numerals starting at the beginning of the string.
+		/// </returns>
+		public static int GetNumberSpan(string str)
+		{
+			if (string.IsNullOrEmpty(str))
+				return 0;
+			// This loop gets us the length of the number.
+			var charIndex = 0;
+			while (charIndex < str.Length)
+			{
+				if (!IsANumber(str[charIndex]))
+					break;
+				charIndex++;
+			}
+
+			return charIndex;
+		}
+
+		/// <summary>
+		/// Returns the number string that is contained in consecutive
+		/// positions in the string, working BACKWARDS.
+		/// </summary>
+		/// <param name="str">
+		/// String to process. Null or empty returns <see langword="null"/>.
+		/// </param>
+		/// <returns>
+		/// <see langword="null"/> for no numbers.
+		/// </returns>
+		public static string GetNumberInSpanBackwards(string str)
+		{
+			if (string.IsNullOrEmpty(str))
+				return null;
+
+			var numberString = "";
+
+			// This loop gobbles up numeric characters.
+			var charIndex = str.Length - 1;
+			while (charIndex >= 0)
+			{
+				numberString = str[charIndex] + numberString;
+
+				charIndex--;
+
+				if (charIndex < 0)
+					break;
+
+				if (!IsANumber(str[charIndex]))
+					break;
+			}
+
+			return numberString;
+		}
+
+	/// <summary>
 		/// Interface to <see cref="MultipleWildCardMatch"/> with specialized parameters.
 		/// </summary>
 		/// <param name="stringToCheck">
@@ -763,6 +834,32 @@ namespace PlatformAgileFramework.StringParsing
 			return matchDescriptor;
 		}
 		/// <summary>
+		/// Left-pads a string with zeroes to make a certain length. Usually
+		/// used for integers.
+		/// </summary>
+		/// <param name="integerString">
+		/// String to process. Null or empty returns all zeroes.
+		/// </param>
+		/// <param name="length">
+		/// Minimum length of the zero-padded returned string.
+		/// </param>
+		/// <returns>
+		/// String with zeroes potentially added on the front. If the string is already
+		/// equal or greater in length than <paramref name="length"/>, it's untouched.
+		/// </returns>
+		public static string LeftPadToLength(string integerString, int length)
+		{
+			if (string.IsNullOrEmpty(integerString))
+				integerString = "";
+			// This loop adds the zeroes.
+			while (integerString.Length < length)
+			{
+				integerString = '0' + integerString;
+			}
+
+			return integerString;
+		}
+		/// <summary>
 		/// This method performs a search and replace operation <c>SeaRep</c>for
 		/// a single type of character in a string.
 		/// </summary>
@@ -779,7 +876,7 @@ namespace PlatformAgileFramework.StringParsing
 		/// </param>
 		/// <param name="replaceChar">
 		/// The character to replace the search character with. If this character is
-		/// <see langword="null"/>, replacements are not made, but occurrances of the
+		/// <see langword="null"/>, replacements are not made, but occurrences of the
 		/// <see paramref="searchChar"/> are merely counted.
 		/// </param>
 		/// <param name="maxNumReplacements">

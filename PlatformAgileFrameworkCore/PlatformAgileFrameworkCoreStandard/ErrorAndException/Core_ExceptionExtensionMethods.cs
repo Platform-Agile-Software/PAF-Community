@@ -64,7 +64,7 @@ namespace PlatformAgileFramework.ErrorAndException
 		/// Name that is to be displayed in the <see cref="ArgumentNullException"/>.
 		/// </param>
 		/// <param name="obj">
-		/// Incoming <see cref="Object"/>.
+		/// Incoming <see cref="object"/>.
 		/// </param>
 		/// <returns>
 		/// The <paramref name="obj"/>, if not <see langword="null"/>.

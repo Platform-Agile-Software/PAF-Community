@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -145,7 +145,7 @@ namespace PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmula
         #endregion // Constructors
         /// <summary>
         /// Little helper so we don't have to fiddle with the base constructors.
-        /// This method takes <paramref name="name"/> if it non - <see langword="null"/>.
+        /// This method takes <paramref name="name"/> if it is non - <see langword="null"/>.
         /// It will take <see cref="IPAFAssemblyHolder.AssemblySimpleName"/> if
         /// <paramref name="asmName"/> is non - <see langword="null"/>. Otherwise it
         /// returns <see langword="null"/>.

@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -24,169 +24,196 @@
 //@#$&-
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using PlatformAgileFramework.AssemblyHandling;
+using PlatformAgileFramework.Collections;
+using PlatformAgileFramework.Collections.ExtensionMethods;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
 using PlatformAgileFramework.FrameworkServices;
+using PlatformAgileFramework.Logging;
 using PlatformAgileFramework.Manufacturing;
 using PlatformAgileFramework.StringParsing;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
-
-// Exception shorthand.
-using PAFTED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFTypeExceptionData;
-using PAFTMED = PlatformAgileFramework.TypeHandling.Exceptions.PAFTypeMismatchExceptionData;
+using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
+#region Exception shorthand.
+// ReSharper disable IdentifierTypo
 using PAFTMEMT = PlatformAgileFramework.TypeHandling.Exceptions.PAFTypeMismatchExceptionMessageTags;
+using PAFTMED = PlatformAgileFramework.TypeHandling.Exceptions.PAFTypeMismatchExceptionData;
 using IPAFTMED = PlatformAgileFramework.TypeHandling.Exceptions.IPAFTypeMismatchExceptionData;
+using PAFTED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFTypeExceptionData;
+using IPAFTED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.IPAFTypeExceptionData;
+using PAFTEMT = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFTypeExceptionMessageTags;
 using PlatformAgileFramework.TypeHandling.Exceptions;
+// ReSharper restore IdentifierTypo
+#endregion // Exception shorthand.
+
 
 namespace PlatformAgileFramework.TypeHandling
 {
 	/// <summary>
-	/// <para>
 	///	Contains all possible information about a type.
-	/// </para>
 	/// </summary>
 	/// <threadsafety>
-	/// Safe. Props are synchronized since they are dynamically adjusted as
-	/// types are instantiated, etc. while in use.
+	/// Safe.
 	/// </threadsafety>
 	/// <remarks>
 	/// This holder now supports versioning. The holder can be built with a
 	/// "template" in the form of the "AssemblyHolder" parameter.
 	/// This can be wildcarded for the assembly name, in which case the
-	/// <see cref="ResolveType(IPAFAssemblyLoader, Boolean)"/> method looks
+	/// <see cref="ResolveType(IPAFAssemblyLoader, bool)"/> method looks
 	/// for an assembly containing the type and resets the information on
 	/// this holder to reflect the characteristics of the discovered
 	/// assembly. This is the extent of versioning support in core. It
 	/// is not really even versioning, but a capability to resolve a
-	/// named type from loaded assemblies
+	/// named type from loaded assemblies.
 	/// </remarks>
 	/// <history>
+	/// <contribution>
+	/// <author> Brian T. </author>
+	/// <date> 01feb2019 </date>
+	/// <description>
+	/// This had to be extensively rewritten in a backward-compatible way to support
+	/// Generic types. The original version was written back in 2004 and was used for
+	/// non-Generic loading. This is the new version that exploits the new reflection
+	/// library and the fact that creating a <see cref="Type"/> does not entail loading
+	/// all its dependencies. This was the purpose of this original class, but is now
+	/// handled by <see cref="Type"/>. Also took out unnecessary locks.
+	/// </description>
+	/// </contribution>
 	/// <author> DAP </author>
 	/// <date> 08dec2011 </date>
 	/// <contribution>
-	/// <para>
 	/// Rewrote to add the "AssemblyHolder" and rewrote the
-	/// <see cref="ResolveType(IPAFAssemblyLoader, Boolean)"/> method to
+	/// <see cref="ResolveType(IPAFAssemblyLoader, bool)"/> method to
 	/// deal with wildcards.
-	/// </para>
 	/// </contribution>
+	/// <contribution>
 	/// <author> DAP </author>
 	/// <date> 06nov2011 </date>
-	/// <contribution>
-	/// <para>
+	/// <description>
 	/// Added history, changed name space.
-	/// </para>
+	/// </description>
 	/// </contribution>
 	/// </history>
-	public class PAFTypeHolderBase: PAFAssemblyHolderBase, IPAFTypeHolder
+	// ReSharper disable once PartialTypeWithSinglePart
+	// Core version
+	public partial class PAFTypeHolderBase : PAFAssemblyHolderBase, IPAFTypeHolder,
+		IPAFGenericTypeNode
 	{
 		#region Class Fields and Autoproperties
+		#region For the type tree.
+		/// <summary>
+		/// Backing.
+		/// </summary>
+		protected internal IList<IPAFGenericTypeNode> m_GenericChildTypes;
+		/// <summary>
+		/// Backing.
+		/// </summary>
+		protected internal IPAFGenericTypeNode m_GenericParentNode;
+		/// <summary>
+		/// Backing.
+		/// </summary>
+		protected internal Type m_NodeType;
+		#endregion // For the type tree.
 		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal IPAFAssemblyHolder m_AssemblyHolder;
 		/// <summary>
-		/// Monitor for the backing.
-		/// </summary>
-		private object m_AssemblyHolderLock;
-		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal string m_AssemblyQualifiedTypeName;
-		/// <summary>
-		/// Monitor for the backing.
-		/// </summary>
-		private object m_AssemblyQualifiedTypeNameLock;
 		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal string m_Namespace;
 		/// <summary>
-		/// Monitor for the backing.
-		/// </summary>
-		private object m_NamespaceLock;
-		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal string m_NamespaceQualifiedTypeName;
-		/// <summary>
-		/// Monitor for the backing.
-		/// </summary>
-		private object m_NamespaceQualifiedTypeNameLock;
-		/// <summary>
-		/// Constant for constructor calls.
-		/// </summary>
-		protected internal const Type NULL_TYPE = null;
 		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal string m_SimpleTypeName;
 		/// <summary>
-		/// Monitor for the backing.
-		/// </summary>
-		private object m_SimpleTypeNameLock;
-		/// <summary>
 		/// Backing.
 		/// </summary>
 		protected internal Type m_TypeType;
+		#endregion // Class Fields and AutoProperties
+		#region Constructors
 		/// <summary>
-		/// Monitor for the backing.
+		/// For the surrogate.
 		/// </summary>
-		private object m_TypeTypeLock;
-	    #endregion Class AutoProperties
-        #region Constructors
-        /// <summary>
-        /// For the surrogate.
-        /// </summary>
-        protected internal PAFTypeHolderBase()
-        {
-        }
-        /// <summary>
-        /// Builds with a string representation of a type or with an actual
-        /// <see cref="Type"/>, if available.
-        /// The format is:
-        /// <c>NamespaceQualifiedTypeName, SimpleAssemblyName {,Culture = CultureInfo} {,Version = Major.Minor.Build.Revision} {,StrongName} {,PublicKeyToken}</c>,
-        /// where braces indicate optional fields.
-        /// </summary>
-        /// <param name="typeType">
-        /// Type of the type, if available.
-        /// </param>
-        /// <param name="assemblyQualifiedTypeName">
-        /// String to parse and build from.
-        /// </param>
-        /// <param name="asmblyChecker">
-        /// Optional assembly suitability checker.
-        /// </param>
-        /// <param name="assemblyLoader">
-        /// Optional loader to be installed. If <see langword="null"/>, the default loader for
-        /// the environment is used.
-        /// </param>
-        /// <param name="assemblyHolder">
-        /// If we are built with this contained holder, we delegate to it instead of
-        /// using our base class. This allows us to use one holder/loader for an
-        /// entire collection of types.
-        /// </param>
-        /// <exceptions>
-        /// <exception cref="ArgumentNullException"> is thrown if
-        /// <paramref name="assemblyQualifiedTypeName"/>
-        /// is <see langword="null"/> or blank.
-        /// </exception>
-        /// <exception cref="ArgumentException"> is thrown if
-        /// <paramref name="assemblyQualifiedTypeName"/>
-        /// is malformed.
-        /// </exception>
-        /// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> is thrown if
-        /// <paramref name="assemblyHolder"/> is supplied and it's assembly is different from
-        /// that of the (this) type.
-        /// </exception>
-        /// </exceptions>
-        protected PAFTypeHolderBase(Type typeType, string assemblyQualifiedTypeName = null,
-			CheckCandidateAssembly asmblyChecker = null,
+		protected internal PAFTypeHolderBase()
+		{
+		}
+		/// <summary>
+		/// Builds with a string representation of a type or with an actual
+		/// <see cref="Type"/>, if available.
+		/// The format is:
+		/// <c>NamespaceQualifiedTypeName, SimpleAssemblyName {,Culture = CultureInfo} {,Version = Major.Minor.Build.Revision} {,StrongName} {,PublicKeyToken}</c>,
+		/// where braces indicate optional fields.
+		/// This is the format of a non-Generic type string.
+		/// </summary>
+		/// <param name="typeType">
+		/// Type of the type, if available.
+		/// </param>
+		/// <param name="assemblyQualifiedTypeName">
+		/// String to parse and build from.
+		/// </param>
+		/// <param name="assemblyChecker">
+		/// Optional assembly suitability checker. (Brian T.) This is the ONLY way we check assemblies for
+		/// version compatibility. The problem is that mono has different criteria for loading
+		/// compatible assemblies, so the check must be platform-dependent. Normally, this is not
+		/// a problem for a service interface, since these interfaces are early bound, known
+		/// to both main and loaded assemblies. Other usage modes are arcane. In the "loose-coupling" or
+		/// service-oriented style, implementations are accessed by their interfaces.
+		/// </param>
+		/// <param name="assemblyLoader">
+		/// Optional loader to be installed. If <see langword="null"/>, the default loader for
+		/// the environment is used.
+		/// </param>
+		/// <param name="assemblyHolder">
+		/// If we are built with this contained holder, we delegate to it instead of
+		/// using our base class. This allows us to use one holder/loader for an
+		/// entire collection of types.
+		/// </param>
+		/// <exceptions>
+		/// <exception cref="ArgumentNullException"> is thrown if
+		/// <paramref name="assemblyQualifiedTypeName"/>
+		/// is <see langword="null"/> or blank.
+		/// </exception>
+		/// <exception cref="ArgumentException"> is thrown if
+		/// <paramref name="assemblyQualifiedTypeName"/>
+		/// is malformed.
+		/// </exception>
+		/// <exception cref="PAFStandardException{IPAFTypeExceptionData}"> is thrown if
+		/// both <paramref name="typeType"/> and <paramref name="assemblyQualifiedTypeName"/>
+		/// are <see langword="null"/>.
+		/// <see cref="PAFTEMT.TYPE_STRING_CANNOT_BE_NULL"/>.
+		/// </exception>
+		/// <exception cref="PAFStandardException{IPAFTypeExceptionData}"> is thrown if
+		/// the type is a Generic type and <paramref name="typeType"/> is <see langword="null"/>.
+		/// <see cref="PAFTEMT.TYPE_CANNOT_BE_NULL"/>.
+		/// </exception>
+		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> is thrown if
+		/// <paramref name="assemblyHolder"/> is supplied and it's assembly is different from
+		/// that of the (this) type.
+		/// <see cref="PAFTMEMT.TYPES_NOT_AN_EXACT_MATCH"/>
+		/// </exception>
+		/// </exceptions>
+		protected PAFTypeHolderBase(Type typeType, string assemblyQualifiedTypeName = null,
+			CheckCandidateAssembly assemblyChecker = null,
 			IPAFAssemblyLoader assemblyLoader = null, IPAFAssemblyHolder assemblyHolder = null)
-			: base(GetAssemblyName(OverrideAssemblyName(assemblyQualifiedTypeName, typeType)),
-			AssemblyFromHolder(assemblyHolder), asmblyChecker, assemblyLoader)
+			: base(GetAssemblyName(OverrideAssemblyName(assemblyQualifiedTypeName, typeType), typeType),
+			AssemblyFromHolder(assemblyHolder), assemblyChecker, assemblyLoader)
 		{
 			Initialize_PAFTypeHolderBase();
+
 			// Early bound solves everything!
 			if (typeType != null)
 			{
@@ -196,25 +223,61 @@ namespace PlatformAgileFramework.TypeHandling
 
 			m_AssemblyQualifiedTypeName = assemblyQualifiedTypeName;
 
+			// Neither Type nor string input?
+			if (string.IsNullOrEmpty(m_AssemblyQualifiedTypeName))
+			{
+				var exceptionData = new PAFTED(new PAFTypeHolder(null, ""), null, PAFLoggingLevel.Error);
+				throw new PAFStandardException<IPAFTED>(exceptionData, PAFTEMT.TYPE_STRING_CANNOT_BE_NULL);
+			}
+
 			m_TypeType = typeType;
+
+			m_AssemblyHolder = assemblyHolder;
+
+			// Brian T. this is our major mod for Generics
+			///////////////////////////////////////////////
+			var isGeneric = IsGenericTypeName(m_AssemblyQualifiedTypeName);
+			if (isGeneric)
+			{
+				// Kill any assembly holder. This pattern is used only for non-Generics.
+				m_AssemblyHolder = null;
+
+				// Generics in core are handled by the new reflection library, so type must
+				// be here.
+				if (m_TypeType == null)
+				{
+					var exceptionData = new PAFTED(new PAFTypeHolder(null, ""), null, PAFLoggingLevel.Error);
+					throw new PAFStandardException<IPAFTED>(exceptionData, PAFTEMT.TYPE_CANNOT_BE_NULL);
+				}
+				AssemblySimpleName = m_TypeType.Assembly.GetName().Name;
+
+				m_NodeType = m_TypeType;
+
+				if (!m_NodeType.IsGenericType) return;
+
+				// Keep going if not a leaf node.
+				m_GenericChildTypes = new Collection<IPAFGenericTypeNode>();
+				m_GenericChildTypes.AddItems(GetWrappedTypes(m_NodeType.GetGenericArguments()));
+
+				return;
+			}
+
+			// If we got here, we are a non-Generic type.
 			ParseAssemblyQualifiedTypeName(assemblyQualifiedTypeName);
 
-			if (assemblyHolder != null)
+			if (m_AssemblyHolder == null) return;
+
+			var assemblyString1 = PAFString.Compress(m_AssemblyNameString);
+			var assemblyString2 = PAFString.Compress(m_AssemblyHolder.AssemblyNameString);
+			if (string.Compare(assemblyString1, assemblyString2, StringComparison.Ordinal) != 0)
 			{
-				// TODO - KRM - we need an assembly exception.
-				var assemblyString1 = PAFString.Compress(m_AssemblyNameString);
-				var assemblyString2 = PAFString.Compress(assemblyHolder.AssemblyNameString);
-				if (string.Compare(assemblyString1, assemblyString2,StringComparison.Ordinal) != 0)
-				{
-					var assemblyType1
-						= new PAFTypeHolder(null, NamespaceQualifiedTypeName + "," + AssemblyQualifiedTypeName);
-					var assemblyType2
-						= new PAFTypeHolder(null, NamespaceQualifiedTypeName + "," + assemblyHolder.AssemblyNameString);
-					var data = new PAFTMED(assemblyType1, assemblyType2);
-					throw new PAFStandardException<IPAFTMED>(data, PAFTMEMT.TYPES_NOT_AN_EXACT_MATCH);
-				}
+				var assemblyType1
+					= new PAFTypeHolder(null, NamespaceQualifiedTypeName + "," + AssemblyQualifiedTypeName);
+				var assemblyType2
+					= new PAFTypeHolder(null, NamespaceQualifiedTypeName + "," + m_AssemblyHolder.AssemblyNameString);
+				var data = new PAFTMED(assemblyType1, assemblyType2);
+				throw new PAFStandardException<IPAFTMED>(data, PAFTMEMT.TYPES_NOT_AN_EXACT_MATCH);
 			}
-			m_AssemblyHolder = assemblyHolder;
 		}
 		/// <summary>
 		/// Builds with a string representation of a type.
@@ -236,10 +299,10 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </exception>
 		/// </exceptions>
 		protected PAFTypeHolderBase(string assemblyQualifiedTypeName)
-			: this(NULL_TYPE, assemblyQualifiedTypeName)
+			: this(null, assemblyQualifiedTypeName)
 		{
 			Initialize_PAFTypeHolderBase();
-			
+
 		}
 		/// <summary>
 		/// Copy constructor.
@@ -255,8 +318,8 @@ namespace PlatformAgileFramework.TypeHandling
 		protected PAFTypeHolderBase(IPAFTypeHolder typeHolder)
 			: this(typeHolder.TypeType, typeHolder.GetAssemblyHolder().AssemblyNameString,
 			typeHolder.GetAssemblyHolder().AssemblyChecker,
-			typeHolder.GetAssemblyHolder().AssemblyLoader,
-			typeHolder.GetAssemblyHolder())
+			typeHolder.GetAssemblyHolder().AssemblyLoader) //,
+			// typeHolder.GetAssemblyHolder())
 		{
 			Initialize_PAFTypeHolderBase();
 		}
@@ -271,7 +334,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// Accepts a concrete type.
 		/// </remarks>
 		protected PAFTypeHolderBase(PAFTypeHolderBase typeHolder)
-			: this((IPAFTypeHolder) typeHolder)
+			: this((IPAFTypeHolder)typeHolder)
 		{
 			Initialize_PAFTypeHolderBase();
 		}
@@ -284,11 +347,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </summary>
 		public override IPAFAssemblyHolder GetAssemblyHolder()
 		{
-			IPAFAssemblyHolder assemblyHolder;
-			lock (m_AssemblyHolderLock)
-			{
-				assemblyHolder = m_AssemblyHolder;
-			}
+			var assemblyHolder = m_AssemblyHolder;
 			return assemblyHolder ?? base.GetAssemblyHolder();
 		}
 		/// <summary>
@@ -298,18 +357,12 @@ namespace PlatformAgileFramework.TypeHandling
 		{
 			get
 			{
-				lock (m_AssemblyQualifiedTypeNameLock)
-				{
-					return m_AssemblyQualifiedTypeName;
-				}
+				return m_AssemblyQualifiedTypeName;
 			}
 			protected internal set
 			{
 				ParseAssemblyQualifiedTypeName(value);
-				lock (m_AssemblyQualifiedTypeNameLock)
-				{
-					m_AssemblyQualifiedTypeName = value;
-				}
+				m_AssemblyQualifiedTypeName = value;
 			}
 		}
 
@@ -320,17 +373,11 @@ namespace PlatformAgileFramework.TypeHandling
 		{
 			get
 			{
-				lock (m_NamespaceLock)
-				{
-					return m_Namespace;
-				}
+				return m_Namespace;
 			}
 			protected internal set
 			{
-				lock (m_NamespaceLock)
-				{
-					m_Namespace = value;
-				}
+				m_Namespace = value;
 			}
 		}
 		/// <summary>
@@ -338,20 +385,14 @@ namespace PlatformAgileFramework.TypeHandling
 		/// type with the usual dots.
 		/// </summary>
 		public string NamespaceQualifiedTypeName
-		{ 
+		{
 			get
 			{
-				lock (m_NamespaceQualifiedTypeName)
-				{
-					return m_NamespaceQualifiedTypeName;
-				}
+				return m_NamespaceQualifiedTypeName;
 			}
 			protected internal set
 			{
-				lock (m_NamespaceQualifiedTypeNameLock)
-				{
-					m_NamespaceQualifiedTypeName = value;
-				}
+				m_NamespaceQualifiedTypeName = value;
 			}
 		}
 
@@ -362,17 +403,11 @@ namespace PlatformAgileFramework.TypeHandling
 		{
 			get
 			{
-				lock (m_SimpleTypeNameLock)
-				{
-					return m_SimpleTypeName;
-				}
+				return m_SimpleTypeName;
 			}
 			protected internal set
 			{
-				lock (m_SimpleTypeNameLock)
-				{
-					m_SimpleTypeName = value;
-				}
+				m_SimpleTypeName = value;
 			}
 		}
 		/// <summary>
@@ -383,19 +418,15 @@ namespace PlatformAgileFramework.TypeHandling
 		{
 			get
 			{
-				lock(m_TypeTypeLock)
-				{return m_TypeType;}
+				return m_TypeType;
 			}
 			set
 			{
-				lock (m_TypeTypeLock)
+				if (value != null)
 				{
-					if (value != null)
-					{
-						AssemblyQualifiedTypeName = value.AssemblyQualifiedName;
-					}
-					m_TypeType = value;
+					AssemblyQualifiedTypeName = value.AssemblyQualifiedName;
 				}
+				m_TypeType = value;
 			}
 		}
 		#endregion // Properties
@@ -406,48 +437,33 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </summary>
 		protected internal void Initialize_PAFTypeHolderBase()
 		{
-			if(m_AssemblyHolderLock == null)
-				m_AssemblyHolderLock = new object();
-			if (m_AssemblyQualifiedTypeNameLock == null)
-				m_AssemblyQualifiedTypeNameLock = new object();
-			if (m_NamespaceQualifiedTypeNameLock == null)
-				m_NamespaceQualifiedTypeNameLock = new object();
-			if (m_NamespaceLock == null)
-				m_NamespaceLock = new object();
-			if (m_SimpleTypeNameLock == null)
-				m_SimpleTypeNameLock = new object();
-			if (m_TypeTypeLock == null)
-				m_TypeTypeLock = new object();
-		    Services = PAFServiceManagerContainer.ServiceManager;
+			Services = PAFServiceManagerContainer.ServiceManager;
 
-        }
-        /// <summary>
-        /// Sets internal properties from the incoming name string.
-        /// </summary>
-        /// <param name="assemblyQualifiedTypeName">
-        /// Type name with namespace and assembly name in canononical
-        /// (standard) format. Assembly name may be missing. Either namespace
-        /// or unqualified name may be missing, but not both. This is needed
-        /// when we want to supply only a partial type specification.
-        /// </param>
-        /// <exceptions>
-        /// <exception cref="ArgumentNullException"> is thrown if
-        /// <paramref name="assemblyQualifiedTypeName"/>
-        /// is <see langword="null"/> or blank.
-        /// </exception>
-        /// <exception cref="ArgumentException"> is thrown if
-        /// <paramref name="assemblyQualifiedTypeName"/> is malformed. or
-        /// does not at least have an unqualified type specification or a namespace.
-        /// Sometimes it is desired to describe only a namespace as a filter
-        /// on returned types.
-        /// </exception>
-        /// </exceptions>
-        // TODO - KRM - more specific exceptions..........
-        // todo - krm need parser that does not throw an exception as a utility.
-        // TODO 27nov2017 This is around somewhere, because I used it a couple of days ago.
-        protected void ParseAssemblyQualifiedTypeName(string assemblyQualifiedTypeName)
+		}
+		/// <summary>
+		/// Sets internal properties from the incoming name string.
+		/// </summary>
+		/// <param name="assemblyQualifiedTypeName">
+		/// Type name with namespace and assembly name in canonical
+		/// (standard) format. Assembly name may be missing. Either namespace
+		/// or unqualified name may be missing, but not both. This is needed
+		/// when we want to supply only a partial type specification.
+		/// </param>
+		/// <exceptions>
+		/// <exception cref="ArgumentNullException"> is thrown if
+		/// <paramref name="assemblyQualifiedTypeName"/>
+		/// is <see langword="null"/> or blank.
+		/// </exception>
+		/// <exception cref="ArgumentException"> is thrown if
+		/// <paramref name="assemblyQualifiedTypeName"/> is malformed. or
+		/// does not at least have an unqualified type specification or a namespace.
+		/// Sometimes it is desired to describe only a namespace as a filter
+		/// on returned types.
+		/// </exception>
+		/// </exceptions>
+		protected void ParseAssemblyQualifiedTypeName(string assemblyQualifiedTypeName)
 		{
-			if(string.IsNullOrEmpty(assemblyQualifiedTypeName))
+			if (string.IsNullOrEmpty(assemblyQualifiedTypeName))
 				throw new ArgumentNullException(nameof(assemblyQualifiedTypeName));
 			// Allow wildcard for assembly.
 			if (assemblyQualifiedTypeName.IndexOf(',') < 0)
@@ -465,11 +481,11 @@ namespace PlatformAgileFramework.TypeHandling
 			// Use our utilities to get the type and namespace.
 			string namespaceString = null;
 			string typeString = null;
-		    ManufacturingDelegates.GetTypeAndNamespace(NamespaceQualifiedTypeName,
+			ManufacturingDelegates.GetTypeAndNamespace(NamespaceQualifiedTypeName,
 				ref typeString, ref namespaceString);
 			if ((typeString == null) && (namespaceString == null))
 				throw new ArgumentException("NamespaceQualifiedTypeName = " + NamespaceQualifiedTypeName);
-			if(!string.IsNullOrEmpty(namespaceString)) Namespace = namespaceString.Trim();
+			if (!string.IsNullOrEmpty(namespaceString)) Namespace = namespaceString.Trim();
 			if (!string.IsNullOrEmpty(typeString)) SimpleTypeName = typeString.Trim();
 		}
 		/// <summary>
@@ -558,9 +574,9 @@ namespace PlatformAgileFramework.TypeHandling
 			}
 			catch (Exception ex)
 			{
-				var data = new PAFTED(this);
-				throw new PAFStandardException<PAFTED>
-                (data, PAFTypeMismatchExceptionMessageTags.ERROR_RESOLVING_TYPE, ex);
+				var data = new PAFTypeExceptionData(this);
+				throw new PAFStandardException<PAFTypeExceptionData>
+				(data, PAFTypeMismatchExceptionMessageTags.ERROR_RESOLVING_TYPE, ex);
 
 			}
 		}
@@ -610,7 +626,7 @@ namespace PlatformAgileFramework.TypeHandling
 			if (typeName == null) return null;
 			string simpleName = null;
 			string nameSpace = null;
-		    Services.GetTypedService<IManufacturingUtils>().GetTypeAndNamespace(typeName, ref simpleName, ref nameSpace);
+			Services.GetTypedService<IManufacturingUtils>().GetTypeAndNamespace(typeName, ref simpleName, ref nameSpace);
 			return nameSpace;
 		}
 		/// <summary>
@@ -633,7 +649,7 @@ namespace PlatformAgileFramework.TypeHandling
 			if (typeName == null) return null;
 			string simpleName = null;
 			string nameSpace = null;
-		    Services.GetTypedService<IManufacturingUtils>().GetTypeAndNamespace(typeName, ref simpleName, ref nameSpace);
+			Services.GetTypedService<IManufacturingUtils>().GetTypeAndNamespace(typeName, ref simpleName, ref nameSpace);
 			return simpleName;
 		}
 		/// <summary>
@@ -661,21 +677,57 @@ namespace PlatformAgileFramework.TypeHandling
 		/// <summary>
 		/// This method assumes that we have an incoming string with the
 		/// type name on the front end, separated by a comma from the assembly
-		/// name. This method returns the assembly name.
+		/// name. This method returns the base assembly name without version
+		/// information or anything else.
 		/// </summary>
 		/// <param name="assemblyQualifiedTypeNameString">
 		/// String in the same format that comes into the constructor of this class.
-		/// <see langword="null"/> or <see cref="String.Empty"/> returns <see langword="null"/>.
+		/// <see langword="null"/> or <see cref="string.Empty"/> returns <see langword="null"/>
+		/// if <paramref name="typeType"/> is <see langword="null"/>.
+		/// </param>
+		/// <param name="typeType">
+		/// The actual <see cref="Type"/>. For handling a Generic, this should ordinarily
+		/// be non-Null.
 		/// </param>
 		/// <returns>
-		/// <see langword="null"/> if the string is not in correct format or has no
-		/// assembly name.
+		/// <see langword="null"/> if the both inputs are vacuous.
+		/// type.
 		/// </returns>
-		public static string GetAssemblyName(string assemblyQualifiedTypeNameString)
+		/// <remarks>
+		/// note: Brain T. - Modified to extract assembly name if a	Generic and
+		/// added OPTIONAL type parameter.
+		/// </remarks>
+		public static string GetAssemblyName(string assemblyQualifiedTypeNameString, Type typeType = null)
 		{
+			string assemblyName;
+			if (typeType != null)
+			{
+				return typeType.Assembly.AssemblySimpleName();
+			}
+
 			if (string.IsNullOrEmpty(assemblyQualifiedTypeNameString))
 				return null;
-			return assemblyQualifiedTypeNameString.BreakStringInTwo()[1];
+
+			// If a generic, parse to get the simple name.
+			if (assemblyQualifiedTypeNameString.Contains("`"))
+			{
+				// OK with no checks because of known name format.
+				////////////
+				assemblyName
+					= assemblyQualifiedTypeNameString.SafeStringBeyondLastString("]");
+				// Name of the assembly for this Generic is at the end of the whole thing.
+				assemblyName = assemblyName.Substring(assemblyName.IndexOf(",", StringComparison.Ordinal) + 1);
+				// Name has blanks.
+				assemblyName = PAFString.Compress(assemblyName);
+				return assemblyName.BreakStringInTwo()[0];
+			}
+
+			// OK with no checks because of known name format.
+			////////////
+			assemblyName = assemblyQualifiedTypeNameString.BreakStringInTwo()[1];
+			// Name has blanks.
+			assemblyName = PAFString.Compress(assemblyName);
+			return assemblyName.BreakStringInTwo()[0];
 		}
 
 		/// <summary>
@@ -709,7 +761,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </summary>
 		/// <param name="assemblyQualifiedTypeNameString">
 		/// String in the same format that comes into the constructor of this class.
-		/// <see langword="null"/> or <see cref="String.Empty"/> returns <see langword="false"/>.
+		/// <see langword="null"/> or <see cref="string.Empty"/> returns <see langword="false"/>.
 		/// </param>
 		/// <returns>
 		/// <see langword="null"/> if the string is not in correct format or has no
@@ -731,7 +783,7 @@ namespace PlatformAgileFramework.TypeHandling
 		/// </summary>
 		/// <param name="assemblyQualifiedTypeNameString">
 		/// String in the same format that comes into the constructor of this class.
-		/// <see langword="null"/> or <see cref="String.Empty"/> returns <see langword="false"/>.
+		/// <see langword="null"/> or <see cref="string.Empty"/> returns <see langword="false"/>.
 		/// </param>
 		/// <returns>
 		/// <see langword="false"/> if the string is not in correct format or has no
@@ -767,27 +819,27 @@ namespace PlatformAgileFramework.TypeHandling
 			return new PAFTypeHolderBase(type);
 		}
 		#endregion // Conversion Operators
-        /// <summary>
-        /// Override to print out something useful.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="AssemblyQualifiedTypeName"/>.
-        /// </returns>
-        public override string ToString()
-        {
-            return AssemblyQualifiedTypeName;
-        }
-		#region Obligatory Patch for Equals and Hash Code
 		/// <summary>
-		/// Determines whether the specified <see cref="Object"/> is equal to the
-		/// current <see cref="Object"/>.
+		/// Override to print out something useful.
 		/// </summary>
 		/// <returns>
-		/// <see langword="true"/> if the specified <see cref="Object"/> is equal to the current
-		/// <see cref="Object"/>; otherwise, false.
+		/// The <see cref="AssemblyQualifiedTypeName"/>.
+		/// </returns>
+		public override string ToString()
+		{
+			return AssemblyQualifiedTypeName;
+		}
+		#region Obligatory Patch for Equals and Hash Code
+		/// <summary>
+		/// Determines whether the specified <see cref="object"/> is equal to the
+		/// current <see cref="object"/>.
+		/// </summary>
+		/// <returns>
+		/// <see langword="true"/> if the specified <see cref="object"/> is equal to the current
+		/// <see cref="object"/>; otherwise, false.
 		/// </returns>
 		/// <param name="obj">
-		/// The <see cref="Object"/> to compare with the current <see cref="Object"/>.
+		/// The <see cref="object"/> to compare with the current <see cref="object"/>.
 		/// </param>
 		/// <remarks>
 		/// Patch for Microsoft's mistake.
@@ -813,5 +865,77 @@ namespace PlatformAgileFramework.TypeHandling
 		}
 		#endregion // Obligatory Patch for Equals and Hash Code
 		#endregion // Methods
+		/// <summary>
+		/// <see cref="IPAFGenericTypeNode"/>.
+		/// </summary>
+		public IList<Type> ActualTypes
+		{
+			get
+			{
+				if (m_GenericChildTypes.SafeCount() == 0)
+					return null;
+
+				var types = new Collection<Type>();
+
+				foreach (var gType in m_GenericChildTypes)
+				{
+					types.Add(gType.NodeType);
+				}
+
+				return types;
+			}
+		}
+		/// <summary>
+		/// <see cref="IPAFGenericTypeNode"/>. internal setter for testing.
+		/// </summary>
+		public IList<IPAFGenericTypeNode> ChildTypeNodes
+		{
+			get { return m_GenericChildTypes;}
+			protected internal set { m_GenericChildTypes = value; }
+		}
+		/// <summary>
+		/// <see cref="IPAFGenericTypeNode"/>. internal setter for testing.
+		/// </summary>
+		public Type NodeType
+		{
+			get { return m_NodeType; }
+			protected internal set { m_NodeType = value; }
+		}
+		public IPAFGenericTypeNode GenericParentNode
+		{
+			get { return m_GenericParentNode;}
+			protected internal set { m_GenericParentNode = value; }
+		}
+		#region Methods
+		#region Static Helpers
+		/// <summary>
+		/// Wraps an enumeration of <see cref="Type"/>s in our
+		/// <see cref="PAFGenericTypeNode"/>s.
+		/// </summary>
+		/// <param name="actualTypes">
+		/// Incoming <see cref="Type"/>s. <see langword="null"/> is OK.
+		/// </param>
+		/// <returns>
+		/// <see langword="null"/> for no types coming in.
+		/// </returns>
+		public IList<IPAFGenericTypeNode> GetWrappedTypes(IEnumerable<Type> actualTypes)
+		{
+			actualTypes = actualTypes.ToArray();
+			if (actualTypes.SafeCount() == 0)
+				return null;
+
+			var gTypes = new Collection<IPAFGenericTypeNode>();
+
+			foreach (var type in actualTypes)
+			{
+				var holder = new PAFTypeHolderBase(type);
+				holder.m_GenericParentNode = this;
+				gTypes.Add(new PAFTypeHolderBase(type));
+			}
+
+			return gTypes;
+		}
+		#endregion // Static Helpers
+		#endregion Methods
 	}
 }

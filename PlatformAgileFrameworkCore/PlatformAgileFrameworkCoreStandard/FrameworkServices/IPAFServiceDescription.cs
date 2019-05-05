@@ -20,7 +20,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// to describe local services only. This is the information exposed in Core.
 	/// Service dictionaries have been rewritten to make it difficult, but not
 	/// impossible to access services by specifying their implementation type.
-	/// It is possible for clients to assign names to services corresonding to
+	/// It is possible for clients to assign names to services corresponding to
 	/// assembly-qualified names of their implementing types. This is not a
 	/// good idea, since it is at odds with the principles of "Service Orientation".
 	/// </para>
@@ -65,7 +65,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// implementation of the service interface to be handed out to
 		/// clients requesting services by type only.
 		/// </summary>
-		bool IsDefault { get; [SecurityCritical] set; }
+		bool IsDefault { get; }
 		/// <summary>
 		/// Description of the interface type that will be requested from the
 		/// service manager. As a best practice, services should not be exposed as
@@ -110,7 +110,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{T}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message if the implementation type does not inherit from the interface.
 		/// </exception>
 		/// <exception cref="ArgumentNullException"> is thrown if
@@ -119,7 +119,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </exceptions>
 		IPAFTypeHolder ServiceImplementationType { get; [SecurityCritical] set; }
 		/// <summary>
-		/// This is an optional name for the service. If blank or <see cref="String.Empty"/>,
+		/// This is an optional name for the service. If blank or <see cref="string.Empty"/>,
 		/// this service will be the default service implementation for this interface.
 		/// There can only be one default service in any "AppDomain" for
 		/// a given interface type (<see cref="ServiceInterfaceType"/>). This property
@@ -131,23 +131,20 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{T}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// message if the object does not inherit from
-		// ReSharper disable CSharpWarnings::CS1584
-		// ReSharper Problem
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}"> with
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.TYPES_NOT_AN_EXACT_MATCH"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.TYPES_NOT_AN_EXACT_MATCH"/>
 		/// message is thrown if the object does not exactly match the
 		/// <see cref="IPAFServiceDescription.ServiceImplementationType.TypeType"/>
 		/// if it is here.
-		// ReSharper restore CSharpWarnings::CS1584
 		/// </exception">
 		/// </exceptions>
 		/// <remarks>
 		/// Can be set to <see langword="null"/> when service is disposed or otherwise
-		/// unavaliable.
+		/// unavailable.
 		/// </remarks>
 		object ServiceObject { get; [SecurityCritical] set; }
 		#endregion // Properties

@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -29,14 +29,12 @@ using System.Security;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.FileAndIO.FileAndDirectoryService;
 using PlatformAgileFramework.Logging;
-using PlatformAgileFramework.MultiProcessing.Threading;
 using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.UserInterface;
 
 // Exception shorthand.
 using PAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionData;
 using IPAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.IPAFServiceExceptionData;
-using PAFSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionDataBase;
 using PlatformAgileFramework.FrameworkServices.Exceptions;
 using PlatformAgileFramework.MultiProcessing.Tasking;
 
@@ -95,9 +93,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		// ReSharper disable once InconsistentNaming
 		public static IPAFServiceDescription<IPAFUIService> s_SiPAFUIService
 		{
-			//[SecurityCritical]
+			[SecurityCritical]
 			get { return s_SiPAFUIServiceInternal; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { s_SiPAFUIServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFUIService> s_SiPAFUIServiceInternal
@@ -108,9 +106,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		public static IPAFServiceDescription<IPAFLoggingService> s_SiPAFLoggingService
 		{
-			//[SecurityCritical]
+			[SecurityCritical]
 			get { return s_SiPAFLoggingServiceInternal; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { s_SiPAFLoggingServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFLoggingService> s_SiPAFLoggingServiceInternal
@@ -120,13 +118,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		///	This is the storage service. This is fundamental file/directory access
 		/// in simplest cases. This service can be pre-loaded with a basic implementation that
 		/// is needed to even read configuration files to get the application parameterized,
-		/// then replaced with something more specific.
+		/// then replaced with something more specific. This needs to be loaded for emergency
+		/// logger to log anything during SM initialization failure.
 		/// </summary>
-		public static IPAFServiceDescription<IPAFStorageService> s_SiPAFStorageService
+		public static IPAFServiceDescription<IPAFStorageService> SiPAFStorageService
 		{
-			//[SecurityCritical]
 			get { return SiPAFStorageServiceInternal; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { SiPAFStorageServiceInternal = value; }
 		}
 		internal static IPAFServiceDescription<IPAFStorageService> SiPAFStorageServiceInternal { get; set; }
@@ -138,7 +136,7 @@ namespace PlatformAgileFramework.FrameworkServices
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
-		/// Lock for multithread access. 1 indicates already initializing.
+		/// Lock for multi-thread access. 1 indicates already initializing.
 		/// </summary>
 		/// <remarks>
 		/// This is a lock variable and must never be touched by anyone except
@@ -167,9 +165,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <remarks>
 		///	This is private to enforce the singleton condition.
 		/// </remarks>
-		//[SecurityCritical]
+		[SecuritySafeCritical]
 		private PAFServices()
-			: base(GetStaticGuid())
+			: base(null, null, GetStaticGuid())
 		{
 		}
 		#endregion Constructors
@@ -213,12 +211,12 @@ namespace PlatformAgileFramework.FrameworkServices
 		}
 		/// <summary>
 		/// This method is the "bootstrapper" for the service manager. It installs basic
-		/// critical services from service objets that are either pre-loaded as statics
+		/// critical services from service objects that are either pre-loaded as statics
 		/// or created by searching assemblies for implementations.
 		/// </summary>
 		/// <param name="o">An optional provisioning object.</param>
 		/// <returns></returns>
-		//[SecurityCritical]
+		[SecurityCritical]
 		internal static PAFServices InstantiateAndProvision(object o)
 		{
 			var manager = new PAFServices();
@@ -245,9 +243,9 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// The method will construct the initial set of services. It then checks to see if
 		/// these services contain <see cref="IPAFLoggingService"/> or <see cref="IPAFUIService"/>
 		/// or <see cref="IPAFStorageService"/>. If they do, <see cref="s_SiPAFLoggingService"/>
-		/// and/or <see cref="s_SiPAFUIService"/> and/or <see cref="s_SiPAFStorageService"/>
+		/// and/or <see cref="s_SiPAFUIService"/> and/or <see cref="SiPAFStorageService"/>
 		/// are replaced with these versions. If they don't and <see cref="s_SiPAFLoggingService"/>
-		/// or <see cref="s_SiPAFLoggingService"/> or <see cref="s_SiPAFStorageService"/> are loaded,
+		/// or <see cref="s_SiPAFLoggingService"/> or <see cref="SiPAFStorageService"/> are loaded,
 		/// they are used instead. If no UI and/or Logger service has been provided from either
 		/// input source, defaults are constructed.
 		/// </para>
@@ -259,11 +257,11 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </remarks>
 		/// <exceptions>
 		/// <exception cref="PAFStandardException{IPAFSED}">
-		/// <see cref="PAFSEDB.SERVICE_NOT_FOUND"/> is thrown if storage service not loaded. It is wrapped
+		/// <see cref="PAFServiceExceptionMessageTags.SERVICE_NOT_FOUND"/> is thrown if storage service not loaded. It is wrapped
 		/// in a general exception.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFSED}">
-		/// <see cref="PAFSEDB.SERVICE_CREATION_FAILED"/> is thrown as a wrapper if any exceptions
+		/// <see cref="PAFServiceExceptionMessageTags.SERVICE_CREATION_FAILED"/> is thrown as a wrapper if any exceptions
 		/// occur in the method.
 		/// </exception>
 		/// </exceptions>
@@ -297,7 +295,7 @@ namespace PlatformAgileFramework.FrameworkServices
 				//// If we do not have storage, logger or UI, put them in. 
 				/////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SS
-				if (GetAnyService<IPAFStorageService>(false) == null)
+				if (GetAnyServiceDescription<IPAFStorageService>() == null)
 				{
 					// See if it is incoming on the static.
 					if (SiPAFStorageServiceInternal == null)
@@ -320,7 +318,7 @@ namespace PlatformAgileFramework.FrameworkServices
 				}
 
 				// UI.
-				if (GetAnyService< IPAFUIService>(false) == null)
+				if (GetAnyServiceDescription< IPAFUIService>() == null)
 				{
 					// See if it is incoming on the static.
 					if (s_SiPAFUIServiceInternal == null)
@@ -343,7 +341,7 @@ namespace PlatformAgileFramework.FrameworkServices
 				}
 
 				// Logger.
-				if (GetAnyService<IPAFLoggingService>(false) == null)
+				if (GetAnyServiceDescription<IPAFLoggingService>() == null)
 				{
 					// See if it is incoming on the static.
 					if (s_SiPAFLoggingServiceInternal == null)

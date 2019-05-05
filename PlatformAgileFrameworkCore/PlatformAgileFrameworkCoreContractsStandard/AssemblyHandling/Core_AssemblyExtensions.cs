@@ -16,13 +16,16 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
+using System.Reflection;
+using PlatformAgileFramework.Collections;
+using PlatformAgileFramework.StringParsing;
 using PlatformAgileFramework.TypeHandling;
 
 namespace PlatformAgileFramework.AssemblyHandling
@@ -56,9 +59,26 @@ namespace PlatformAgileFramework.AssemblyHandling
 		/// <returns>
 		/// The interface.
 		/// </returns>
-		public static IPAFAssemblyHolder ToAssemblyholder(this System.Reflection.Assembly assembly)
+		public static IPAFAssemblyHolder ToAssemblyholder(this Assembly assembly)
 		{
 			return new PAFAssemblyHolder(assembly);
+		}
+		/// <summary>
+		/// This method picks just the assembly base name without version info or
+		/// anything else.
+		/// </summary>
+		/// <param name="assembly">"this" reference from Assembly class.</param>
+		/// <returns>
+		/// Name. <see langword="null"/> gets <see langword="null"/>. 
+		/// </returns>
+		public static string AssemblySimpleName(this Assembly assembly)
+		{
+			if (assembly == null)
+				return null;
+
+			// Full name always has the ",".
+			var name = assembly.FullName.BreakStringInTwo()[0];
+			return name;
 		}
 	}
 }

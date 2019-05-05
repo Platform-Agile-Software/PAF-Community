@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2018 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -45,14 +45,28 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 	/// safe - uses monitor locks.
 	/// </threadsafety>
 	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 11feb2019 </date>
 	/// <description>
+	/// Added file path normalization on the way out.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 31dec2018 </date>
+	/// <description>
+	/// Changed some visibility attributes to internal for testing.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 10apr2016 </date>
-	/// <contribution>
+	/// <description>
 	/// Just added some DOCs down in remarks. This facility has been around since
 	/// .Net 1.1 in various forms.
-	/// </contribution>
 	/// </description>
+	/// </contribution>
 	/// </history>
 	/// <remarks>
 	/// The instance piece of this was developed for/with a customer who wanted to overload
@@ -63,10 +77,11 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 	{
 		#region Class Fields and AutoProperties
 		/// <summary>
-		/// The dictionary containing the mappings.
+		/// The dictionary containing the mappings. Internal for testing.
 		/// </summary>
-		private static readonly IDictionary<string, string> s_DirectoryMappingDictionary;
+		internal static readonly IDictionary<string, string> s_DirectoryMappingDictionary;
 
+		// TODO (KRM) This one needs to be secured somehow (31dec2018). 
 		/// <summary>
 		/// <see langword = "null"/> to not read the file at all.
 		/// </summary>
@@ -100,7 +115,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <see cref="DirectoryMappingFileName"/> has been set.
 		/// </summary>
 		/// <param name="directoryMappingDictionary">
-		/// This is a preload of the dictionary. Any mappings from an XML file will be appended.
+		/// This is a pre-load of the dictionary. Any mappings from an XML file will be appended.
 		/// </param>
 		public SymbolicDirectoryMappingDictionary(IDictionary<string, string> directoryMappingDictionary = null)
 		{
@@ -123,7 +138,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <see langword="false"/> if another thread snuck in before us and
 		/// added the mapping we are trying to add.
 		/// </returns>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public static bool AddStaticMapping(string token, string directory)
 		{
 			return AddStaticMappingInternal(token, directory);
@@ -162,7 +177,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public bool AddMapping(string token, string directory)
 		{
 			return AddMappingPIV(token, directory);
@@ -192,7 +207,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public static string GetStaticMapping(string token)
 		{
 			return GetStaticMappingInternal(token);
@@ -209,7 +224,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		{
 			lock (s_DirectoryMappingDictionary) {
 				if (!s_DirectoryMappingDictionary.ContainsKey(token)) return null;
-				return s_DirectoryMappingDictionary[token];
+				return PAFFileUtils.NormalizeFilePath(s_DirectoryMappingDictionary[token]);
 			}
 		}
 		/// <summary>
@@ -222,7 +237,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// <returns>
         /// <see cref="ISymbolicDirectoryMappingDictionary"/>
 		/// </returns>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public virtual string GetMapping(string token)
 		{
 			return GetMappingPIV(token);
@@ -253,7 +268,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// For privileged callers. This method needs to be called AFTER core
         /// services are loaded, since it uses the file system.
 		/// </remarks>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public void PopulateStaticDictionaryFromXML(string filePath)
 		{
 			PopulateStaticDictionaryFromXMLPIV(filePath);
@@ -287,7 +302,7 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
             lock (m_DirectoryMappingDictionary)
             {
                 if (m_DirectoryMappingDictionary.ContainsKey(token))
-                    return m_DirectoryMappingDictionary[token];
+                    return PAFFileUtils.NormalizeFilePath(m_DirectoryMappingDictionary[token]);
             }
             return GetStaticMappingInternal(token);
         }

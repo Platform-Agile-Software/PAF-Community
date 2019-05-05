@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -207,7 +207,7 @@ namespace PlatformAgileFramework.Manufacturing
             DirectoryMappings = DirectoryMappingsInternal;
 
 	        // FileUtils must be provisioned with this before SM is released to the public.
-	        FileUtils.SetMappings(DirectoryMappingsInternal);
+	        PAFFileUtils.SetMappings(DirectoryMappingsInternal);
 
             FindLoadedAssemblies();
 	        return utils;
@@ -367,7 +367,7 @@ namespace PlatformAgileFramework.Manufacturing
 		    if (assembly != null)
 		        return assembly;
 
-		    var pathParts = FileUtils.SeparateDirectoryFromFile(assemblyPath);
+		    var pathParts = PAFFileUtils.SeparateDirectoryFromFile(assemblyPath);
             return Assembly.Load(new AssemblyName(pathParts[1]));
 		}          
 		private static Assembly LoadAssemblyFromFile(string assemblyPath)
@@ -822,7 +822,7 @@ namespace PlatformAgileFramework.Manufacturing
 		/// <threadsafety>
 		/// <see cref="AddAssemblyToAssembliesLoadedInternal"/>.
 		/// </threadsafety>
-		//[SecurityCritical]
+		[SecurityCritical]
 		public static bool AddAssemblyToAssembliesLoaded(Assembly assembly)
 		{
 			return AddAssemblyToAssembliesLoadedInternal(assembly);

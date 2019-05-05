@@ -11,7 +11,7 @@ namespace PlatformAgileFramework.Events
 	/// <author> KRM </author>
 	/// <date> 27dec2017 </date>
 	/// <description>
-	/// New. Built new event args suport.
+	/// New. Built new event args support.
 	/// </description>
 	/// </contribution>
 	/// </history>

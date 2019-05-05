@@ -16,33 +16,34 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
-// ReSharper disable once RedundantUsingDirective
 using System;
+
 
 namespace PlatformAgileFramework.Manufacturing
 {
-    /// <summary>
-    /// Set of delegates used in manufacturing.
-    /// </summary>
-    /// <history>
-    /// <contribution>
-    /// <author> KRM </author>
-    /// <date> 04nov2017 </date>
-    /// <desription>
-    /// <para>
-    /// New - needed to split out delegates for new assembly loading mechanism.
-    /// </para>
-    /// </desription>
-    /// </contribution>
-    // ReSharper disable PartialTypeWithSinglePart
-    public partial class ManufacturingDelegates
+	/// <summary>
+	/// Set of delegates used in manufacturing.
+	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 04nov2017 </date>
+	/// <desription>
+	/// <para>
+	/// New - needed to split out delegates for new assembly loading mechanism.
+	/// </para>
+	/// </desription>
+	/// </contribution>
+	/// </history>
+	// ReSharper disable PartialTypeWithSinglePart
+	public partial class ManufacturingDelegates
 // ReSharper restore PartialTypeWithSinglePart
 	{
 		#region Delegates
@@ -85,38 +86,40 @@ namespace PlatformAgileFramework.Manufacturing
 		/// The constructed type.
 		/// </returns>
 		public delegate T ReferenceTypeConstructionDelegate<out T, in U>(U constructionArgument) where T : class;
-        #endregion // Delegates
-        #region Methods
-        /// <summary>
-        /// This utility method decides whether a name is in fully-qualified format
-        /// such as "System.Drawing.Size" and separates it into name
-        /// (<code>Size</code>) and namespace (<code>System.Drawing</code>) if it is.
-        /// </summary>
-        /// <param name="fullyQualifiedTypeName">
-        /// Fully qualified name that would be of the format fetched with Type.FullName.
-        /// </param>
-        /// <param name="unqualifiedName">
-        /// This out parameter receives the unqualified name if the incoming name
-        /// was properly formed or receives the input string back if it is not
-        /// <see langword="null"/> or <see cref="String.Empty"/>. In this case, the input
-        /// is assumed to contain the unqualified name alone (no dots in the string).
-        /// </param>
-        /// <param name="nameSpace">
-        /// This out parameter receives the namespace if the incoming name was properly
-        /// formed.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> if the <paramref name="fullyQualifiedTypeName"/> was properly
-        /// formed and <see langword="false"/> otherwise.
-        /// </returns>
-        public static bool GetTypeAndNamespace(string fullyQualifiedTypeName,
+		#endregion // Delegates
+		#region Methods
+		/// <summary>
+		/// This utility method decides whether a name is in fully-qualified format
+		/// such as "System.Drawing.Size" and separates it into name
+		/// (<code>Size</code>) and namespace (<code>System.Drawing</code>) if it is.
+		/// </summary>
+		/// <param name="fullyQualifiedTypeName">
+		/// Fully qualified name that would be of the format fetched with Type.FullName.
+		/// </param>
+		/// <param name="unqualifiedName">
+		/// This out parameter receives the unqualified name if the incoming name
+		/// was properly formed or receives the input string back if it is not
+		/// <see langword="null"/> or <see cref="string.Empty"/>. In this case, the input
+		/// is assumed to contain the unqualified name alone (no dots in the string).
+		/// </param>
+		/// <param name="nameSpace">
+		/// This out parameter receives the namespace if the incoming name was properly
+		/// formed.
+		/// </param>
+		/// <returns>
+		/// <see langword="true"/> if the <paramref name="fullyQualifiedTypeName"/> was properly
+		/// formed and <see langword="false"/> otherwise.
+		/// </returns>
+		public static bool GetTypeAndNamespace(string fullyQualifiedTypeName,
             ref string unqualifiedName, ref string nameSpace)
         {
             // If we've got a name set the name fields.
             if (string.IsNullOrEmpty(fullyQualifiedTypeName))
                 return false;
-            // If it's here, its gotta' be the correct format.
+
+	        // If it's here, its gotta' be the correct format.
             var index = fullyQualifiedTypeName.LastIndexOf(".", StringComparison.Ordinal);
+
             // It's gotta' be here and not at beginning or end.
             if ((index <= 0) || (index == fullyQualifiedTypeName.Length - 1))
             {

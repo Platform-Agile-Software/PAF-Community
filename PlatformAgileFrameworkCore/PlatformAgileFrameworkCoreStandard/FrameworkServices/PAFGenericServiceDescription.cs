@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -31,15 +31,14 @@ using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Serializing;
 using PlatformAgileFramework.Serializing.Attributes;
 using PlatformAgileFramework.TypeHandling;
-using PlatformAgileFramework.TypeHandling.Exceptions;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods;
+using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
+using PlatformAgileFramework.TypeHandling.Exceptions;
 
 // Exception shorthand.
 using PAFTED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFTypeExceptionData;
-using PAFTEDB = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.PAFTypeExceptionDataBase;
 using IPAFTED = PlatformAgileFramework.ErrorAndException.CoreCustomExceptions.IPAFTypeExceptionData;
-using PlatformAgileFramework.ErrorAndException.CoreCustomExceptions;
-using PlatformAgileFramework.Notification.Exceptions;
+
 
 #endregion // Using Directives
 
@@ -54,7 +53,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 12apr2065 </date>
+	/// <date> 12apr2015 </date>
 	/// <description>
 	/// Added support for the (new) internal interface.
 	/// </description>
@@ -84,10 +83,8 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// </contribution>
 	/// </history>
 	/// <threadsafety>
-	/// Safe. - TODO - KRM, no, not safe.
+	/// not safe.
 	/// </threadsafety>
-	//TODO - KRM make copy constructor for this class that accepts the interface.
-	//TODO - also implement deepcopy - this should have been done when the class was touched.
 	[PAFSerializable(PAFSerializationType.PAFSurrogate)]
 	// ReSharper disable once PartialTypeWithSinglePart
 		// core
@@ -109,46 +106,6 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// For the serializer.
 		/// </summary>
 		protected internal PAFServiceDescription(){}
-		/// <summary>
-		/// This constructor loads props and also optionally loads an instantiated
-		/// service.
-		/// </summary>
-		/// <param name="serviceObjectNto">
-		/// Loads <see cref="IPAFServiceDescription.ServiceInterfaceType"/>,
-		/// <see cref="IPAFServiceDescription.ServiceName"/>,
-		/// <see cref="IPAFServiceDescription.IsDefault"/>,
-		/// <see cref="IPAFServiceDescription{T}.Service"/>
-		/// Can not be <see langword="null"/>.
-		/// Note that <see cref="IPAFServiceDescription{T}.Service"/> can be
-		/// <see langword="null"/> if service is not instantiated.
-		/// </param>
-		/// <param name="serviceImplementationType">
-		/// Loads <see cref="IPAFServiceDescription.ServiceImplementationType"/>.
-		/// Default = <see langword="null"/>.
-		/// </param>
-		/// <param name="serviceName">
-		/// Loads <see cref="IPAFServiceDescription.ServiceName"/>.
-		/// Default = <see langword="null"/>. If this is <see langword="null"/>,
-		/// the name is taken from the incoming <see cref="IPAFNamedAndTypedObject{T}"/>
-		/// </param>
-		/// <exceptions>
-		/// <exception cref="ArgumentNullException"> is thrown if
-		/// <paramref name="serviceObjectNto"/> is <see langword="null"/>.
-		/// "nto"
-		/// </exception>
-		/// No exceptions are caught. Exception service comes from 
-		/// <see cref="PAFTypeHolder.FromNTO(IPAFNamedAndTypedObject)"/>
-		/// </exceptions>
-		public PAFServiceDescription(IPAFNamedAndTypedObject<T> serviceObjectNto,
-			IPAFTypeHolder serviceImplementationType = null, string serviceName = null)
-			: this(PAFTypeHolder.FromNTO(serviceObjectNto),
-			serviceImplementationType, serviceName)
-		{
-			ServiceObject = serviceObjectNto.ItemValue;
-			m_IsDefault = serviceObjectNto.IsDefaultObject;
-			if (serviceName == null) serviceName = serviceObjectNto.ObjectName;
-			m_ServiceName = serviceName;
-		}
 
 		/// <summary>
 		/// This constructor loads props. but does not set service object. This is the
@@ -176,7 +133,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// is <see langword="null"/>.
 		/// </exception>
 		/// <exception cref="PAFStandardException{IPAFTypeMismatchExceptionData}">
-		/// <see cref="Notification.Exceptions.PAFTypeMismatchExceptionDataBase.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
+		/// <see cref="PAFTypeMismatchExceptionMessageTags.FIRST_TYPE_NOT_CASTABLE_TO_SECOND_TYPE"/>
 		/// is thrown if the Generic constraint is not satisfied.
 		/// </exception>
 		/// No exceptions are caught.
@@ -192,7 +149,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		    serviceImplementationType?.ValidateGenericAssignableFromType<T>();
 		}
 		/// <summary>
-		/// This constructor builds from a preconstructed servive.
+		/// This constructor builds from a pre-constructed service.
 		/// </summary>
 		/// <param name="service">
 		/// Generic service that defines everything.
@@ -253,6 +210,16 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			SetServiceObjectI(serviceObject);
 		}
+		/// <summary>
+		/// See <see cref="IPAFServiceDescriptionInternal{T}"/>
+		/// </summary>
+		/// <param name="isDefault"></param>
+		bool IPAFServiceDescriptionInternal.SetIsDefault(bool isDefault)
+		{
+			bool retval = isDefault != IsDefault;
+			IsDefault = isDefault;
+			return retval;
+		}
 		#endregion // IPAFServiceDescriptionInternal<T> Implementation
 		#region IPAFNamedAndTypedObject Implementation
 		/// <summary>
@@ -261,7 +228,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string ObjectName
 		{
 			get { return ServiceName; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { ServiceName = value; }
 		}
 
@@ -271,7 +238,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public string AssemblyQualifiedObjectType
 		{
 			get { return ServiceInterfaceType.AssemblyQualifiedTypeName; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { ServiceInterfaceType.GetAssemblyHolder().AssemblyNameString = value; }
 		}
 
@@ -281,8 +248,8 @@ namespace PlatformAgileFramework.FrameworkServices
 		public bool IsDefaultObject
 		{
 			get { return m_IsDefault; }
-			//[SecurityCritical]
-			set { m_IsDefault = value; }
+			[SecurityCritical]
+			protected internal set { m_IsDefault = value; }
 		}
 
 		/// <summary>
@@ -298,7 +265,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public Type ObjectType
 		{
 			get { return ServiceInterfaceType.TypeType; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set { m_ServiceInterfaceType.TypeType = value; }
 		}
 
@@ -312,7 +279,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public object ObjectValue
 		{
 			get { return ServiceObject; }
-			//[SecurityCritical]
+			[SecurityCritical]
 			set
 			{
 				if (value != null)

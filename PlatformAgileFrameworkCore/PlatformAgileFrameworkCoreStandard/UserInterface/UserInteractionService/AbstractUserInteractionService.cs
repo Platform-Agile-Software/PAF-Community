@@ -39,9 +39,9 @@ namespace PlatformAgileFramework.UserInterface.UserInteractionService
 		/// Constructor accepts Guid, the name and type. Direct pass-through to base.
 		/// </summary>
 		[SecurityCritical]
-		protected AbstractUserInteractionService(Guid guid = default(Guid),
-			Type serviceImplementationType = null, string serviceName = null)
-			: base(guid, serviceImplementationType, serviceName)
+		protected AbstractUserInteractionService(Type serviceImplementationType = null,
+			string serviceName = null, Guid guid = default(Guid))
+			: base(serviceImplementationType, serviceName, guid)
 		{}
 		#endregion // Constructors
 		#region IPAFUIServiceInternal Implementation
@@ -179,7 +179,7 @@ namespace PlatformAgileFramework.UserInterface.UserInteractionService
 				// Seal the list.
 				exceptions.AddException(null);
 				// We just put these in the registry.
-				DisposalRegistry.RecordDisposalException(this, ex);
+				DisposalRegistry.RecordDisposalException(GetType(), ex);
 				retval = ex;
 			}
 			return retval;

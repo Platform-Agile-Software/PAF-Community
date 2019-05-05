@@ -8,7 +8,7 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// provides extra flexibility to pre-instantiate services before adding them to
 	/// a manager. This allows the implementation type to be left unspecified for services
 	/// that do not need to be constructed "on-demand". In core, only services with
-	/// parametrless constructors for their implementations are supported as "on-demand"
+	/// parameterless constructors for their implementations are supported as "on-demand"
 	/// services. We also implement <see cref="IPAFNamedAndTypedObject{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">

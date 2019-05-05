@@ -16,19 +16,14 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
 
-using System;
 using PlatformAgileFramework.ErrorAndException;
-
-// Exception shorthand.
-using PAFSED = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionData;
-using PAFSEDB = PlatformAgileFramework.FrameworkServices.Exceptions.PAFServiceExceptionDataBase;
 
 
 namespace PlatformAgileFramework.Logging
@@ -61,7 +56,7 @@ namespace PlatformAgileFramework.Logging
 		/// See <see cref="EmergencyLoggingServiceBase"/>.
 		/// </param>
 		/// <param name="headerPrefixText">
-		/// Sets <see cref="EmergencyLoggingServiceBase.HeaderPrefixText"/>.
+		/// Sets <see cref="EmergencyLoggingServiceBase.m_HeaderPrefixText"/>.
 		/// Default = "Log Entry".
 		/// </param>
 		/// <exception> <see cref="PAFStandardException{PAFSED}"/> is thrown if
@@ -73,10 +68,9 @@ namespace PlatformAgileFramework.Logging
 		///  </exception>
 		internal PlainTextEmergencyLoggingService(bool truncateFileOnStart = false,
 			string emergencyLogFilePath = null, string headerPrefixText = null)
-			: base(null, emergencyLogFilePath)
+			: base(null, emergencyLogFilePath, truncateFileOnStart, headerPrefixText)
 		{
 			TruncateFileOnStart = truncateFileOnStart;
-			HeaderPrefixText = headerPrefixText ?? "Log Entry";
 
 			// Set up to use ourselves as main.
 			MainService = this;

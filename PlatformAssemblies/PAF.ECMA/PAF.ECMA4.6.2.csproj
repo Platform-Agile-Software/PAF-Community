@@ -47,11 +47,15 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\ECMATestRunner\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../ECMACommon/FileAndIO\FileAndDirectoryService\PAFStorageServiceECMA.cs" />
+    <Compile Include="Logging\PAFTraceLoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeHandling\Delegates\DelegateHelpers.cs" />
     <Compile Include="../ECMACommon/UserInterface\ConsoleUI\ConsoleUI.cs" />

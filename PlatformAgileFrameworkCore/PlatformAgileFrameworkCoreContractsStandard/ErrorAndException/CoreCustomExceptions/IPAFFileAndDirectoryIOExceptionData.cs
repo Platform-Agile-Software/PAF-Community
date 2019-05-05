@@ -51,6 +51,18 @@ namespace PlatformAgileFramework.ErrorAndException.CoreCustomExceptions
 		public const string ERROR_CREATING_DIRECTORY = "Error creating directory";
 
 		/// <summary>
+		/// Usually wraps a thrown exception when permissions
+		/// are not granted for file read or file is in use.
+		/// </summary>
+		public const string ERROR_OPENING_FILE = "Error opening file";
+
+		/// <summary>
+		/// Error message. Usually wraps a thrown exception when permissions
+		/// are not granted for file write.
+		/// </summary>
+		public const string ERROR_WRITING_FILE = "Error writing file";
+
+		/// <summary>
 		/// Error message.
 		/// </summary>
 		public const string FILE_IS_LOCKED = "File is locked";
@@ -59,6 +71,12 @@ namespace PlatformAgileFramework.ErrorAndException.CoreCustomExceptions
 		/// Error message. Path is there, but not file.
 		/// </summary>
 		public const string FILE_NOT_FOUND = "File Not Found";
+
+		/// <summary>
+		/// Error message. An attempt was made to write too much data to
+		/// a file.
+		/// </summary>
+		public const string FILE_OVERFLOW = "File Overflow";
 
 		/// <summary>
 		/// Error message. Path is not found. Use this when we
@@ -79,9 +97,12 @@ namespace PlatformAgileFramework.ErrorAndException.CoreCustomExceptions
 				{
 					ERROR_DELETING_FILE,
 					ERROR_CREATING_DIRECTORY,
+					ERROR_OPENING_FILE,
 					ERROR_DELETING_DIRECTORY,
+					ERROR_WRITING_FILE,
 					DIRECTORY_NOT_FOUND,
 					FILE_IS_LOCKED,
+					FILE_OVERFLOW,
 					FILE_NOT_FOUND,
 					PATH_NOT_FOUND,
 				};

@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2018 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +16,7 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 //AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -35,6 +35,19 @@ namespace PlatformAgileFramework.Events
 	/// <summary>
 	/// This class implements some simple extensions for <see cref="EventArgs"/>
 	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 10mar2019 </date>
+	/// <description>
+	/// Just added history. Recent class, but was undocumented.
+	/// </description>
+	/// </contribution>
+	/// </history>
+	/// <remarks>
+	/// Take out null check when null coalescing operator is verified on all
+	/// platforms to be atomic. Yes, we had problems.......
+	/// </remarks>
 	public static class EventArgExtensions
 	{
 		#region Methods
