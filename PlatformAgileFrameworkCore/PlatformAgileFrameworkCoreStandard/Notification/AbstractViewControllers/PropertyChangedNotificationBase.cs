@@ -80,7 +80,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// See <see cref="IPropertyChangedNotificationBase"/>. We almost always want virtual
 		/// props in framework classes for maximum flexibility.
 		/// </summary>
-		public virtual IPropertyChangedEventArgsSubscriberStore PceStore
+		public virtual IPropertyChangedEventArgsSubscriberStore PropertyChangedStore
 	    {
 		    get { return m_PceStore; }
 	    }
@@ -96,7 +96,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// developing subclasses of this class that do different things in the
 		/// add and remove. The "add" method here creates a weak subscription, although
 		/// a strong subscription can be created by simply accessing
-		/// <see cref="PceStore"/>.
+		/// <see cref="PropertyChangedStore"/>.
 		/// </summary>
 		public virtual event PropertyChangedEventHandler PropertyChanged
 		{

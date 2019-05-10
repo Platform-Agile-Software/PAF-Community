@@ -62,7 +62,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 			get { return m_Processing; }
 			set
 			{
-				PceStore.NotifyOrRaiseIfPropertyChanged(ref m_Processing, value);
+				PropertyChangedStore.NotifyOrRaiseIfPropertyChanged(ref m_Processing, value);
 			}
 
 		}
@@ -74,7 +74,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 			get { return m_FractionDone; }
 			set
 			{
-				PceStore.NotifyOrRaiseIfPropertyChanged(ref m_FractionDone, value);
+				PropertyChangedStore.NotifyOrRaiseIfPropertyChanged(ref m_FractionDone, value);
 			}
 		}
 		#endregion IAsyncProgessModel Implementation

@@ -28,8 +28,16 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 {
 	/// <summary>
 	/// This is a general model of the lifecycle of a view from the controller's perspective.
-	/// These phases are platform-independent, as are the view controller's.
+	/// These phases are platform-independent, as are the view controller's. Since the view
+	/// controller CONTROLS the view, this interface is normally worn by the view controller.
 	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 12aug18 </date>
+	/// New. Renamed methods from the old version - essentially new.
+	/// </contribution>
+	/// </history>
 	public interface IGenericViewLifecycle
 	{
 		/// <summary>
@@ -42,7 +50,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// <exceptions>
 		/// Any exceptions should be attached to the <see cref="Task"/>.
 		/// </exceptions>
-		Task OnAppearing();
+		Task OnAppearingAsync();
 		/// <summary>
 		/// This method is called when the controller or view is created.
 		/// Sometimes a controller is expensive in terms of resources used
@@ -54,7 +62,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// <exceptions>
 		/// Any exceptions should be attached to the <see cref="Task"/>.
 		/// </exceptions>
-		Task OnCreating();
+		Task OnCreatingAsync();
 		/// <summary>
 		/// This method is called when the controller or view is inactive.
 		/// This assumes that controller/view can be kept alive, but simply
@@ -66,7 +74,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// <exceptions>
 		/// Any exceptions should be attached to the <see cref="Task"/>.
 		/// </exceptions>
-		Task OnDisappearing();
+		Task OnDisappearingAsync();
 		/// <summary>
 		/// This method is called when the controller or view is no
 		/// longer needed. Sometimes a controller is expensive in terms
@@ -78,6 +86,6 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// <exceptions>
 		/// Any exceptions should be attached to the <see cref="Task"/>.
 		/// </exceptions>
-		Task OnDestroying();
+		Task OnDestroyingAsync();
 	}
 }

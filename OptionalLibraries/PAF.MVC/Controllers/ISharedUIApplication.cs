@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2017 Icucom Corporation
+//Copyright (c) 2010 - 2018 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -27,12 +27,12 @@ using System.Threading;
 using PlatformAgileFramework.Application;
 
 // ReSharper disable once CheckNamespace
-namespace PatformAgileFramework.MVC.Controllers
+namespace PlatformAgileFramework.MVC.Controllers
 {
 	/// <summary>
 	/// This interface provides a protocol for accessing platform-independent services
 	/// that should be available on ALL platforms. This extension of the base interface
-	/// includes functionality for graphics applications under .Net Core.
+	/// includes functionality for graphics applications under .Net Standard.
 	/// </summary>
 	/// <history>
 	/// <contribution>
@@ -42,7 +42,6 @@ namespace PatformAgileFramework.MVC.Controllers
 	/// built for Xamarin.Forms support.
 	/// </contribution>
 	/// </history>
-	// TODO KRM - move this to Forms-independent assembly.
 	public interface ISharedUIApplication: ISharedApplication
 	{
 		/// <summary>

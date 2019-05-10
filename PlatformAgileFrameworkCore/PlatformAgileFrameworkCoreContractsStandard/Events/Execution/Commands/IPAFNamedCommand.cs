@@ -23,11 +23,9 @@
 //THE SOFTWARE.
 //@#$&-
 
-
 using System;
 using System.Windows.Input;
-
-namespace PlatformAgileFramework.Execution.Commands
+namespace PlatformAgileFramework.Events.Execution.Commands
 {
 	/// <summary>
 	/// Allows a command to have a name.

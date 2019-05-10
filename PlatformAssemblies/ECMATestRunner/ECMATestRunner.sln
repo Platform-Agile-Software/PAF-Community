@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreContractsStandardLib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAFCoreStandardLibrary", "..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj", "{B229C548-56DC-4FC6-AFD9-B08CCE372D2E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAF.MVC", "..\..\OptionalLibraries\PAF.MVC\PAF.MVC.csproj", "{715312E0-F749-46CF-A6C6-9798410683F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B229C548-56DC-4FC6-AFD9-B08CCE372D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B229C548-56DC-4FC6-AFD9-B08CCE372D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B229C548-56DC-4FC6-AFD9-B08CCE372D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{715312E0-F749-46CF-A6C6-9798410683F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{715312E0-F749-46CF-A6C6-9798410683F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{715312E0-F749-46CF-A6C6-9798410683F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{715312E0-F749-46CF-A6C6-9798410683F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

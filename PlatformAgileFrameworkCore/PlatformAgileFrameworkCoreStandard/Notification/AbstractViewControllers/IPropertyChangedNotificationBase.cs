@@ -30,7 +30,7 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 {
 	/// <summary>
 	/// This is an interface that is typically worn by PAF
-	/// veiw models and other classes that use our notification system.
+	/// view controllers and other classes that use our notification system.
 	/// It exposes the usual <see cref="INotifyPropertyChanged"/> mechanism
 	/// as well as the subscriber store so developers can access it
 	/// along with the variety of extension methods that provide most
@@ -51,8 +51,8 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 	/// </history>
 	/// <remarks>
 	/// ALL components subscribing to events should implement <see cref="IDisposable"/>
-	/// in PAF, since unregistering in PAF is completely safe and NOT "unpredictable"
-	/// like in the .Net delegate system. Components should unregister handlers
+	/// in PAF, since un-registering in PAF is completely safe and NOT "unpredictable"
+	/// like in the .Net delegate system. Components should un-register handlers
 	/// in the dispose method. There are other stages in a component's lifetime in
 	/// which handlers can be unhooked, but wearing <see cref="IDisposable"/> is
 	/// the only way to clearly signal the need. The notification system optionally
@@ -67,6 +67,6 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 		/// <see cref="IPropertyChangedEventArgsSubscriberStore"/>
 		/// and can call its extension methods.
 		/// </summary>
-		IPropertyChangedEventArgsSubscriberStore PceStore { get; }
+		IPropertyChangedEventArgsSubscriberStore PropertyChangedStore { get; }
 	}
 }

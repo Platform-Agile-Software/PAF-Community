@@ -25,6 +25,7 @@
 
 
 using System;
+using PlatformAgileFramework.Events.Execution.Commands;
 using PlatformAgileFramework.Execution.Commands;
 
 namespace PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator.Display.Commands
