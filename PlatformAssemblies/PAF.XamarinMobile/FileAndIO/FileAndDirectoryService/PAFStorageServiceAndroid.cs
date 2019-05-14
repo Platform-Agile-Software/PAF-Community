@@ -52,8 +52,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override void PAFCopyFilePIV(string sourceFileName,
-            string destinationFileName, bool overwrite)
+        protected override void PAFCopyFilePV(string sourceFileName, string destinationFileName, bool overwrite)
         {
             File.Copy(sourceFileName, destinationFileName, overwrite);
         }
@@ -62,7 +61,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// cannot be part of a platform-independent interface, it is returned as
         /// an object.
         /// </summary>
-        protected override object PAFCreateDirectoryPIV(string dir)
+        protected override object PAFCreateDirectoryPV(string dir)
         {
             return Directory.CreateDirectory(dir);
         }
@@ -72,49 +71,49 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// any interface extensions to use. client object not used in this base
         /// implementation.
         /// </summary>
-        protected override object PAFCreateDirectoryPIV(string dir, object clientObject)
+        protected override object PAFCreateDirectoryPV(string dir, object clientObject)
         {
-            return PAFCreateDirectoryPIV(dir);
+            return PAFCreateDirectoryPV(dir);
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override IPAFStorageStream PAFCreateFilePIV(string path)
+        protected override IPAFStorageStream PAFCreateFilePV(string path)
         {
             return new PAFStorageStream(File.Create(path));
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override void PAFDeleteDirectoryPIV(string dir)
+        protected override void PAFDeleteDirectoryPV(string dir)
         {
             Directory.Delete(dir);
         }
         /// <summary>
         /// backing for the interface. Client object not used in this implementation.
         /// </summary>
-        protected override void PAFDeleteDirectoryPIV(string dir, object clientObject)
+        protected override void PAFDeleteDirectoryPV(string dir, object clientObject)
         {
-            PAFDeleteDirectoryPIV(dir);
+            PAFDeleteDirectoryPV(dir);
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override void PAFDeleteFilePIV(string file)
+        protected override void PAFDeleteFilePV(string file)
         {
             File.Delete(file);
         }
         /// <summary>
         /// backing for the interface. Client object not used in this implementation.
         /// </summary>
-        protected override void PAFDeleteFilePIV(string file, object clienObject)
+        protected override void PAFDeleteFilePV(string file, object clienObject)
         {
-            PAFDeleteFilePIV(file);
+            PAFDeleteFilePV(file);
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override bool PAFDirectoryExistsPIV(string dir)
+        protected override bool PAFDirectoryExistsPV(string dir)
         {
             if (dir == null)
                 return false;
@@ -124,7 +123,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// backing for the interface. In ECMA, path specs can be relative and
         /// the runtime figures out a rooted path.
         /// </summary>
-        protected override bool PAFFileExistsPIV(string path)
+        protected override bool PAFFileExistsPV(string path)
         {
             if (string.IsNullOrEmpty(path))
                 return false;
@@ -134,9 +133,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// backing for the interface. This implementation returns
         /// <see cref="DateTime.MinValue"/> if the file does not exist.
         /// </summary>
-        protected override DateTime PAFGetCreationTimePIV(string path)
+        protected override DateTime PAFGetCreationTimePV(string path)
         {
-            if (!PAFFileExistsPIV(path))
+            if (!PAFFileExistsPV(path))
                 return DateTime.MinValue;
             return File.GetCreationTime(path);
         }
@@ -146,7 +145,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// <remarks>
         /// <see langword="null"/> or <see cref="String.Empty"/> defers to CWD.
         /// </remarks>
-        protected override IEnumerable<string> PAFGetDirectoryNamesPIV(string dirSpec)
+        protected override IEnumerable<string> PAFGetDirectoryNamesPV(string dirSpec)
         {
             if (string.IsNullOrEmpty(dirSpec))
                 dirSpec = Environment.CurrentDirectory;
@@ -158,7 +157,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// <remarks>
         /// <see langword="null"/> or <see cref="String.Empty"/> defers to CWD.
         /// </remarks>
-        protected override IEnumerable<string> PAFGetFileNamesPIV(string dirSpec)
+        protected override IEnumerable<string> PAFGetFileNamesPV(string dirSpec)
         {
             if (string.IsNullOrEmpty(dirSpec))
                 dirSpec = Environment.CurrentDirectory;
@@ -168,9 +167,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// Backing support for the interface. This implementation returns
         /// <see cref="DateTime.MinValue"/> if the file does not exist.
         /// </summary>
-        protected override DateTime PAFGetLastAccessTimePIV(string path)
+        protected override DateTime PAFGetLastAccessTimePV(string path)
         {
-            if (!PAFFileExistsPIV(path))
+            if (!PAFFileExistsPV(path))
                 return DateTime.MinValue;
             return File.GetLastAccessTime(path);
         }
@@ -178,23 +177,23 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// Backing support for the interface. This implementation returns
         /// <see cref="DateTime.MinValue"/> if the file does not exist.
         /// </summary>
-        protected override DateTime PAFGetLastWriteTimePIV(string path)
+        protected override DateTime PAFGetLastWriteTimePV(string path)
         {
-            if (!PAFFileExistsPIV(path))
+            if (!PAFFileExistsPV(path))
                 return DateTime.MinValue;
             return File.GetLastWriteTime(path);
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override void PAFMoveDirectoryPIV(string sourceDirectoryName, string destinationDirectoryName)
+        protected override void PAFMoveDirectoryPV(string sourceDirectoryName, string destinationDirectoryName)
         {
             Directory.Move(sourceDirectoryName, destinationDirectoryName);
         }
         /// <summary>
         /// backing for the interface.
         /// </summary>
-        protected override void PAFMoveFilePIV(string sourceFileName, string destinationFileName)
+        protected override void PAFMoveFilePV(string sourceFileName, string destinationFileName)
         {
             File.Move(sourceFileName, destinationFileName);
         }
@@ -202,7 +201,7 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// <remarks>
         /// <see cref="IPAFStorageService"/>.
         /// </remarks>
-        protected override IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode)
+        protected override IPAFStorageStream PAFOpenFilePV(string path, PAFFileAccessMode mode)
         {
             var accessProps = FileAccessProps.MapFileAccess(mode);
             return new PAFStorageStream(File.Open(path, accessProps.Mode, accessProps.Access));
@@ -212,9 +211,9 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
         /// <see cref="IPAFStorageService"/>. <paramref name="clientObject"/> is
         /// not used in this implementation.
         /// </remarks>
-        protected override IPAFStorageStream PAFOpenFilePIV(string path, PAFFileAccessMode mode, object clientObject)
+        protected override IPAFStorageStream PAFOpenFilePV(string path, PAFFileAccessMode mode, object clientObject)
         {
-            return s_AsIstorage.PAFOpenFile(path, mode);
+            return m_AsIstorage.PAFOpenFile(path, mode);
         }
     }
     /// <summary>

@@ -60,7 +60,7 @@ namespace PlatformAgileFramework.UserInterface.ConsoleUI
 		/// </remarks>
 		protected ConsoleUserInteractionService(Guid guid,
 			Type serviceImplementationType = null, String serviceName = null)
-			: base(guid, serviceImplementationType, serviceName)
+			: base(serviceImplementationType, serviceName, guid)
 		{
 			// Build a standard IUI.
 			m_iUIUtils = new ConsoleUIUtils();

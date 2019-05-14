@@ -34,6 +34,7 @@ using PlatformAgileFramework.FileAndIO.SymbolicDirectories;
 using PlatformAgileFramework.Logging;
 using PlatformAgileFramework.Manufacturing;
 using PlatformAgileFramework.Platform;
+using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.UserInterface;
 using PlatformAgileFramework.UserInterface.ConsoleUI;
 
@@ -99,13 +100,12 @@ namespace PlatformAgileFramework.FrameworkServices
 			var name = SymbolicDirectoryMappingDictionary.DirectoryMappingFileName;
 
 			PAFServiceManager.InitialServices.Add(new PAFServiceDescription<IManufacturingUtils>
-				(new PAFNamedAndTypedObject<IManufacturingUtils>
-				(null, null, mu,true)));
+				(mu, null, true));
 
 			var storageService = new PAFStorageServiceAndroid();
-			PAFServices.s_SiPAFStorageService
+			PAFServices.SiPAFStorageService
 				= new PAFServiceDescription<IPAFStorageService>(
-					storageService.GetServiceNTOFromServiceObject());
+					storageService, null, true);
 
 			var mainLoggerFilePath = Path.Combine(PlatformUtils.ApplicationRoot, "LogFile.txt");
 			var emergencyLoggerFilePath = Path.Combine(PlatformUtils.ApplicationRoot, "EmergencyLogFile.txt");
@@ -124,12 +124,12 @@ namespace PlatformAgileFramework.FrameworkServices
 			emergencyLoggingService.MainService = mainLoggingService;
 			PAFServices.s_SiPAFLoggingService
 				= new PAFServiceDescription<IPAFLoggingService>(
-					emergencyLoggingService.GetServiceNTOFromServiceObject());
+					emergencyLoggingService, null, true);
 
 			var uiService = new ConsoleUserInteractionService();
 			PAFServices.s_SiPAFUIService
 				= new PAFServiceDescription<IPAFUIService>(
-					uiService.GetServiceNTOFromServiceObject());
+					uiService, null, true);
 
 			// Bootstrapper loads core services only if they are not already loaded.
 			ServiceBootStrapper.Instance.LoadCoreServices();

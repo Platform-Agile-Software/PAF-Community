@@ -105,7 +105,7 @@ namespace Xamarin.FormsTestRunner.ViewModels
 			set
 			{
 				// This will raise isBusy and return to avoid infinite loop.
-				if(!PceStore.NotifyOrRaiseIfPropertyChanged(ref m_IsBusy, value))
+				if(!PropertyChangedStore.NotifyOrRaiseIfPropertyChanged(ref m_IsBusy, value))
 					return;
 				// This will raise Processing IFF change in isBusy.
 				Processing = value;
@@ -159,7 +159,7 @@ namespace Xamarin.FormsTestRunner.ViewModels
 			get { return m_Title; }
 			set
 			{
-				PceStore.NotifyOrRaiseIfPropertyChanged(ref m_Title, value);
+				PropertyChangedStore.NotifyOrRaiseIfPropertyChanged(ref m_Title, value);
 			}
 		}
 		#endregion // ITitledElement Implementation

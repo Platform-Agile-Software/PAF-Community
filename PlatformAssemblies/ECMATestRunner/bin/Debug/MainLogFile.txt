@@ -826,3 +826,22 @@ Exception: Error Disposing Type
 [Error - 05/04/2019 20:13:58]
 Error Disposing Type
 Exception: Error Disposing Type
+[Default - 05/14/2019 12:31:10]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Default - 05/14/2019 12:31:10]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 05/14/2019 12:31:24]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/14/2019 12:31:24]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 05/14/2019 12:31:24]
+Error Disposing Type
+Exception: Error Disposing Type

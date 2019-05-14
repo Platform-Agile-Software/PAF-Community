@@ -83,6 +83,9 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -105,9 +108,6 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Connectivity.Abstractions">
       <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.2\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
     </Reference>
@@ -148,6 +148,14 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreContractsStandard\PAFCoreContractsStandardLibrary.csproj">
+      <Project>{3a54966e-ef31-4fd1-9da4-97b19a9e7c86}</Project>
+      <Name>PAFCoreContractsStandardLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\PlatformAgileFrameworkCore\PlatformAgileFrameworkCoreStandard\PAFCoreStandardLibrary.csproj">
+      <Project>{320acbda-def1-402f-90b6-a9c4922794f9}</Project>
+      <Name>PAFCoreStandardLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Forms\Xamarin.FormsTestRunner.csproj">
       <Project>{1a9d3d27-72ed-45fd-bbdc-c8240028b991}</Project>
       <Name>Xamarin.FormsTestRunner</Name>

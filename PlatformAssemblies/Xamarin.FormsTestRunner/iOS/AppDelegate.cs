@@ -6,7 +6,7 @@ using PlatformAgileFramework.Application;
 using PlatformAgileFramework.Platform;
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
-using Xamarin.FormsTestRunner.XamarinFormsHelpers;
+//using Xamarin.FormsTestRunner.XamarinFormsHelpers;
 
 namespace Xamarin.FormsTestRunner.iOS
 {

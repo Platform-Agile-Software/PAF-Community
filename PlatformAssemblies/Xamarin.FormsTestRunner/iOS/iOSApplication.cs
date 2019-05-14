@@ -1,5 +1,5 @@
 ﻿using UIKit;
-using Xamarin.FormsTestRunner.XamarinFormsHelpers;
+//using Xamarin.FormsTestRunner.XamarinFormsHelpers;
 
 namespace Xamarin.FormsTestRunner.iOS
 {
