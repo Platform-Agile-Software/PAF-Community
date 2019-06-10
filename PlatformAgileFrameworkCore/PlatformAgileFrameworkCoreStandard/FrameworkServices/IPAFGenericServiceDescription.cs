@@ -1,3 +1,4 @@
+using System;
 using System.Security;
 using PlatformAgileFramework.Collections;
 
@@ -44,6 +45,13 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// It provides the capability to pre-build the service.
 		/// </summary>
 		T Service { get; [SecurityCritical] set; }
+
+		/// <summary>
+		/// This is an optional lazy constructor. It can be <see langword="null"/>.
+		/// It provides the capability to build the service in a more general way
+		/// than a default constructor.
+		/// </summary>
+		Lazy<T> ServiceBuilder { get; [SecurityCritical] set; }
 
 		/// <summary>
 		/// Setter for the service - only for full-trust environments.

@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,14 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// <see cref="IPAFService"/>.
 	/// </typeparam>
 	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 09jun2019 </date>
+	/// <description>
+	/// Added "lazy" constructor support so a service description can be defined with the
+	/// <see cref="Lazy{T}"/> construct. Needed for new view controller system.
+	/// </description>
+	/// </contribution>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 10oct2018 </date>
@@ -288,7 +296,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			return GetAnyServiceDescriptionsPV<U>();
 		}
 		/// <remarks>
-		/// Backing for the interfaces.
+		/// Backing for the interfaces. This method has been updated to deal with lazy constructors.
 		/// </remarks>
 		[CanBeNull]
 		protected virtual U GetTypedServicePV<U>(string serviceName = "",
@@ -303,23 +311,31 @@ namespace PlatformAgileFramework.FrameworkServices
 				var implementingServices
 					= dict.ReadLockedNullableObject.GetServiceImplementations<U>
 						(registeredTypesOnly, serviceName);
+				var genericImplementingServices
+					= implementingServices.EnumIntoSubtypeList<IPAFServiceDescription,IPAFServiceDescription<U>>();
 
-				foreach (var implementingService in implementingServices)
+				foreach (var genericImplementingService in genericImplementingServices)
 				{
 					// If we are an extended service, we don't return ourselves unless
 					// we are initialized.
 					IPAFServiceExtended extendedService;
 					if (
-						(implementingService.ServiceObject != null)
+						(genericImplementingService.ServiceObject != null)
 						&&
-						(extendedService = (implementingService.ServiceObject as IPAFServiceExtended)) != null)
+						(extendedService = (genericImplementingService.ServiceObject as IPAFServiceExtended)) != null)
 					{
 						if (extendedService.ServiceIsInitialized)
-							returnedServices.AddNoNulls((U)implementingService.ServiceObject);
+							returnedServices.AddNoNulls((U)genericImplementingService.ServiceObject);
 					}
 					else
 					{
-						returnedServices.AddNoNulls((U)implementingService.ServiceObject);
+						if (genericImplementingService.Service == null)
+						{
+							if (genericImplementingService.ServiceBuilder != null)
+								genericImplementingService.Service = genericImplementingService.ServiceBuilder.Value;
+						}
+
+						returnedServices.AddNoNulls((U)genericImplementingService.ServiceObject);
 					}
 				}
 			}
@@ -438,6 +454,22 @@ namespace PlatformAgileFramework.FrameworkServices
 		void IPAFServiceManager<T>.AddTypedService<U>(U service, string serviceName)
 		{
 			var description = new PAFServiceDescription<U>(service, serviceName);
+			AddServicePV(description);
+		}
+		/// <remarks>
+		/// See <see cref="IPAFServiceManager{T}"/>.
+		/// </remarks>
+		void IPAFServiceManager<T>.AddTypedService<U>(Lazy<U> serviceBuilder)
+		{
+			var description = new PAFServiceDescription<U>(serviceBuilder, "");
+			AddServicePV(description);
+		}
+		/// <remarks>
+		/// See <see cref="IPAFServiceManager{T}"/>.
+		/// </remarks>
+		void IPAFServiceManager<T>.AddTypedService<U>(Lazy<U> serviceBuilder, string serviceName)
+		{
+			var description = new PAFServiceDescription<U>(serviceBuilder, serviceName);
 			AddServicePV(description);
 		}
 		#endregion
@@ -774,6 +806,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			}
 			return null;
 		}
+		#endregion // Static Helper Methods
 		/// <summary>
 		/// Creates a service from loaded assemblies. This method only builds
 		/// services with default constructors.
@@ -857,7 +890,6 @@ namespace PlatformAgileFramework.FrameworkServices
 			return (IPAFServiceDescription<U>)desc;
 		}
 
-		#endregion // Static Helper Methods
 		#endregion // Class Helper Methods
 	}
 

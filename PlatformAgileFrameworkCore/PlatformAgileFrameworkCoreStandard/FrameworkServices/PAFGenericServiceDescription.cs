@@ -25,6 +25,7 @@
 
 #region Using Directives
 using System;
+using System.Diagnostics;
 using System.Security;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.ErrorAndException;
@@ -50,6 +51,9 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// interface. Implements <see cref="IPAFNamedAndTypedObject{T}"/> so we can handle
 	/// it our dictionaries.
 	/// </summary>
+	/// <typeparam name="T">
+	/// This MUST be an interface type that the service wears.
+	/// </typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
@@ -91,6 +95,12 @@ namespace PlatformAgileFramework.FrameworkServices
 	public partial class PAFServiceDescription<T> : PAFServiceDescription,
 		IPAFServiceDescriptionInternal<T> where T : class, IPAFService
 	{
+		#region Fields and Autoproperties
+		/// <summary>
+		/// Backing for virtual property.
+		/// </summary>
+		private Lazy<T> m_ServiceBuilder;
+		#endregion // Fields and Autoproperties
 		#region Constructors
 		/// <summary>
 		/// Constructor throws an exception if <typeparamref name="T"/> is not an
@@ -113,7 +123,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// </summary>
 		/// <param name="serviceInterfaceType">
 		/// Loads <see cref="IPAFServiceDescription.ServiceInterfaceType"/>.
-		/// Can be <see langword="null"/>.
+		/// Can not be <see langword="null"/>.
 		/// </param>
 		/// <param name="serviceImplementationType">
 		/// Loads <see cref="IPAFServiceDescription.ServiceImplementationType"/>.
@@ -175,20 +185,68 @@ namespace PlatformAgileFramework.FrameworkServices
 		[SecuritySafeCritical]
 		public PAFServiceDescription(T service, string serviceName = null,
 			bool isDefault = false)
-			: base(new PAFTypeHolder(typeof(T)), new PAFTypeHolder(service.GetType()), serviceName, isDefault)
+			: base(new PAFTypeHolder(typeof(T)),
+				new PAFTypeHolder(service.GetType()),
+				serviceName, isDefault)
 		{
-			Service = service;
+			ServiceObject = service;
+		}
+		/// <summary>
+		/// This constructor builds from a pre-constructed service.
+		/// </summary>
+		/// <param name="serviceBuilder">
+		/// Generic service that defines everything.
+		/// Can't be <see langword="null"/>.
+		/// </param>
+		/// <param name="serviceName">
+		/// Loads <see cref="IPAFServiceDescription.ServiceName"/>.
+		/// Default = <see langword="null"/>. If you don't name it and
+		/// there is another service of the same type/name, an exception
+		/// is thrown.
+		/// </param>
+		/// <param name="isDefault">
+		/// Is the service the default for its interface type? Used mostly
+		/// for service collections.
+		/// </param>
+		/// <exceptions>
+		/// <exception cref="ArgumentNullException"> is thrown if
+		/// <paramref name="serviceBuilder"/>
+		/// is <see langword="null"/>.
+		/// </exception>
+		/// No exceptions are caught.
+		/// </exceptions>
+		[SecuritySafeCritical]
+		public PAFServiceDescription(Lazy<T> serviceBuilder, string serviceName = null,
+			bool isDefault = false)
+			: base(new PAFTypeHolder(typeof(T)),
+				null,
+				serviceName, isDefault)
+		{
+			if(serviceBuilder == null)
+				throw new ArgumentNullException(nameof(serviceBuilder));
+
+			m_ServiceBuilder = serviceBuilder;
 		}
 		#endregion
 		#region Properties
 		/// <summary>
 		/// <see cref="IPAFServiceDescription{T}"/>.
 		/// </summary>
-		public T Service
+		public virtual T Service
 		{
 			get { return (T) ServiceObject; }
 			[SecurityCritical]
 			set{ServiceObject = value;}
+		}
+		/// <summary>
+		/// This is an optional lazy constructor. It can be <see langword="null"/>.
+		/// It provides the capability to build the service in a more general way
+		/// than a default constructor.
+		/// </summary>
+		public virtual Lazy<T> ServiceBuilder
+		{
+			get => m_ServiceBuilder;
+			[SecurityCritical] set => m_ServiceBuilder = value;
 		}
 		#endregion // Properties
 		#region Methods

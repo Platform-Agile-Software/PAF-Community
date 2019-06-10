@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2018 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,26 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using PlatformAgileFramework.Connections.BaseConnectors;
-using PlatformAgileFramework.FrameworkServices;
+using PlatformAgileFramework.MVC.Notifications;
 using PlatformAgileFramework.Notification.AbstractViewControllers;
-using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;
+using IGenericViewLifecycle = PlatformAgileFramework.MVC.Views.IGenericViewLifecycle;
 namespace PlatformAgileFramework.MVC.Controllers
 {
 	/// <summary>
 	/// This interface prescribes base functionality for a Graphics
-	/// view controller.
+	/// view controller. Binding changing needs
+	/// to be paired with a binding changed - Microsoft missed it. Need to know when the
+	/// change has been made so the events can be turned off.
 	/// </summary>
 	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 18may19 </date>
+	/// Removed stuff for XAML support from this base interface. Mostly don't need it for
+	/// components we build in code.
+	/// </contribution>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 11aug18 </date>
@@ -44,71 +50,14 @@ namespace PlatformAgileFramework.MVC.Controllers
 	/// </contribution>
 	/// </history>
 	public interface IControllerBase: IPropertyChangedNotificationBase,
-		ISharedUIApplication, IGenericViewLifecycle
+		IPropertyChangingNotificationBase, IBindingChangedNotificationBase,
+		IBindingChangingNotificationBase,
+		IGenericViewLifecycle
 	{
 		IPAFConnector Connector { get; set; }
-	}
-	public class ControllerBase : IControllerBase
-	{
-		private IPropertyChangedEventArgsSubscriberStore m_PceStore;
-		private IPAFServiceManager<IPAFService> m_ServiceManager;
-		private SynchronizationContext m_UISynchronizationContext;
-		private IPAFConnector m_Connector;
-		public event PropertyChangedEventHandler PropertyChanged;
-		#region Implementation of IDisposable
 		/// <summary>
-		/// <see cref="IDisposable"/>
+		/// Normally attached to any controller from the UI thread at startup.
 		/// </summary>
-		public void Dispose()
-		{
-			Dispose(true);
-		}
-		#endregion // Implementation of IDisposable
-		/// <summary>
-		/// Disposes the stream.
-		/// </summary>
-		/// <param name="disposing">
-		/// If <see langword="true"/>, disposes managed objects.
-		/// </param>
-		protected virtual void Dispose(bool disposing)
-		{
-			
-		}
-		public IPropertyChangedEventArgsSubscriberStore PropertyChangedStore
-		{
-			get => m_PceStore;
-			set => m_PceStore = value;
-		}
-		public virtual IPAFServiceManager<IPAFService> ServiceManager
-		{
-			get => m_ServiceManager;
-			set => m_ServiceManager = value;
-		}
-		public virtual SynchronizationContext UISynchronizationContext
-		{
-			get => m_UISynchronizationContext;
-			set => m_UISynchronizationContext = value;
-		}
-		public virtual Task OnAppearingAsync()
-		{
-			return Task.FromResult(0);
-		}
-		public virtual Task OnCreatingAsync()
-		{
-			return Task.FromResult(0);
-		}
-		public virtual Task OnDisappearingAsync()
-		{
-			return Task.FromResult(0);
-		}
-		public virtual Task OnDestroyingAsync()
-		{
-			return Task.FromResult(0);
-		}
-		public virtual IPAFConnector Connector
-		{
-			get => m_Connector;
-			set => m_Connector = value;
-		}
+		SynchronizationContext UISynchronizationContext { get; set; }
 	}
 }

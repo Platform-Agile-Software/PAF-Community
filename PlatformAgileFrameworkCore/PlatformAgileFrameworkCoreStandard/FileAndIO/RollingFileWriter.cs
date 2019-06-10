@@ -111,6 +111,9 @@ namespace PlatformAgileFramework.FileAndIO
 		/// any deletions in the main file directory before returning to
 		/// ensure thread safety.
 		/// </remarks>
+		/// <threadsafety>
+		/// Safe.
+		/// </threadsafety>
 		protected internal Action<IList<string>> OptionalFileDispatcher { get; set; }
 		/// <summary>
 		/// Current version number is initialized to <see langword="null"/> on

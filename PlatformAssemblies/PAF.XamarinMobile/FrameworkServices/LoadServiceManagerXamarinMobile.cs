@@ -82,6 +82,9 @@ namespace PlatformAgileFramework.FrameworkServices
 
 			// Load platform mappings.
 			PlatformUtils.PlatformInfo = new XamarinFormsPlatformInfo();
+			// ReSharper disable once UnusedVariable
+			// Kick it to load it.
+			var platformUtils = PlatformUtils.Instance;
 
 			// Set the app root to our special folder.
 			PlatformUtils.ApplicationRoot = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -95,7 +98,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		    mu.PushAssemblyLister(AppDomain.CurrentDomain.GetAssemblies);
 		    mu.PushAssemblyLoadFromLoader(Assembly.LoadFrom);
 
-			// We are loading from code.
+			// When we are loading from code.
 			//SymbolicDirectoryMappingDictionary.DirectoryMappingFileName = null;
 			var name = SymbolicDirectoryMappingDictionary.DirectoryMappingFileName;
 

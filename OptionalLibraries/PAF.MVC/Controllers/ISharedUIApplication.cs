@@ -49,6 +49,10 @@ namespace PlatformAgileFramework.MVC.Controllers
 		/// initialization code on each platform. This allows posts or sends to
 		/// the UI thread.
 		/// </summary>
+		/// <remarks>
+		/// This is typically a GUI thread, but could be anything in a multi-threaded
+		/// application.
+		/// </remarks>
 		SynchronizationContext UISynchronizationContext
 		{
 			get;

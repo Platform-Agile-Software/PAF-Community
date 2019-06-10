@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2018 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,11 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System.ComponentModel;
+using System;
+using System.Drawing;
 using PlatformAgileFramework.MVC.Controllers;
-
+using PlatformAgileFramework.MVC.Notifications;
+using PlatformAgileFramework.Notification.AbstractViewControllers;
 namespace PlatformAgileFramework.MVC.Views
 {
 	/// <summary>
@@ -34,86 +36,66 @@ namespace PlatformAgileFramework.MVC.Views
 	/// </summary>
 	/// <history>
 	/// <contribution>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 18may19 </date>
+	/// Removed stuff for XAML support from this base interface. Mostly don't need it for
+	/// components we build in code.
+	/// </contribution>
 	/// <author> KRM </author>
 	/// <date> 01apr18 </date>
 	/// New. Refactored original to be more modular.
 	/// </contribution>
 	/// </history>
 	/// <remarks>
-	/// Both view and controller must broadcast property changed events.
+	/// Both view and controller must broadcast changed events. Binding changing needs
+	/// to be paired with a binding changed - Microsoft missed it. Need to know when the
+	/// change has been made so the events can be turned off.
 	/// </remarks>
-	public interface IViewBase : INotifyPropertyChanged
+	public interface IViewBase : IPropertyChangedNotificationBase,
+		IPropertyChangingNotificationBase, IBindingChangedNotificationBase,
+		IBindingChangingNotificationBase, IObjectBindable
 	{
 		/// <summary>
 		/// Reference to this view's controller.
 		/// </summary>
 		IControllerBase ControllerBase { get; set; }
+		/// <summary>
+		/// Traditional reference to upper right corner.
+		/// </summary>
+		double XUpperRight { get; set; }
+		/// <summary>
+		/// Traditional reference to upper right corner.
+		/// </summary>
+		double YUpperRight { get; set; }
+		/// <summary>
+		/// Width of the element.
+		/// </summary>
+		double Width { get; set; }
+		/// <summary>
+		/// Height of the element.
+		/// </summary>
+		double Height { get; set; }
+		/// <summary>
+		/// Determines whether the view is being animated.
+		/// </summary>
+		bool IsAnimating { get; set; }
+		/// <summary>
+		/// Determines whether the view takes up space in a layout.
+		/// </summary>
+		bool IsEnabled { get; set; }
+		/// <summary>
+		/// Determines whether the view can be seen. Good for switching overlaid views on/off.
+		/// </summary>
+		bool IsVisible { get; set; }
+		/// <summary>
+		/// Platform-independent background color of the view.
+		/// </summary>
+		uint BackgroundColor { get; set; }
+		/// <summary>
+		/// See-through.
+		/// </summary>
+		double Opacity { get; set; }
+
 	}
 }
-
-//	class ViewBase : IViewBase
-//	{
-//		private IControllerBase m_ControllerBase;
-//		public virtual IControllerBase ControllerBase
-//		{
-//			get => m_ControllerBase;
-//			set => m_ControllerBase = value;
-//		}
-//	}
-//	/// <summary>
-//	/// Base page.
-//	/// </summary>
-//	[ContentProperty("Content")]
-//	public class BasePage : BindableObject
-//	{
-//		/// <summary>
-//		/// The content property.
-//		/// </summary>
-//		public static readonly BindableProperty ContentProperty =
-//			BindableProperty.Create(
-//				"Content", typeof(View), typeof(BasePage),
-//				defaultValue: default(View));
-
-//		/// <summary>
-//		/// Gets or sets the content.
-//		/// </summary>
-//		/// <value>The content.</value>
-//		public View Content
-//		{
-//			get { return (View)GetValue(ContentProperty); }
-//			set { SetValue(ContentProperty, value); }
-//		}
-//	}
-
-//	//TODO: Rename this to BaseContentView?
-//	[ContentProperty("Content")]
-//	public class BasePage<T> : BasePage, IViewFor<T> where T : BaseNavigationViewModel
-//	{
-//		T _viewModel;
-
-//		/// <summary>
-//		/// Gets or sets the view model.
-//		/// </summary>
-//		/// <value>The view model.</value>
-//		public T ViewModel
-//		{
-//			get => _viewModel;
-//			set
-//			{
-//				_viewModel = value;
-//				BindingContext = _viewModel;
-//			}
-//		}
-
-//		/// <summary>
-//		/// Gets or sets the view model.
-//		/// </summary>
-//		/// <value>The nomad. core. IV iew for. view model.</value>
-//		object IViewFor.ViewModel
-//		{
-//			get => _viewModel;
-//			set => ViewModel = (T)value;
-//		}
-//	}
-//}
-//}

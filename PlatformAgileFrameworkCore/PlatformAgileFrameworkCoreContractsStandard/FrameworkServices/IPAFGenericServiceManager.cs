@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,17 @@ namespace PlatformAgileFramework.FrameworkServices
 	/// This interface handles basic services within the PAF system.
 	/// </summary>
 	/// <typeparam name="T">
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 09jun2019 </date>
+	/// <description>
+	/// Added "lazy" constructor support so a service description can be defined with the
+	/// <see cref="Lazy{T}"/> construct. Needed for new view controller system. Added history.
+	/// This was probably originally built in the Generic conversion way back when.
+	/// </description>
+	/// </contribution>
+	/// </history>
 	/// The type is constrained to be a <see cref="IPAFService"/>
 	/// </typeparam>
 	/// <remarks>
@@ -74,6 +85,30 @@ namespace PlatformAgileFramework.FrameworkServices
 		/// <param name="serviceName">Name of the service, which is usually not "".</param>
 		[SecurityCritical]
 		void AddTypedService<U>(U service, string serviceName)
+			where U : class, T;
+		/// <summary>
+		/// Method allows privileged clients to add services on the fly. This method
+		/// creates a service as the unnamed service.
+		/// </summary>
+		/// <typeparam name="U">
+		/// Type of the service. This must be an interface. Thus concrete implementations
+		/// must be cast to their service interfaces before being passed in this argument.
+		/// </typeparam>
+		/// <param name="serviceBuilder">The paramaterless function to construct service.</param>
+		[SecurityCritical]
+		void AddTypedService<U>(Lazy<U> serviceBuilder)
+			where U : class, T;
+		/// <summary>
+		/// Method allows privileged clients to add services on the fly.
+		/// </summary>
+		/// <typeparam name="U">
+		/// Type of the service. This must be an interface. Thus concrete implementations
+		/// must be cast to their service interfaces before being passed in this argument.
+		/// </typeparam>
+		/// <param name="serviceBuilder">The paramaterless function to construct service.</param>
+		/// <param name="serviceName">Name of the service, which is usually not "".</param>
+		[SecurityCritical]
+		void AddTypedService<U>(Lazy<U> serviceBuilder, string serviceName)
 			where U : class, T;
 		/// <summary>
 		/// This method requests a specific service by its service interface type.

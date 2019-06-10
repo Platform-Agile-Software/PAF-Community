@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using PlatformAgileFramework.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -105,6 +106,28 @@ namespace PlatformAgileFramework.FrameworkServices.Tests
 
 			// Should find it.
 			Assert.IsTrue(service != null);
+		}
+		/// <summary>
+		/// This test checks the registration by a lazy constructor.
+		/// </summary>
+		[Test]
+		public void ETestToTestRegistrationOfLazyConstructors()
+		{
+			var manager = PAFServiceManagerContainer.ServiceManager;
+
+			// Add our test service.
+			manager.AddTypedService
+				(new Lazy<ISeparateGenericHolder<object>>
+				(() => new GenericServiceRegistrationTestService<object>()));
+
+			// Grab it.
+			var service = manager.GetTypedService<ISeparateGenericHolder<object>>();
+
+			// Should find it.
+			Assert.IsTrue(service != null);
+
+
+
 		}
 	}
 }

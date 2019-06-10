@@ -30,7 +30,7 @@ namespace Xamarin.FormsTestRunner.ViewModels
 	/// </contribution>
 	/// </history>
 	//public class TestResultsSummaryViewModel : BaseViewModel
-	public class TestResultsSummaryViewModel : AsyncPropertyChangedNotificationBase, ITitledElement
+	public class TestResultsSummaryViewModel : AsyncProgressChangedNotificationBase, ITitledElement
 	{
 		// Temp for testing.
 		public IDataStore<ITestResultSummary> DataStore => DependencyService.Get<IDataStore<ITestResultSummary>>() ?? new MockDataStore();
@@ -67,7 +67,7 @@ namespace Xamarin.FormsTestRunner.ViewModels
 		/// This constructor optionally pushes in a test element. If the
 		/// <see cref="TestRootNode"/> is not set, it sets it. If the root
 		/// is already set, the incoming element is assumed to point to
-		/// an arbitray node in the tree.
+		/// an arbitrary node in the tree.
 		/// </summary>
 		/// <param name="testElementInfo">
 		/// Some node in the test tree.

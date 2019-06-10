@@ -161,7 +161,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
         /// Default of <see cref="int.MaxValue"/> results in use of
         /// internal static value. 0 results
         /// in purging before each notification. Positive values result in
-        /// purging of dead references on a time shedule. Running the purge
+        /// purging of dead references on a time schedule. Running the purge
         /// on a timer is useful, for example in applications that involve
         /// high-speed graphics. It does take some time to purge. In some
         /// applications, there are a large number of subscribers. 

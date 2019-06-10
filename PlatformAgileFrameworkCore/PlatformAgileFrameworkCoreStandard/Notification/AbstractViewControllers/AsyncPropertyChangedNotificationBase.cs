@@ -39,8 +39,8 @@ namespace PlatformAgileFramework.Notification.AbstractViewControllers
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public class AsyncPropertyChangedNotificationBase :
-		PropertyChangedNotificationBase, IAsyncPropertyChangedNotificationBase
+	public class AsyncProgressChangedNotificationBase :
+		PropertyChangedNotificationBase, IProgressChangedNotification
 	{
 		#region Fields and Autoproperties
 		/// <summary>

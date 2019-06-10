@@ -4,7 +4,6 @@ using System.Security;
 using PlatformAgileFramework.Collections;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Manufacturing;
-using PlatformAgileFramework.Notification.Exceptions;
 using PlatformAgileFramework.TypeHandling;
 using PlatformAgileFramework.TypeHandling.Exceptions;
 using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
