@@ -77,24 +77,24 @@ namespace PlatformAgileFramework
 		        = PAFTestElementInfoExtensions.GetUntypedChildInfosOfType<IPAFTestElementInfo<IPAFTestAssemblyInfo>, IPAFTestFixtureInfo>;
 			////////////////////////////////////////////////////////////////////////////
 			///// To run tests in an assembly.
-			//var assemblyInfo = new PAFTestAssemblyInfo(assembly.ToAssemblyholder(), null,
-			//PAFTestFrameworkBehavior.GetStandardNUnitParams());
-			//assemblyInfo.InitializeExePipeline(null);
-			//assemblyInfo.RunPipelinedObject(null);
-			//var testConsoleUI = new PAFTestResultUserInteraction(assemblyInfo.TestElementResultInfo);
-			//testConsoleUI.ProcessCommand("OR");
-			//return;
+			var assemblyInfo = new PAFTestAssemblyInfo(assembly.ToAssemblyholder(), null,
+			PAFTestFrameworkBehavior.GetStandardNUnitParams());
+			assemblyInfo.InitializeExePipeline(null);
+			assemblyInfo.RunPipelinedObject(null);
+			var testConsoleUI = new PAFTestResultUserInteraction(assemblyInfo.TestElementResultInfo);
+			testConsoleUI.ProcessCommand("OR");
+			return;
 
 
 			//////////////////////////////////////////////////////////////////////////////
 			///// To run tests in a fixture.
-			var fixtureInfo = new PAFTestFixtureInfo(typeof(BasicServiceManagerTests).ToTypeholder(),
-				PAFTestFrameworkBehavior.GetStandardNUnitParams());
-			var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
-			fixtureWrapper.InitializeExePipeline(null);
-			fixtureWrapper.RunPipelinedObject(null);
-			var testConsoleUI = new PAFTestResultUserInteraction(fixtureWrapper.TestElementResultInfo);
-			testConsoleUI.ProcessCommand("OR");
+			//var fixtureInfo = new PAFTestFixtureInfo(typeof(WeakUnconstrainedGenericEventTests).ToTypeholder(),
+			//	PAFTestFrameworkBehavior.GetStandardNUnitParams());
+			//var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
+			//fixtureWrapper.InitializeExePipeline(null);
+			//fixtureWrapper.RunPipelinedObject(null);
+			//var testConsoleUI = new PAFTestResultUserInteraction(fixtureWrapper.TestElementResultInfo);
+			//testConsoleUI.ProcessCommand("OR");
 
 
 			//////////////////////////////////////////////////////////////////////////////

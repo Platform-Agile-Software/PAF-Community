@@ -10,11 +10,11 @@ namespace PlatformAgileFramework.Events
 	/// <summary>
 	/// Tests for subscribing and releasing weak event handlers.
 	/// Generic version. Here we also test an unclosed Generic subscriber's capability
-	/// to pull the proper data out of the payloads. This uses the "standard style" of
-	/// events, where event args are directly exposed.
+	/// to pull the proper data out of the payloads. This uses the "PAF style" of
+	/// events, where event args are accessed through an interface.
 	/// </summary>
 	[TestFixture]
-	public class WeakUnconstrainedGenericEventTests : BasicServiceManagerTestFixtureBase
+	public class WeakUnconstrainedGenericPAFEventTests : BasicServiceManagerTestFixtureBase
 	{
 		/// <summary>
 		/// The subscriber will add to this count.
@@ -27,24 +27,24 @@ namespace PlatformAgileFramework.Events
 		public static int s_NumSubscribersFinalized;
 
 		public static int s_EventsTriggered;
-		public WeakGenericEventSubscriberTestClass<object> m_ObjectSubscriber;
-		public WeakGenericEventSubscriberTestClass<int> m_IntSubscriber;
+		public WeakGenericPAFEventSubscriberTestClass<object> m_ObjectSubscriber;
+		public WeakGenericPAFEventSubscriberTestClass<int> m_IntSubscriber;
 
-		public IPayloadWeakableSubscriberStore<Action<object, object>, object>
+		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<object>>, object>
 			m_ObjectPublisher;
 
-		public IPayloadWeakableSubscriberStore<Action<object, int>, int>
+		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<int>>, int>
 			m_IntPublisher;
 
-		public WeakUnconstrainedGenericEventTests()
+		public WeakUnconstrainedGenericPAFEventTests()
 		{
-			m_ObjectSubscriber = new WeakGenericEventSubscriberTestClass<object>();
-			m_ObjectPublisher = new GenericEventArgsSubscriberStore<object, WeakUnconstrainedGenericEventTests>(this);
+			m_ObjectSubscriber = new WeakGenericPAFEventSubscriberTestClass<object>();
+			m_ObjectPublisher = new GenericPAFEventArgsSubscriberStore<object, WeakUnconstrainedGenericPAFEventTests>(this);
 			// This will box an integer.
 			m_ObjectPublisher.Payload = 1;
 
-			m_IntSubscriber = new WeakGenericEventSubscriberTestClass<int>();
-			m_IntPublisher = new GenericEventArgsSubscriberStore<int, WeakUnconstrainedGenericEventTests>(this);
+			m_IntSubscriber = new WeakGenericPAFEventSubscriberTestClass<int>();
+			m_IntPublisher = new GenericPAFEventArgsSubscriberStore<int, WeakUnconstrainedGenericPAFEventTests>(this);
 			// This just loads an int into an int.
 			m_IntPublisher.Payload = 1;
 

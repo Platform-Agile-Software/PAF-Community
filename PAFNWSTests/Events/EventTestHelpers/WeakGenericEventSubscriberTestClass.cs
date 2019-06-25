@@ -7,12 +7,12 @@ namespace PlatformAgileFramework.Events.EventTestHelpers
 {
 	/// <summary>
 	/// This is a "subscriber" class that takes an unconstrained Generic as
-	/// the payload.
+	/// the payload. This is the "standard style" where event args are exposed directly.
 	/// </summary>
 	/// <typeparam name="TPayload">Any type.</typeparam>
 	public class WeakGenericEventSubscriberTestClass<TPayload>
 	{
-		private void LogEventOccurance(object obj, IPAFEventArgsProvider<TPayload> args)
+		private void LogEventOccurance(object obj, TPayload args)
 		{
 			// We have to use an interlocked method, since this poor
 			// test class might get invoked on multiple threads.
@@ -20,13 +20,13 @@ namespace PlatformAgileFramework.Events.EventTestHelpers
 		}
 
 		public void WeaklySubscribe(
-			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload> publisher)
+			[NotNull] IPayloadWeakableSubscriberStore<Action<object, TPayload>, TPayload> publisher)
 		{
 			publisher.WeaklySubscribe(Execute);
 		}
 
 		public void StronglySubscribe(
-			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload> publisher)
+			[NotNull] IPayloadWeakableSubscriberStore<Action<object, TPayload>, TPayload> publisher)
 		{
 			publisher.Subscribe(Execute, false);
 		}
@@ -37,9 +37,9 @@ namespace PlatformAgileFramework.Events.EventTestHelpers
 		/// </summary>
 		/// <param name="obj">Unused.</param>
 		/// <param name="args">The generic payload interface to examine.</param>
-		public void Execute(object obj, [NotNull] IPAFEventArgsProvider<TPayload> args)
+		public void Execute(object obj, [NotNull] TPayload args)
 		{
-			var payload = args.Value;
+			var payload = args;
 
 			// Can't cast an open Generic.
 			// This is good for value type payloads, since

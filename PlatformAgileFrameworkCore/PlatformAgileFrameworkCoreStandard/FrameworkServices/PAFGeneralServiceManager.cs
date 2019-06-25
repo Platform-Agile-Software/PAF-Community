@@ -173,7 +173,7 @@ namespace PlatformAgileFramework.FrameworkServices
 			PAFServiceCreator serviceCreator = null,
 			//PAFLocalServiceInstantiator1<T> typedLocalServiceInstantiator = null,
 			PAFLocalServiceInstantiator localServiceInstantiator = null)
-			: this(0,  serviceManagerType, serviceManagerName, guid, services,
+			: this(0, serviceManagerType, serviceManagerName, guid, services,
 			serviceCreator, localServiceInstantiator)
 		{
 			//m_TypedLocalServiceInstantiator = typedLocalServiceInstantiator;
@@ -295,6 +295,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		{
 			return GetAnyServiceDescriptionsPV<U>();
 		}
+
 		/// <remarks>
 		/// Backing for the interfaces. This method has been updated to deal with lazy constructors.
 		/// </remarks>
@@ -312,36 +313,43 @@ namespace PlatformAgileFramework.FrameworkServices
 					= dict.ReadLockedNullableObject.GetServiceImplementations<U>
 						(registeredTypesOnly, serviceName);
 				var genericImplementingServices
-					= implementingServices.EnumIntoSubtypeList<IPAFServiceDescription,IPAFServiceDescription<U>>();
+					= implementingServices.EnumIntoSubtypeList<IPAFServiceDescription, IPAFServiceDescription<U>>();
+
 
 				foreach (var genericImplementingService in genericImplementingServices)
 				{
 					// If we are an extended service, we don't return ourselves unless
 					// we are initialized.
 					IPAFServiceExtended extendedService;
-					if (
-						(genericImplementingService.ServiceObject != null)
-						&&
-						(extendedService = (genericImplementingService.ServiceObject as IPAFServiceExtended)) != null)
+					if ((genericImplementingService.ServiceObject == null) || (extendedService =
+							(genericImplementingService.ServiceObject as IPAFServiceExtended)) == null)
 					{
-						if (extendedService.ServiceIsInitialized)
-							returnedServices.AddNoNulls((U)genericImplementingService.ServiceObject);
-					}
-					else
-					{
+						// null and not an extended service. We can use the builder if we have one.
 						if (genericImplementingService.Service == null)
 						{
 							if (genericImplementingService.ServiceBuilder != null)
 								genericImplementingService.Service = genericImplementingService.ServiceBuilder.Value;
 						}
 
-						returnedServices.AddNoNulls((U)genericImplementingService.ServiceObject);
+						return genericImplementingService.Service;
 					}
-				}
-			}
 
-			return returnedServices.GetFirstElement();
+					// An extended service which has been initialized.
+					if (extendedService.ServiceIsInitialized)
+						return genericImplementingService.Service;
+				}
+
+				// If we are here, we didn't find anybody who was registered as the exact Generic service.
+				foreach (var implementingService in implementingServices)
+				{
+					if (implementingService.ServiceObject != null)
+						return (U)implementingService.ServiceObject;
+				}
+
+				return null;
+			}
 		}
+
 		/// <remarks>
 		/// Backing for the interfaces.
 		/// </remarks>
@@ -377,7 +385,7 @@ namespace PlatformAgileFramework.FrameworkServices
 				innerServiceDictionary.Remove(newDefaultServiceNTO);
 
 				// Clear the "default" bit.
-				((IPAFServiceDescriptionInternal) (oldDefaultService.Value)).SetIsDefault(false);
+				((IPAFServiceDescriptionInternal)(oldDefaultService.Value)).SetIsDefault(false);
 
 				// Set "default" bit on new default service.
 				((IPAFServiceDescriptionInternal)newDefaultService).SetIsDefault(true);
@@ -764,12 +772,12 @@ namespace PlatformAgileFramework.FrameworkServices
 			IPAFServicePipelineObject<IPAFService> servicePipelineObject,
 			IPAFServiceDescription serviceDescription,
 			IPAFTypeFilter typeFilter = null)
-			where U: class, T
+			where U : class, T
 		{
 			//if (m_TypedLocalServiceInstantiator != null)
 			//{
 			//	return m_TypedLocalServiceInstantiator(servicePipelineObject, serviceDescription,
- 
+
 			//		typeFilter);
 			//}
 			return DefaultTypedLocalServiceInstantiator<U>(servicePipelineObject, serviceDescription, typeFilter);
@@ -841,7 +849,7 @@ namespace PlatformAgileFramework.FrameworkServices
 		public virtual IPAFServiceDescription<U> DefaultTypedLocalServiceInstantiator<U>(
 			IPAFServicePipelineObject servicePipelineObject,
 			IPAFServiceDescription serviceDescription, IPAFTypeFilter typeFilter = null,
-			IEnumerable<Assembly> assemblyList = null) where U: class, T
+			IEnumerable<Assembly> assemblyList = null) where U : class, T
 		{
 			var desc = LocalServiceInstantiator(servicePipelineObject, serviceDescription,
 				typeFilter, assemblyList);
