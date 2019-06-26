@@ -86,6 +86,11 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// <summary>
 		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
 		/// </summary>
+		/// <param name="addedPD">PD to add.</param>
+		void SubscribePD(IPseudoDelegate<TDelegate> addedPD);
+		/// <summary>
+		/// Removes a <see cref="IPseudoDelegate{TDelegate}"/>
+		/// </summary>
 		/// <param name="removedPD">PD to remove.</param>
 		void UnsubscribePD(IPseudoDelegate<TDelegate> removedPD);
 		/// <summary>

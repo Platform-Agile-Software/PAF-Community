@@ -23,7 +23,6 @@
 //THE SOFTWARE.
 //@#$&-
 using System;
-using PlatformAgileFramework.Events;
 using PlatformAgileFramework.Properties;
 
 namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores
