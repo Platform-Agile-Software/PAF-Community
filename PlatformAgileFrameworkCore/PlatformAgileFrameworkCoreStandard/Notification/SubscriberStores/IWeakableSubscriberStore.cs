@@ -23,7 +23,7 @@
 //THE SOFTWARE.
 //@#$&-
 using System;
-
+using PlatformAgileFramework.TypeHandling.Delegates;
 namespace PlatformAgileFramework.Notification.SubscriberStores
 {
 	/// <summary>
@@ -83,6 +83,11 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// Indicates weak/strong subscription.
 		/// </param>
 		void Subscribe(TDelegate addedDelegate, bool isWeak);
+		/// <summary>
+		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
+		/// </summary>
+		/// <param name="removedPD">PD to remove.</param>
+		void UnsubscribePD(IPseudoDelegate<TDelegate> removedPD);
 		/// <summary>
 		/// This method is provided because the store typically
 		/// cannot be started in the constructor and that's a

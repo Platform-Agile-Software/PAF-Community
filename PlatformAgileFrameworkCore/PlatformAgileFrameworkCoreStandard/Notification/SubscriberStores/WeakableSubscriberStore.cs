@@ -352,7 +352,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// Adds a <see cref="IPseudoDelegate{TDelegate}"/>
 		/// </summary>
 		/// <param name="addedPD">PD to add.</param>
-		protected virtual void SubscribePD(IPseudoDelegate<TDelegate> addedPD)
+		public virtual void SubscribePD(IPseudoDelegate<TDelegate> addedPD)
 		{
 			if (m_ShouldStoreStop)
 				return;
@@ -370,7 +370,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// Removes a <see cref="IPseudoDelegate{TDelegate}"/>.
 		/// </summary>
 		/// <param name="removedPD">PD to remove.</param>
-		protected virtual void UnsubscribePD(IPseudoDelegate<TDelegate> removedPD)
+		public virtual void UnsubscribePD(IPseudoDelegate<TDelegate> removedPD)
 		{
 			if (m_ShouldStoreStop)
 				return;

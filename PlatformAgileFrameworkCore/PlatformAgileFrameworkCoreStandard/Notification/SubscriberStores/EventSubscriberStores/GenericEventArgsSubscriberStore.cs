@@ -69,8 +69,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		#region Constructors
 
 		/// <summary>
-		/// Attaches our interface to the implementation of
-		/// <see cref="IPAFEventArgsProvider{T}"/> and loads the
+		/// Attaches our interface to the action and loads the
 		/// event source properties.
 		/// </summary>
 		/// <param name="eventSource">
@@ -83,7 +82,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="eventDispatcherPlugin">See Base.</param>
 		public GenericEventArgsSubscriberStore(TSource eventSource,
 			int purgeIntervalInMilliseconds = -1,
-			[CanBeNull] Action<WeakableSubscriberStore<Action<object, TPayload>>> eventDispatcherPlugin = null
+			[CanBeNull] Action<IWeakableSubscriberStore<Action<object, TPayload>>> eventDispatcherPlugin = null
 			)
 			:base(purgeIntervalInMilliseconds, eventDispatcherPlugin)
 		{
@@ -96,7 +95,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <summary>
 		/// <see cref="INotificationSourcedSubscriberStore"/>
 		/// </summary>
-		public object NotificationSource
+		public virtual object NotificationSource
 		{
 			get { return NotificationSourceItem; }
 		}
