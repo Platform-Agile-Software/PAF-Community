@@ -50,7 +50,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 	/// </history>
 	public class GenericEventArgsSubscriberStore<TPayload, TSource>
 		: WeakableSubscriberStore<Action<object, TPayload>, TPayload>,
-			IGenericNotificationSourcedSubscriberStore<Action<object, TPayload>, TSource>
+			IGenericPayloadNotificationSourcedSubscriberStore<Action<object, TPayload>, TPayload, TSource>
 		where TSource : class
 	{
 		#region Fields and Autoproperties
