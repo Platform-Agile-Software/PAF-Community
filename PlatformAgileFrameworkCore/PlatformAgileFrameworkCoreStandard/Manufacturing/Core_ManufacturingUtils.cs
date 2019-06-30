@@ -38,188 +38,191 @@ using PlatformAgileFramework.TypeHandling.TypeExtensionMethods.Helpers;
 
 namespace PlatformAgileFramework.Manufacturing
 {
-    /// <summary>
-    /// Helper methods for manufacturing Types in AppDomains. This class is where
-    /// the system "bootstrapping" actually begins. This class is accessed by
-    /// other system initialization components to load and scan assemblies. There
-    /// are several styles of platform coverage supported here, based on the methods
-    /// and properties on this class. Platform-specific assemblies can be loaded
-    /// dynamically or they can be linked in statically to the app.
-    /// This part is Silverlight compatible (single AppDomain).
-    /// </summary>
-    /// <history>
-    /// <contribution>
-    /// <author> KRM </author>
-    /// <date> 04nov2017 </date>
-    /// <desription>
-    /// <para>
-    /// Changed to a singleton so we can set static props before use. Moved many functions
-    /// here from bootstrapper, since bootstrapper is used for service manager and clients
-    /// want to use another service manager sometimes.
-    /// </para>
-    /// </desription>
-    /// </contribution>
-    /// <contribution>
-    /// <author> KRM </author>
-    /// <date> 02sep2011 </date>
-    /// <desription>
-    /// <para>
-    /// Trying to "morph" our way into the new 4.0 security model and the Silverlight
-    /// implementation. "SILVERLIGHT" still means the low-security silverlight rules
-    /// with no possibility of including full-trust stuff, but this file is being made
-    /// to work in elevated priviledge mode, too.
-    /// </para>
-    /// </desription>
-    /// </contribution>
-    /// </history>
-    /// <remarks>
-    /// <para>
-    /// Added by KRM - this class does not employ the service manager by design intent.
-    /// This class must be available at application initialization time in order to
-    /// locate services dynamically. The other option is to push root services into
-    /// the manager as statics before the app is started. However, if this class is
-    /// usable before SM is available, more options are possible.
-    /// </para>
-    /// <para>
-    /// Core only supports loading ONE platform-specific plugin providing logging,
-    /// storage and UI. It's a good practice to aggregate these functions into a single
-    /// DLL, anyway.
-    /// </para>
-    /// </remarks>
-// ReSharper disable PartialTypeWithSinglePart
-    public partial class ManufacturingUtils
-// ReSharper restore PartialTypeWithSinglePart
+	/// <summary>
+	/// Helper methods for manufacturing Types in AppDomains. This class is where
+	/// the system "bootstrapping" actually begins. This class is accessed by
+	/// other system initialization components to load and scan assemblies. There
+	/// are several styles of platform coverage supported here, based on the methods
+	/// and properties on this class. Platform-specific assemblies can be loaded
+	/// dynamically or they can be linked in statically to the app.
+	/// This part is Silverlight compatible (single AppDomain).
+	/// </summary>
+	/// <history>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 04nov2017 </date>
+	/// <desription>
+	/// <para>
+	/// Changed to a singleton so we can set static props before use. Moved many functions
+	/// here from bootstrapper, since bootstrapper is used for service manager and clients
+	/// want to use another service manager sometimes.
+	/// </para>
+	/// </desription>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 02sep2011 </date>
+	/// <desription>
+	/// <para>
+	/// Trying to "morph" our way into the new 4.0 security model and the Silverlight
+	/// implementation. "SILVERLIGHT" still means the low-security silverlight rules
+	/// with no possibility of including full-trust stuff, but this file is being made
+	/// to work in elevated priviledge mode, too.
+	/// </para>
+	/// </desription>
+	/// </contribution>
+	/// </history>
+	/// <remarks>
+	/// <para>
+	/// Added by KRM - this class does not employ the service manager by design intent.
+	/// This class must be available at application initialization time in order to
+	/// locate services dynamically. The other option is to push root services into
+	/// the manager as statics before the app is started. However, if this class is
+	/// usable before SM is available, more options are possible.
+	/// </para>
+	/// <para>
+	/// Core only supports loading ONE platform-specific plugin providing logging,
+	/// storage and UI. It's a good practice to aggregate these functions into a single
+	/// DLL, anyway.
+	/// </para>
+	/// </remarks>
+	// ReSharper disable PartialTypeWithSinglePart
+	public partial class ManufacturingUtils
+	// ReSharper restore PartialTypeWithSinglePart
 	{
-        #region Class Fields and Autoproperties
-	    /// <summary>
-	    /// This a thread-safe wrapper for constructing the singleton.
-	    /// </summary>
-	    /// <remarks>
-	    /// Lazy class is thread-safe by default.
-	    /// </remarks>
-	    private static readonly Lazy<ManufacturingUtils> s_Singleton =
-	        new Lazy<ManufacturingUtils>(ConstructManufacturingUtils);
+		#region Class Fields and Autoproperties
+		/// <summary>
+		/// This a thread-safe wrapper for constructing the singleton.
+		/// </summary>
+		/// <remarks>
+		/// Lazy class is thread-safe by default.
+		/// </remarks>
+		private static readonly Lazy<ManufacturingUtils> s_Singleton =
+			new Lazy<ManufacturingUtils>(ConstructManufacturingUtils);
 
-	    /// <summary>
-	    /// Set when the platform-specific assembly is loaded or an attempt has been
-	    /// made to load it. Or set it to <see langword="true"/> to indicate we don't
-	    /// even want to load any platform-specific assy.
-	    /// </summary>
-	    internal static volatile bool s_IsPlatformAssemblyLoaded;
+		/// <summary>
+		/// Set when the platform-specific assembly is loaded or an attempt has been
+		/// made to load it. Or set it to <see langword="true"/> to indicate we don't
+		/// even want to load any platform-specific assy.
+		/// </summary>
+		internal static volatile bool s_IsPlatformAssemblyLoaded;
 
-        /// <summary>
-        /// Platform assy for basic services.
-        /// </summary>
-        protected internal static Assembly s_PlatformAssembly;
+		/// <summary>
+		/// Platform assy for basic services.
+		/// </summary>
+		protected internal static Assembly s_PlatformAssembly;
 
-	    /// <summary>
-        /// Container for the assemblies loaded into the current AppDomain. key is the
-        /// assembly "simple name", in our case, the filename.
-        /// </summary>
-        // ReSharper disable once InconsistentNaming
-        internal static IDictionary<string, Assembly> s_AssembliesLoadedInAppdomain;
-        #region Extension points for static linking
-        /// <summary>
-        /// Push this in for loading assemblies on platform. Loads "from" a fileSpec.
-        /// </summary>
-        protected internal static Func<string, Assembly> AssemblyLoadFromLoader { get; set; }
-        /// <summary>
-        /// Push this in for listing assemblies on platform. Even on platforms where
-        /// some sort of "GetAssemblies" functionality is not available, the platform
-        /// assembly can push in itself if it is statically linked. Any assemblies
-        /// returned from this call are not added if they are already in our collection.
-        /// The function may return <see langword="null"/>.
-        /// </summary>
-		protected internal static Func<IEnumerable<Assembly>> AssemblyLister { get; set; }
-        #endregion // Extension points for static linking
-	    ///// <summary>
-	    ///// This one has to be manually set, since there is no reliable way
-	    ///// to find out what platform we are on from Microsoft/Xamarin. Used
-	    ///// to be able to examine BCL assys, but no more. Too many variations.....
-	    ///// </summary>
-     //   public static readonly IPlatformInfo s_CurrentPlatformInfo = new PAF_ECMA4_6_2PlatformInfo();
-     //   // public static readonly IPlatformInfo s_CurrentPlatformInfo = new WinPlatformInfo();
-	    ////public static readonly IPlatformInfo s_CurrentPlatformInfo = new MacPlatformInfo();
-
-        /// <summary>
-        /// We need this to do symbolic directory mapping. Set in construction path.
-        /// </summary>
-        public static ISymbolicDirectoryMappingDictionary DirectoryMappings
-        { get; protected internal set; }
-
-        /// <summary>
-        /// We need this to do symbolic directory mapping. Set in construction path.
-        /// </summary>
-        internal static ISymbolicDirectoryMappingDictionaryInternal DirectoryMappingsInternal
-        { get; set; }
-
-        #endregion // Class Fields and Autoproperties
-        #region Constructors
-        /// <summary>
-        /// Create needed collections. Load this assembly
-        /// into <c>AssembliesLoadedInAppdomain</c>.
-        /// </summary>
-        static ManufacturingUtils()
+		/// <summary>
+		/// Container for the assemblies loaded into the current AppDomain. key is the
+		/// assembly "simple name", in our case, the filename.
+		/// </summary>
+		// ReSharper disable once InconsistentNaming
+		public static IDictionary<string, Assembly> AssembliesLoadedInAppdomain
 		{
-			s_AssembliesLoadedInAppdomain = new Dictionary<string,Assembly>();
-		    // Make sure that Platform utils gets loaded when this class gets touched.
-		    // ReSharper disable once UnusedVariable
-		    var platform = PlatformUtils.PlatformInfoInternal;
+			get; [SecurityCritical] set;
+		}
+		#region Extension points for static linking
+		/// <summary>
+		/// Push this in for loading assemblies on platform. Loads "from" a fileSpec.
+		/// </summary>
+		public static Func<string, Assembly> AssemblyLoadFromLoader { get; [SecurityCritical] set; }
+		/// <summary>
+		/// Push this in for listing assemblies on platform. Even on platforms where
+		/// some sort of "GetAssemblies" functionality is not available, the platform
+		/// assembly can push in itself if it is statically linked. Any assemblies
+		/// returned from this call are not added if they are already in our collection.
+		/// The function may return <see langword="null"/>.
+		/// </summary>
+		public static Func<IEnumerable<Assembly>> AssemblyLister { get; [SecurityCritical] set; }
+		#endregion // Extension points for static linking
+		///// <summary>
+		///// This one has to be manually set, since there is no reliable way
+		///// to find out what platform we are on from Microsoft/Xamarin. Used
+		///// to be able to examine BCL assys, but no more. Too many variations.....
+		///// </summary>
+		//   public static readonly IPlatformInfo s_CurrentPlatformInfo = new PAF_ECMA4_6_2PlatformInfo();
+		//   // public static readonly IPlatformInfo s_CurrentPlatformInfo = new WinPlatformInfo();
+		////public static readonly IPlatformInfo s_CurrentPlatformInfo = new MacPlatformInfo();
+
+		/// <summary>
+		/// We need this to do symbolic directory mapping. Set in construction path.
+		/// </summary>
+		public static ISymbolicDirectoryMappingDictionary DirectoryMappings
+		{ get; [SecurityCritical] set; }
+
+		/// <summary>
+		/// We need this to do symbolic directory mapping. Set in construction path.
+		/// </summary>
+		internal static ISymbolicDirectoryMappingDictionaryInternal DirectoryMappingsInternal
+		{ get; set; }
+
+		#endregion // Class Fields and Autoproperties
+		#region Constructors
+		/// <summary>
+		/// Create needed collections. Load this assembly
+		/// into <c>AssembliesLoadedInAppdomain</c>.
+		/// </summary>
+		static ManufacturingUtils()
+		{
+			AssembliesLoadedInAppdomain = new Dictionary<string, Assembly>();
+			// Make sure that Platform utils gets loaded when this class gets touched.
+			// ReSharper disable once UnusedVariable
+			var platform = PlatformUtils.PlatformInfoInternal;
 		}
 
-        /// <summary>
-        /// Non-public for testing.
-        /// </summary>
-	    protected internal ManufacturingUtils()
-	    {
-	    }
-	    #endregion Constructors
+		/// <summary>
+		/// Non-public for testing.
+		/// </summary>
+		protected internal ManufacturingUtils()
+		{
+		}
+		#endregion Constructors
 
-        #region Properties
-        /// <summary>
-        /// Get the singleton instance of the class.
-        /// </summary>
-        /// <returns>The singleton.</returns>
-        public static ManufacturingUtils Instance
-	    {
-            get
-            {
-                return s_Singleton.Value;
-            }
-	    }
-        #endregion // Properties
-        #region Methods
-        /// <summary>
-        /// Not quite a constructor - a factory for the lazy construction.
-        /// </summary>
-        protected static ManufacturingUtils ConstructManufacturingUtils()
-	    {
-	        var utils = new ManufacturingUtils();
-	        // Just loading the statics, ReSharper...............
-	        // ReSharper disable once UnusedVariable
-	        // Generate an exception here in the constructor so we get it out
-	        // of the way.
-	        var unusedVariable = PlatformUtils.Instance;
+		#region Properties
+		/// <summary>
+		/// Get the singleton instance of the class.
+		/// </summary>
+		/// <returns>The singleton.</returns>
+		public static ManufacturingUtils Instance
+		{
+			get
+			{
+				return s_Singleton.Value;
+			}
+		}
+		#endregion // Properties
+		#region Methods
+		/// <summary>
+		/// Not quite a constructor - a factory for the lazy construction.
+		/// </summary>
+		protected static ManufacturingUtils ConstructManufacturingUtils()
+		{
+			var utils = new ManufacturingUtils();
+			// Just loading the statics, ReSharper...............
+			// ReSharper disable once UnusedVariable
+			// Generate an exception here in the constructor so we get it out
+			// of the way.
+			var unusedVariable = PlatformUtils.Instance;
 
 
-	        // platform statics are loaded, so now we can load the dictionary.
-            DirectoryMappingsInternal = new SymbolicDirectoryMappingDictionary();
-            DirectoryMappings = DirectoryMappingsInternal;
+			// platform statics are loaded, so now we can load the dictionary.
+			DirectoryMappingsInternal = new SymbolicDirectoryMappingDictionary();
+			DirectoryMappings = DirectoryMappingsInternal;
 
-	        // FileUtils must be provisioned with this before SM is released to the public.
-	        PAFFileUtils.SetMappings(DirectoryMappingsInternal);
+			// FileUtils must be provisioned with this before SM is released to the public.
+			PAFFileUtils.SetMappings(DirectoryMappingsInternal);
 
-            FindLoadedAssemblies();
-	        return utils;
-	    }
-        #region Partial Methods
-        /// <summary>
-        /// This method is used to find loaded assemblies from a mechanism in a linked-in class.
-        /// </summary>
-        /// <param name="assemblies">Collection to add to.</param>
-        // ReSharper disable UnusedMember.Local
-        // ReSharper disable PartialMethodWithSinglePart
-        static partial void FindLoadedAssembliesPartial(ref ICollection<Assembly> assemblies);
+			FindLoadedAssemblies();
+			return utils;
+		}
+		#region Partial Methods
+		/// <summary>
+		/// This method is used to find loaded assemblies from a mechanism in a linked-in class.
+		/// </summary>
+		/// <param name="assemblies">Collection to add to.</param>
+		// ReSharper disable UnusedMember.Local
+		// ReSharper disable PartialMethodWithSinglePart
+		static partial void FindLoadedAssembliesPartial(ref ICollection<Assembly> assemblies);
 		// ReSharper restore PartialMethodWithSinglePart
 		// ReSharper restore UnusedMember.Local
 		/// <summary>
@@ -253,123 +256,123 @@ namespace PlatformAgileFramework.Manufacturing
 		{
 			if ((typeToCheck == null) || (criteriaObj == null)) return false;
 			var stringToCheck = criteriaObj.ToString();
-			if (criteriaObj.GetType() == typeof(Type)) stringToCheck = ((Type) criteriaObj).FullName;
+			if (criteriaObj.GetType() == typeof(Type)) stringToCheck = ((Type)criteriaObj).FullName;
 			if (typeToCheck.FullName == stringToCheck)
 				return true;
 			return false;
 		}
-        #region Partial Method Callers
-        /// <summary>
-        /// .Net core cannot find loaded assemblies. They must be pushed in by the
-        /// platform-specific app. Thus <see cref="AssemblyLister"/> must be present
-        /// if this assembly is linked with .Net Core. Otherwise it is possible to
-        /// combine this file with another file which has the implementation of the
-        /// partial method.
-        /// </summary>
-        /// <remarks>
-        /// Called at application startup time only. No lock needed.
-        /// </remarks>
+		#region Partial Method Callers
+		/// <summary>
+		/// .Net core cannot find loaded assemblies. They must be pushed in by the
+		/// platform-specific app. Thus <see cref="AssemblyLister"/> must be present
+		/// if this assembly is linked with .Net Core. Otherwise it is possible to
+		/// combine this file with another file which has the implementation of the
+		/// partial method.
+		/// </summary>
+		/// <remarks>
+		/// Called at application startup time only. No lock needed.
+		/// </remarks>
 		protected static void FindLoadedAssemblies()
 		{
 			// We always add ourselves.
-		    // ReSharper disable once InconsistentlySynchronizedField
-		    var ourType = typeof(ManufacturingUtils);
-		    var ourselves = ourType.PAFGetAssemblyForType();
-		    var ourName = ourType.PAFGetAssemblySimpleName();
+			// ReSharper disable once InconsistentlySynchronizedField
+			var ourType = typeof(ManufacturingUtils);
+			var ourselves = ourType.PAFGetAssemblyForType();
+			var ourName = ourType.PAFGetAssemblySimpleName();
 
-		    // ReSharper disable once InconsistentlySynchronizedField
-		    s_AssembliesLoadedInAppdomain.Add(ourName, ourselves);
+			// ReSharper disable once InconsistentlySynchronizedField
+			AssembliesLoadedInAppdomain.Add(ourName, ourselves);
 
-            // try with a lister.
+			// try with a lister.
 			var assys = AssemblyLister?.Invoke();
 			if (assys != null)
 			{
 				foreach (var asm in assys)
 				{
-				    // ReSharper disable once InconsistentlySynchronizedField
-					s_AssembliesLoadedInAppdomain.Add(asm.GetName().FullName, asm);
+					// ReSharper disable once InconsistentlySynchronizedField
+					AssembliesLoadedInAppdomain.Add(asm.GetName().FullName, asm);
 				}
 			}
 
 			var collection = (ICollection<Assembly>)new Collection<Assembly>();
 
-            // try with a partial method.
+			// try with a partial method.
 			// ReSharper disable once InvocationIsSkipped
 			FindLoadedAssembliesPartial(ref collection);
 
 			foreach (var asm in collection)
 			{
-			    // ReSharper disable once InconsistentlySynchronizedField
-				s_AssembliesLoadedInAppdomain.Add(asm.GetName().FullName, asm);
+				// ReSharper disable once InconsistentlySynchronizedField
+				AssembliesLoadedInAppdomain.Add(asm.GetName().FullName, asm);
 			}
 
-            // No name means statically linked.
-            if (string.IsNullOrEmpty(PlatformUtils.PlatformInfo.CurrentPlatformAssyName)) s_IsPlatformAssemblyLoaded = true;
+			// No name means statically linked.
+			if (string.IsNullOrEmpty(PlatformUtils.PlatformInfo.CurrentPlatformAssyName)) s_IsPlatformAssemblyLoaded = true;
 
-            /////////////////////////////////////////////////////////////////////////////
-            // Remainder is executed if platform assy is still needed.
-            if (!s_IsPlatformAssemblyLoaded) return;
+			/////////////////////////////////////////////////////////////////////////////
+			// Remainder is executed if platform assy is still needed.
+			if (!s_IsPlatformAssemblyLoaded) return;
 
-            // We determine if the platform assy has gotten loaded along the way.
-            var platformAssembly =
+			// We determine if the platform assy has gotten loaded along the way.
+			var platformAssembly =
 				// ReSharper disable once InconsistentlySynchronizedField
-	            PlatformUtils.PlatformInfo.CurrentPlatformAssyName.GetAssemblyFromFullNameKeyedDictionary(s_AssembliesLoadedInAppdomain);
-            if (platformAssembly != null)
-		    {
-                // ReSharper disable once InconsistentlySynchronizedField
-                s_PlatformAssembly = platformAssembly;
-		        s_IsPlatformAssemblyLoaded = true;
-		        return;
-		    }
+				PlatformUtils.PlatformInfo.CurrentPlatformAssyName.GetAssemblyFromFullNameKeyedDictionary(AssembliesLoadedInAppdomain);
+			if (platformAssembly != null)
+			{
+				// ReSharper disable once InconsistentlySynchronizedField
+				s_PlatformAssembly = platformAssembly;
+				s_IsPlatformAssemblyLoaded = true;
+				return;
+			}
 
-            // If we pushed in a way to load an assembly, use it.
-		    s_PlatformAssembly = AssemblyLoadFromLoader?.Invoke(PlatformUtils.FormPlatformAssemblyLoadPathWithAssembly());
-		    if (s_PlatformAssembly != null)
-		    {
-		        // ReSharper disable once InconsistentlySynchronizedField
-                s_AssembliesLoadedInAppdomain.Add(s_PlatformAssembly.GetAssemblySimpleName(), s_PlatformAssembly);
-		    }
-		    s_PlatformAssembly = LoadPlatformAssembly();
-		    // TODO krm exception here.
-		    // This was the last chance, so we must complain.
+			// If we pushed in a way to load an assembly, use it.
+			s_PlatformAssembly = AssemblyLoadFromLoader?.Invoke(PlatformUtils.FormPlatformAssemblyLoadPathWithAssembly());
+			if (s_PlatformAssembly != null)
+			{
+				// ReSharper disable once InconsistentlySynchronizedField
+				AssembliesLoadedInAppdomain.Add(s_PlatformAssembly.GetAssemblySimpleName(), s_PlatformAssembly);
+			}
+			s_PlatformAssembly = LoadPlatformAssembly();
+			// TODO krm exception here.
+			// This was the last chance, so we must complain.
 		}
-        /// <summary>
-        /// Call this to load platform-specific assembly.
-        /// </summary>
-        /// <remarks>
-        /// Separated out mostly to support tests not involving the service manager.
-        /// </remarks>
-        protected internal static Assembly LoadPlatformAssembly()
-	    {
-	        if (s_IsPlatformAssemblyLoaded) return s_PlatformAssembly;
-	        s_IsPlatformAssemblyLoaded = true;
-
-	        var platformAssemblyLoadPath = PlatformUtils.FormPlatformAssemblyLoadPathWithAssembly();
-
-	        // LoadFrom is OK, since we ONLY bind to interfaces.
-	        s_PlatformAssembly = LoadAssembly(platformAssemblyLoadPath);
-
-            if(s_PlatformAssembly != null)
-	        AddAssemblyToAssembliesLoadedInternal(s_PlatformAssembly);
-
-	        return s_PlatformAssembly;
-	    }
 		/// <summary>
-        /// Will return <see langword="null"/> if partial class implementation is not present.
-        /// </summary>
-        /// <exceptions>
-        /// None caught, none thrown. Load exceptions are typically generated.
-        /// </exceptions>
-        public static Assembly LoadAssembly(string assemblyPath)
+		/// Call this to load platform-specific assembly.
+		/// </summary>
+		/// <remarks>
+		/// Separated out mostly to support tests not involving the service manager.
+		/// </remarks>
+		protected internal static Assembly LoadPlatformAssembly()
+		{
+			if (s_IsPlatformAssemblyLoaded) return s_PlatformAssembly;
+			s_IsPlatformAssemblyLoaded = true;
+
+			var platformAssemblyLoadPath = PlatformUtils.FormPlatformAssemblyLoadPathWithAssembly();
+
+			// LoadFrom is OK, since we ONLY bind to interfaces.
+			s_PlatformAssembly = LoadAssembly(platformAssemblyLoadPath);
+
+			if (s_PlatformAssembly != null)
+				AddAssemblyToAssembliesLoadedInternal(s_PlatformAssembly);
+
+			return s_PlatformAssembly;
+		}
+		/// <summary>
+		/// Will return <see langword="null"/> if partial class implementation is not present.
+		/// </summary>
+		/// <exceptions>
+		/// None caught, none thrown. Load exceptions are typically generated.
+		/// </exceptions>
+		public static Assembly LoadAssembly(string assemblyPath)
 		{
 			var assembly = LoadAssemblyFromFile(assemblyPath);
 
-		    if (assembly != null)
-		        return assembly;
+			if (assembly != null)
+				return assembly;
 
-		    var pathParts = PAFFileUtils.SeparateDirectoryFromFile(assemblyPath);
-            return Assembly.Load(new AssemblyName(pathParts[1]));
-		}          
+			var pathParts = PAFFileUtils.SeparateDirectoryFromFile(assemblyPath);
+			return Assembly.Load(new AssemblyName(pathParts[1]));
+		}
 		private static Assembly LoadAssemblyFromFile(string assemblyPath)
 		{
 			Assembly assembly = null;
@@ -378,19 +381,20 @@ namespace PlatformAgileFramework.Manufacturing
 			// ReSharper disable once ExpressionIsAlwaysNull
 			return assembly;
 		}
-	    #endregion Partial Method Callers
+		#endregion Partial Method Callers
 		/// <summary>
-        /// This utility method is needed since listing assemblies is done
-        /// differently in Silverlight and other platforms.
-        /// </summary>
-        /// <returns>
-        /// Set of assemblies in the current "AppDomain".
-        /// </returns>
-        public virtual IEnumerable<Assembly> GetAppDomainAssemblies()
+		/// This utility method is needed since listing assemblies is done
+		/// differently in Silverlight and other platforms.
+		/// </summary>
+		/// <returns>
+		/// Set of assemblies in the current "AppDomain".
+		/// </returns>
+		public virtual IEnumerable<Assembly> GetAppDomainAssemblies()
 		{
 			IEnumerable<Assembly> col;
-			lock (s_AssembliesLoadedInAppdomain) {
-				col = new List<Assembly>(s_AssembliesLoadedInAppdomain.Values);
+			lock (AssembliesLoadedInAppdomain)
+			{
+				col = new List<Assembly>(AssembliesLoadedInAppdomain.Values);
 			}
 			return col;
 		}
@@ -442,9 +446,9 @@ namespace PlatformAgileFramework.Manufacturing
 		{
 			if (assemblyList == null) assemblyList = GetAppDomainAssemblies();
 			// Try to load from any assembly.
-// ReSharper disable LoopCanBeConvertedToQuery
+			// ReSharper disable LoopCanBeConvertedToQuery
 			foreach (var asm in assemblyList)
-// ReSharper restore LoopCanBeConvertedToQuery
+			// ReSharper restore LoopCanBeConvertedToQuery
 			{
 				var type = LocateReflectionTypeInAssembly(asm, typeName, typeNameSpace, interfaceName);
 				if (type != null) return type;
@@ -562,10 +566,12 @@ namespace PlatformAgileFramework.Manufacturing
 
 			// If we had a definate Type/Types, things are relatively easy. All we have
 			// to do is see if it implements the interface.
-			if (!isInterfaceSearch) {
+			if (!isInterfaceSearch)
+			{
 				// If namespace is not null, prepend it. This condition
 				// results in return of a single type.
-				if (typeNameSpace != null) {
+				if (typeNameSpace != null)
+				{
 					typeName = typeNameSpace + "." + typeName;
 					var type = assemblyToSearch.GetType(typeName);
 
@@ -576,16 +582,18 @@ namespace PlatformAgileFramework.Manufacturing
 					if (typeFilter != null)
 						if (!typeFilter.FilteringDelegate(type, typeFilter.FilterAuxiliaryData)) return null;
 
-					var retval = new Collection<Type> {type};
+					var retval = new Collection<Type> { type };
 					return retval;
 				}
 
 				// Next try to locate by unqualified name. This results in multiple types.
 				var returnedTypes = new Collection<Type>();
 				var types = assemblyToSearch.PAFGetAccessibleTypes();
-				foreach (var aType in types) {
+				foreach (var aType in types)
+				{
 					// First apply client filter.
-					if (typeFilter != null) {
+					if (typeFilter != null)
+					{
 						if (!typeFilter.FilteringDelegate(aType, typeFilter.FilterAuxiliaryData)) continue;
 					}
 					if (!aType.UnqualifiedNamesMatch(typeName)) continue;
@@ -655,9 +663,11 @@ namespace PlatformAgileFramework.Manufacturing
 			var types = assemblyToSearch.PAFGetAccessibleTypes();
 
 			var col = new Collection<Type>();
-			foreach (var aType in types) {
+			foreach (var aType in types)
+			{
 				// Apply the client's filter.
-				if (typeFilter != null) {
+				if (typeFilter != null)
+				{
 					if (!typeFilter.FilteringDelegate(aType, typeFilter.FilterAuxiliaryData)) continue;
 				}
 				// Filter on namespace if the caller specfied one.
@@ -783,10 +793,11 @@ namespace PlatformAgileFramework.Manufacturing
 			var filterAggregator = new PAFTypeFilterAggregator();
 			filterAggregator.AddFilter(filterContainer);
 
-			if (typeFilter != null) {
+			if (typeFilter != null)
+			{
 				filterAggregator.AddFilter(typeFilter);
 			}
-			var outCol = LocateReflectionTypesInAssembly(assemblyToSearch,  typeName,
+			var outCol = LocateReflectionTypesInAssembly(assemblyToSearch, typeName,
 				typeNameSpace, interfaceName, filterAggregator);
 
 			if ((outCol == null) || (outCol.Count == 0)) return null;
@@ -806,9 +817,10 @@ namespace PlatformAgileFramework.Manufacturing
 		/// </threadsafety>
 		internal static bool AddAssemblyToAssembliesLoadedInternal(Assembly assembly)
 		{
-			lock (s_AssembliesLoadedInAppdomain) {
-				if (s_AssembliesLoadedInAppdomain.ContainsKey(assembly.GetName().Name)) return false;
-				s_AssembliesLoadedInAppdomain.Add(assembly.GetName().Name, assembly);
+			lock (AssembliesLoadedInAppdomain)
+			{
+				if (AssembliesLoadedInAppdomain.ContainsKey(assembly.GetName().Name)) return false;
+				AssembliesLoadedInAppdomain.Add(assembly.GetName().Name, assembly);
 				return true;
 			}
 		}
