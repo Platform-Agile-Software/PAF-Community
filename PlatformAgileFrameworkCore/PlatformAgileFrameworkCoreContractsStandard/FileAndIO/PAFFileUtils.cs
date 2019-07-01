@@ -791,8 +791,8 @@ namespace PlatformAgileFramework.FileAndIO
 			if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
 
 			var index = filePath.IndexOf("file:", StringComparison.OrdinalIgnoreCase);
-			// reject file URI
-			if (index != -1) return filePath;
+			// file URI is raw.
+			if (index != -1) return filePath.Substring(index + 5);
 
 			index = StringParsingUtils.FindIsolatedCharacter(filePath, DIR_SYM_SEP);
 
