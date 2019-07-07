@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using PlatformAgileFramework.Annotations;
 using PlatformAgileFramework.FrameworkServices;
 using PlatformAgileFramework.Platform;
 using PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator.Display.Commands;
@@ -88,11 +89,11 @@ namespace PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmula
 		/// <exceptions>
 		/// <exception cref="ArgumentNullException">"resultInfo"</exception>
 		/// </exceptions>
-		public  PAFTestResultUserInteraction(IPAFTestElementResultInfo resultInfo)
+		public  PAFTestResultUserInteraction([NotNull] IPAFTestElementResultInfo resultInfo)
 		:this()
 		{
 			m_CurrentTestResultNode
-				= resultInfo ?? throw new ArgumentNullException("resultInfo");
+				= resultInfo ?? throw new ArgumentNullException(nameof(resultInfo));
             m_CommandDictionary.Add(PAFTestResultInfoDNCommand.COMMAND_NAME, new PAFTestResultInfoDNCommand(m_CurrentTestResultNode));
             m_CommandDictionary.Add(PAFTestResultInfoDNICommand.COMMAND_NAME, new PAFTestResultInfoDNICommand(m_CurrentTestResultNode));
             m_CommandDictionary.Add(PAFTestResultInfoORCommand.COMMAND_NAME, new PAFTestResultInfoORCommand(m_CurrentTestResultNode));
@@ -117,7 +118,7 @@ namespace PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmula
 		/// <summary>
 		/// We unfortunately cannot determine whether the index-based commands
 		/// can run until we actually have the index. We have to let the command
-		/// fail. Curently we just return an exception - the GUI will be able
+		/// fail. Currently we just return an exception - the GUI will be able
 		/// to do much better. We are not spending time on the console interaction.
 		/// </summary>
 		/// <returns>

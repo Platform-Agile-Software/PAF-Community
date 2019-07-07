@@ -170,7 +170,13 @@ namespace PlatformAgileFramework.FileAndIO.FileAndDirectoryService
 			// If not rooted and root dir is forced, use it.
 			if (!PAFFileUtils.IsPathSpecRooted(normalizedPath) && !string.IsNullOrEmpty(ApplicationRootDirectoryPV))
 			{
-				normalizedPath = ApplicationRootDirectoryPV + PlatformUtils.GetDirectorySeparatorChar() + normalizedPath;
+				// root itself may be relative....
+				var index = normalizedPath.IndexOf(ApplicationRootDirectoryPV, StringComparison.Ordinal);
+
+				if (index != 0)
+				{
+					normalizedPath = ApplicationRootDirectoryPV + PlatformUtils.GetDirectorySeparatorChar() + normalizedPath;
+				}
 			}
 			return normalizedPath;
 		}

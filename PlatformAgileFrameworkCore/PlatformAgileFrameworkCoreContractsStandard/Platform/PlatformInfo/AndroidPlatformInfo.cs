@@ -51,7 +51,7 @@ namespace PlatformAgileFramework.Platform
 		/// This represents the default mapping for the c drive for
 		/// the platform. This is legacy stuff for "porting" windows apps to
 		/// mono. It's just fine - leave it alone. It's populated dynamically
-		/// for iOS.
+		/// for Android.
 		/// </summary>
 		public const string C_DRIVE_MAPPING = "";
 

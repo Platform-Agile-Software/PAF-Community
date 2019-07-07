@@ -229,7 +229,7 @@ namespace Xamarin.FormsTestRunner.ViewModels
 
 			TestRootNode = assemblyInfo;
 			CurrentTestNode = TestRootNode;
-			//assemblyInfo.RunPipelinedObject(null);
+			assemblyInfo.RunPipelinedObject(null);
 			//var testConsoleUI = new PAFTestResultUserInteraction(assemblyInfo.TestElementResultInfo);
 			//testConsoleUI.ProcessCommand("OR");
 			return TestRootNode;

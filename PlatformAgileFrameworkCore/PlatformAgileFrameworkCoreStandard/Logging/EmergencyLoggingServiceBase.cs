@@ -159,7 +159,7 @@ namespace PlatformAgileFramework.Logging
 				if (exception != null) loggedString += "Exception Message: " + exception.Message;
 				lock (s_FileLockObject)
 				{
-					using (var stream = m_LoggerBase.GetStorageService().PAFOpenFile(m_LoggerBase.m_EmergencyLogFilePath, PAFFileAccessMode.APPEND))
+					using (var stream = m_LoggerBase.GetStorageService().PAFOpenFile(s_EmergencyLogFilePath, PAFFileAccessMode.APPEND))
 					{
 						stream.PAFWriteString(loggedString);
 					}
@@ -208,7 +208,7 @@ namespace PlatformAgileFramework.Logging
 		/// Holds the emergency file path with terminating name. Can be loaded by the constructor.
 		/// To ensure thread safety, load this before publishing the service.
 		/// </summary>
-		protected internal readonly string m_EmergencyLogFilePath;
+		protected internal static string s_EmergencyLogFilePath;
 		/// <summary>
 		/// This is the lookup name in the service dictionary for the emergency logging
 		/// service which is always there.
@@ -300,16 +300,16 @@ namespace PlatformAgileFramework.Logging
 			// Default if not incoming.
 			if (emergencyLogFilePath == null)
 			{
-				m_EmergencyLogFilePath = DEFAULT_EMERGENCY_FILE;
+				s_EmergencyLogFilePath = DEFAULT_EMERGENCY_FILE;
 				if (!string.IsNullOrEmpty(PlatformUtils.ApplicationRoot))
 				{
-					m_EmergencyLogFilePath = PlatformUtils.ApplicationRoot
-						+ PlatformUtils.GetDirectorySeparatorChar() + m_EmergencyLogFilePath;
+					s_EmergencyLogFilePath = PlatformUtils.ApplicationRoot
+						+ PlatformUtils.GetDirectorySeparatorChar() + s_EmergencyLogFilePath;
 				}
 			}
 			else
 			{
-				m_EmergencyLogFilePath = emergencyLogFilePath;
+				s_EmergencyLogFilePath = emergencyLogFilePath;
 			}
 
 			// Default if not incoming.
@@ -400,21 +400,21 @@ namespace PlatformAgileFramework.Logging
 		{
 			if (StorageService == null)
 				StorageService = (IPAFStorageService)serviceObject.ServiceManager.GetService(typeof(IPAFStorageService));
-			if ((StorageService.PAFFileExists(m_EmergencyLogFilePath))
+			if ((StorageService.PAFFileExists(s_EmergencyLogFilePath))
 				&& (TruncateFileOnStart))
 			{
-				StorageService.PAFDeleteFile(m_EmergencyLogFilePath);
-				var newFileStream = StorageService.PAFCreateFile(m_EmergencyLogFilePath);
+				StorageService.PAFDeleteFile(s_EmergencyLogFilePath);
+				var newFileStream = StorageService.PAFCreateFile(s_EmergencyLogFilePath);
 				newFileStream.Dispose();
 			}
-			if (!StorageService.PAFFileExists(m_EmergencyLogFilePath))
+			if (!StorageService.PAFFileExists(s_EmergencyLogFilePath))
 			{
-				var newFileStream = StorageService.PAFCreateFile(m_EmergencyLogFilePath);
+				var newFileStream = StorageService.PAFCreateFile(s_EmergencyLogFilePath);
 				newFileStream.Dispose();
 			}
 			// Open it so problems occur early on, when we can catch them in
 			// the load process.
-			using (var stream = StorageService.PAFOpenFile(m_EmergencyLogFilePath, PAFFileAccessMode.APPEND))
+			using (var stream = StorageService.PAFOpenFile(s_EmergencyLogFilePath, PAFFileAccessMode.APPEND))
 			{
 				stream.PAFWriteString(LOAD_MESSAGE + PlatformUtils.LTRMN);
 			}

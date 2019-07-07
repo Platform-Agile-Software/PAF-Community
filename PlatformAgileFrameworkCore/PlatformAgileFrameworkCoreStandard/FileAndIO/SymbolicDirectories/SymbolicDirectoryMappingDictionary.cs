@@ -222,8 +222,10 @@ namespace PlatformAgileFramework.FileAndIO.SymbolicDirectories
 		/// </returns>
 		internal static string GetStaticMappingInternal(string token)
 		{
-			lock (s_DirectoryMappingDictionary) {
-				if (!s_DirectoryMappingDictionary.ContainsKey(token)) return null;
+			lock (s_DirectoryMappingDictionary)
+			{
+				if (!s_DirectoryMappingDictionary.ContainsKey(token))
+					return null;
 				return PAFFileUtils.NormalizeFilePath(s_DirectoryMappingDictionary[token]);
 			}
 		}

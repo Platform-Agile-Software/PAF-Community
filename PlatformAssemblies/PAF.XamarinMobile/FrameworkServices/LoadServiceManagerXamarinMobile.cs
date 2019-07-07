@@ -80,14 +80,27 @@ namespace PlatformAgileFramework.FrameworkServices
 		        return;
 		    s_IsManagerPreloaded = true;
 
-			// Load platform mappings.
-			PlatformUtils.PlatformInfo = new XamarinFormsPlatformInfo();
-			// ReSharper disable once UnusedVariable
-			// Kick it to load it.
-			var platformUtils = PlatformUtils.Instance;
+		    // Load platform mappings.
+		    PlatformUtils.PlatformInfo = new XamarinFormsPlatformInfo();
+		    // ReSharper disable once UnusedVariable
+		    // Kick it to load it.
+		    var platformUtils = PlatformUtils.Instance;
+
+		    // Attach our test symdir file.
+			SymbolicDirectoryMappingDictionary.DirectoryMappingFileName = null;
+			//	= "TestSymbolicDirectories.xml";
 
 			// Set the app root to our special folder.
-			PlatformUtils.ApplicationRoot = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+			var applicationRoot = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+			PlatformUtils.ApplicationRoot = applicationRoot;
+			// Want "./" to be root.
+			//PlatformUtils.ApplicationRoot = ".";
+
+			// Note: KRM - can't bundle mapping file as a resource for now.
+			SymbolicDirectoryMappingDictionary.AddStaticMapping("Documents", applicationRoot + "/Documents");
+			SymbolicDirectoryMappingDictionary.AddStaticMapping("SpecialFiles", applicationRoot + "/specialfiles");
+			SymbolicDirectoryMappingDictionary.AddStaticMapping("SpecialFilesInDocuments", "Documents:/specialfiles");
+
 
 			var initialServices = PAFServiceManager.InitialServicesInternal;
 			if(initialServices == null)
@@ -115,7 +128,7 @@ namespace PlatformAgileFramework.FrameworkServices
 
 			var mainLoggingService = new PAFLoggingService(PAFLoggingLevel.Error, true, null, mainLoggerFilePath);
 
-			//// Some android deveices have a little trouble probing, so we give them some help.
+			//// Some android devices have a little trouble probing, so we give them some help.
 			var mainLoggingServiceDescription = mainLoggingService.GetServiceDescription();
 			// Preload the service object into the description so the loader won't have to look for it.
 			mainLoggingServiceDescription.ServiceObject = mainLoggingService.ObjectValue;
