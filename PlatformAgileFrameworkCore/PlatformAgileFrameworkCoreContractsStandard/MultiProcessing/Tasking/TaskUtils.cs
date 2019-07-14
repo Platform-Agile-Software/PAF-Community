@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2017 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,12 @@
 #region Using Directives
 
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.MultiProcessing.Threading.Exceptions;
+using PlatformAgileFramework.Properties;
 
 #region Exception shorthand.
 using PAFTMED = PlatformAgileFramework.MultiProcessing.Threading.Exceptions.PAFThreadMismatchExceptionData;
@@ -44,6 +46,14 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 	/// </summary>
 	/// <history>
 	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 14jul2019 </date>
+	/// <description>
+	/// Added extension method style methods and the <see cref="TimedOutTaskPayload{T}"/>
+	/// support.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
 	/// <author> JAW(P) </author>
 	/// <date> 27jun2015 </date>
 	/// <description>
@@ -54,7 +64,7 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 	/// <threadsafety>
 	/// Safe.
 	/// </threadsafety>
-// ReSharper disable PartialTypeWithSinglePart
+	// ReSharper disable PartialTypeWithSinglePart
 	public static partial class TaskUtils
 // ReSharper restore PartialTypeWithSinglePart
 	{
@@ -119,6 +129,23 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 			return firstToFinish;
 		}
 		/// <summary>
+		/// The sole purpose of this method is to overcome a problem found in the mono implementation
+		/// of <see cref="Task.WaitAny(Task[], int)"/>. We built our own out of necessity. The method
+		/// waits on the completion of ANY task in the enumeration up until the specified timeout.
+		/// Extension version
+		/// </summary>
+		/// <param name="tasks">Set of tasks to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1
+		/// for infinite timeout.
+		/// </param>
+		/// <returns>
+		/// -1 for timeout exceeded. Otherwise, the index in the enumeration of the task first completed.
+		/// </returns>
+		public static int WaitAnyWithTimeoutExtension(this IEnumerable<Task> tasks, int timeoutInMilliseconds)
+		{
+			return WaitAnyWithTimeout(tasks, timeoutInMilliseconds);
+		}
+		/// <summary>
 		/// Async version that does not block, but returns values based on timeout. This
 		/// gives the caller the ability to "asynchronously" wait for tasks to finish
 		/// with a constraint on timeout.
@@ -145,6 +172,21 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 		/// <summary>
 		/// Async version that does not block, but returns values based on timeout. This
 		/// gives the caller the ability to "asynchronously" wait for tasks to finish
+		/// with a constraint on timeout. Extension Version.
+		/// </summary>
+		/// <param name="tasks">Set of tasks to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 for infinite timeout.</param>
+		/// <returns>
+		/// -1 for timeout exceeded. Otherwise, the index in the enumeration of the task first completed.
+		/// </returns>
+		public static async Task<int> WaitAnyWithTimeoutAsyncExtension(this IEnumerable<Task> tasks, int timeoutInMilliseconds = -1)
+		{
+
+			return await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for tasks to finish
 		/// with a constraint on timeout.
 		/// </summary>
 		/// <param name="tasks">Set of tasks to wait on.</param>
@@ -167,6 +209,65 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 					return isTimeout;
 				});
 			return waitTask;
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for tasks to finish
+		/// with a constraint on timeout. Extension version. Calls <see cref="WaitAllWithTimeoutAsync"/>.
+		/// 
+		/// </summary>
+		/// <param name="tasks">Set of tasks to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
+		/// <returns>
+		/// <see langword="false"/> for timeout exceeded.
+		/// </returns>
+		public static async Task<bool> WaitAllWithTimeoutAsyncExtension(this IEnumerable<Task> tasks, int timeoutInMilliseconds = -1)
+		{
+			return await WaitAllWithTimeoutAsync(tasks, timeoutInMilliseconds);
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for a task to finish
+		/// with a constraint on timeout. Extension version.Calls <see cref="WaitAllWithTimeoutAsync"/>
+		/// </summary>
+		/// <param name="task">Task to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
+		/// <returns>
+		/// <see langword="false"/> for timeout exceeded.
+		/// </returns>
+		public static async Task<bool> WaitAllWithTimeoutAsyncExtension(this Task task, int timeoutInMilliseconds = -1)
+		{
+			var tasks = new List<Task>();
+			tasks.Add(task);
+			return await WaitAllWithTimeoutAsync(tasks, timeoutInMilliseconds);
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for a task to finish
+		/// with a constraint on timeout. Extension version.Calls <see cref="WaitAnyWithTimeoutAsync"/>
+		/// </summary>
+		/// <param name="task">Task to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
+		/// <returns>
+		/// <see langword="false"/> for timeout exceeded.
+		/// </returns>
+		public static async Task<TimedOutTaskPayload<T>> 
+			WaitTaskWithTimeoutAsyncTimeOutPayload<T>(this Task<T> task, int timeoutInMilliseconds = -1)
+		{
+			var tasks = new List<Task>();
+			tasks.Add(task);
+			var firstTaskToFinishBeforeTimeout = await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
+			var timedOutPayload = new TimedOutTaskPayload<T>();
+
+			// -1 indicates timeout.
+			timedOutPayload.TimedOut = firstTaskToFinishBeforeTimeout < 0;
+
+			if (!timedOutPayload.TimedOut)
+				timedOutPayload.ReturnValue = task.Result;
+			else
+				timedOutPayload.ReturnValue = default;
+
+			return timedOutPayload;
 		}
 	}
 }

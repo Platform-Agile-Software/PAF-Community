@@ -987,3 +987,17 @@ Exception: Error Disposing Type
 [Error - 07/05/2019 18:28:12]
 Error Disposing Type
 Exception: Error Disposing Type
+[Default - 07/14/2019 17:41:11]
+MainLogger
+DebugLoggerHeader
+[Default]
+Hello from debugging logger
+[Error - 07/14/2019 17:41:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 07/14/2019 17:41:26]
+Error Disposing Type
+Exception: Error Disposing Type
+[Error - 07/14/2019 17:41:26]
+Error Disposing Type
+Exception: Error Disposing Type
