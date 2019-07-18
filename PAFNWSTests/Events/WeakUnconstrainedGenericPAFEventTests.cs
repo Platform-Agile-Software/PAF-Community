@@ -30,10 +30,10 @@ namespace PlatformAgileFramework.Events
 		public WeakGenericPAFEventSubscriberTestClass<object> m_ObjectSubscriber;
 		public WeakGenericPAFEventSubscriberTestClass<int> m_IntSubscriber;
 
-		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<object>>, object>
+		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<object>>, IPAFEventArgsProvider<object>>
 			m_ObjectPublisher;
 
-		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<int>>, int>
+		public IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>>
 			m_IntPublisher;
 
 		public WeakUnconstrainedGenericPAFEventTests()
@@ -41,12 +41,12 @@ namespace PlatformAgileFramework.Events
 			m_ObjectSubscriber = new WeakGenericPAFEventSubscriberTestClass<object>();
 			m_ObjectPublisher = new GenericPAFEventArgsSubscriberStore<object, WeakUnconstrainedGenericPAFEventTests>(this);
 			// This will box an integer.
-			m_ObjectPublisher.Payload = 1;
+			m_ObjectPublisher.Payload = new PAFEventArgs<object>(1);
 
 			m_IntSubscriber = new WeakGenericPAFEventSubscriberTestClass<int>();
 			m_IntPublisher = new GenericPAFEventArgsSubscriberStore<int, WeakUnconstrainedGenericPAFEventTests>(this);
 			// This just loads an int into an int.
-			m_IntPublisher.Payload = 1;
+			m_IntPublisher.Payload = new PAFEventArgs<int>(1);
 
 		}
 

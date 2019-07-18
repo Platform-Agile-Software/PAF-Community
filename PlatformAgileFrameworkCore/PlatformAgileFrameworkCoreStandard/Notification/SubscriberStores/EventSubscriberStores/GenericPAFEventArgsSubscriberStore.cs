@@ -45,34 +45,37 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 	/// <author> KRM </author>
 	/// <date> 27dec2017 </date>
 	/// <description>
-	/// New. Built new event args suport.
+	/// New. Built new event args support. Interface-based payload as should be all things .Net.
 	/// </description>
 	/// </contribution>
 	/// </history>
 	public class GenericPAFEventArgsSubscriberStore<TPayload, TSource>
-		: WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload>,
-			IGenericNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TSource>
-		where TSource : class
+		: WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, IPAFEventArgsProvider<TPayload>>
+			,IGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, IPAFEventArgsProvider<TPayload>, TSource> 
+		where TSource : class 
 	{
 		#region Fields and Autoproperties
 		/// <summary>
 		/// <see cref="IGenericNotificationSourcedSubscriberStore{TDelegate, TSource}"/>
 		/// </summary>
-		public TSource NotificationSourceItem { get; protected set; }
-
+		public virtual TSource NotificationSourceItem
+		{
+			get => m_NotificationSourceItem;
+			protected set => m_NotificationSourceItem = value;
+		}
 		/// <summary>
 		/// A little bit of weirdness in this class, since we support
 		/// value and reference types. We hold the actual implementation,
 		/// and preload it with the default for type. It has to be resettable.
 		/// </summary>
-		protected EventArgs<TPayload> m_GenericEventArgsImplementation
-			= new EventArgs<TPayload>(default(TPayload));
+		protected PAFEventArgs<TPayload> m_GenericEventArgsImplementation
+			= new PAFEventArgs<TPayload>(default(TPayload));
 
 		/// <summary>
 		/// More weirdness - this what we expose - remember the interface thing, folks.
 		/// </summary>
 		protected IPAFEventArgsProvider<TPayload> m_GenericEventArgs;
-
+		protected TSource m_NotificationSourceItem;
 		#endregion Fields and Autoproperties
 		#region Constructors
 
@@ -88,14 +91,14 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="purgeIntervalInMilliseconds">
 		/// See base.
 		/// </param>
-		/// <param name="eventDispatherPlugin">See Base.</param>
-		public GenericPAFEventArgsSubscriberStore(TSource eventSource,
+		/// <param name="eventDispatcherPlugin">See Base.</param>
+		public GenericPAFEventArgsSubscriberStore(TSource eventSource = null,
 			int purgeIntervalInMilliseconds = -1,
-			[CanBeNull] Action<WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>>> eventDispatherPlugin = null
+			[CanBeNull] Action<WeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>>> eventDispatcherPlugin = null
 			)
-			:base(purgeIntervalInMilliseconds, eventDispatherPlugin)
+			:base(purgeIntervalInMilliseconds, eventDispatcherPlugin)
 		{
-			NotificationSourceItem = eventSource;
+			m_NotificationSourceItem = eventSource;
 			m_GenericEventArgs = m_GenericEventArgsImplementation;
 			
 		}
@@ -115,10 +118,10 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
 		/// </summary>
 #pragma warning restore 1584
-		public override TPayload Payload
+		public override IPAFEventArgsProvider<TPayload> Payload
 		{
-			get { return m_GenericEventArgs.Value; }
-			set { m_GenericEventArgsImplementation.Value = value; }
+			get { return m_GenericEventArgs; }
+			set { m_GenericEventArgsImplementation.Value = value.Value; }
 		}
 		#endregion // Properties
 
@@ -147,22 +150,12 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <summary>
 		/// <see cref="IWeakableSubscriberStore{TDelegate}"/>
 		/// </summary>
-		/// <remarks>
-		/// This method is just a little bit costly, since we have to
-		/// generate wrappers for all the payloads. This method is handy,
-		/// though, when the payload needs to be supplied dynamically.
-		/// Use the other one unless this is really needed.
-		/// </remarks>
 #pragma warning restore 1584
-		public override void NotifySubscribers(TPayload payload)
+		public override void NotifySubscribers(IPAFEventArgsProvider<TPayload> payload)
 		{
-			var selectedPayload = m_PayloadWrapper.TryGetItem(out var hasValue);
-			if (!hasValue)
-				selectedPayload = payload;
-			var genericEventArgs = new EventArgs<TPayload>(selectedPayload);
 			foreach (var subscriber in GetLiveHandlers())
 			{
-				subscriber(this, genericEventArgs);
+				subscriber(this, payload);
 			}
 		}
 

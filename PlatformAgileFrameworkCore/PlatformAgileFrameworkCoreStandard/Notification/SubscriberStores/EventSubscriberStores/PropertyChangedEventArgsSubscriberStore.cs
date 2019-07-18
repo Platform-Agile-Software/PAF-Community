@@ -51,7 +51,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <summary>
 		/// <see cref="INotificationSourcedSubscriberStore"/>.
 		/// </summary>
-		public object NotificationSource { get; protected set; }
+		public virtual object NotificationSource { get; protected set; }
 		#endregion // Fields and Autoproperties
 		#region Constructors
 
@@ -67,7 +67,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberSt
 		/// <param name="eventDispatherPlugin">See Base.</param>
 		public PropertyChangedEventArgsSubscriberStore(object eventSourceObject,
 			int purgeIntervalInMilliseconds = -1,
-			[CanBeNull] Action<WeakableSubscriberStore<PropertyChangedEventHandler>> eventDispatherPlugin = null
+			[CanBeNull] Action<IWeakableSubscriberStore<PropertyChangedEventHandler>> eventDispatherPlugin = null
 			)
 			: base(purgeIntervalInMilliseconds, eventDispatherPlugin)
 		{

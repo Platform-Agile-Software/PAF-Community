@@ -23,10 +23,14 @@
 //THE SOFTWARE.
 //@#$&-
 
-using System;
+using PlatformAgileFramework.Events;
+using PlatformAgileFramework.MultiProcessing.Tasking;
+using PlatformAgileFramework.Notification.SubscriberStores;
 using PlatformAgileFramework.Notification.SubscriberStores.EventSubscriberStores;
 using PlatformAgileFramework.Properties;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 namespace PlatformAgileFramework.Notification.Helpers
 {
 	/// <summary>
@@ -63,6 +67,113 @@ namespace PlatformAgileFramework.Notification.Helpers
 					(subscriber.Target, new[] { eventSubscriberStore.NotificationSource, EventArgs.Empty });
 			}
 		}
+		// ReSharper disable InvalidXmlDocComment
+		/// <summary>
+		/// Plugin for the
+		/// <see cref="IGenericPayloadNotificationSourcedSubscriberStore{Action{object, IPAFEventArgsProvider{TPayload}},IPAFEventArgsProvider{TPayload}, TSource}"/>
+		/// </summary>
+		/// <param name="genericEventArgsSubscriberStore">
+		/// The store that we are handling notifications for.
+		/// </param>
+		/// <param name="timeoutInMilliseconds">
+		/// The amount of time the task will be allowed to complete. After this time,
+		/// the task will stop and the subscriber's reference will be pushed into
+		/// <see cref="IPAFEventTimeoutReceiver"/>.
+		/// </param>
+		// ReSharper restore InvalidXmlDocComment
+		public static void NotifySubscribersWithTimeout<TPayload, TSource>
+		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, TPayload>,TPayload, TSource>
+			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventTimeoutReceiver
+		{
+			var subscriberTasks = new List<Tuple<object, Task>>();
+			foreach (var subscriber in genericEventArgsSubscriberStore.GetLivePDs())
+			{
+				var task = Task.Run(() =>
+				{
+					subscriber.DelegateMethod.Invoke
+					(subscriber.Target,
+						new[]
+						{
+							genericEventArgsSubscriberStore.NotificationSource,
+							genericEventArgsSubscriberStore.Payload
+						});
+				});
+				subscriberTasks.Add(new Tuple<object, Task>(subscriber, task));
+			}
+
+			foreach (var subscriberTask in subscriberTasks)
+			{
+				// In this case, we don't want to await anything, since we are watching how long completion takes.
+				var timedOut = subscriberTask.Item2.WaitTaskWithTimeoutAsync(timeoutInMilliseconds).Result;
+				if (timedOut)
+				{
+					genericEventArgsSubscriberStore.NotificationSourceItem.LogTimeout(subscriberTask.Item1);
+				}
+			}
+		}
+		// ReSharper disable InvalidXmlDocComment
+		/// <summary>
+		/// Plugin for the
+		/// <see cref="IGenericPayloadNotificationSourcedSubscriberStore{Action{object, IPAFEventArgsProvider{TPayload}},IPAFEventArgsProvider{TPayload}, TSource}"/>
+		/// This is a method that waits for all subscribers to complete, one at a time. It pushes timed out subscribers
+		/// back onto the source, which wears the <see cref="IPAFEventTimeoutReceiver"/> interface.
+		/// </summary>
+		/// <param name="genericEventArgsSubscriberStore">
+		/// The store that we are handling notifications for.
+		/// </param>
+		/// <param name="timeoutInMilliseconds">
+		/// The amount of time the task will be allowed to complete. After this time,
+		/// the task will stop and the subscriber's reference will be pushed into
+		/// <see cref="IPAFEventTimeoutReceiver"/>.
+		/// </param>
+		// ReSharper restore InvalidXmlDocComment
+		public static void NotifyPAFEventArgsSubscribersWithTimeout<TPayload, TSource>
+		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>,IPAFEventArgsProvider<TPayload>, TSource>
+			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventTimeoutReceiver
+		{
+			var subscriberTasks = new List<Tuple<object, Task>>();
+			foreach (var subscriber in genericEventArgsSubscriberStore.GetLivePDs())
+			{
+				var task = Task.Run(() =>
+				{
+					subscriber.DelegateMethod.Invoke
+					(subscriber.Target,
+						new[]
+						{
+							genericEventArgsSubscriberStore.NotificationSource,
+							genericEventArgsSubscriberStore.Payload
+						});
+				});
+				subscriberTasks.Add(new Tuple<object, Task>(subscriber, task));
+			}
+
+			foreach (var subscriberTask in subscriberTasks)
+			{
+				// In this case, we don't want to await anything, since we are watching how long completion takes.
+				var timedOut = subscriberTask.Item2.WaitTaskWithTimeoutAsync(timeoutInMilliseconds).Result;
+				if (timedOut)
+				{
+					genericEventArgsSubscriberStore.NotificationSourceItem.LogTimeout(subscriberTask.Item1);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Plugin for the <see cref="GenericEventArgsSubscriberStore{TPayload, TSource}"/>
+		/// </summary>
+		/// <param name="genericEventArgsSubscriberStore">
+		/// The store that we are handling notifications for.
+		/// </param>
+		public static void NotifySubscribers<TPayload, TSource>
+		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, TPayload>,TPayload, TSource>
+			genericEventArgsSubscriberStore) where TSource : class
+		{
+			foreach (var subscriber in genericEventArgsSubscriberStore.GetLivePDs())
+			{
+				subscriber.DelegateMethod.Invoke
+					(subscriber.Target, new[] { genericEventArgsSubscriberStore.NotificationSource, genericEventArgsSubscriberStore.Payload });
+			}
+		}
 		/// <summary>
 		/// Plugin for the <see cref="GenericPAFEventArgsSubscriberStore{TPayload, TSource}"/>
 		/// </summary>
@@ -70,7 +181,7 @@ namespace PlatformAgileFramework.Notification.Helpers
 		/// The store that we are handling notifications for.
 		/// </param>
 		public static void NotifySubscribers<TPayload, TSource>
-		([NotNull] this GenericPAFEventArgsSubscriberStore<TPayload, TSource>
+		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>,TPayload, TSource>
 			genericPAFEventArgsSubscriberStore) where TSource : class
 		{
 			foreach (var subscriber in genericPAFEventArgsSubscriberStore.GetLivePDs())

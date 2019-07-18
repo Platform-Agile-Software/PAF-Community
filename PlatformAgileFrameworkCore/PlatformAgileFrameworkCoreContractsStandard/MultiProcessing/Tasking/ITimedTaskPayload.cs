@@ -1,9 +1,8 @@
-﻿
-//@#$&+
+﻿//@#$&+
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2017 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -23,33 +22,46 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
-namespace PlatformAgileFramework.Notification.SubscriberStores
+
+#region Using Directives
+
+using System.Threading.Tasks;
+
+#endregion
+
+namespace PlatformAgileFramework.MultiProcessing.Tasking
 {
 	/// <summary>
-	/// This interface just provides a means to grab the
-	/// typed publishing class that may be using a subscriber store.
+	/// This is a protocol for helper class that deals with the issue of methods with async/await
+	/// and many awaits which have no timeouts. This is a payload that can be used
+	/// in conjunction with a <see cref="Task{T}"/> to return both a timeout indication and
+	/// the original payload. This helper can be used when we don't want to throw exceptions
+	/// inside an async method that is awaited.
 	/// </summary>
-	/// <typeparam name="TDelegate">See base interface.</typeparam>
-	/// <typeparam name="TSource">Must be a reference type.</typeparam>
-	/// <typeparam name="TPayload">An unconstrained Generic.</typeparam>
+	/// <typeparam name="T"></typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 27dec2017 </date>
+	/// <date> 14jul2019 </date>
 	/// <description>
-	/// New. Built new event args support. Made this general
-	/// for notifications.
+	/// New. Made little helper for await/await problems.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public interface IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
-	 : IPayloadWeakableSubscriberStore<TDelegate, TPayload>, INotificationSourcedSubscriberStore
-	where TDelegate: class where TSource : class
+	/// <threadsafety>
+	/// Safe.
+	/// </threadsafety>
+	public interface ITimedOutTaskPayload<T>
 	{
 		/// <summary>
-		/// This is for Generic publisher <typeparamref name="TSource"/> argument.
-		/// It refers to the reference type that published the notification.
+		/// This will be the default value of <typeparamref name="T"/> if
+		/// the method has timed out.
 		/// </summary>
-		TSource NotificationSourceItem { get; }
+		T ReturnValue { get; set; }
+		/// <summary>
+		/// If this value is <see langword="true"/>, the return value will not be valid.
+		/// </summary>
+		bool TimedOut { get; set; }
+
 	}
 }

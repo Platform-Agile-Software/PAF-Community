@@ -20,13 +20,13 @@ namespace PlatformAgileFramework.Events.EventTestHelpers
 		}
 
 		public void WeaklySubscribe(
-			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload> publisher)
+			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, IPAFEventArgsProvider<TPayload>> publisher)
 		{
 			publisher.WeaklySubscribe(Execute);
 		}
 
 		public void StronglySubscribe(
-			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, TPayload> publisher)
+			[NotNull] IPayloadWeakableSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>, IPAFEventArgsProvider<TPayload>> publisher)
 		{
 			publisher.Subscribe(Execute, false);
 		}

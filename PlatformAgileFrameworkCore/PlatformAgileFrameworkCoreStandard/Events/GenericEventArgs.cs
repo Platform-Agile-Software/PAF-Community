@@ -18,7 +18,7 @@ namespace PlatformAgileFramework.Events
 	/// <remarks>
 	/// This is an immutable implementation.
 	/// </remarks>
-	public class EventArgs<T> : EventArgs, IPAFEventArgsProvider<T>
+	public class PAFEventArgs<T> : EventArgs, IPAFEventArgsProvider<T>
 	{
 		/// <summary>
 		/// <see cref="IPAFEventArgsProvider{T}"/>
@@ -28,7 +28,7 @@ namespace PlatformAgileFramework.Events
 		/// <summary>
 		/// <see cref="IPAFEventArgsProvider{T}"/>
 		/// </summary>
-		public EventArgs(T val)
+		public PAFEventArgs(T val)
 		{
 			Value = val;
 		}

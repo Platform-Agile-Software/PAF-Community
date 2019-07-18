@@ -51,7 +51,7 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 	/// <threadsafety>
 	/// Safe.
 	/// </threadsafety>
-	public class TimedOutTaskPayload<T>
+	public class TimedOutTaskPayload<T>: ITimedOutTaskPayload<T>
 	{
 		/// <summary>
 		/// This will be the default value of <typeparamref name="T"/> if

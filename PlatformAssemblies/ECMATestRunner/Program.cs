@@ -18,6 +18,7 @@ using PlatformAgileFramework.FrameworkServices.Tests;
 using PlatformAgileFramework.Logging;
 using PlatformAgileFramework.Logging.Tests;
 using PlatformAgileFramework.Multiprocessing.Tasking;
+using PlatformAgileFramework.Notification;
 using PlatformAgileFramework.Platform;
 using PlatformAgileFramework.QualityAssurance.TestFrameworks.BasicxUnitEmulator.Display;
 using PlatformAgileFramework.Tutorials;
@@ -89,7 +90,7 @@ namespace PlatformAgileFramework
 
 			//////////////////////////////////////////////////////////////////////////////
 			///// To run tests in a fixture.
-			//var fixtureInfo = new PAFTestFixtureInfo(typeof(TaskUtilsTests).ToTypeholder(),
+			//var fixtureInfo = new PAFTestFixtureInfo(typeof(NotificationDispatchTests).ToTypeholder(),
 			//	PAFTestFrameworkBehavior.GetStandardNUnitParams());
 			//var fixtureWrapper = new PAFTestFixtureWrapper(fixtureInfo);
 			//fixtureWrapper.InitializeExePipeline(null);

@@ -23,6 +23,7 @@
 //THE SOFTWARE.
 //@#$&-
 using System;
+using System.Collections.Generic;
 using PlatformAgileFramework.TypeHandling.Delegates;
 namespace PlatformAgileFramework.Notification.SubscriberStores
 {
@@ -63,7 +64,7 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 	/// </remarks>
 	// ReSharper disable once TypeParameterCanBeVariant
 	//// Sorry, ReSharper, we need an exact match.
-	public interface IWeakableSubscriberStore<TDelegate>: IDisposable
+	public interface IWeakableSubscriberStore<TDelegate> : IDisposable
 		where TDelegate : class
 	{
 		#region Methods
@@ -71,6 +72,13 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 		/// Removes all subscribers from the store.
 		/// </summary>
 		void ClearSubscribers();
+		/// <summary>
+		/// Gets the "live" pseudodelegates to broadcast to.
+		/// </summary>
+		/// <returns>
+		/// The list. Never <see langword="null"/>.
+		/// </returns>
+		IList<IPseudoDelegate<TDelegate>> GetLivePDs();
 		/// <summary>
 		/// This method broadcasts to subscribers.
 		/// </summary>

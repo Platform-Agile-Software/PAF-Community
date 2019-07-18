@@ -3,7 +3,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2017 Icucom Corporation
+//Copyright (c) 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -23,33 +23,31 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 //@#$&-
+
+using PlatformAgileFramework.Events;
 namespace PlatformAgileFramework.Notification.SubscriberStores
 {
 	/// <summary>
-	/// This interface just provides a means to grab the
-	/// typed publishing class that may be using a subscriber store.
+	/// This interface is for a publishing store that must implement
+	/// <see cref="IPAFEventTimeoutReceiver"/> to receive timeout notifications.
 	/// </summary>
 	/// <typeparam name="TDelegate">See base interface.</typeparam>
-	/// <typeparam name="TSource">Must be a reference type.</typeparam>
+	/// <typeparam name="TSource">
+	/// Must be a reference type. Must implement <see cref="IPAFEventTimeoutReceiver"/>.
+	/// </typeparam>
 	/// <typeparam name="TPayload">An unconstrained Generic.</typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 27dec2017 </date>
+	/// <date> 18jul2019 </date>
 	/// <description>
-	/// New. Built new event args support. Made this general
-	/// for notifications.
+	/// New. Converted from Golea.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public interface IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
-	 : IPayloadWeakableSubscriberStore<TDelegate, TPayload>, INotificationSourcedSubscriberStore
-	where TDelegate: class where TSource : class
+	public interface ITimeOutGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
+		:IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, TSource>
+		where TDelegate: class where TSource : class, IPAFEventTimeoutReceiver
 	{
-		/// <summary>
-		/// This is for Generic publisher <typeparamref name="TSource"/> argument.
-		/// It refers to the reference type that published the notification.
-		/// </summary>
-		TSource NotificationSourceItem { get; }
 	}
 }

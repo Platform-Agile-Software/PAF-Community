@@ -26,12 +26,10 @@
 #region Using Directives
 
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.MultiProcessing.Threading.Exceptions;
-using PlatformAgileFramework.Properties;
 
 #region Exception shorthand.
 using PAFTMED = PlatformAgileFramework.MultiProcessing.Threading.Exceptions.PAFThreadMismatchExceptionData;
@@ -244,14 +242,14 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 		/// <summary>
 		/// Async version that does not block, but returns values based on timeout. This
 		/// gives the caller the ability to "asynchronously" wait for a task to finish
-		/// with a constraint on timeout. Extension version.Calls <see cref="WaitAnyWithTimeoutAsync"/>
+		/// with a constraint on timeout. Extension version. Calls <see cref="WaitAnyWithTimeoutAsync"/>
 		/// </summary>
 		/// <param name="task">Task to wait on.</param>
 		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
 		/// <returns>
-		/// <see langword="false"/> for timeout exceeded.
+		/// <see cref="ITimedOutTaskPayload{T}.TimedOut"/> will be set to <see langword="false"/> for timeout exceeded.
 		/// </returns>
-		public static async Task<TimedOutTaskPayload<T>> 
+		public static async Task<ITimedOutTaskPayload<T>>
 			WaitTaskWithTimeoutAsyncTimeOutPayload<T>(this Task<T> task, int timeoutInMilliseconds = -1)
 		{
 			var tasks = new List<Task>();
@@ -268,6 +266,26 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 				timedOutPayload.ReturnValue = default;
 
 			return timedOutPayload;
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for a task to finish
+		/// with a constraint on timeout. Extension version. Calls <see cref="WaitAnyWithTimeoutAsync"/>
+		/// </summary>
+		/// <param name="task">Task to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
+		/// <returns>
+		/// <see langword="false"/> for timeout exceeded.
+		/// </returns>
+		public static async Task<bool>
+			WaitTaskWithTimeoutAsync(this Task task, int timeoutInMilliseconds = -1)
+		{
+			var tasks = new List<Task>();
+			tasks.Add(task);
+			var firstTaskToFinishBeforeTimeout = await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
+
+			// -1 indicates timeout.
+			return firstTaskToFinishBeforeTimeout < 0;
 		}
 	}
 }
