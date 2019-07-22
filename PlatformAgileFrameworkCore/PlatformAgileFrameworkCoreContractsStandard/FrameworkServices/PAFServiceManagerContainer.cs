@@ -25,7 +25,7 @@
 
 // ReSharper disable once RedundantUsingDirective
 using System;
-
+using System.Security;
 namespace PlatformAgileFramework.FrameworkServices
 {
 	/// <summary>
@@ -37,6 +37,6 @@ namespace PlatformAgileFramework.FrameworkServices
         /// <summary>
         /// Just holds the manager. Set once at app startup.
         /// </summary>
-	    public static IPAFServiceManager<IPAFService> ServiceManager { get; internal set; }
+	    public static IPAFServiceManager<IPAFService> ServiceManager { get; [SecurityCritical] set; }
 	}
 }

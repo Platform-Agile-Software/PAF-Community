@@ -2,7 +2,7 @@
 //
 //The MIT X11 License
 //
-//Copyright (c) 2010 - 2016 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,13 @@ namespace PlatformAgileFramework.Logging
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
+	/// <date> 20jul2019 </date>
+	/// <description>
+	/// Added "Debug" level to be consistent with other loggers.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
 	/// <date> 22jan2011 </date>
 	/// <description>
 	/// Added history and better documentation.
@@ -43,13 +50,6 @@ namespace PlatformAgileFramework.Logging
 	// ReSharper disable once InconsistentNaming
 	public enum PAFLoggingLevel
 	{
-		/// <summary>Used to indicate no level CHANGE.</summary>
-		Unset = -1,
-		/// <summary>
-		/// Logging is off. Normally useful for unit tests so the logger time can be
-		/// eliminated, with the test framework doing the logging.
-		/// </summary>
-		Off = 0,
 		/// <summary>Only fatal events are logged.</summary>
 		Fatal = 1,
 		/// <summary>Only fatal events and error events are logged.</summary>
@@ -58,9 +58,18 @@ namespace PlatformAgileFramework.Logging
 		Warn = 3,
 		/// <summary>Informative, fatal, error, warning events are logged.</summary>
 		Info = 4,
+		/// <summary>Informative, fatal, error, warning, debug events are logged.</summary>
+		Debug = 5,
 		/// <summary>Everything is logged. Used for debugging.</summary>
-		Verbose = 5,
+		Verbose = 6,
 		/// <summary>Uses the default level for the logging service.</summary>
-		Default = 6,
+		Default = 16,
+		/// <summary>Used to indicate no level CHANGE.</summary>
+		Unset = 32,
+		/// <summary>
+		/// Logging is off. Normally useful for unit tests so the logger time can be
+		/// eliminated, with the test framework doing the logging.
+		/// </summary>
+		Off = 64
 	}
 }
