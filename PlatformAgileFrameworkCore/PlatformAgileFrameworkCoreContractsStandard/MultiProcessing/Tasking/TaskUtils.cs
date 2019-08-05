@@ -25,6 +25,7 @@
 
 #region Using Directives
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -249,13 +250,25 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 		/// <returns>
 		/// <see cref="ITimedOutTaskPayload{T}.TimedOut"/> will be set to <see langword="false"/> for timeout exceeded.
 		/// </returns>
+		/// <exceptions>
+		/// Exceptions generated in the <see paramref="task"/> are caught and returned in the output.
+		/// </exceptions>
 		public static async Task<ITimedOutTaskPayload<T>>
 			WaitTaskWithTimeoutAsyncTimeOutPayload<T>(this Task<T> task, int timeoutInMilliseconds = -1)
 		{
+			var timedOutPayload = new TimedOutTaskPayload<T>();
 			var tasks = new List<Task>();
 			tasks.Add(task);
-			var firstTaskToFinishBeforeTimeout = await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
-			var timedOutPayload = new TimedOutTaskPayload<T>();
+			int firstTaskToFinishBeforeTimeout = 0;
+
+			try
+			{
+				firstTaskToFinishBeforeTimeout = await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
+			}
+			catch (Exception ex)
+			{
+				timedOutPayload.CaughtException = ex;
+			}
 
 			// -1 indicates timeout.
 			timedOutPayload.TimedOut = firstTaskToFinishBeforeTimeout < 0;
@@ -266,6 +279,42 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking
 				timedOutPayload.ReturnValue = default;
 
 			return timedOutPayload;
+		}
+		/// <summary>
+		/// Async version that does not block, but returns values based on timeout. This
+		/// gives the caller the ability to "asynchronously" wait for a task to finish
+		/// with a constraint on timeout. Extension version. Calls <see cref="WaitAnyWithTimeoutAsync"/>
+		/// This is th non-Generic version.
+		/// </summary>
+		/// <param name="task">Task to wait on.</param>
+		/// <param name="timeoutInMilliseconds">Time to wait. -1 produces infinite timeout.</param>
+		/// <returns>
+		/// <see cref="ITimedOutTask.TimedOut"/> will be set to <see langword="false"/> for timeout exceeded.
+		/// </returns>
+		/// <exceptions>
+		/// Exceptions generated in the <see paramref="task"/> are caught and returned in the output.
+		/// </exceptions>
+		public static async Task<ITimedOutTask>
+			WaitTaskWithTimeoutAsyncTimeOut(this Task task, int timeoutInMilliseconds = -1)
+		{
+			var timedOutTask = new TimedOutTask();
+			var tasks = new List<Task>();
+			tasks.Add(task);
+			int firstTaskToFinishBeforeTimeout = 0;
+
+			try
+			{
+				firstTaskToFinishBeforeTimeout = await WaitAnyWithTimeoutAsync(tasks, timeoutInMilliseconds);
+			}
+			catch (Exception ex)
+			{
+				timedOutTask.CaughtException = ex;
+			}
+
+			// -1 indicates timeout.
+			timedOutTask.TimedOut = firstTaskToFinishBeforeTimeout < 0;
+
+			return timedOutTask;
 		}
 		/// <summary>
 		/// Async version that does not block, but returns values based on timeout. This

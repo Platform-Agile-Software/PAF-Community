@@ -25,6 +25,7 @@
 
 #region Using Directives
 
+using System;
 using System.Threading.Tasks;
 
 #endregion
@@ -32,36 +33,44 @@ using System.Threading.Tasks;
 namespace PlatformAgileFramework.MultiProcessing.Tasking
 {
 	/// <summary>
-	/// This is a helper class that deals with the issue of methods with async/await
+	/// This is a protocol for helper class that deals with the issue of methods with async/await
 	/// and many awaits which have no timeouts. This is a payload that can be used
-	/// in conjunction with a <see cref="Task{T}"/> to return both a timeout indication
-	/// the original payload. This helper can be used when we don't want to throw exceptions
-	/// inside an async method that is awaited.
+	/// in conjunction with a <see cref="Task"/> to return both a timeout indication and
+	/// an exception when we don't want the exception to be thrown on a calling thread. This
+	/// helper can be used when we don't want to throw exceptions
+	/// inside an async method that is awaited. Additionally, sometimes we don't care if a task
+	/// has timed out, we just have to know it. This is especially useful for async void
+	/// methods, which are all over the place because of MS's mis-design of the event system.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 14jul2019 </date>
 	/// <description>
-	/// New. Made little helper for await/await problems.
+	/// New. Made little helper for async/await problems.
 	/// </description>
 	/// </contribution>
 	/// </history>
 	/// <threadsafety>
 	/// Safe.
 	/// </threadsafety>
-	public class TimedOutTaskPayload<T>: ITimedOutTaskPayload<T>
+	public interface ITimedOutTask
 	{
-		/// <summary>
-		/// This will be the default value of <typeparamref name="T"/> if
-		/// the metho has timed out.
-		/// </summary>
-		public T ReturnValue { get; set; }
 		/// <summary>
 		/// If this value is <see langword="true"/>, the return value will not be valid.
 		/// </summary>
-		public bool TimedOut { get; set; }
+		bool TimedOut { get; set; }
+		/// <summary>
+		/// Place to capture and return an exception so it does not get rethrown on
+		/// a calling thread, which doesn't work anyway if the awaits are stacked.
+		/// See Blewett and Clymer.This gives an application the ability to push an
+		/// exception received from the async method into a receiver at the point of
+		/// completion of the method in a reliable fashion. This i good if the developer
+		/// needs to signal a UI immediately about some problem from deep within
+		/// nested logic that otherwise is difficult to reliably propagate up the
+		/// stack.
+		/// </summary>
+		Exception CaughtException { get; set; }
 
 	}
 }

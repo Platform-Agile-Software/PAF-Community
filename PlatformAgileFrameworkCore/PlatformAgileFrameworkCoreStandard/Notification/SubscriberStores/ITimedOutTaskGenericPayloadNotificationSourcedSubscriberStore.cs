@@ -24,12 +24,15 @@
 //THE SOFTWARE.
 //@#$&-
 
+using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Events;
+using PlatformAgileFramework.MultiProcessing.Tasking;
 namespace PlatformAgileFramework.Notification.SubscriberStores
 {
 	/// <summary>
 	/// This interface is for a publishing store that must implement
-	/// <see cref="IPAFEventCallbackReceiver"/> to receive timeout notifications.
+	/// <see cref="IPAFEventCallbackReceiver{ITimedOutTask}"/> to receive
+	/// timeout notifications.
 	/// </summary>
 	/// <typeparam name="TDelegate">See base interface.</typeparam>
 	/// <typeparam name="TSource">
@@ -39,15 +42,21 @@ namespace PlatformAgileFramework.Notification.SubscriberStores
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 18jul2019 </date>
+	/// <date> 03aug2019 </date>
 	/// <description>
-	/// New. Converted from Golea.
+	/// New. Added the <see cref="IExceptionPublisher"/> as per JAW(S)'s work.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public interface ITimeOutGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
-		:IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, TSource>
-		where TDelegate: class where TSource : class, IPAFEventCallbackReceiver
+	/// <remarks>
+	/// This store captures <see cref="ITimedOutTask"/>s and also rebroadcasts them as
+	/// exceptions so subscribers which may be way up the stack can receive them reliably
+	/// even when they are thrown on thread pool threads from async methods, which has
+	/// always been problematic.
+	/// </remarks>
+	public interface ITimedOutTaskGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
+		:IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, TSource>, IExceptionPublisher
+		where TDelegate: class where TSource : class, IPAFEventCallbackReceiver<ITimedOutTask>
 	{
 	}
 }

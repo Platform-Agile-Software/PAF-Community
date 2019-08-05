@@ -1,9 +1,8 @@
-﻿
-//@#$&+
+﻿//@#$&+
 //
 //The MIT X11 License
 //
-//Copyright (c) 2019 Icucom Corporation
+//Copyright (c) 2010 - 2019 Icucom Corporation
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +23,37 @@
 //THE SOFTWARE.
 //@#$&-
 
-using PlatformAgileFramework.Events;
-namespace PlatformAgileFramework.Notification.SubscriberStores
+#region Using Directives
+
+using System;
+using System.Threading.Tasks;
+
+#endregion
+
+namespace PlatformAgileFramework.MultiProcessing.Tasking
 {
 	/// <summary>
-	/// This interface is for a publishing store that must implement
-	/// <see cref="IPAFEventCallbackReceiver"/> to receive timeout notifications.
+	/// This is a helper class that deals with the issue of methods with async/await
+	/// and many awaits which have no timeouts.
 	/// </summary>
-	/// <typeparam name="TDelegate">See base interface.</typeparam>
-	/// <typeparam name="TSource">
-	/// Must be a reference type. Must implement <see cref="IPAFEventCallbackReceiver"/>.
-	/// </typeparam>
-	/// <typeparam name="TPayload">An unconstrained Generic.</typeparam>
+	/// <typeparam name="T">Unconstrained Generic.</typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 18jul2019 </date>
+	/// <date> 14jul2019 </date>
 	/// <description>
-	/// New. Converted from Golea.
+	/// New. Default implementation.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public interface ITimeOutGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
-		:IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, TSource>
-		where TDelegate: class where TSource : class, IPAFEventCallbackReceiver
+	/// <threadsafety>
+	/// Safe.
+	/// </threadsafety>
+	public class TimedOutTaskPayload<T>: TimedOutTask, ITimedOutTaskPayload<T>
 	{
+		/// <summary>
+		/// <see cref="ITimedOutTaskPayload{T}"/>
+		/// </summary>
+		public T ReturnValue { get; set; }
 	}
 }

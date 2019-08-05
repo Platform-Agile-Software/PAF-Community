@@ -24,41 +24,39 @@
 //@#$&-
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using PlatformAgileFramework.Annotations;
-using PlatformAgileFramework.ErrorAndException;
 using PlatformAgileFramework.Events;
 using PlatformAgileFramework.Notification.Helpers;
 using PlatformAgileFramework.Notification.SubscriberStores;
 namespace PlatformAgileFramework.MultiProcessing.Tasking.TestClasses{
 	/// <summary>
-	/// This class to test the <see cref="TimedOutTaskPayload{T}"/> and
-	/// <see cref=" IPAFEventCallbackReceiver{ITimedOutTask}"/>.
+	/// This class to test the  <see cref="TimedOutTaskPayload{T}"/>.
 	/// </summary>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 04aug2019 </date>
+	/// <date> 17jul2019 </date>
+	/// <description>
+	/// Modified to be a <see cref="IPAFEventCallbackReceiver"/> so we can also test
+	/// <see cref="NotificationDispatchExtensionMethods"/>.
+	/// </description>
+	/// </contribution>
+	/// <contribution>
+	/// <author> KRM </author>
+	/// <date> 14jul2019 </date>
 	/// <description>
 	/// New.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public class TimedOutTaskPayloadTestClass
+	public class TimedOutPayloadTestClass
 	{
 		#region Fields and Autoproperties
 		/// <summary>
-		/// Collection of excepted subscribers. This is to test <see cref="IExceptionPublisher"/>.
+		/// Reference to the store.
 		/// </summary>
-		public IList<Exception>
-			m_SubscribersWithExceptions = new List<Exception>();
-		/// <summary>
-		/// Reference to the store. In this case, the class holds a store directly on it.
-		/// </summary>
-		public ITimedOutTaskGenericPayloadNotificationSourcedSubscriberStore
-			<Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>,
-				IPAFEventCallbackReceiver<ITimedOutTask>> m_Store;
+		public ITimeOutGenericPayloadNotificationSourcedSubscriberStore
+			<Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>, IPAFEventCallbackReceiver> m_Store;
 		/// <summary>
 		/// Provides a value type for testing.
 		/// </summary>        public int IntElement { get; set; }
@@ -75,23 +73,14 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking.TestClasses{
 		#endregion // Fields and Autoproperties
 		#region Constructors
 		#endregion // Constructors
-		/// <summary>
-		/// This class is used for multiple test scenarios, involving async/await fixup
-		/// tests.
-		/// </summary>
-		/// <param name="store">Not <see langword="null"/>.</param>
-		public TimedOutTaskPayloadTestClass(
-			[NotNull] ITimedOutTaskGenericPayloadNotificationSourcedSubscriberStore<
-				Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>,
-					IPAFEventCallbackReceiver<ITimedOutTask>> store)
+		public TimedOutPayloadTestClass(
+			ITimeOutGenericPayloadNotificationSourcedSubscriberStore<
+				Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>, IPAFEventCallbackReceiver> store  = null)
 		{
-			m_Store = store ?? throw new ArgumentNullException(nameof(store));
+			m_Store = store;
 
 			// Take a weak subscription.
 			m_Store?.Subscribe(SubscriberMethod, false);
-
-			// Subscribe to the store's exception broadcasts.
-			m_Store.TransmitException += ExceptionBroadcastSubscriberMethod;
 		}
 		#region Methods
 		// ReSharper disable once InvalidXmlDocComment
@@ -121,12 +110,10 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking.TestClasses{
 			return tcs.Task;
 		}
 		/// <summary>
-		/// This method simply calls on the store to publish with a timeout.
-		/// </summary>
-		/// <param name="timeoutInMilliseconds">
 		/// This is the time constraint to be attached to the store for a particular broadcast.
 		/// If a subscriber takes longer than this to respond, it is marked as expired by the source.
-		/// </param>
+		/// </summary>
+		/// <param name="timeoutInMilliseconds"></param>
 		public virtual void Publish(int timeoutInMilliseconds)
 		{
 			m_Store.NotifyPAFEventArgsSubscribersWithTimeout(timeoutInMilliseconds);
@@ -139,30 +126,6 @@ namespace PlatformAgileFramework.MultiProcessing.Tasking.TestClasses{
 		public virtual void SubscriberMethod(object obj, IPAFEventArgsProvider<int> provider)
 		{
 			Task.Delay(DelayInMilliseconds).Wait();
-		}
-		public virtual async void GenerateAnException(bool throwException)
-		{
-			// Note that is a task returning a task.
-			var wrappedTask = Task.Factory.StartNew(() =>
-			{
-				if (throwException)
-					throw new Exception();
-				return Task.Delay(DelayInMilliseconds);
-			});
-			await await wrappedTask;
-
-		}
-		/// <summary>
-		/// This subscriber method collects exceptions from failed subscribers to the main
-		/// event.
-		/// </summary>
-		/// <param name="exception">Exception to log.</param>
-		public virtual void ExceptionBroadcastSubscriberMethod(Exception exception)
-		{
-			lock (m_SubscribersWithExceptions)
-			{
-				m_SubscribersWithExceptions.Add(exception);
-			}
 		}
 		#endregion // Methods
 	}}

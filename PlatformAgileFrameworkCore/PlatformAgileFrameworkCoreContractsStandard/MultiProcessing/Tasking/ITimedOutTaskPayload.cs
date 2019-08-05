@@ -25,43 +25,33 @@
 
 #region Using Directives
 
-using System.Threading.Tasks;
-
 #endregion
 
 namespace PlatformAgileFramework.MultiProcessing.Tasking
 {
 	/// <summary>
 	/// This is a protocol for helper class that deals with the issue of methods with async/await
-	/// and many awaits which have no timeouts. This is a payload that can be used
-	/// in conjunction with a <see cref="Task{T}"/> to return both a timeout indication and
-	/// the original payload. This helper can be used when we don't want to throw exceptions
-	/// inside an async method that is awaited.
+	/// and many awaits which have no timeouts. This one has a payload.n of the event system.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">Unconstrained Generic.</typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
 	/// <date> 14jul2019 </date>
 	/// <description>
-	/// New. Made little helper for await/await problems.
+	/// New. Made little helper for async/await problems.
 	/// </description>
 	/// </contribution>
 	/// </history>
 	/// <threadsafety>
 	/// Safe.
 	/// </threadsafety>
-	public interface ITimedOutTaskPayload<T>
+	public interface ITimedOutTaskPayload<T>: ITimedOutTask
 	{
 		/// <summary>
 		/// This will be the default value of <typeparamref name="T"/> if
 		/// the method has timed out.
 		/// </summary>
 		T ReturnValue { get; set; }
-		/// <summary>
-		/// If this value is <see langword="true"/>, the return value will not be valid.
-		/// </summary>
-		bool TimedOut { get; set; }
-
 	}
 }

@@ -53,7 +53,7 @@ namespace PlatformAgileFramework.Events
 	/// <remarks>
 	/// Also see <see cref="IPAFEventAcknowledgementReceiver"/>.
 	/// </remarks>
-	public interface IPAFEventTimeoutReceiver
+	public interface IPAFEventCallbackReceiver
 	{
 		/// <summary>
 		/// Just pings the sender back.
@@ -62,6 +62,6 @@ namespace PlatformAgileFramework.Events
 		/// Can be anything, but is often <see langword="null"/>. For remote
 		/// communication, it obviously must be serializable.
 		/// </param>
-		void LogTimeout(object obj);
+		void LogEventPing(object obj);
 	}
 }

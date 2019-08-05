@@ -47,8 +47,8 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 	/// </contribution>
 	/// </history>
 	public class IntegerPAFPayloadEventSubscriberStore
-		:   GenericPAFEventArgsSubscriberStore<int, IPAFEventTimeoutReceiver>, IPAFEventTimeoutReceiver
-			,ITimeOutGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>, IPAFEventTimeoutReceiver>
+		:   GenericPAFEventArgsSubscriberStore<int, IPAFEventCallbackReceiver>, IPAFEventCallbackReceiver
+			,ITimeOutGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<int>>, IPAFEventArgsProvider<int>, IPAFEventCallbackReceiver>
 
 	{
 		#region Fields and Autpproperties
@@ -102,7 +102,7 @@ namespace PlatformAgileFramework.Notification.TestHelpers
 		/// We make ourselves a timeout receiver.
 		/// </summary>
 		/// <param name="obj"></param>
-		public virtual void LogTimeout(object obj)
+		public virtual void LogEventPing(object obj)
 		{
 			m_TimedOutSubscribers.Add(obj);
 		}

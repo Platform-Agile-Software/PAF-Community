@@ -78,12 +78,12 @@ namespace PlatformAgileFramework.Notification.Helpers
 		/// <param name="timeoutInMilliseconds">
 		/// The amount of time the task will be allowed to complete. After this time,
 		/// the task will stop and the subscriber's reference will be pushed into
-		/// <see cref="IPAFEventTimeoutReceiver"/>.
+		/// <see cref="IPAFEventCallbackReceiver"/>.
 		/// </param>
 		// ReSharper restore InvalidXmlDocComment
 		public static void NotifySubscribersWithTimeout<TPayload, TSource>
 		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, TPayload>,TPayload, TSource>
-			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventTimeoutReceiver
+			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventCallbackReceiver
 		{
 			var subscriberTasks = new List<Tuple<object, Task>>();
 			foreach (var subscriber in genericEventArgsSubscriberStore.GetLivePDs())
@@ -107,7 +107,7 @@ namespace PlatformAgileFramework.Notification.Helpers
 				var timedOut = subscriberTask.Item2.WaitTaskWithTimeoutAsync(timeoutInMilliseconds).Result;
 				if (timedOut)
 				{
-					genericEventArgsSubscriberStore.NotificationSourceItem.LogTimeout(subscriberTask.Item1);
+					genericEventArgsSubscriberStore.NotificationSourceItem.LogEventPing(subscriberTask.Item1);
 				}
 			}
 		}
@@ -116,7 +116,7 @@ namespace PlatformAgileFramework.Notification.Helpers
 		/// Plugin for the
 		/// <see cref="IGenericPayloadNotificationSourcedSubscriberStore{Action{object, IPAFEventArgsProvider{TPayload}},IPAFEventArgsProvider{TPayload}, TSource}"/>
 		/// This is a method that waits for all subscribers to complete, one at a time. It pushes timed out subscribers
-		/// back onto the source, which wears the <see cref="IPAFEventTimeoutReceiver"/> interface.
+		/// back onto the source, which wears the <see cref="IPAFEventCallbackReceiver"/> interface.
 		/// </summary>
 		/// <param name="genericEventArgsSubscriberStore">
 		/// The store that we are handling notifications for.
@@ -124,12 +124,12 @@ namespace PlatformAgileFramework.Notification.Helpers
 		/// <param name="timeoutInMilliseconds">
 		/// The amount of time the task will be allowed to complete. After this time,
 		/// the task will stop and the subscriber's reference will be pushed into
-		/// <see cref="IPAFEventTimeoutReceiver"/>.
+		/// <see cref="IPAFEventCallbackReceiver"/>.
 		/// </param>
 		// ReSharper restore InvalidXmlDocComment
 		public static void NotifyPAFEventArgsSubscribersWithTimeout<TPayload, TSource>
 		([NotNull] this IGenericPayloadNotificationSourcedSubscriberStore<Action<object, IPAFEventArgsProvider<TPayload>>,IPAFEventArgsProvider<TPayload>, TSource>
-			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventTimeoutReceiver
+			genericEventArgsSubscriberStore, int timeoutInMilliseconds) where TSource : class, IPAFEventCallbackReceiver
 		{
 			var subscriberTasks = new List<Tuple<object, Task>>();
 			foreach (var subscriber in genericEventArgsSubscriberStore.GetLivePDs())
@@ -149,11 +149,12 @@ namespace PlatformAgileFramework.Notification.Helpers
 
 			foreach (var subscriberTask in subscriberTasks)
 			{
-				// In this case, we don't want to await anything, since we are watching how long completion takes.
+				// In this case, we don't want to await anything, since we are watching how long completion
+				// takes.
 				var timedOut = subscriberTask.Item2.WaitTaskWithTimeoutAsync(timeoutInMilliseconds).Result;
 				if (timedOut)
 				{
-					genericEventArgsSubscriberStore.NotificationSourceItem.LogTimeout(subscriberTask.Item1);
+					genericEventArgsSubscriberStore.NotificationSourceItem.LogEventPing(subscriberTask.Item1);
 				}
 			}
 		}

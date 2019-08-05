@@ -1,5 +1,4 @@
-﻿
-//@#$&+
+﻿//@#$&+
 //
 //The MIT X11 License
 //
@@ -24,30 +23,35 @@
 //THE SOFTWARE.
 //@#$&-
 
-using PlatformAgileFramework.Events;
-namespace PlatformAgileFramework.Notification.SubscriberStores
+namespace PlatformAgileFramework.Events
 {
 	/// <summary>
-	/// This interface is for a publishing store that must implement
-	/// <see cref="IPAFEventCallbackReceiver"/> to receive timeout notifications.
+	/// Protocol for an event transmitting object that can receive
+	/// timeouts. This version is a Generic. It is type-specific.
 	/// </summary>
-	/// <typeparam name="TDelegate">See base interface.</typeparam>
-	/// <typeparam name="TSource">
-	/// Must be a reference type. Must implement <see cref="IPAFEventCallbackReceiver"/>.
-	/// </typeparam>
-	/// <typeparam name="TPayload">An unconstrained Generic.</typeparam>
+	/// <typeparam name="T">Any reference type.</typeparam>
 	/// <history>
 	/// <contribution>
 	/// <author> KRM </author>
-	/// <date> 18jul2019 </date>
+	/// <date> 03aug2019 </date>
 	/// <description>
-	/// New. Converted from Golea.
+	/// New.
 	/// </description>
 	/// </contribution>
 	/// </history>
-	public interface ITimeOutGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, out TSource>
-		:IGenericPayloadNotificationSourcedSubscriberStore<TDelegate, TPayload, TSource>
-		where TDelegate: class where TSource : class, IPAFEventCallbackReceiver
+	/// <remarks>
+	/// Also see <see cref="IPAFEventAcknowledgementReceiver"/>.
+	/// </remarks>
+	public interface IPAFEventCallbackReceiver<in T> : IPAFEventCallbackReceiver
+	where T : class
 	{
+		/// <summary>
+		/// Just pings the sender back.
+		/// </summary>
+		/// <param name="data">
+		/// Can be any reference type, but is often <see langword="null"/>. For remote
+		/// communication, it obviously must be serializable.
+		/// </param>
+		void LogEventPingData(T data);
 	}
 }
